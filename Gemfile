@@ -2,15 +2,22 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.7.4"
+gem 'active_model_serializers'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"
+gem "image_processing", ">= 1.2"
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
+gem 'stripe-ruby-mock', '~> 3.0.1', :require => 'stripe_mock'
+gem 'stripe'
+gem "bcrypt"
+gem "aws-sdk-s3", require: false
+
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
