@@ -105,7 +105,8 @@ export default function SignInSide({ user, setUser }) {
                                 <Button
                                     sx={{ mt: 3, mb: 2, alignItems: 'center', margin: 'auto'}}
                                     onClick={() => navigate("/login")}
-                                    variant="outlined">
+                                    variant="contained"
+                                    >
                                     {"Log In"}
                                 </Button>
                             </Grid>

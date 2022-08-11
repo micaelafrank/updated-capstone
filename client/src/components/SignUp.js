@@ -159,6 +159,7 @@ function SignUp({ user, setUser }) {
                                     id="password"
                                     label="Password"
                                     name="password"
+                                    type="password"
                                     autoComplete="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}

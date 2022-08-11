@@ -14,6 +14,11 @@ class UsersController < ApplicationController
         end
     end
 
+    def update 
+        edit_user = User.update!(avatar_url: params[:avatar_url])
+        render json: edit_user, status: :ok
+    end
+
     # def create
     #     user = User.create!(newuser_params)
     #     session[:user_id] = user.id 

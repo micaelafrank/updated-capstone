@@ -11,6 +11,7 @@ Rails.application.configure do
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
+  config.active_storage.service = :amazon
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
@@ -53,7 +54,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "final_project_production"
+  # config.active_job.queue_name_prefix = "marketplace_production"
 
   config.action_mailer.perform_caching = false
 

@@ -12,3 +12,7 @@ code {
     monospace;
 }
 
+.fab-edit{
+  opacity: 50%;
+  float: right;
+}

@@ -18,6 +18,5 @@ class Item < ApplicationRecord
       end
       return imagess
   end
-
-
+  
 end
