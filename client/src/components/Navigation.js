@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Navigation({ user, setUser, itemCount }) {
-    // const [itemCount, setItemCount] = useState(0);
     const navigate = useNavigate();
 
     // function handleLogout() {
@@ -21,9 +20,13 @@ function Navigation({ user, setUser, itemCount }) {
         fetch("/logout", { method: "DELETE" }).then((r) => {
             if (r.ok) {
                 setUser(null);
-                navigate('/login')
+                navigate("/login")
             }
         });
+    }
+
+    function handleLogin(){
+        navigate("/login")
     }
 
     function openShoppingCart() {
@@ -46,7 +49,7 @@ function Navigation({ user, setUser, itemCount }) {
                             <button className="nav-button" style={{ color: "black", border: "2px solid black" }}><Link to="/sell">Sell</Link></button>
                         </>
                         : null}
-                    {user.username ? <button className="nav-button" style={{ color: "black", border: "2px solid black" }} onClick={handleLogout}>Logout</button> : <button className="nav-button" style={{ color: "black", border: "2px solid black" }} onClick={() => navigate('/login')}>Log In</button>}
+                    <button className="nav-button" style={{ color: "black", border: "2px solid black" }} onClick={user.username ? handleLogout : handleLogin}>{user.username ? "Logout" : "Login"}</button>
                     {/* )} */}
                 </div>
             </div>

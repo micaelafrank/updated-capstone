@@ -1,6 +1,7 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import { useNavigate } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -11,10 +12,29 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+const pages = ['SELL', 'BUY', 'PROFILE', 'LOGOUT'];
 
-const pages = ['SELL', 'BUY', 'PROFILE'];
+const ResponsiveAppBar = ({ user, setUser }) => {
+    const navigate = useNavigate();
 
-const ResponsiveAppBar = () => {
+    function handleLogout() {
+        fetch("/logout", { method: "DELETE" }).then((r) => {
+            if (r.ok) {
+                setUser(null);
+                navigate("/login")
+            }
+        });
+    }
+
+    function handleLogin() {
+        navigate("/login")
+    }
+
+    function openShoppingCart() {
+        navigate("/mycart")
+    }
+
+
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -90,14 +110,30 @@ const ResponsiveAppBar = () => {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
                             <Button
-                                key={page}
+                                onClick={() => navigate('/sell')}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                SELL
                             </Button>
-                        ))}
+                            <Button
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            onClick={() => navigate('/buy')}
+                        >
+                                BUY
+                            </Button>
+                            <Button
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            onClick={() => navigate('/profile')}
+                        >
+                                PROFILE
+                            </Button>
+                            <Button
+                            onClick={handleLogout}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            LOGOUT
+                            </Button>
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
                         <IconButton sx={{ p: 0 }}>

@@ -1,43 +1,37 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Avatar, Button } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+import MySavedItem from './MySavedItem';
 import IconButton from '@mui/material/IconButton';
+import ItemCard from "./ItemCard";
 import SvgIcon from '@mui/material/SvgIcon';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export default function Profile({ user, setUser }) {
+export default function Profile({ user, setUser, mySavedItems, setMySavedItems }) {
     const [avatar_url, setAvatar] = useState("")
-    const [myItemsForSale, setMyItemsForSale] = useState([])
+    const [images, setImages] = useState([])
     const [errors, setErrors] = useState([]);
-    const [favorites, setFavorites] = useState([]);
-
-
-    function handleImage(e) {
-        console.log(e.target.files[0]);
-        setAvatar(e.target.files[0])
-    };
-
+    const navigate = useNavigate();
+    
     const formData = new FormData();
-    formData.append('avatar', avatar_url);
-    console.log(user)
+    formData.append('images', images);
 
     // const myItems = items.filter((item) => {
     //     if (item.user_id === user.id) return true;
     // })
 
     const id = user.id;
-    function handleImage() {
+
+    function handleSubmit(e) {
+        e.preventDefault();
         fetch(`/profile/${id}`, {
             method: "PATCH",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(formData),
+            body: formData,
         })
-            .then(r => r.json())
-            .then(update => {
-                console.log(update)
-                setAvatar(avatar_url)
-    })}
-
+        .then(r => r.json())
+        .then(navigate("/profile"))
+    }
     // const firstname = user.firstname
     // const initial = firstname[0];
 
@@ -52,11 +46,12 @@ export default function Profile({ user, setUser }) {
                     component="label"
                     >
                         Upload image
-                        <input onChange={handleImage} hidden accept="image/*" type="file" />
+                        <input onChange={(e)=> setImages(e.target.files[0])} hidden accept="image/*" type="file" />
                     </Button>
-                    <Button variant="outlined" startIcon={<DeleteIcon />}>
+                    <Button type="submit" onClick={handleSubmit}>Use this image</Button>
+                    {/* <Button variant="outlined" startIcon={<DeleteIcon />}>
                         Delete
-                    </Button>
+                    </Button> */}
                 </div>
                 <div>
                     <h2>Welcome, @{user.username}.</h2>
@@ -66,7 +61,6 @@ export default function Profile({ user, setUser }) {
             <h1>Your Items For Sale:</h1>
             {/* {myItems} */}
             <h1>Saved Items:</h1>
-            // ITEM CARDS
             <h1>Previous Purchases:</h1>
             // ITEM CARDS
         </div>

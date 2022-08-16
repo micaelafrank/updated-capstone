@@ -22,11 +22,22 @@ import Typography from '@mui/material/Typography';
 //     </Stack>
 // }
 
-function ItemsList({ user, change, setChange }) {
+function ItemsList({ user, change, setChange, deleteItem, deleteLike }) {
     const [items, setItems] = useState([]);
-
+    const [mySavedItems, setMySavedItems] = useState([])
     const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     const theme = createTheme();
+
+    useEffect(() => {
+        fetch("/mylikes")
+            .then((r) => r.json())
+            .then(data => setMySavedItems(data.items))
+    }, [])
+
+    function deleteLike(id) {
+        const updatedSaves = mySavedItems.filter((item) => item.id !== id);
+        setMySavedItems(updatedSaves);
+    }
 
 
     useEffect(() => {
@@ -48,30 +59,26 @@ function ItemsList({ user, change, setChange }) {
             size={item.size}
             seller={item.sold_by}
             item={item}
+            user={user}
             sold_by={item.sold_by}
             user_id={item.user_id}
             condition={item.condition}
             isForSale={item.isForSale}
             images_url={item.images_url}
-            user={user}
             change={change}
             setChange={setChange}
             setItems={setItems}
             items={items}
+            deleteItem={deleteItem}
+            mySavedItems={mySavedItems}
+            setMySavedItems={setMySavedItems}
+            deleteLike={deleteLike}
             />
         )
     })
     return(
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <AppBar position="relative">
-                <Toolbar>
-                    <CameraIcon sx={{ mr: 2 }} />
-                    <Typography variant="h6" color="inherit" noWrap>
-                        Album layout
-                    </Typography>
-                </Toolbar>
-            </AppBar>
             <main>
                 {/* Hero unit */}
                 <Box

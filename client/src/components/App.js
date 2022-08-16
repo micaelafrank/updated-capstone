@@ -8,8 +8,9 @@ import Homepage from './Homepage';
 import ItemsList from './ItemsList';
 import AddItemForm from './AddItemForm';
 import { Route, Routes } from 'react-router-dom';
+import ShoppingCart from './ShoppingCart';
 // import NavBar from './NavBar';
-// import StripeContainer from './StripeContainer';
+import StripeContainer from './StripeContainer';
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
 
@@ -17,6 +18,13 @@ function App() {
   const [user, setUser] = useState({});
   const [items, setItems] = useState([]);
   const [change, setChange] = useState(false);
+  const [mySavedItems, setMySavedItems] = useState([]);
+
+  useEffect(() => {
+    fetch('/mylikes')
+      .then(res => res.json())
+      .then(data => setMySavedItems(data.items))
+  }, []);
 
   function addNewItem(newItem) {
     setItems(...items, newItem)
@@ -44,12 +52,12 @@ function App() {
           <Route path="/signup" element={<SignUp user={user} setUser={setUser} />} />
         <Route element={<WithNav user={user} setUser={setUser} />}>
           <Route path="/" element={<Homepage user={user} setUser={setUser} />} />
-          <Route path="/profile" element={<Profile items={items} user={user} setUser={setUser} />} />
+          <Route path="/profile" element={<Profile items={items} mySavedItems={mySavedItems} setMySavedItems={setMySavedItems} user={user} setUser={setUser} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList change={change} setChange={setChange} user={user} />} />
-          {/* <Route path="/checkout" element={<StripeContainer total={1000} />} />
-          <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />
-          <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} items={items} />} /> */}
+          <Route path="/buy" element={<ItemsList mySavedItems={mySavedItems} setMySavedItems={setMySavedItems} change={change} setChange={setChange} user={user} />} />
+          <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} items={items} />} />
+          <Route path="/checkout" element={<StripeContainer total={1000} />} />
+          {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}
         </Route>
       </Routes>
       {/* <Footer /> */}

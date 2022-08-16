@@ -42,6 +42,7 @@ function SignUp({ user, setUser }) {
     const [errors, setErrors] = useState([]);
     const [password_confirmation, setPasswordConfirmation] = useState("");
     const [userCart, setCart] = useState(null);
+    const [favoriteBucket, setFavoriteBucket] = useState(null);
 
     const [userFromSignup, setUserFromSignup] = useState({});
 

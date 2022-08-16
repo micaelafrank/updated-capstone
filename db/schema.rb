@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_11_190253) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_12_212609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,13 +42,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_190253) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "favorites", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "item_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "items", force: :cascade do |t|
     t.string "itemname"
     t.float "price"
@@ -59,6 +52,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_190253) do
     t.string "condition"
     t.string "material"
     t.boolean "isForSale", default: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "saved_items", force: :cascade do |t|
+    t.integer "user_likes_container_id"
+    t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -76,9 +76,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_11_190253) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_likes_containers", force: :cascade do |t|
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
-    t.string "fullname"
+    t.string "firstname"
+    t.string "lastname"
     t.string "email"
     t.boolean "is_admin", default: false
     t.string "password_digest"
