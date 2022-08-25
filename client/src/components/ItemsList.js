@@ -37,6 +37,7 @@ function ItemsList({ user, change, addNewSave, inCart, setInCart, setWasClicked,
             key={item.id}
             inCartIcon={item.inCartIcon}
             id={item.id}
+            clickedHeart={item.clickedHeart}
             item_id={item.id}
             setInCart={setInCart}
             removeLike={removeLike}
