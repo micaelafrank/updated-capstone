@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  resources :user_likes_containers
-  resources :saved_items
-  resources :favorite_items
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -13,12 +10,12 @@ Rails.application.routes.draw do
     #   get 'success', to: 'checkout#success', as: 'checkout_success'
     # end
   # namespace :api do
-    resources :items 
+    resources :items, only: [:index, :show, :create, :update, :heart_change, :cart_change, :destroy]
     resources :users 
     resources :user_cart_items, only: [:destroy, :create, :emptycart]
     resources :user_carts, only: [:index, :show, :create]
     resources :user_likes_container, only: [:show, :create]
-    resources :saved_items, only: [:destroy, :create, :removelike]
+    resources :saved_items, only: [:index, :show, :create, :destroy]
     # resources :admin_access_only, only: [:update, :destroy]
 
     post '/payment', to: "checkout#create"
@@ -37,8 +34,12 @@ Rails.application.routes.draw do
     delete "/emptycart", to: "user_cart_items#emptycart"
     post '/create-payment-intent', to: 'checkout#create_payment_intent'
     get "/mylikes", to: "user_likes_containers#show"
-    post "/save" , to: "saved_items#create"
-    delete "/removelike", to: "saved_items#destroy"
+    post "/save", to: "saved_items#create"
+    delete "/unlike_item/:item_id", to: "saved_items#destroy"
+    patch "/edit_heart/:id", to: "items#heart_change"
+    patch "/edit_cart/:id", to: "items#cart_change"
+
+    # patch "items/heart_change/:id", to: "items#heart_change"
     # post "/create_container", to: "user_likes_container#create"
 
   # end

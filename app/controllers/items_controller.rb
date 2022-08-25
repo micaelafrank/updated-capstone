@@ -14,7 +14,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
     def create 
         new_item = Item.new(item_params)
-        new_item.user_id = params[:user_id]
+        new_item.user_id = (params[:user_id])
         new_item.images.attach(params[:images])
         pp new_item
         if new_item.save
@@ -27,20 +27,46 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
     def update
         item = find_item
-        item.update!(item_params)
+        new_heart = item.update!(item_params)
+        render json: new_heart, status: :ok
+    end
+
+    def heart_change
+        item = find_item
+        if params.has_key?(:clickedHeart) then
+            item.update!(clickedHeart: params[:clickedHeart])
+        end
         render json: item, status: :ok
     end
+
+    def cart_change
+        item = find_item
+        if params.has_key?(:inCartIcon) then
+            item.update(inCartIcon: params[:inCartIcon])
+        end
+
+        render json: item, status: :ok
+    end
+
 
     def destroy 
         item = find_item
         item.destroy 
-        render json: item
+        head :no_content
     end
 
     private 
 
+    def heart_params
+        params.require(:item).permit(:clickedHeart, :id)
+    end
+
+    def cart_params
+        params.require(:item).permit(:inCartIcon, :id)
+    end
+
     def item_params
-        params.permit(:itemname, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images: [])
+        params.permit(:itemname, :clickedHeart, :inCartIcon, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
         # params.require(:item).permit(:itemname, :price, :description, :color, :size, :condition, :user_id, images: [])
     end
 
@@ -49,7 +75,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     end
 
     def cant_show_item
-        render json: {error: "The item you're looking for is not available."}, status: :not_available
+        render json: {error: "The item you're looking for is not available."}, status: :no_content
     end
 
     def item_invalid(invalid)

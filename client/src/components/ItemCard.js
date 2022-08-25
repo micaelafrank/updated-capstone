@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,70 +15,29 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { darkScrollbar } from '@mui/material';
 
-function ItemCard({ sold_by, item, deleteLike, images, mySavedItems, setMySavedItems, deleteItem, setChange, items, setItems, handleCartClick, change, user, itemname, selectedImages, isForSale, id, color, price, description, images_url, material, condition, size }) {
-    const [inCart, setInCart] = useState(false)
-    const [isFavorite, setFavorite] = useState(false)
-    const [details, setDetails] = useState(false)
-    const [wasClicked, setWasClicked] = useState(false)
-    const [wasHearted, setWasHearted] = useState(false)
-    const [open, setOpen] = useState(false);
+// import SavedContainer from './SavedContainer';
+// import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+// import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
+function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavorite, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
     const [itemNameState, setItemNameState] = useState("");
     const [editNameState, setEditNameState] = useState(false);
     const [initialItemNameValue, setInitialItemNameValue] = useState(itemname);
+    const [initialHeartValue, setInitialHeartValue] = useState(clickedHeart);
+    const [editHeartState, setEditHeartState] = useState(false);
+    const [initialCartValue, setInitialCartValue] = useState(inCartIcon);
+    const [editCartState, setEditCartState] = useState(false);
     const [descriptionState, setDescriptionState] = useState("");
     const [editDescriptionState, setEditDescriptionState] = useState(false);
     const [initialDescriptionValue, setInitialDescriptionValue] = useState(description);
 
-
-    function addToFavorites(){
-        console.log(user)
-        const newFavorite = {
-            user_likes_container_id: user.user_likes_container.id,
-            item_id: item.id,
-        }
-        console.log(newFavorite)
-        // const cartItem = item
-        fetch("/save", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newFavorite),
-        })
-            .then(res => res.json())
-            .then(setChange(!change))
-            handleFavoriteClick();
-    }
-
-    // function deleteLike(id){
-    //     const updatedSaves = mySavedItems.filter((item) => item.id !== id);
-    //     setMySavedItems(updatedSaves);
-    // }
-
-    function removeFavorite(id) {
-        id = item.id;
-        fetch(`/saved_items/${id}`, {
-            method: "DELETE"
-        })
-            .then((r) => {
-                if (r.ok) {
-                    handleFavoriteClick();
-                    deleteLike(id)
-                }
-            });
-    }
-
-    function handleFavoriteClick() {
-        setFavorite(isFavorite => (!isFavorite))
-        setWasHearted(wasHearted => (!wasHearted));
-    }
-
+    
     let handleEditDescription = () => {
         setEditDescriptionState(!editDescriptionState);
         if (descriptionState !== "") {
@@ -93,10 +51,9 @@ function ItemCard({ sold_by, item, deleteLike, images, mySavedItems, setMySavedI
                     id: item.id,
                 }),
             })
-                .then((resp) => resp.json())
-                .then((data) => setInitialDescriptionValue(data.description));
-        }
-    };
+            .then((resp) => resp.json())
+            .then((data) => setInitialDescriptionValue(data.description));
+        }};
 
 
     let handleEditItemName = () => {
@@ -112,10 +69,10 @@ function ItemCard({ sold_by, item, deleteLike, images, mySavedItems, setMySavedI
                     id: item.id,
                 }),
             })
-                .then((resp) => resp.json())
-                .then((data) => setInitialItemNameValue(data.itemname));
-        }
-    };
+            .then((resp) => resp.json())
+            .then((data) => setInitialItemNameValue(data.itemname));
+        }};
+
 
     let handleEditPrice = () => {
         setEditPriceState(!editPriceState);
@@ -130,50 +87,157 @@ function ItemCard({ sold_by, item, deleteLike, images, mySavedItems, setMySavedI
                     id: item.id,
                 }),
             })
-                .then((resp) => resp.json())
-                .then((data) => setInitialPriceValue(data.price));
-        }
-    };
+            .then((resp) => resp.json())
+            .then((data) => setInitialPriceValue(data.price));
+        }};
 
-    function handleCartClick() {
-        setInCart(inCart => (!inCart))
-        setWasClicked(wasClicked => (!wasClicked));
-    }
 
-    // function removeSave(id){
-    //     const updatedSaves = savedItems.filter((item) => item.id !== id);
-    //     setMySavedItems(updatedSaves);
-    //     handleFavoriteClick();
-    // }
+        let handleUndoHeart = () => {
+        setEditHeartState(!editHeartState);
+        if (editHeartState !== true) {
+            fetch(`/edit_heart/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                clickedHeart: false,
+                id: id,
+            }),
+        })
+            .then((resp) => resp.json())
+            .then(data => setInitialHeartValue(data.clickedHeart));
+        deleteSavedItem();
+    }}
 
-    function handleDelete(id) {
-        fetch(`items/${id}`, {
+
+    function deleteSavedItem() {
+        fetch("/unlike_item/" + item_id, {
             method: "DELETE",
         })
-        .then((res) => res.json())
-            .then(data => setItems(items.filter((item) => item.id !== id)))        
     }
+
+
+    // function deleteSavedItem(){
+    //     setEditHeartState(!editHeartState);
+    //     fetch(`/edit_heart/${id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             clickedHeart: false,
+    //             id: item.id,
+    //         }),
+    //     })
+    //         .then((res) => res.json())
+    //         .then(data => setInitialHeartValue(data.clickedHeart));
+    //     fetch("/unlike_item/" + item.id, {
+    //         method: "DELETE",
+    //     })
+        // deleteFavorite(item_id);
+    //}
+
 
     function renderUserCartItem() {
         console.log(user)
-
-        const newItemToAdd = {
+        const newCartItem = {
             user_cart_id: user.user_cart.id,
             item_id: item.id,
         }
-        console.log(newItemToAdd)
+        console.log(newCartItem)
         // const cartItem = item
         fetch("/addtocart", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newItemToAdd),
+            body: JSON.stringify(newCartItem),
         })
             .then(res => res.json())
             .then(setChange(!change))
         handleCartClick();
     }
+
+
+    function handleFillHeart() {
+        fetch("/save", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                user_likes_container_id: user.user_likes_container.id,
+                item_id: item.id,
+                isHearted: true,
+            }),
+        })
+        .then(res => res.json())
+        .then(setChange(!change))
+    editItemHeart();
+    }
+
+    function editItemHeart(){
+        setEditHeartState(!editHeartState);
+        fetch(`/edit_heart/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                clickedHeart: true,
+                id: id,
+            }),
+        })
+        .then((res) => res.json())
+        .then(data => setInitialHeartValue(data.clickedHeart));
+    }
+
+    // function renderSavedItem() {
+    //     const addToSaveContainer = {
+    //         user_likes_container_id: user.user_likes_container.id,
+    //         item_id: item.id,
+    //         isHearted: true,
+    //     }
+    //     fetch("/save", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(addToSaveContainer),
+    //     })
+    //         .then(res => res.json())
+    //         .then(setChange(!change))}
+        // .then(addFavorite);
+
+
+    let handleCartClick = () => {
+        // setInCart(inCart => (!inCart));
+        // setWasClicked(wasClicked => (!wasClicked));
+        setEditCartState(!editCartState);
+        fetch(`/edit_cart/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                inCartIcon: true,
+                id: item.id,
+            }),
+        })
+        .then((resp) => resp.json())
+        .then(data => setInitialCartValue(data.inCartIcon));
+    }
+
+
+    function handleDelete(id) {
+        fetch(`/items/${id}`, {
+            method: "DELETE",
+        })
+        .then((res) => res.json())
+            .then(data => setItems(items.filter((item) => item.id !== id)))        
+    }
+
 
     return (
         <Card sx={{border: "1px solid black"}}>
@@ -186,7 +250,7 @@ function ItemCard({ sold_by, item, deleteLike, images, mySavedItems, setMySavedI
             </Carousel> */}
             <CardMedia
                 component="img"
-                maxHeight="300"
+                sx={{maxHeight:"300"}}
                 image={images_url}
             />
             <CardContent sx={{ flexGrow: 1 }}>
@@ -212,7 +276,7 @@ function ItemCard({ sold_by, item, deleteLike, images, mySavedItems, setMySavedI
                 </Typography>
                 <div style={{display: "flex", alignItems: "center"}}>
                     <SellOutlinedIcon style={{ paddingRight: "4px" }} />
-                    <p style={{ paddingRight: "14px" }}> 
+                    <div style={{ paddingRight: "14px" }}> 
                         {editPriceState ? (
                             <div>
                                 <textarea
@@ -226,7 +290,7 @@ function ItemCard({ sold_by, item, deleteLike, images, mySavedItems, setMySavedI
                                 <span>${initialPriceValue}</span>
                             </div>
                         )}
-                    </p>
+                    </div>
                     {user.id === item.user_id ?
                         <Fab className="fab-edit" size="small" aria-label="edit">
                             <EditIcon onClick={handleEditPrice} sx={{color: editPriceState ? "green" : null}}/>
@@ -260,23 +324,14 @@ function ItemCard({ sold_by, item, deleteLike, images, mySavedItems, setMySavedI
             <CardActions>
                 {/* <Button size="small">View</Button>
                 <Button size="small">Edit</Button> */}
-                {user.id === item.user_id ? null :
-                <IconButton aria-label="add to favorites">
-                        {isFavorite ? <FavoriteIcon onClick={removeFavorite} /> : <FavoriteBorderIcon onClick={addToFavorites}/> }
-                </IconButton>
-                }
-                {/* {user.id === item.user_id ?
-                    <IconButton className="cardButtonDelete"
-                        onClick={() => {
-                            alert('Are you sure you want to delete this item?')
-                            handleDelete(item.id);
-                        }}>Delete
-                    </IconButton> :
-                    (<IconButton className={!wasClicked ? "cardButtonAddCart" : "cardButtonInCart"}
-                        onClick={renderUserCartItem}
-                        variant="primary">
-                        Add To Cart
-                    </IconButton>)} */}
+                {user.id === item.user_id ? null : 
+                    <IconButton 
+                        onClick={initialHeartValue ? handleUndoHeart : handleFillHeart}
+                        defaultValue={initialHeartValue}
+                    >
+                        {initialHeartValue ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    </IconButton>
+                    }
                 {user.id === item.user_id ?
                     <IconButton aria-label="delete"
                         onClick={() => {
@@ -286,10 +341,18 @@ function ItemCard({ sold_by, item, deleteLike, images, mySavedItems, setMySavedI
                             </Alert>
                         }}>
                         <DeleteIcon />
-                    </IconButton> :
-                    <IconButton onClick={wasClicked ? <Alert>"To remove this item, visit your cart"</Alert> : renderUserCartItem} sx={{pointerEvents: wasClicked? "none" : null}} aria-label="add to cart">
-                        {inCart ? <ShoppingCartIcon variant="outlined" /> : <AddShoppingCartIcon />}
-                    </IconButton>}
+                    </IconButton> : null}
+                {user.id === item.user_id ? null :
+                    <IconButton 
+                        onClick={initialCartValue ? 
+                        () => alert('View your cart to delete an item')
+                        : renderUserCartItem} 
+                        sx={{pointerEvents: initialCartValue ? "none" : null}}
+                        defaultValue={initialCartValue}
+                    >
+                        {initialCartValue ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
+                    </IconButton>
+                }
                 {/* {user.id === item.user_id ?
                     <Fab className="fab-edit" float="right" size="small" aria-label="edit">
                         <EditIcon float="right"/>

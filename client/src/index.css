@@ -16,3 +16,14 @@ code {
   opacity: 50%;
   float: right;
 }
+
+.items-grid {
+  grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: 2em 1em;
+}
+
+.grid-container {
+  padding: 25px;
+}

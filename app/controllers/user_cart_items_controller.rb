@@ -15,7 +15,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
     def create 
         new_usercartitems = UserCartItem.create!(uci_params)
-        render json: new_usercartitems, status: :created 
+        render json: new_usercartitems, status: :ok 
     end
 
     def update

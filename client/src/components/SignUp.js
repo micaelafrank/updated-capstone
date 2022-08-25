@@ -59,7 +59,7 @@ function SignUp({ user, setUser }) {
             if (r.ok) {
                 r.json().then((user) => {
                     setUser(user)
-                    navigate("/")
+                    navigate("/profile")
                 })
             } else {
                 r.json().then((err) => setErrors(err.errors));

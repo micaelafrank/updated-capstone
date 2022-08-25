@@ -1,37 +1,32 @@
 import React, {useState, useEffect} from "react";
 import { Avatar, Button } from '@mui/material';
 import { useNavigate } from "react-router-dom";
-import MySavedItem from './MySavedItem';
+import SavedContainer from "./SavedContainer";
 import IconButton from '@mui/material/IconButton';
 import ItemCard from "./ItemCard";
 import SvgIcon from '@mui/material/SvgIcon';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export default function Profile({ user, setUser, mySavedItems, setMySavedItems }) {
-    const [avatar_url, setAvatar] = useState("")
-    const [images, setImages] = useState([])
+export default function Profile({ user }) {
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
     
-    const formData = new FormData();
-    formData.append('images', images);
-
     // const myItems = items.filter((item) => {
     //     if (item.user_id === user.id) return true;
     // })
 
     const id = user.id;
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        fetch(`/profile/${id}`, {
-            method: "PATCH",
-            body: formData,
-        })
-        .then(r => r.json())
-        .then(navigate("/profile"))
-    }
+    // function handleSubmit(e) {
+    //     e.preventDefault();
+    //     fetch(`/profile/${id}`, {
+    //         method: "PATCH",
+    //         body: formData,
+    //     })
+    //     .then(r => r.json())
+    //     .then(navigate("/profile"))
+    // }
     // const firstname = user.firstname
     // const initial = firstname[0];
 
@@ -46,9 +41,9 @@ export default function Profile({ user, setUser, mySavedItems, setMySavedItems }
                     component="label"
                     >
                         Upload image
-                        <input onChange={(e)=> setImages(e.target.files[0])} hidden accept="image/*" type="file" />
+                        <input hidden accept="image/*" type="file" />
                     </Button>
-                    <Button type="submit" onClick={handleSubmit}>Use this image</Button>
+                    <Button type="submit">Use this image</Button>
                     {/* <Button variant="outlined" startIcon={<DeleteIcon />}>
                         Delete
                     </Button> */}

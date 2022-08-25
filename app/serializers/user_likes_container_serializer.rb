@@ -1,4 +1,5 @@
 class UserLikesContainerSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :saved_items
+  attributes :id, :user_id
 
+  has_many :items, through: :saved_items  
 end

@@ -7,16 +7,16 @@ class User < ApplicationRecord
     has_many :saved_items, through: :user_likes_container 
     validates :email, uniqueness: true
     validates :username, uniqueness: true
-    has_many_attached :images
+    # has_many_attached :images
 
-    def images_url
-      images
-      imagess = []
-      for image in images do
-          imagess.push(image.url)
-      end
-      return imagess
-    end
+    # def images_url
+    #   images
+    #   imagess = []
+    #   for image in images do
+    #       imagess.push(image.url)
+    #   end
+    #   return imagess
+    # end
 
     # has_one_attached :avatar 
     # do |attachable|

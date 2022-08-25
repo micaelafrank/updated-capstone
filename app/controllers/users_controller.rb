@@ -3,6 +3,11 @@ class UsersController < ApplicationController
 
     #POST method for '/signup'
     #This saves a new user and their info in the backend:
+
+    def show 
+        render json: @current_user
+    end
+
     def create
         user = User.create!(newuser_params)
         if user.valid? 
@@ -37,15 +42,12 @@ class UsersController < ApplicationController
     #This method finds the user data from the session (the logged-in user) and 
     #sends the data to the front end
 
-    def show 
-        render json: @current_user
-    end
 
     private 
 
-    def image_params
-        params.permit(:images_url, images: [])
-    end
+    # def image_params
+    #     params.permit(:images_url, images: [])
+    # end
 
     def newuser_params
         params.permit(:firstname, :lastname, :email, :password, :username)

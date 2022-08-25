@@ -10,8 +10,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
 import Typography from '@mui/material/Typography';
 // import Pagination from '@mui/material/Pagination';
 
@@ -22,35 +20,26 @@ import Typography from '@mui/material/Typography';
 //     </Stack>
 // }
 
-function ItemsList({ user, change, setChange, deleteItem, deleteLike }) {
-    const [items, setItems] = useState([]);
-    const [mySavedItems, setMySavedItems] = useState([])
-    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+function ItemsList({ user, change, addNewSave, inCart, setInCart, setWasClicked, wasClicked, deleteFavorite, removeLike, addFavorite, items, setItems, handleUndoHeart, handleFavoriteClick, setChange,toggleFavorite, item, id, uniqueLikes, editHeartState, setEditHeartState }) {
     const theme = createTheme();
-
-    useEffect(() => {
-        fetch("/mylikes")
-            .then((r) => r.json())
-            .then(data => setMySavedItems(data.items))
-    }, [])
-
-    function deleteLike(id) {
-        const updatedSaves = mySavedItems.filter((item) => item.id !== id);
-        setMySavedItems(updatedSaves);
-    }
-
 
     useEffect(() => {
         fetch("/items")
             .then((r) => r.json())
             .then(data => { setItems(data) })
     }, [])
-    
-    const itemsList = items.map((item) => {
+    console.log(items)
+
+
+    const listOfItems = items.map((item) => {
         return(
             <ItemCard
             key={item.id}
+            inCartIcon={item.inCartIcon}
             id={item.id}
+            item_id={item.id}
+            setInCart={setInCart}
+            removeLike={removeLike}
             itemname={item.itemname}
             price={item.price}
             description={item.description}
@@ -59,6 +48,7 @@ function ItemsList({ user, change, setChange, deleteItem, deleteLike }) {
             size={item.size}
             seller={item.sold_by}
             item={item}
+            handleUndoHeart={handleUndoHeart}
             user={user}
             sold_by={item.sold_by}
             user_id={item.user_id}
@@ -67,12 +57,8 @@ function ItemsList({ user, change, setChange, deleteItem, deleteLike }) {
             images_url={item.images_url}
             change={change}
             setChange={setChange}
-            setItems={setItems}
             items={items}
-            deleteItem={deleteItem}
-            mySavedItems={mySavedItems}
-            setMySavedItems={setMySavedItems}
-            deleteLike={deleteLike}
+            addNewSave={addNewSave}
             />
         )
     })
@@ -110,6 +96,7 @@ function ItemsList({ user, change, setChange, deleteItem, deleteLike }) {
                             justifyContent="center"
                         >
                             <Button variant="contained" href="/sell">Sell something</Button>
+                            <Button variant="contained" href="/mylikes"> Shop saved items only</Button>
                             {/* <Button variant="outlined">Secondary action</Button> */}
                         </Stack>
                     </Container>
@@ -118,8 +105,9 @@ function ItemsList({ user, change, setChange, deleteItem, deleteLike }) {
                     {/* End hero unit */}
                     <Grid container spacing={4}>
                         {/* {cards.map((card) => ( */}
-                        <Grid item xs={12} sm={6} md={4} sx={{ gridGap: "2px" }}>
-                            {itemsList}
+                        <Grid className="items-grid" >
+                            {/* item xs={12} sm={6} md={4} */}
+                            {listOfItems}
                         </Grid>
                         {/* ))} */}
                     </Grid>

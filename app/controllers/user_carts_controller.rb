@@ -48,7 +48,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     end
 
     def cant_show_item
-        render json: {error: "Your cart is empty"}, status: :not_available
+        render json: {error: "Your cart is empty"}, status: :no_content
     end
 
     def item_invalid(invalid)

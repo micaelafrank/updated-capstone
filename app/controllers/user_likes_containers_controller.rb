@@ -2,21 +2,20 @@ class UserLikesContainersController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :cant_show_favorite
 rescue_from ActiveRecord::RecordInvalid, with: :favorite_invalid
 
+    def index
+        userLikes = UserLikesContainer.all 
+        render json: userLikes 
+    end 
+
     def show 
-        userLikes = UserLikesContainer.find_by(user_id: @current_user.id)
+        cart = UserLikesContainer.find_by(user_id: @current_user.id)
         # cart = user.user_cart_items 
-        render json: userLikes
+        render json: cart
     end 
 
     def create 
         new_saves_container = UserLikesContainer.create!(user_id: @current_user.id)
-        render json: new_saves_container, status: :ok 
-    end
-
-    def destroy 
-        item = UserLikesContainer.find_by(item_id: params[:item_id])
-        item.destroy
-        head :no_content
+        render json: new_saves_container, status: :ok
     end
 
     private 
@@ -26,7 +25,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :favorite_invalid
     # end
 
     def cant_show_favorite
-        render json: {error: "Favorited item not available"}, status: :not_available
+        render json: {error: "Favorited item not available"}, status: :no_content
     end
 
     def favorite_invalid(invalid)

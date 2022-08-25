@@ -12,6 +12,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 const pages = ['SELL', 'BUY', 'PROFILE', 'LOGOUT'];
 
 const ResponsiveAppBar = ({ user, setUser }) => {
@@ -128,17 +129,33 @@ const ResponsiveAppBar = ({ user, setUser }) => {
                         >
                                 PROFILE
                             </Button>
+                        {user.username ? 
+                            (<Button
+                                onClick={handleLogout}
+                                sx={{ my: 2, color: 'white', display: 'block' }}
+                            >
+                                LOGOUT
+                            </Button>)
+                            : 
                             <Button
-                            onClick={handleLogout}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            LOGOUT
+                            onClick={() => navigate('/login')}
+                            sx={{ alignItems:'right', float: 'right', my: 2, color: 'white', border: '1px solid white', marginLeft:'25px', marginRight: '5px', padding:'10px', display: 'block' }}
+                            >
+                                LOGIN
+                            </Button>}
+                        {user.username ? null :
+                            <Button
+                            onClick={() => navigate('/signup')}
+                                sx={{ alignItems: 'right', my: 2, color: 'white', float: 'right', border: '1px solid white', marginLeft: '25px', marginRight: '5px', padding: '10px', display: 'block' }}
+                            >
+                                SIGN UP
                             </Button>
+                        }
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
-                        <IconButton sx={{ p: 0 }}>
+                        {/* <IconButton sx={{ p: 0 }}>
                             <Avatar />
-                        </IconButton>
+                        </IconButton> */}
                     </Box>
                 </Toolbar>
             </Container>
