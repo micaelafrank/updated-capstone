@@ -12,7 +12,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 const pages = ['SELL', 'BUY', 'PROFILE', 'LOGOUT'];
@@ -89,8 +89,8 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                             ))}
                         </Menu>
                     </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                    <Typography
+                    {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
+                    {/* <Typography
                         variant="h5"
                         noWrap
                         component="a"
@@ -107,22 +107,22 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                         }}
                     >
                         LOGO
-                    </Typography>
+                    </Typography> */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             <Button
                                 onClick={() => navigate('/sell')}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em", marginLeft:"1em"}}
                             >
                                 SELL
                             </Button>
                             <Button
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}
                             onClick={() => navigate('/buy')}
                         >
                                 BUY
                             </Button>
                             <Button
-                            sx={{ my: 2, color: 'white', display: 'block' }}
+                            sx={{ my: 2, color: 'white', display: 'block', marginRight:"2em" }}
                             onClick={() => navigate('/profile')}
                         >
                                 PROFILE
@@ -130,21 +130,21 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                         {user.username ? 
                             (<Button
                                 onClick={handleLogout}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
+                                sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}
                             >
                                 LOGOUT
                             </Button>)
                             : 
                             <Button
                             onClick={() => navigate('/login')}
-                            sx={{ alignItems:'right', float: 'right', my: 2, color: 'white', border: '1px solid white', marginLeft:'25px', marginRight: '5px', padding:'10px', display: 'block' }}
+                                sx={{ alignItems: 'right', float: 'right', my: 2, color: 'white', border: '1px solid white', marginLeft: '25px', marginRight: "2em", padding:'10px', display: 'block' }}
                             >
                                 LOGIN
                             </Button>}
                         {user.username ? null :
                             <Button
                             onClick={() => navigate('/signup')}
-                                sx={{ alignItems: 'right', my: 2, color: 'white', float: 'right', border: '1px solid white', marginLeft: '25px', marginRight: '5px', padding: '10px', display: 'block' }}
+                                sx={{ alignItems: 'right', my: 2, color: 'white', float: 'right', border: '1px solid white', marginLeft: '25px', marginRight: "2em", padding: '10px', display: 'block' }}
                             >
                                 SIGN UP
                             </Button>
@@ -158,7 +158,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                             style={{color:'white', paddingRight:'2em'}}
                         >
                             <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
-                            <ShoppingCartOutlinedIcon/>
+                            <ShoppingCartIcon/>
                         </IconButton>
                         {/* <div className="cursor-pointer duration-200 hover:text-red-500 absolute right-8 dark:text-slate-400 dark:hover:text-slate-200"> */}
                         <IconButton style={{color:"white"}} onClick={() => setDarkMode(!darkMode)}>

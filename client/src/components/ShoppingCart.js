@@ -47,156 +47,105 @@ function ShoppingCart({deleteItem, items, total, change, setChange, user}){
 
     return(
     <>
-        <div class="container px-4 py-5 mx-auto">
-            <div style={{display:"flex", flexDirection:"row"}} class="row d-flex justify-content-center">
-                <div class="col-5" style={{ paddingRight: "7em", paddingLeft:"4em" }}>
-                    <h4 class="heading">Shopping Bag</h4>
+        <div className="container px-4 py-5 mx-auto">
+            <div style={{display:"flex", flexDirection:"row"}} className="row d-flex justify-content-center">
+                <div className="col-5" style={{ width:"50%", textAlign:"left", paddingLeft:"10em" }}>
+                    <h4 className="heading">Shopping Cart</h4>
                 </div>
-                <div class="col-7">
-                        <div class="row text-right" style={{ display: "flex", flexDirection: "row", justifyContent:"space-between" }}>
-                        <div class="col-4" style={{ paddingRight: "7em", paddingLeft: "4em" }}>
-                            <h6 class="mt-2">Format</h6>
+                    <div className="col-7" style={{width: "50%"}}>
+                        <div className="row text-right" style={{ display: "flex", flexDirection: "row", justifyContent:"flex-start" }}>
+                            <div className="col-4" style={{ paddingRight: "7em", paddingLeft: "4em" }}>
+                            <h6 className="mt-2">Category</h6>
                         </div>
-                        <div class="col-4" style={{ paddingRight: "7em", paddingLeft: "4em" }}>
-                            <h6 class="mt-2">Quantity</h6>
+                        <div className="col-4" style={{ paddingRight: "7em", paddingLeft: "4em" }}>
+                            <h6 className="mt-2">Remove Item</h6>
                         </div>
-                        <div class="col-4" style={{ paddingRight: "7em", paddingLeft: "4em" }}>
-                            <h6 class="mt-2">Price</h6>
+                        <div className="col-4" style={{ paddingRight: "7em", paddingLeft: "4em" }}>
+                            <h6 className="mt-2">Price</h6>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row d-flex justify-content-center border-top">
-                <div class="col-5">
-                    <div class="row d-flex">
-                        <div class="book">
-                            <img src="https://i.imgur.com/2DsA49b.jpg" class="book-img"/>
+            <div>{uniqueCartItems.map((cartItem) => {
+                return (
+                    <CartItem
+                        cartItem={cartItem}
+                        key={cartItem.id}
+                        id={cartItem.id}
+                        price={cartItem.price}
+                        material={cartItem.material}
+                        setCartItems={setCartItems}
+                        cartItems={cartItems}
+                        deleteItem={deleteItem}
+                    >
+                    </CartItem>
+                )
+            })}
+            </div>
+        <div className="row justify-content-center">
+            <div className="col-lg-12">
+                <div className="card" style={{width:"70%"}}>
+                    <div className="row">
+                        <div className="col-lg-3 radio-group" style={{ display: 'flex', flexDirection: "row" }}>
+                            <div className="row d-flex px-3 radio">
+                                <img className="pay" src="https://i.imgur.com/WIAP9Ku.jpg"/>
+                                    <p className="my-auto">Credit Card</p>
+                            </div>
+                            <div className="row d-flex px-3 radio gray">
+                                <img className="pay" src="https://i.imgur.com/OdxcctP.jpg"/>
+                                    <p className="my-auto">Debit Card</p>
+                            </div>
+                            <div className="row d-flex px-3 radio gray mb-3">
+                                <img className="pay" src="https://i.imgur.com/cMk1MtK.jpg"/>
+                                    <p className="my-auto">PayPal</p>
+                            </div>
                         </div>
-                        <div class="my-auto flex-column d-flex pad-left">
-                            <h6 class="mob-text">Thinking, Fast and Slow</h6>
-                            <p class="mob-text">Daniel Kahneman</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="my-auto col-7">
-                    <div class="row text-right">
-                        <div class="col-4">
-                            <p class="mob-text">Digital</p>
-                        </div>
-                        <div class="col-4">
-                            <div class="row d-flex justify-content-end px-3">
-                                <p class="mb-0" id="cnt1">1</p>
-                                <div class="d-flex flex-column plus-minus">
-                                    <span class="vsm-text plus">+</span>
-                                    <span class="vsm-text minus">-</span>
+                        <div className="col-lg-5">
+                            <div className="row px-2">
+                                <div className="form-group col-md-6">
+                                    <label className="form-control-label">Name on Card</label>
+                                    <input type="text" id="cname" name="cname" placeholder="Johnny Doe"/>
+                                </div>
+                                <div className="form-group col-md-6">
+                                    <label className="form-control-label">Card Number</label>
+                                    <input type="text" id="cnum" name="cnum" placeholder="1111 2222 3333 4444"/>
+                                </div>
+                            </div>
+                            <div className="row px-2">
+                                <div className="form-group col-md-6">
+                                    <label className="form-control-label">Expiration Date</label>
+                                    <input type="text" id="exp" name="exp" placeholder="MM/YYYY"/>
+                                </div>
+                                <div className="form-group col-md-6">
+                                    <label className="form-control-label">CVV</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="***"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4">
-                            <h6 class="mob-text">$9.99</h6>
+                        <div className="col-lg-4 mt-2">
+                            <div className="row d-flex justify-content-between px-4">
+                                <p className="mb-1 text-left">Subtotal</p>
+                                <h6 className="mb-1 text-right">$23.49</h6>
+                            </div>
+                            <div className="row d-flex justify-content-between px-4">
+                                <p className="mb-1 text-left">Shipping</p>
+                                <h6 className="mb-1 text-right">$2.99</h6>
+                            </div>
+                            <div className="row d-flex justify-content-between px-4" id="tax">
+                                <p className="mb-1 text-left">Total (tax included)</p>
+                                <h6 className="mb-1 text-right">$26.48</h6>
+                            </div>
+                            <button className="btn-block btn-blue">
+                                <span>
+                                    <span id="checkout">Checkout</span>
+                                    <span id="check-amt">$26.48</span>
+                                </span>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row d-flex justify-content-center border-top">
-                <div class="col-5">
-                    <div class="row d-flex">
-                        <div class="book">
-                            <img src="https://i.imgur.com/Oj1iQUX.jpg" class="book-img"/>
-                        </div>
-                        <div class="my-auto flex-column d-flex pad-left">
-                            <h6 class="mob-text">Homo Deus: A Brief, History of Tomorrow</h6>
-                            <p class="mob-text">Yuval Noah Harari</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="my-auto col-7">
-                    <div class="row text-right">
-                        <div class="col-4">
-                            <p class="mob-text">Paperback</p>
-                        </div>
-                        <div class="col-4">
-                            <div class="row d-flex justify-content-end px-3">
-                                <p class="mb-0" id="cnt2">1</p>
-                                <div class="d-flex flex-column plus-minus">
-                                    <span class="vsm-text plus">+</span>
-                                    <span class="vsm-text minus">-</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <h6 class="mob-text">$13.50</h6>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="row">
-                            <div class="col-lg-3 radio-group">
-                                <div class="row d-flex px-3 radio">
-                                    <img class="pay" src="https://i.imgur.com/WIAP9Ku.jpg"/>
-                                        <p class="my-auto">Credit Card</p>
-                                </div>
-                                <div class="row d-flex px-3 radio gray">
-                                    <img class="pay" src="https://i.imgur.com/OdxcctP.jpg"/>
-                                        <p class="my-auto">Debit Card</p>
-                                </div>
-                                <div class="row d-flex px-3 radio gray mb-3">
-                                    <img class="pay" src="https://i.imgur.com/cMk1MtK.jpg"/>
-                                        <p class="my-auto">PayPal</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-5">
-                                <div class="row px-2">
-                                    <div class="form-group col-md-6">
-                                        <label class="form-control-label">Name on Card</label>
-                                        <input type="text" id="cname" name="cname" placeholder="Johnny Doe"/>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="form-control-label">Card Number</label>
-                                        <input type="text" id="cnum" name="cnum" placeholder="1111 2222 3333 4444"/>
-                                    </div>
-                                </div>
-                                <div class="row px-2">
-                                    <div class="form-group col-md-6">
-                                        <label class="form-control-label">Expiration Date</label>
-                                        <input type="text" id="exp" name="exp" placeholder="MM/YYYY"/>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label class="form-control-label">CVV</label>
-                                        <input type="text" id="cvv" name="cvv" placeholder="***"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 mt-2">
-                                <div class="row d-flex justify-content-between px-4">
-                                    <p class="mb-1 text-left">Subtotal</p>
-                                    <h6 class="mb-1 text-right">$23.49</h6>
-                                </div>
-                                <div class="row d-flex justify-content-between px-4">
-                                    <p class="mb-1 text-left">Shipping</p>
-                                    <h6 class="mb-1 text-right">$2.99</h6>
-                                </div>
-                                <div class="row d-flex justify-content-between px-4" id="tax">
-                                    <p class="mb-1 text-left">Total (tax included)</p>
-                                    <h6 class="mb-1 text-right">$26.48</h6>
-                                </div>
-                                <button class="btn-block btn-blue">
-                                    <span>
-                                        <span id="checkout">Checkout</span>
-                                        <span id="check-amt">$26.48</span>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
         </div>
     </>
 )}
