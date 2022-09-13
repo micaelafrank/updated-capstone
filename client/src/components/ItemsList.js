@@ -20,7 +20,7 @@ import Typography from '@mui/material/Typography';
 //     </Stack>
 // }
 
-function ItemsList({ user, change, addNewSave, inCart, setInCart, setWasClicked, wasClicked, deleteFavorite, removeLike, addFavorite, items, setItems, handleUndoHeart, handleFavoriteClick, setChange, toggleFavorite, item, id, uniqueLikes, editHeartState, setEditHeartState }) {
+function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked, deleteFavorite, removeLike, addFavorite, items, setItems, handleUndoHeart, handleFavoriteClick, setChange, toggleFavorite, item, id, uniqueLikes, editHeartState, setEditHeartState }) {
     const theme = createTheme();
 
     const listOfItems = items.map((item) => {
@@ -31,7 +31,7 @@ function ItemsList({ user, change, addNewSave, inCart, setInCart, setWasClicked,
                 id={item.id}
                 clickedHeart={item.clickedHeart}
                 item_id={item.id}
-                setInCart={setInCart}
+                // setInCart={setInCart}
                 removeLike={removeLike}
                 itemname={item.itemname}
                 price={item.price}

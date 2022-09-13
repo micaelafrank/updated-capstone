@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :items, only: [:index, :show, :create, :update, :heart_change, :cart_change, :destroy]
     resources :users 
+    resources :checkout, only: [:create, :create_payment_intent]
     resources :user_cart_items, only: [:destroy, :create, :emptycart]
     resources :user_carts, only: [:index, :show, :create]
     resources :user_likes_container, only: [:index, :show, :create]

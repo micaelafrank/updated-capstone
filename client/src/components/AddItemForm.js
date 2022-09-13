@@ -207,7 +207,7 @@ function AddItemForm({ user, addNewItem }) {
                                 </Select>
                             </Grid>
                             <Grid item xs={12}>
-                                <InputLabel>Upload Images:</InputLabel>
+                                <InputLabel>Upload Image:</InputLabel>
                                 <input
                                     type="file"
                                     id="file"

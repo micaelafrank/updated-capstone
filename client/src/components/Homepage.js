@@ -81,24 +81,25 @@ export default function SignInSide({ user, setUser, darkMode, setDarkMode }) {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
+                            fontFamily: 'monospace',
                         }}
                         >
                             <Typography component="h1" variant="h2" 
-                            sx={{paddingTop: '35px'}}>
-                            Name of App
+                                sx={{paddingTop: '35px', fontFamily: 'monospace'}}>
+                            GOOD GOODS
                         </Typography>
-                        <Typography component="h1" variant="h5" 
-                        sx={{paddingTop:'35px', paddingBottom:'5px'}}>
-                            Subtitle 1
+                        <Typography component="h1" variant="h5"
+                            sx={{ paddingTop: '15px', paddingBottom: '5px', textAlign: "center", fontSize:"23px" }}>
+                            Communal marketplace of bits and masterpieces sold, bought, and made by creatives.                       
                         </Typography>
-                        <Typography component="h1" variant="h5" 
-                        sx={{ paddingTop: '5px', paddingBottom: '15px' }}>
-                            Subtitle 2
+                        <Typography component="h1" variant="h5"
+                            sx={{ paddingBottom: '55px', paddingTop:"25px", textAlign: "center", fontSize:"21px"}}>
+                            Sustainable shopping you can feel <span style={{ color: "blue" }}>good</span> about.
                         </Typography>
-                        <Typography component="p"
-                            sx={{ paddingTop: '15px', paddingBottom: '45px', margin:'10px 20px' }}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper, dui vitae vehicula vestibulum, lacus felis euismod odio, et congue sapien tortor eget turpis. Sed faucibus viverra sagittis. Duis nec finibus nulla, id placerat ligula. Cras dapibus eleifend vulputate. Nulla mattis, sem imperdiet venenatis mattis, dolor leo tempus justo, at lobortis mi erat non enim. 
-                        </Typography>
+                        {/* <Typography component="h1" variant="h5"
+                            sx={{ paddingTop: '25px', paddingBottom: '45px', textAlign:"center", margin:'10px 20px', fontSize:"21px" }}>
+                            High-quality bits and masterpieces sold, bought, and made by creatives.
+                        </Typography> */}
                         <Grid container>
                             <Grid item sx={{margin:'auto'}}>
                                 <Button

@@ -25,8 +25,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     end
 
     def destroy
-        item = UserCartItem.find_by(item_id: params[:id])
-        item.destroy
+        UserCartItem.where(id: params[:item_id]).destroy_all
         head :no_content
     end
 

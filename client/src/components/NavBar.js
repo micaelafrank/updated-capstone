@@ -38,7 +38,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1}} />
                     <Typography
                         variant="h6"
                         noWrap
@@ -54,7 +54,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        GOOD GOODS
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

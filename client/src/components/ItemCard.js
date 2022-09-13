@@ -37,6 +37,8 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
     const [editDescriptionState, setEditDescriptionState] = useState(false);
     const [initialDescriptionValue, setInitialDescriptionValue] = useState(description);
     const [isHearted, setIsHearted] = useState(false);
+    const [isAddedCart, setIsAddedCart] = useState(false);
+
 
     let handleEditDescription = () => {
         setEditDescriptionState(!editDescriptionState);
@@ -121,27 +123,9 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
         })
     }
 
-
-    // function deleteSavedItem(){
-    //     setEditHeartState(!editHeartState);
-    //     fetch(`/edit_heart/${id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             clickedHeart: false,
-    //             id: item.id,
-    //         }),
-    //     })
-    //         .then((res) => res.json())
-    //         .then(data => setInitialHeartValue(data.clickedHeart));
-    //     fetch("/unlike_item/" + item.id, {
-    //         method: "DELETE",
-    //     })
-    // deleteFavorite(item_id);
-    //}
-
+    function alreadyInCart() {
+        <Alert key={'success'} variant={'success'}>This item is already in your cart</Alert>
+    }
 
     function renderUserCartItem() {
         console.log(user)
@@ -197,28 +181,8 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
         setIsHearted(isSaved => (!isSaved));
     }
 
-    // function renderSavedItem() {
-    //     const addToSaveContainer = {
-    //         user_likes_container_id: user.user_likes_container.id,
-    //         item_id: item.id,
-    //         isHearted: true,
-    //     }
-    //     fetch("/save", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(addToSaveContainer),
-    //     })
-    //         .then(res => res.json())
-    //         .then(setChange(!change))}
-    // .then(addFavorite);
-
-
 
     let handleCartClick = () => {
-        // setInCart(inCart => (!inCart));
-        // setWasClicked(wasClicked => (!wasClicked));
         setEditCartState(!editCartState);
         fetch(`/api/edit_cart/${id}`, {
             method: "PATCH",
@@ -232,7 +196,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
         })
         .then((resp) => resp.json())
         .then(data => setInitialCartValue(data.inCartIcon));
-        renderUserCartItem();
+        setIsAddedCart(isAddedCart => (!isAddedCart))
     }
 
     function renderUserCartItem() {
@@ -250,8 +214,9 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
             },
             body: JSON.stringify(newItemToAdd),
         })
-            .then(res => res.json())
-            .then(setChange(!change))
+        .then(res => res.json())
+        .then(setChange(!change))
+        handleCartClick();
     }
 
 
@@ -369,9 +334,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
                     </IconButton> : null}
                 {user.id === item.user_id ? null :
                     <IconButton
-                        onClick={initialCartValue ?
-                            () => alert('View your cart to delete an item')
-                            : renderUserCartItem}
+                        onClick={initialCartValue ? alreadyInCart : renderUserCartItem}
                         sx={{ pointerEvents: initialCartValue ? "none" : null }}
                         defaultValue={initialCartValue}
                     >
