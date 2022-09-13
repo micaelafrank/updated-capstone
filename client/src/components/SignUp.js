@@ -49,12 +49,12 @@ function SignUp({ user, setUser }) {
     const handleSignUp = (e) => {
         e.preventDefault();
         setErrors([]);
-        fetch("/signup", {
+        fetch("/api/signup", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ firstname, lastname, email, username, password, password_confirmation }),
+            body: JSON.stringify({ firstname, lastname, email, username, password }),
         }).then((r) => {
             if (r.ok) {
                 r.json().then((user) => {

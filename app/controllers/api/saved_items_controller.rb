@@ -1,19 +1,19 @@
-class SavedItemsController < ApplicationController
+class Api::SavedItemsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :cant_show_favorite
     rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
     def index
-        saved_items = SavedItem.all 
+        saved_items = SavedItem.all
         render json: saved_items
     end
 
     def show 
-        @item = SavedItem.find(params[:id])
+        item = SavedItem.find(params[:id])
         render json: item
     end
 
     def create 
-        liked = SavedItem.create!(saving_params)
+        liked = SavedItem.create!(saveditem_params)
         render json: liked, status: :created
     end
 
@@ -23,15 +23,14 @@ class SavedItemsController < ApplicationController
     # end
 
     def destroy
-        likes = SavedItem.where(id: params[:id])
-        likes.destroy_all
+        saved = SavedItem.find(params[:id]).destroy
         head :no_content
     end
 
     private
 
-    def saving_params
-        params.require(:saved_item).permit(:item_id, :id, :user_likes_container_id, :isHearted)
+    def saveditem_params
+        params.permit(:item_id, :id, :user_likes_container_id)
     end
 
     def cant_show_favorite 

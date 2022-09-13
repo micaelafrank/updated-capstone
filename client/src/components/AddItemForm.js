@@ -26,7 +26,7 @@ function AddItemForm({ user, addNewItem }) {
     const [size, setSize] = useState("")
     const [condition, setCondition] = useState("")
     const [errors, setErrors] = useState([]);
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState("");
     // const [firstImage, setFirstImage] = useState("");
     // const [secondImage, setSecondImage] = useState("");
     // const [thirdImage, setThirdImage] = useState("");
@@ -52,7 +52,7 @@ function AddItemForm({ user, addNewItem }) {
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
-        fetch("/items", {
+        fetch("/api/items", {
             method: "POST",
             body: formData,
         })
@@ -211,7 +211,6 @@ function AddItemForm({ user, addNewItem }) {
                                 <input
                                     type="file"
                                     id="file"
-                                    multiple
                                     name="file"
                                     accept="image/*"
                                     onChange={handleImages}

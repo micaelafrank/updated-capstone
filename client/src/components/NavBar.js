@@ -12,12 +12,15 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 const pages = ['SELL', 'BUY', 'PROFILE', 'LOGOUT'];
 
-const ResponsiveAppBar = ({ user, setUser }) => {
+const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
     const navigate = useNavigate();
 
+    
     function handleLogout() {
         fetch("/logout", { method: "DELETE" }).then((r) => {
             if (r.ok) {
@@ -27,14 +30,9 @@ const ResponsiveAppBar = ({ user, setUser }) => {
         });
     }
 
-    function handleLogin() {
-        navigate("/login")
-    }
-
     function openShoppingCart() {
         navigate("/mycart")
     }
-
 
     return (
         <AppBar position="static">
@@ -152,11 +150,32 @@ const ResponsiveAppBar = ({ user, setUser }) => {
                             </Button>
                         }
                     </Box>
-                    <Box sx={{ flexGrow: 0 }}>
-                        {/* <IconButton sx={{ p: 0 }}>
-                            <Avatar />
-                        </IconButton> */}
-                    </Box>
+                    {user.username ? 
+                    <Box sx={{ flexGrow: 0, display:"flex", textAlign: 'center', alignItems: 'center'}}>
+                        <p style={{paddingRight:'2em'}}>SIGNED IN AS:  {user.username}</p>
+                        <IconButton
+                            onClick={openShoppingCart}
+                            style={{color:'white', paddingRight:'2em'}}
+                        >
+                            <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
+                            <ShoppingCartOutlinedIcon/>
+                        </IconButton>
+                        {/* <div className="cursor-pointer duration-200 hover:text-red-500 absolute right-8 dark:text-slate-400 dark:hover:text-slate-200"> */}
+                        <IconButton style={{color:"white"}} onClick={() => setDarkMode(!darkMode)}>
+                            {darkMode ? <LightModeIcon/> : <DarkModeIcon/> }
+                        </IconButton>
+                            {/* <button onClick={() => setDarkMode(!darkMode)} >
+                                {darkMode ? 
+                                    <IconButton>
+                                        <LightModeIcon/>
+                                    </IconButton>
+                                     : 
+                                    <IconButton>
+                                        <DarkModeIcon />
+                                    </IconButton>
+                                    }
+                            </button> */}
+                    </Box> : null}
                 </Toolbar>
             </Container>
         </AppBar>

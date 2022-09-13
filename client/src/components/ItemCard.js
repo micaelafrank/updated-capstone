@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'; 
-import FavoriteIcon from '@mui/icons-material/Favorite'; 
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Card from '@mui/material/Card';
 import Carousel from 'react-material-ui-carousel'
@@ -36,12 +36,12 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
     const [descriptionState, setDescriptionState] = useState("");
     const [editDescriptionState, setEditDescriptionState] = useState(false);
     const [initialDescriptionValue, setInitialDescriptionValue] = useState(description);
+    const [isHearted, setIsHearted] = useState(false);
 
-    
     let handleEditDescription = () => {
         setEditDescriptionState(!editDescriptionState);
         if (descriptionState !== "") {
-            fetch(`/items/${id}`, {
+            fetch(`/api/items/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -51,15 +51,16 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
                     id: item.id,
                 }),
             })
-            .then((resp) => resp.json())
-            .then((data) => setInitialDescriptionValue(data.description));
-        }};
+                .then((resp) => resp.json())
+                .then((data) => setInitialDescriptionValue(data.description));
+        }
+    };
 
 
     let handleEditItemName = () => {
         setEditNameState(!editNameState);
         if (itemNameState !== "") {
-            fetch(`/items/${id}`, {
+            fetch(`/api/items/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -69,15 +70,16 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
                     id: item.id,
                 }),
             })
-            .then((resp) => resp.json())
-            .then((data) => setInitialItemNameValue(data.itemname));
-        }};
+                .then((resp) => resp.json())
+                .then((data) => setInitialItemNameValue(data.itemname));
+        }
+    };
 
 
     let handleEditPrice = () => {
         setEditPriceState(!editPriceState);
         if (priceState !== 0) {
-            fetch(`/items/${id}`, {
+            fetch(`/api/items/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -89,30 +91,32 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
             })
             .then((resp) => resp.json())
             .then((data) => setInitialPriceValue(data.price));
-        }};
+        }
+    };
 
 
-        let handleUndoHeart = () => {
+    let handleUndoHeart = () => {
         setEditHeartState(!editHeartState);
         if (editHeartState !== true) {
-            fetch(`/edit_heart/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                clickedHeart: false,
-                id: id,
-            }),
-        })
-            .then((resp) => resp.json())
-            .then(data => setInitialHeartValue(data.clickedHeart));
-        deleteSavedItem();
-    }}
+            fetch(`/api/edit_heart/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    clickedHeart: false,
+                    id: id,
+                }),
+            })
+                .then((resp) => resp.json())
+                .then(data => setInitialHeartValue(data.clickedHeart));
+            deleteSavedItem();
+        }
+    }
 
 
     function deleteSavedItem() {
-        fetch("/unlike_item/" + item_id, {
+        fetch("/api/unlike_item/" + item_id, {
             method: "DELETE",
         })
     }
@@ -135,7 +139,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
     //     fetch("/unlike_item/" + item.id, {
     //         method: "DELETE",
     //     })
-        // deleteFavorite(item_id);
+    // deleteFavorite(item_id);
     //}
 
 
@@ -147,7 +151,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
         }
         console.log(newCartItem)
         // const cartItem = item
-        fetch("/addtocart", {
+        fetch("/api/addtocart", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -161,7 +165,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
 
 
     function handleFillHeart() {
-        fetch("/save", {
+        fetch("/api/save", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -169,17 +173,16 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
             body: JSON.stringify({
                 user_likes_container_id: user.user_likes_container.id,
                 item_id: item.id,
-                isHearted: true,
             }),
         })
-        .then(res => res.json())
-        .then(setChange(!change))
-    editItemHeart();
+            .then(res => res.json())
+            .then(setChange(!change))
+        editItemHeart();
     }
 
-    function editItemHeart(){
+    function editItemHeart() {
         setEditHeartState(!editHeartState);
-        fetch(`/edit_heart/${id}`, {
+        fetch(`/api/edit_heart/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -189,8 +192,9 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
                 id: id,
             }),
         })
-        .then((res) => res.json())
-        .then(data => setInitialHeartValue(data.clickedHeart));
+            .then((res) => res.json())
+            .then(data => setInitialHeartValue(data.clickedHeart));
+        setIsHearted(isSaved => (!isSaved));
     }
 
     // function renderSavedItem() {
@@ -208,14 +212,15 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
     //     })
     //         .then(res => res.json())
     //         .then(setChange(!change))}
-        // .then(addFavorite);
+    // .then(addFavorite);
+
 
 
     let handleCartClick = () => {
         // setInCart(inCart => (!inCart));
         // setWasClicked(wasClicked => (!wasClicked));
         setEditCartState(!editCartState);
-        fetch(`/edit_cart/${id}`, {
+        fetch(`/api/edit_cart/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -227,20 +232,40 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
         })
         .then((resp) => resp.json())
         .then(data => setInitialCartValue(data.inCartIcon));
+        renderUserCartItem();
+    }
+
+    function renderUserCartItem() {
+        console.log(user)
+        const newItemToAdd = {
+            user_cart_id: user.user_cart.id,
+            item_id: item.id,
+        }
+        console.log(newItemToAdd)
+        // const cartItem = item
+        fetch("/api/addtocart", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newItemToAdd),
+        })
+            .then(res => res.json())
+            .then(setChange(!change))
     }
 
 
     function handleDelete(id) {
-        fetch(`/items/${id}`, {
+        fetch(`/api/items/${id}`, {
             method: "DELETE",
         })
-        .then((res) => res.json())
-            .then(data => setItems(items.filter((item) => item.id !== id)))        
+            .then((res) => res.json())
+            .then(data => setItems(items.filter((item) => item.id !== id)))
     }
 
 
     return (
-        <Card sx={{border: "1px solid black"}}>
+        <Card sx={{ border: "1px solid black" }}>
             {/* <Carousel
                 component = "img"
                 alt="random" 
@@ -250,7 +275,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
             </Carousel> */}
             <CardMedia
                 component="img"
-                sx={{maxHeight:"300"}}
+                sx={{ maxHeight: "300" }}
                 image={images_url}
             />
             <CardContent sx={{ flexGrow: 1 }}>
@@ -270,13 +295,13 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
                         </div>
                     ) : (
                         <div>
-                                <span>{initialItemNameValue}</span>
+                            <span>{initialItemNameValue}</span>
                         </div>
                     )}
                 </Typography>
-                <div style={{display: "flex", alignItems: "center"}}>
+                <div style={{ display: "flex", alignItems: "center" }}>
                     <SellOutlinedIcon style={{ paddingRight: "4px" }} />
-                    <div style={{ paddingRight: "14px" }}> 
+                    <div style={{ paddingRight: "14px" }}>
                         {editPriceState ? (
                             <div>
                                 <textarea
@@ -293,7 +318,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
                     </div>
                     {user.id === item.user_id ?
                         <Fab className="fab-edit" size="small" aria-label="edit">
-                            <EditIcon onClick={handleEditPrice} sx={{color: editPriceState ? "green" : null}}/>
+                            <EditIcon onClick={handleEditPrice} sx={{ color: editPriceState ? "green" : null }} />
                         </Fab>
                         : null}
                 </div>
@@ -317,37 +342,37 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
                         </div>
                     )}
                 </Typography>
-                <Typography sx={{fontSize:"14px", color:"#465C8B", fontWeight:"bold", paddingTop:"10px"}}>
+                <Typography sx={{ fontSize: "14px", color: "#465C8B", fontWeight: "bold", paddingTop: "10px" }}>
                     Sold by: {sold_by}
                 </Typography>
             </CardContent>
             <CardActions>
                 {/* <Button size="small">View</Button>
                 <Button size="small">Edit</Button> */}
-                {user.id === item.user_id ? null : 
-                    <IconButton 
+                {user.id === item.user_id ? null :
+                    <IconButton
                         onClick={initialHeartValue ? handleUndoHeart : handleFillHeart}
                         defaultValue={initialHeartValue}
                     >
                         {initialHeartValue ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
-                    }
+                }
                 {user.id === item.user_id ?
                     <IconButton aria-label="delete"
                         onClick={() => {
-                            <Alert severity="warning" variant="outlined"
+                            <p severity="warning" variant="outlined"
                                 onClick={handleDelete}
-                                onClose={() => { }}>Are you sure you want to delete this item? This cannot be undone.
-                            </Alert>
+                                onClose={() => { }}>alert('Are you sure you want to delete this item? This cannot be undone.')
+                            </p>
                         }}>
                         <DeleteIcon />
                     </IconButton> : null}
                 {user.id === item.user_id ? null :
-                    <IconButton 
-                        onClick={initialCartValue ? 
-                        () => alert('View your cart to delete an item')
-                        : renderUserCartItem} 
-                        sx={{pointerEvents: initialCartValue ? "none" : null}}
+                    <IconButton
+                        onClick={initialCartValue ?
+                            () => alert('View your cart to delete an item')
+                            : renderUserCartItem}
+                        sx={{ pointerEvents: initialCartValue ? "none" : null }}
                         defaultValue={initialCartValue}
                     >
                         {initialCartValue ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
@@ -360,6 +385,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
                     : null} */}
             </CardActions>
         </Card>
-)}
+    )
+}
 
 export default ItemCard;

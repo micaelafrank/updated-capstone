@@ -20,50 +20,42 @@ import Typography from '@mui/material/Typography';
 //     </Stack>
 // }
 
-function ItemsList({ user, change, addNewSave, inCart, setInCart, setWasClicked, wasClicked, deleteFavorite, removeLike, addFavorite, items, setItems, handleUndoHeart, handleFavoriteClick, setChange,toggleFavorite, item, id, uniqueLikes, editHeartState, setEditHeartState }) {
+function ItemsList({ user, change, addNewSave, inCart, setInCart, setWasClicked, wasClicked, deleteFavorite, removeLike, addFavorite, items, setItems, handleUndoHeart, handleFavoriteClick, setChange, toggleFavorite, item, id, uniqueLikes, editHeartState, setEditHeartState }) {
     const theme = createTheme();
 
-    useEffect(() => {
-        fetch("/items")
-            .then((r) => r.json())
-            .then(data => { setItems(data) })
-    }, [])
-    console.log(items)
-
-
     const listOfItems = items.map((item) => {
-        return(
+        return (
             <ItemCard
-            key={item.id}
-            inCartIcon={item.inCartIcon}
-            id={item.id}
-            clickedHeart={item.clickedHeart}
-            item_id={item.id}
-            setInCart={setInCart}
-            removeLike={removeLike}
-            itemname={item.itemname}
-            price={item.price}
-            description={item.description}
-            material={item.material}
-            color={item.color}
-            size={item.size}
-            seller={item.sold_by}
-            item={item}
-            handleUndoHeart={handleUndoHeart}
-            user={user}
-            sold_by={item.sold_by}
-            user_id={item.user_id}
-            condition={item.condition}
-            isForSale={item.isForSale}
-            images_url={item.images_url}
-            change={change}
-            setChange={setChange}
-            items={items}
-            addNewSave={addNewSave}
+                key={item.id}
+                inCartIcon={item.inCartIcon}
+                id={item.id}
+                clickedHeart={item.clickedHeart}
+                item_id={item.id}
+                setInCart={setInCart}
+                removeLike={removeLike}
+                itemname={item.itemname}
+                price={item.price}
+                description={item.description}
+                material={item.material}
+                color={item.color}
+                size={item.size}
+                seller={item.sold_by}
+                item={item}
+                handleUndoHeart={handleUndoHeart}
+                user={user}
+                sold_by={item.sold_by}
+                user_id={item.user_id}
+                condition={item.condition}
+                isForSale={item.isForSale}
+                images_url={item.images_url}
+                change={change}
+                setChange={setChange}
+                items={items}
+                addNewSave={addNewSave}
             />
         )
     })
-    return(
+    return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <main>
@@ -97,7 +89,7 @@ function ItemsList({ user, change, addNewSave, inCart, setInCart, setWasClicked,
                             justifyContent="center"
                         >
                             <Button variant="contained" href="/sell">Sell something</Button>
-                            <Button variant="contained" href="/mylikes"> Shop saved items only</Button>
+                            <Button variant="contained" href="/mysaves"> Shop saved items only</Button>
                             {/* <Button variant="outlined">Secondary action</Button> */}
                         </Stack>
                     </Container>
@@ -113,9 +105,10 @@ function ItemsList({ user, change, addNewSave, inCart, setInCart, setWasClicked,
                         {/* ))} */}
                     </Grid>
                 </Container>
-            {/* <PaginationOutlined/> */}
-        </main>
-    </ThemeProvider>
-)}
+                {/* <PaginationOutlined/> */}
+            </main>
+        </ThemeProvider>
+    )
+}
 
 export default ItemsList;

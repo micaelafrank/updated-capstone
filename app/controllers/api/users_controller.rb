@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Api::UsersController < ApplicationController
     skip_before_action :authorize, only: :create
 
     #POST method for '/signup'
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     # end
 
     def newuser_params
-        params.permit(:firstname, :lastname, :email, :password, :username)
+        params.permit(:firstname, :lastname, :email, :password, :password_confirmation, :username)
     end
 end
 

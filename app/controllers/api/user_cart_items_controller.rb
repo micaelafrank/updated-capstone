@@ -1,4 +1,4 @@
-class UserCartItemsController < ApplicationController
+class Api::UserCartItemsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :cant_show_user_cart_items
 rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 

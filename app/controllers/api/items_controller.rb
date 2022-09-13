@@ -1,9 +1,9 @@
-class ItemsController < ApplicationController
+class Api::ItemsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :cant_show_item
 rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
     def index 
-        items = Item.all 
+        items = Item.all.order(:id)
         render json: items 
     end
 
@@ -27,8 +27,20 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
     def update
         item = find_item
-        new_heart = item.update!(item_params)
-        render json: new_heart, status: :ok
+
+        if params.has_key?(:price) then
+            item.update!(price: params[:price])
+        end
+
+        if params.has_key?(:itemname) then
+            item.update(itemname: params[:itemname])
+        end
+
+        if params.has_key?(:description) then
+            item.update(description: params[:description])
+        end
+
+        render json: item, status: :ok
     end
 
     def heart_change
@@ -42,7 +54,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     def cart_change
         item = find_item
         if params.has_key?(:inCartIcon) then
-            item.update(inCartIcon: params[:inCartIcon])
+            item.update!(inCartIcon: params[:inCartIcon])
         end
 
         render json: item, status: :ok
@@ -58,7 +70,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     private 
 
     def heart_params
-        params.require(:item).permit(:clickedHeart, :id)
+        params.require(:item).permit(:itemname, :clickedHeart, :inCartIcon, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
     end
 
     def cart_params

@@ -1,4 +1,4 @@
-class CheckoutController < ApplicationController
+class Api::CheckoutController < ApplicationController
     require 'stripe'
     Stripe.api_key = 'sk_test_51LNkyJFGyqtGlrO1xFLXrv098Qjj5z6vYskPgqIW4vEBcVYEs0Yz9HwDYXqcAH35QF8gJVn6GTr1vheHWr7j3PRE00uyVr0V6e'
 

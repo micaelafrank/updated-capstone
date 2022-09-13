@@ -1,4 +1,3 @@
-// import './App.css';
 import LogIn from './LogIn';
 import WithNav from './WithNav';
 import SignUp from './SignUp';
@@ -14,14 +13,17 @@ import SavedContainer from './SavedContainer';
 import StripeContainer from './StripeContainer';
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
-function App({ addFavorite, addNewSave, handleUndoHeart, setInCart, setWasClicked, wasClicked, inCart, deleteFavorite }) {
+function App() {
+  const storedDarkMode = JSON.parse(localStorage.getItem("DARK_MODE"));
+
   // setEditHeartState, editHeartState
   const [items, setItems] = useState([]);
   const [user, setUser] = useState({});
   const [change, setChange] = useState(false);
+  const [darkMode, setDarkMode] = useState(storedDarkMode)
 
   useEffect(() => {
-    fetch("/me").then((r) => {
+    fetch("/api/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user))
       }
@@ -29,33 +31,48 @@ function App({ addFavorite, addNewSave, handleUndoHeart, setInCart, setWasClicke
   }, [])
   console.log(user);
 
+  useEffect(() => {
+    fetch("/api/items")
+      .then((r) => r.json())
+      .then(data => { setItems(data) })
+  }, [])
+  console.log(items)
 
   function addNewItem(newItem) {
     setItems(...items, newItem)
   }
 
+
   // function addNewSave(newSave){
   //   setSavedItems(...savedItems, newSave)
   // }
 
+  useEffect(() => {
+    localStorage.setItem("DARK_MODE", darkMode);
+  }, [darkMode]);
+
 
   return (
-    <div>
+    <div className={darkMode ? "App dark" : "App"}>
+      <div className="h-auto dark:bg-slate-900" >
+
+    {/* <div> */}
       <Routes>
-          <Route path="/login" element={<LogIn user={user} setUser={setUser} />} />
-          <Route path="/signup" element={<SignUp user={user} setUser={setUser} />} />
-        <Route element={<WithNav user={user} setUser={setUser} />}>
-          <Route path="/" element={<Homepage user={user} setUser={setUser} />} />
+        <Route path="/login" element={<LogIn user={user} setUser={setUser} />} />
+        <Route path="/signup" element={<SignUp user={user} setUser={setUser} />} />
+          <Route element={<WithNav user={user} setUser={setUser} darkMode={darkMode} setDarkMode={setDarkMode} />}>
+          <Route path="/" element={<Homepage user={user} setUser={setUser} />} /> 
           <Route path="/profile" element={<Profile items={items} user={user} setUser={setUser} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/buy" element={<ItemsList change={change} items={items} setItems={setItems} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} items={items} />} />
-          <Route path="/mylikes" element={<SavedContainer setChange={setChange} change={change} user={user} />} />
+          <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} />
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}
         </Route>
       </Routes>
       {/* <Footer /> */}
+    </div>
     </div>
   )
 }

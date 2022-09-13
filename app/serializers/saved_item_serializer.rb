@@ -1,4 +1,4 @@
 class SavedItemSerializer < ActiveModel::Serializer
-  attributes :id, :item_id, :user_likes_container_id, :isHearted
+  attributes :id, :item_id, :user_likes_container_id
 
 end

@@ -1,4 +1,4 @@
-class UserLikesContainersController < ApplicationController
+class Api::UserLikesContainersController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :cant_show_favorite
 rescue_from ActiveRecord::RecordInvalid, with: :favorite_invalid
 
@@ -8,14 +8,14 @@ rescue_from ActiveRecord::RecordInvalid, with: :favorite_invalid
     end 
 
     def show 
-        cart = UserLikesContainer.find_by(user_id: @current_user.id)
+        likes = UserLikesContainer.find_by(user_id: @current_user.id)
         # cart = user.user_cart_items 
-        render json: cart
+        render json: likes
     end 
 
     def create 
         new_saves_container = UserLikesContainer.create!(user_id: @current_user.id)
-        render json: new_saves_container, status: :ok
+        render json: new_saves_container, status: :created
     end
 
     private 

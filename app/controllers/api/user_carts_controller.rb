@@ -1,4 +1,4 @@
-class UserCartsController < ApplicationController
+class Api::UserCartsController < ApplicationController
 rescue_from ActiveRecord::RecordNotFound, with: :cant_show_item
 rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
@@ -23,7 +23,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
     def create
         new_user_cart = UserCart.create!(user_id: @current_user.id)
-        render json: new_user_cart, status: :ok 
+        render json: new_user_cart, status: :created 
     end
 
     def update

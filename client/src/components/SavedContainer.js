@@ -6,17 +6,28 @@ import SavedItemCard from './SavedItemCard';
 function SavedContainer({ removeLike, setEditHeartState, editHeartState, inCart, setInCart, setWasClicked, change, setChange, handleUndoHeart, handleCartClick, addFavorite, deleteFavorite, items, isFavorite, setIsFavorite, user }) {
     const [savedItems, setSavedItems] = useState([]);
 
-    
-    function addFavorite(newFavorite) {
+    // function addFavorite(newFavorite) {
         // const updatedSavedList = items.filter((item) => item.id === newFavorite.id);
         // setSavedItems(updatedSavedList)
+    // }
+
+    const uniqueIds = [];
+    const uniqueSavedItems = savedItems.filter(savedCard => {
+        const isDuplicate = uniqueIds.includes(savedCard.item_id);
+
+        if (!isDuplicate) {
+            uniqueIds.push(savedCard.item_id);
+            return true;
+        }
+        return false;
     }
+    );
 
     useEffect(() => {
-        fetch("/mylikes")
+        fetch("/api/mysaves")
             .then((res) => res.json())
             .then((data) => setSavedItems(data.items));
-    }, [change]);
+    }, []);
     console.log("saved items:", savedItems)
 
 
@@ -26,47 +37,52 @@ function SavedContainer({ removeLike, setEditHeartState, editHeartState, inCart,
     }
 
 
-        // const reRenderHearts = savedItems.map((item) => item.id !== itemToUnsave.id)
-        // setSavedItems(reRenderHearts);
-    
+    // const reRenderHearts = savedItems.map((item) => item.id !== itemToUnsave.id)
+    // setSavedItems(reRenderHearts);
+
     // console.log(uniqueCartItems)
     return (
         <>
-            <div>{savedItems.map((savedItem) => {
+            <div>{uniqueSavedItems.map((savedCard) => {
                 return (
                     <SavedItemCard
-                        item={savedItem}
-                        getHeartStatus={savedItems.getHeartStatus}
-                        addFavorite={addFavorite}
-                        item_id={savedItem.item.id}
-                        key={savedItem.id}
-                        handleCartClick={handleCartClick}
-                        id={savedItem.id}
-                        isFavorite={isFavorite}
-                        handleUndoHeart={handleUndoHeart}
-                        setIsFavorite={setIsFavorite}
-                        price={savedItem.price}
-                        savedItems={savedItems}
-                        clickedHeart={savedItem.clickedHeart}
-                        itemname={savedItem.itemname}
-                        description={savedItem.description}
-                        material={savedItem.material}
-                        color={savedItem.color}
-                        size={savedItem.size}
-                        seller={savedItem.sold_by}
+                        savedCard={savedCard.item}
                         user={user}
-                        sold_by={savedItem.sold_by}
-                        user_id={savedItem.user_id}
-                        condition={savedItem.condition}
-                        isForSale={savedItem.isForSale}
-                        images_url={savedItem.images_url}
-                        change={change}
-                        setChange={setChange}
-                        setSavedItems={setSavedItems}
+                        images_url={savedCard.images_url}
+                        itemname={savedCard.itemname}
+                        price={savedCard.price}
+                        description={savedCard.description}
+                        seller={savedCard.sold_by}
+                        // getHeartStatus={savedItems.getHeartStatus}
+                        // addFavorite={addFavorite}
+                        // item_id={savedCard.item.id}
+                        // key={savedCard.id}
+                        // handleCartClick={handleCartClick}
+                        // id={savedCard.id}
+                        // isFavorite={isFavorite}
+                        // handleUndoHeart={handleUndoHeart}
+                        // setIsFavorite={setIsFavorite}
+                        // price={savedCard.price}
+                        // savedItems={savedItems}
+                        // clickedHeart={savedCard.clickedHeart}
+                        // itemname={savedCard.itemname}
+                        // description={savedCard.description}
+                        // material={savedCard.material}
+                        // color={savedCard.color}
+                        // size={savedCard.size}
+                        // seller={savedCard.sold_by}
+                        // user_id={savedCard.user_id}
+                        // condition={savedCard.condition}
+                        // isForSale={savedCard.isForSale}
+                        // images_url={savedCard.images_url}
+                        // change={change}
+                        // setChange={setChange}
+                        // setSavedItems={setSavedItems}
                     >
                     </SavedItemCard>
                 )
-            })}</div>        </>
+            })}</div>        
+        </>
     )
 };
 
