@@ -24,7 +24,7 @@ function CartItem({ cartItem, deleteItem, id }){
             <div className="col-5">
                 <div className="row d-flex" style={{ paddingLeft: "10em" }}>
                     <div className="book">
-                        <img src={cartItem.images_url} className="book-img" />
+                        <img src={cartItem.images_url} alt="blueberry-icecream-recipe1-1652730148.jpg" className="book-img" />
                     </div>
                     <div className="my-auto flex-column d-flex pad-left" style={{paddingLeft:"1em"}}>
                         <h6 className="mob-text">{cartItem.itemname}</h6>

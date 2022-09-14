@@ -9,21 +9,6 @@ function ShoppingCart({deleteItem, items, total, change, setChange, user}){
 
     console.log(cartItems[0])
 
-    useEffect(() => {
-        fetch("/api/mycart")
-            .then((r) => r.json())
-            .then(data => setCartItems(data.items))
-    }, [])
-
-
-    useEffect(() => {
-        let total = 0;
-        uniqueCartItems.map((item) => {
-            total += item.price
-        })
-        setAddedCartItems(total)
-    }, [cartItems])
-
     function togglePayment() {
         setShowCheckout(showCheckout => (!showCheckout));
     }
@@ -44,6 +29,21 @@ function ShoppingCart({deleteItem, items, total, change, setChange, user}){
         }
         return false;
     });
+    
+    useEffect(() => {
+        fetch("/api/mycart")
+            .then((r) => r.json())
+            .then(data => setCartItems(data.items))
+    }, [])
+    
+    useEffect(() => {
+        let total = 0;
+        uniqueCartItems.map((item) => {
+            total += item.price
+        })
+        setAddedCartItems(total)
+    }, [cartItems])
+
 
     return(
     <>
@@ -82,70 +82,56 @@ function ShoppingCart({deleteItem, items, total, change, setChange, user}){
                 )
             })}
             </div>
-        <div className="row justify-content-center">
-            <div className="col-lg-12">
-                <div className="card" style={{width:"70%"}}>
-                    <div className="row">
-                        <div className="col-lg-3 radio-group" style={{ display: 'flex', flexDirection: "row" }}>
-                            <div className="row d-flex px-3 radio">
-                                <img className="pay" src="https://i.imgur.com/WIAP9Ku.jpg"/>
+            {user.userCartItems >1 ? 
+            (<div className="row justify-content-center" style={{marginTop:"4em"}}>
+                <div className="col-lg-12">
+                    <div className="card" style={{ width: "65%", alignItems: "center", justifyContent:"space-evenly", margin: "auto" }}>
+                        <div className="row" style={{display:"flex", flexDirection:"row"}}>
+                            <div className="col-lg-3 radio-group" style={{ display: 'flex', flexDirection: "column", width:"25%", justifyContent:"left", marginLeft:"2em"}}>
+                                <div className="row d-flex px-3 radio" style={{display:"flex", flexDirection: "row", paddingTop:".7em"}}>
+                                    <img className="pay" src="https://i.imgur.com/WIAP9Ku.jpg" />
                                     <p className="my-auto">Credit Card</p>
-                            </div>
-                            <div className="row d-flex px-3 radio gray">
-                                <img className="pay" src="https://i.imgur.com/OdxcctP.jpg"/>
+                                </div>
+                                <div className="row d-flex px-3 radio gray" style={{display: "flex", flexDirection: "row", paddingTop: ".7em"}}>
+                                    <img className="pay" src="https://i.imgur.com/OdxcctP.jpg"/>
                                     <p className="my-auto">Debit Card</p>
-                            </div>
-                            <div className="row d-flex px-3 radio gray mb-3">
-                                <img className="pay" src="https://i.imgur.com/cMk1MtK.jpg"/>
+                                </div>
+                                <div className="row d-flex px-3 radio gray" style={{ display: "flex", flexDirection: "row", paddingTop: ".7em"}}>
+                                    <img className="pay" src="https://i.imgur.com/cMk1MtK.jpg" />
                                     <p className="my-auto">PayPal</p>
-                            </div>
-                        </div>
-                        <div className="col-lg-5">
-                            <div className="row px-2">
-                                <div className="form-group col-md-6">
-                                    <label className="form-control-label">Name on Card</label>
-                                    <input type="text" id="cname" name="cname" placeholder="Johnny Doe"/>
-                                </div>
-                                <div className="form-group col-md-6">
-                                    <label className="form-control-label">Card Number</label>
-                                    <input type="text" id="cnum" name="cnum" placeholder="1111 2222 3333 4444"/>
                                 </div>
                             </div>
-                            <div className="row px-2">
-                                <div className="form-group col-md-6">
-                                    <label className="form-control-label">Expiration Date</label>
-                                    <input type="text" id="exp" name="exp" placeholder="MM/YYYY"/>
+                            <div className="col-lg-5" style={{ display: 'flex', flexDirection: 'row' }} >
+                                <div className="row px-2" style={{ display: 'flex', flexDirection: 'column', paddingTop:".7em", justifyContent:"left"}}>
+                                    <div className="form-group col-md-6" style={{padding:"10px", width: "60%", paddingLeft:".7em" }}>
+                                        <label className="form-control-label">Name on Card</label>
+                                        <input style={{marginTop:"10px"}} type="text" id="cname" name="cname" placeholder="Johnny Doe"/>
+                                    </div>
+                                    <div className="form-group col-md-6" style={{ padding: "10px", width: "60%" }}>
+                                        <label className="form-control-label">Card Number</label>
+                                        <input style={{ marginTop: "10px" }} type="text" id="cnum" name="cnum" placeholder="1111 2222 3333 4444"/>
+                                    </div>
                                 </div>
-                                <div className="form-group col-md-6">
-                                    <label className="form-control-label">CVV</label>
-                                    <input type="text" id="cvv" name="cvv" placeholder="***"/>
+                                <div className="row px-2" style={{ display: 'flex', flexDirection: 'column', paddingTop: ".7em", justifyContent:"left" }}>
+                                    <div className="form-group col-md-6" style={{ padding: "10px", width: "60%" }}>
+                                        <label className="form-control-label">Expiration Date</label>
+                                        <input style={{ marginTop: "10px" }} type="text" id="exp" name="exp" placeholder="MM/YYYY"/>
+                                    </div>
+                                    <div className="form-group col-md-6" style={{ padding: "10px", width: "60%" }}>
+                                        <label className="form-control-label">CVV</label>
+                                        <input style={{ marginTop: "10px" }} type="text" id="cvv" name="cvv" placeholder="***"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-lg-4 mt-2">
-                            <div className="row d-flex justify-content-between px-4">
-                                <p className="mb-1 text-left">Subtotal</p>
-                                <h6 className="mb-1 text-right">$23.49</h6>
+                            <div className="col-lg-4 mt-2" style={{ width:"20%", display: "flex", flexDirection: "column", margin: "0" }}>
+                                <h5>Subtotal: {addedCartItems}</h5>
+                                <h6 style={{margin:"1em 1em 1em 0"}}>Shipping: 3.99 (Flat fee)</h6>
+                                <button style={{ padding:"10px", width:"60%"}} className="btn-block btn-blue" id="checkout">Checkout</button>
                             </div>
-                            <div className="row d-flex justify-content-between px-4">
-                                <p className="mb-1 text-left">Shipping</p>
-                                <h6 className="mb-1 text-right">$2.99</h6>
-                            </div>
-                            <div className="row d-flex justify-content-between px-4" id="tax">
-                                <p className="mb-1 text-left">Total (tax included)</p>
-                                <h6 className="mb-1 text-right">$26.48</h6>
-                            </div>
-                            <button className="btn-block btn-blue">
-                                <span>
-                                    <span id="checkout">Checkout</span>
-                                    <span id="check-amt">$26.48</span>
-                                </span>
-                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div>) : null}
         </div>
     </>
 )}
