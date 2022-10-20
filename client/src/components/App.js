@@ -21,6 +21,17 @@ function App() {
   const [user, setUser] = useState({});
   const [change, setChange] = useState(false);
   const [darkMode, setDarkMode] = useState(storedDarkMode)
+  const [likedList, setLikedList] = useState([]);
+
+
+  // useEffect(() => {
+  //   fetch("/api/mysaves")
+  //     .then((res) => res.json())
+  //     .then((data) => setLikedList(data));
+  // }, []);
+  // console.log("saved items:", likedList)
+
+
 
   useEffect(() => {
     fetch("/api/me").then((r) => {
@@ -64,9 +75,9 @@ function App() {
           <Route path="/" element={<Homepage user={user} setUser={setUser} />} /> 
           <Route path="/profile" element={<Profile items={items} user={user} setUser={setUser} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList change={change} items={items} setItems={setItems} setChange={setChange} user={user} />} />
+          <Route path="/buy" element={<ItemsList likedList={likedList} setLikedList={setLikedList} change={change} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} items={items} />} />
-          <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} />
+          {/* <Route path="/mylikes" element={<SavedContainer likedList={likedList} setLikedList={setLikedList} setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}
         </Route>

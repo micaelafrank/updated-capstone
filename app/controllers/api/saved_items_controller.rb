@@ -12,15 +12,11 @@ class Api::SavedItemsController < ApplicationController
         render json: item
     end
 
+
     def create 
         liked = SavedItem.create!(saveditem_params)
         render json: liked, status: :created
     end
-
-    # def update
-    #     liked = @item.update!(save_params)
-    #     render json: liked, status: :updated
-    # end
 
     def destroy
         saved = SavedItem.find(params[:id]).destroy
@@ -30,7 +26,7 @@ class Api::SavedItemsController < ApplicationController
     private
 
     def saveditem_params
-        params.permit(:item_id, :id, :user_likes_container_id)
+        params.permit(:item_id, :id, :user_likes_container_id, :heartIcon)
     end
 
     def cant_show_favorite 

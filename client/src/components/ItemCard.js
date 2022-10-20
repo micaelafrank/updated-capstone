@@ -16,27 +16,27 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { darkScrollbar } from '@mui/material';
-
+import SavedItemCard from './SavedItemCard';
 // import SavedContainer from './SavedContainer';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavorite, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
 
+function ItemCard({ likedList, userFavorites, setLikedList, sItemId, sItem_item_id, sItem_heartIcon, saved_item_id, handleHeartClick, savedItem, sold_by, heartIcon, deleteFavorite, inCartIcon, item_id, item, addFavorite, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
     const [itemNameState, setItemNameState] = useState("");
     const [editNameState, setEditNameState] = useState(false);
     const [initialItemNameValue, setInitialItemNameValue] = useState(itemname);
-    const [initialHeartValue, setInitialHeartValue] = useState(clickedHeart);
+    const [initialHeartValue, setInitialHeartValue] = useState(sItem_heartIcon);
     const [editHeartState, setEditHeartState] = useState(false);
     const [initialCartValue, setInitialCartValue] = useState(inCartIcon);
     const [editCartState, setEditCartState] = useState(false);
     const [descriptionState, setDescriptionState] = useState("");
     const [editDescriptionState, setEditDescriptionState] = useState(false);
     const [initialDescriptionValue, setInitialDescriptionValue] = useState(description);
-    const [isHearted, setIsHearted] = useState(false);
+    const [liked, setLiked] = useState(false);
     const [isAddedCart, setIsAddedCart] = useState(false);
 
 
@@ -107,7 +107,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
                 },
                 body: JSON.stringify({
                     clickedHeart: false,
-                    id: id,
+                    item_id: item.id,
                 }),
             })
                 .then((resp) => resp.json())
@@ -131,7 +131,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
         console.log(user)
         const newCartItem = {
             user_cart_id: user.user_cart.id,
-            item_id: item.id,
+            id: id,
         }
         console.log(newCartItem)
         // const cartItem = item
@@ -147,9 +147,9 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
         handleCartClick();
     }
 
-
     function handleFillHeart() {
-        fetch("/api/save", {
+        setEditHeartState(!editHeartState);
+        fetch(`/api/save/${item_id}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -157,29 +157,51 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
             body: JSON.stringify({
                 user_likes_container_id: user.user_likes_container.id,
                 item_id: item.id,
+                heartIcon: true,
             }),
         })
-            .then(res => res.json())
-            .then(setChange(!change))
-        editItemHeart();
+        .then((res) => res.json())
+        .then((res) => {return res})
+        setLikedList([...likedList, item])
+        setLiked(true)
     }
 
-    function editItemHeart() {
-        setEditHeartState(!editHeartState);
-        fetch(`/api/edit_heart/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                clickedHeart: true,
-                id: id,
-            }),
-        })
-            .then((res) => res.json())
-            .then(data => setInitialHeartValue(data.clickedHeart));
-        setIsHearted(isSaved => (!isSaved));
-    }
+    // function editItemHeart() {
+    //     fetch(`/api/edit_heart/${item_id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             item_id: item.id,
+    //             user_likes_container_id: user.user_likes_container.id,
+    //             clickedHeart: true,
+    //         }),
+    //     })
+    //         .then(res => res.json())
+    //         .then(data => console.log("heart:", data.clickedHeart))
+            // .then(data => setIsHearted(data.clickedHeart));
+        // setChange(!change); 
+        // editItemHeart();
+    // }
+
+
+
+    // function editItemHeart() {
+    //     setEditHeartState(!editHeartState);
+    //     fetch(`/api/edit_heart/${id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             id: id,
+    //         }),
+    //     })
+    //         .then((res) => res.json())
+    //         .then(data => setInitialHeartValue(data.heartIcon));
+    //     setIsHearted(isSaved => (!isSaved));
+    // }
 
 
     let handleCartClick = () => {
@@ -191,7 +213,7 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
             },
             body: JSON.stringify({
                 inCartIcon: true,
-                id: item.id,
+                id: id,
             }),
         })
         .then((resp) => resp.json())
@@ -199,25 +221,25 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
         setIsAddedCart(isAddedCart => (!isAddedCart))
     }
 
-    function renderUserCartItem() {
-        console.log(user)
-        const newItemToAdd = {
-            user_cart_id: user.user_cart.id,
-            item_id: item.id,
-        }
-        console.log(newItemToAdd)
-        // const cartItem = item
-        fetch("/api/addtocart", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newItemToAdd),
-        })
-        .then(res => res.json())
-        .then(setChange(!change))
-        handleCartClick();
-    }
+    // function renderUserCartItem() {
+    //     console.log(user)
+    //     const newItemToAdd = {
+    //         user_cart_id: user.user_cart.id,
+    //         item_id: item.id,
+    //     }
+    //     console.log(newItemToAdd)
+    //     // const cartItem = item
+    //     fetch("/api/addtocart", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(newItemToAdd),
+    //     })
+    //     .then(res => res.json())
+    //     .then(setChange(!change))
+    //     handleCartClick();
+    // }
 
 
     function handleDelete(id) {
@@ -315,12 +337,21 @@ function ItemCard({ sold_by, deleteFavorite, inCartIcon, item_id, item, addFavor
                 {/* <Button size="small">View</Button>
                 <Button size="small">Edit</Button> */}
                 {user.id === item.user_id ? null :
-                    <IconButton
-                        onClick={initialHeartValue ? handleUndoHeart : handleFillHeart}
-                        defaultValue={initialHeartValue}
-                    >
-                        {initialHeartValue ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                    </IconButton>
+                    // <SavedItemCard handleHeartClick={handleHeartClick} />
+                    // (user.saved_items.item_ids.includes(item.id)) ?
+                        (<IconButton
+                            onClick={liked ? handleUndoHeart : handleFillHeart}
+                            defaultValue={liked}
+                        >
+                            {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                        </IconButton>)
+                    //     :
+                    //     (<IconButton
+                    //     onClick={initialHeartValue ? handleUndoHeart : handleFillHeart}
+                    //     defaultValue={initialHeartValue}
+                    //     >
+                    // {initialHeartValue ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    // </IconButton>)
                 }
                 {user.id === item.user_id ?
                     <IconButton aria-label="delete"

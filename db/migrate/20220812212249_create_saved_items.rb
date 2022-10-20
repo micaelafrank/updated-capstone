@@ -3,6 +3,7 @@ class CreateSavedItems < ActiveRecord::Migration[7.0]
     create_table :saved_items do |t|
       t.integer :user_likes_container_id 
       t.integer :item_id 
+      t.boolean :heartIcon, default: false
       t.timestamps
     end
   end

@@ -70,7 +70,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     private 
 
     def heart_params
-        params.require(:item).permit(:itemname, :clickedHeart, :inCartIcon, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
+        params.require(:item).permit(:itemname, :inCartIcon, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
     end
 
     def cart_params

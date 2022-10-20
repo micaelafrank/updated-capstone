@@ -11,6 +11,8 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+// import SavedContainer from './SavedContainer';
+// import SavedItemCard from './SavedItemCard';
 // import Pagination from '@mui/material/Pagination';
 
 
@@ -20,13 +22,35 @@ import Typography from '@mui/material/Typography';
 //     </Stack>
 // }
 
-function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked, deleteFavorite, removeLike, addFavorite, items, setItems, handleUndoHeart, handleFavoriteClick, setChange, toggleFavorite, item, id, uniqueLikes, editHeartState, setEditHeartState }) {
+function ItemsList({ likedList, setLikedList, sItem_heartIcon, isHearted, setIsHearted, savedItemId, user, change, addNewSave, inCart, setWasClicked, wasClicked, deleteFavorite, removeLike, addFavorite, handleUndoHeart, handleFavoriteClick, setChange, toggleFavorite, item, id, uniqueLikes, editHeartState, setEditHeartState }) {
+    const [items, setItems] = useState([]);
+    const [favorites, setFavorites] = useState([]);
     const theme = createTheme();
+
+    useEffect(() => {
+        fetch("/api/favorites")
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setFavorites(data);
+            });
+    }, []);
+
+
+    useEffect(() => {
+        fetch("/api/items")
+            .then((r) => r.json())
+            .then(data => { setItems(data) })
+    }, [])
+    console.log(items)
+
+
 
     const listOfItems = items.map((item) => {
         return (
             <ItemCard
                 key={item.id}
+                liked={item.liked}
                 inCartIcon={item.inCartIcon}
                 id={item.id}
                 clickedHeart={item.clickedHeart}
@@ -41,6 +65,7 @@ function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked
                 size={item.size}
                 seller={item.sold_by}
                 item={item}
+                // savedItem={savedItem}
                 handleUndoHeart={handleUndoHeart}
                 user={user}
                 sold_by={item.sold_by}
@@ -51,8 +76,13 @@ function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked
                 change={change}
                 setChange={setChange}
                 items={items}
+                // setSavedItems={setSavedItems}
+                // savedItems={savedItems}
+                // sItem_heartIcon={sItem_heartIcon}
+                // isHearted={isHearted}
+                // setIsHearted={setIsHearted}
                 addNewSave={addNewSave}
-            />
+                likedList={likedList} setLikedList={setLikedList}            />
         )
     })
     return (
@@ -105,6 +135,7 @@ function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked
                         {/* ))} */}
                     </Grid>
                 </Container>
+                {/* <SavedContainer /> */}
                 {/* <PaginationOutlined/> */}
             </main>
         </ThemeProvider>
