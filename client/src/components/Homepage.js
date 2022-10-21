@@ -90,7 +90,7 @@ export default function SignInSide({ user, setUser, darkMode, setDarkMode }) {
                         </Typography>
                         <Typography component="h1" variant="h5"
                             sx={{ paddingTop: '15px', paddingBottom: '5px', textAlign: "center", fontSize:"23px" }}>
-                            Communal marketplace of bits and masterpieces sold, bought, and made by creatives.                       
+                            Communal marketplace with a lot of depth to it. Bits and masterpieces sold, bought, and made by cubers and creatives.                       
                         </Typography>
                         <Typography component="h1" variant="h5"
                             sx={{ paddingBottom: '55px', paddingTop:"25px", textAlign: "center", fontSize:"21px"}}>

@@ -50,7 +50,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                             fontFamily: 'monospace',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
-                            color: 'inherit',
+                            color: 'violet',
                             textDecoration: 'none',
                         }}
                     >
@@ -155,7 +155,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                         <p style={{paddingRight:'2em'}}>SIGNED IN AS:  {user.username}</p>
                         <IconButton
                             onClick={openShoppingCart}
-                            style={{color:'white', paddingRight:'2em'}}
+                            style={{color:'white', marginRight:'2em'}}
                         >
                             <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
                             <ShoppingCartIcon/>
