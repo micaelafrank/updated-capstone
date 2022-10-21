@@ -15,12 +15,12 @@ import StripeContainer from './StripeContainer';
 
 function App() {
   const storedDarkMode = JSON.parse(localStorage.getItem("DARK_MODE"));
-
-  // setEditHeartState, editHeartState
   const [items, setItems] = useState([]);
   const [user, setUser] = useState({});
   const [change, setChange] = useState(false);
-  const [darkMode, setDarkMode] = useState(storedDarkMode)
+  const [darkMode, setDarkMode] = useState(storedDarkMode);
+  const [favorites, setFavorites] = useState([]);
+
 
   useEffect(() => {
     fetch("/api/me").then((r) => {
@@ -35,17 +35,56 @@ function App() {
     fetch("/api/items")
       .then((r) => r.json())
       .then(data => { setItems(data) })
-  }, [])
+  }, [favorites])
   console.log(items)
+
+
+  useEffect(() => {
+    fetch("/api/mysaves")
+      .then((r) => r.json())
+      .then(data => {setFavorites(data.saved_items)})
+  }, [])
+  console.log("my favorites: ", favorites)
+
+
+//   const uniqueSaves = [];
+
+//   const uniqueSavedItems = favorites.filter((favorite) => {
+//     const isDuplicate = uniqueSaves.includes(favorite.item_id);
+
+//       if (!isDuplicate) {
+//         uniqueSaves.push(favorite.id);
+//       return true;
+//   }
+//   return false;
+// })
+
+
+  function addCartItem(item){
+    console.log("return item")
+  }
+
+  function deleteFavorite(id) {
+    const updatedList = favorites.filter((item) => item.id !== id);
+    setFavorites(updatedList);
+  }
+
+  function clearAllFavorites(){
+    setFavorites([]);
+  }
+
+
+  function addNewFavorite(newItem) {
+    const updatedList = ([...favorites, newItem]);
+    setFavorites(updatedList);
+  }
+
+
 
   function addNewItem(newItem) {
     setItems(...items, newItem)
   }
 
-
-  // function addNewSave(newSave){
-  //   setSavedItems(...savedItems, newSave)
-  // }
 
   useEffect(() => {
     localStorage.setItem("DARK_MODE", darkMode);
@@ -64,9 +103,9 @@ function App() {
           <Route path="/" element={<Homepage user={user} setUser={setUser} />} /> 
           <Route path="/profile" element={<Profile items={items} user={user} setUser={setUser} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList change={change} items={items} setItems={setItems} setChange={setChange} user={user} />} />
+          <Route path="/buy" element={<ItemsList clearAllFavorites={clearAllFavorites} addCartItem={addCartItem} deleteFavorite={deleteFavorite} favorites={favorites} setFavorites={setFavorites} addNewFavorite={addNewFavorite} change={change} items={items} setItems={setItems} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} items={items} />} />
-          <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} />
+          {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}
         </Route>

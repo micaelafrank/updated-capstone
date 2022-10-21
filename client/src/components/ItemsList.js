@@ -20,7 +20,7 @@ import Typography from '@mui/material/Typography';
 //     </Stack>
 // }
 
-function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked, deleteFavorite, removeLike, addFavorite, items, setItems, handleUndoHeart, handleFavoriteClick, setChange, toggleFavorite, item, id, uniqueLikes, editHeartState, setEditHeartState }) {
+function ItemsList({ addCartItem, clearAllFavorites, addNewFavorite, favorites, setChange, setFavorites, user, change, deleteFavorite, removeLike, items, setItems }) {
     const theme = createTheme();
 
     const listOfItems = items.map((item) => {
@@ -31,7 +31,6 @@ function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked
                 id={item.id}
                 clickedHeart={item.clickedHeart}
                 item_id={item.id}
-                // setInCart={setInCart}
                 removeLike={removeLike}
                 itemname={item.itemname}
                 price={item.price}
@@ -41,7 +40,7 @@ function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked
                 size={item.size}
                 seller={item.sold_by}
                 item={item}
-                handleUndoHeart={handleUndoHeart}
+                addNewFavorite={addNewFavorite}
                 user={user}
                 sold_by={item.sold_by}
                 user_id={item.user_id}
@@ -50,11 +49,23 @@ function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked
                 images_url={item.images_url}
                 change={change}
                 setChange={setChange}
+                deleteFavorite={deleteFavorite}
+                favorites={favorites}
+                setFavorites={setFavorites}
                 items={items}
-                addNewSave={addNewSave}
+                addCartItem={addCartItem}
+                clearAllFavorites={clearAllFavorites}
             />
         )
     })
+
+        function deleteSaves(){
+            fetch("/api/emptysaves", {
+                method: "DELETE",
+            })
+            clearAllFavorites();
+        }
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -75,12 +86,10 @@ function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked
                             color="text.primary"
                             gutterBottom
                         >
-                            Album layout
+                            SHOP
                         </Typography>
                         <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                            Something short and leading about the collection below—its contents,
-                            the creator, etc. Make it short and sweet, but not too short so folks
-                            don&apos;t simply skip over it entirely.
+                            Explore all available items. 
                         </Typography>
                         <Stack
                             sx={{ pt: 4 }}
@@ -90,7 +99,7 @@ function ItemsList({ user, change, addNewSave, inCart, setWasClicked, wasClicked
                         >
                             <Button variant="contained" href="/sell">Sell something</Button>
                             <Button variant="contained" href="/mysaves"> Shop saved items only</Button>
-                            {/* <Button variant="outlined">Secondary action</Button> */}
+                            <Button variant="contained" onClick={deleteSaves}> Remove all saved items</Button>
                         </Stack>
                     </Container>
                 </Box>

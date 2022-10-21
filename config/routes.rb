@@ -37,9 +37,10 @@ Rails.application.routes.draw do
     post "/create-payment-intent", to: "checkout#create_payment_intent"
     get "/mysaves", to: "user_likes_containers#show"
     post "/save", to: "saved_items#create"
-    delete "/unlike_item/:item_id", to: "saved_items#destroy"
+    delete "/unlike_item", to: "saved_items#destroy"
     patch "/edit_heart/:id", to: "items#heart_change"
     patch "/edit_cart/:id", to: "items#cart_change"
+    delete "/emptysaves", to: "saved_items#emptycart"
   end
     # patch "items/heart_change/:id", to: "items#heart_change"
     # post "/create_container", to: "user_likes_container#create"

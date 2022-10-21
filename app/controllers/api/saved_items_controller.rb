@@ -12,25 +12,41 @@ class Api::SavedItemsController < ApplicationController
         render json: item
     end
 
-    def create 
-        liked = SavedItem.create!(saveditem_params)
+    def create
+        liked = SavedItem.find_or_create_by(saveditem_params) 
+        liked.save
         render json: liked, status: :created
     end
 
-    # def update
-    #     liked = @item.update!(save_params)
-    #     render json: liked, status: :updated
-    # end
+    def emptycart
+        likes = UserLikesContainer.find_by(user_id: @current_user.id)
+        my_likes = likes.saved_items
+        my_likes.each do |item|
+            item_one = item.item
+            item_one.destroy
+        end
+        my_likes.destroy_all
+        render json: likes
+        # myItems = UserCartItem.all 
+        # myItems.destroy_all 
+        # for item in myItems do 
+        #     item = UserCartItem.find_by(item_id: params[:id])
+        #     item.destroy
+        # end
+        head :no_content
+    end 
+    
 
     def destroy
-        saved = SavedItem.find(params[:id]).destroy
+        likes = SavedItem.where(item_id: params[:item_id])
+        likes.destroy_all 
         head :no_content
     end
 
     private
 
     def saveditem_params
-        params.permit(:item_id, :id, :user_likes_container_id)
+        params.require(:saved_item).permit(:item_id, :user_likes_container_id)
     end
 
     def cant_show_favorite 
