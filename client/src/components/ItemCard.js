@@ -16,29 +16,24 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { darkScrollbar } from '@mui/material';
-import SavedItemCard from './SavedItemCard';
-// import SavedContainer from './SavedContainer';
-// import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-// import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 
-function ItemCard({ likedList, userFavorites, setLikedList, sItemId, sItem_item_id, sItem_heartIcon, saved_item_id, handleHeartClick, savedItem, sold_by, heartIcon, deleteFavorite, inCartIcon, item_id, item, addFavorite, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({  addNewSave, savedList, setSavedList, sold_by, heartIcon, inCartIcon, item_id, item, addFavorite, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
     const [itemNameState, setItemNameState] = useState("");
     const [editNameState, setEditNameState] = useState(false);
     const [initialItemNameValue, setInitialItemNameValue] = useState(itemname);
-    const [initialHeartValue, setInitialHeartValue] = useState(sItem_heartIcon);
-    const [editHeartState, setEditHeartState] = useState(false);
+    // const [initialHeartValue, setInitialHeartValue] = useState(sItem_heartIcon);
+    // const [editHeartState, setEditHeartState] = useState(false);
     const [initialCartValue, setInitialCartValue] = useState(inCartIcon);
     const [editCartState, setEditCartState] = useState(false);
     const [descriptionState, setDescriptionState] = useState("");
     const [editDescriptionState, setEditDescriptionState] = useState(false);
     const [initialDescriptionValue, setInitialDescriptionValue] = useState(description);
-    const [liked, setLiked] = useState(false);
     const [isAddedCart, setIsAddedCart] = useState(false);
-
+    const [liked, setLiked] = useState(savedList);
 
     let handleEditDescription = () => {
         setEditDescriptionState(!editDescriptionState);
@@ -97,31 +92,6 @@ function ItemCard({ likedList, userFavorites, setLikedList, sItemId, sItem_item_
     };
 
 
-    let handleUndoHeart = () => {
-        setEditHeartState(!editHeartState);
-        if (editHeartState !== true) {
-            fetch(`/api/edit_heart/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    clickedHeart: false,
-                    item_id: item.id,
-                }),
-            })
-                .then((resp) => resp.json())
-                .then(data => setInitialHeartValue(data.clickedHeart));
-            deleteSavedItem();
-        }
-    }
-
-
-    function deleteSavedItem() {
-        fetch("/api/unlike_item/" + item_id, {
-            method: "DELETE",
-        })
-    }
 
     function alreadyInCart() {
         <Alert key={'success'} variant={'success'}>This item is already in your cart</Alert>
@@ -147,9 +117,8 @@ function ItemCard({ likedList, userFavorites, setLikedList, sItemId, sItem_item_
         handleCartClick();
     }
 
-    function handleFillHeart() {
-        setEditHeartState(!editHeartState);
-        fetch(`/api/save/${item_id}`, {
+    function handleFillHeart(item) {
+        fetch("/api/save", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -161,47 +130,18 @@ function ItemCard({ likedList, userFavorites, setLikedList, sItemId, sItem_item_
             }),
         })
         .then((res) => res.json())
-        .then((res) => {return res})
-        setLikedList([...likedList, item])
-        setLiked(true)
+        .then(addNewSave)
+        // setSavedList([...savedList, item]);
+        setLiked(true);
     }
 
-    // function editItemHeart() {
-    //     fetch(`/api/edit_heart/${item_id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             item_id: item.id,
-    //             user_likes_container_id: user.user_likes_container.id,
-    //             clickedHeart: true,
-    //         }),
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => console.log("heart:", data.clickedHeart))
-            // .then(data => setIsHearted(data.clickedHeart));
-        // setChange(!change); 
-        // editItemHeart();
-    // }
-
-
-
-    // function editItemHeart() {
-    //     setEditHeartState(!editHeartState);
-    //     fetch(`/api/edit_heart/${id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             id: id,
-    //         }),
-    //     })
-    //         .then((res) => res.json())
-    //         .then(data => setInitialHeartValue(data.heartIcon));
-    //     setIsHearted(isSaved => (!isSaved));
-    // }
+    function handleUndoHeart() {
+        fetch(`/api/unlike_item/${id}`, {
+            method: "DELETE",
+        })
+        deleteLike(id);
+        setLiked(false)
+    }
 
 
     let handleCartClick = () => {
@@ -337,21 +277,11 @@ function ItemCard({ likedList, userFavorites, setLikedList, sItemId, sItem_item_
                 {/* <Button size="small">View</Button>
                 <Button size="small">Edit</Button> */}
                 {user.id === item.user_id ? null :
-                    // <SavedItemCard handleHeartClick={handleHeartClick} />
-                    // (user.saved_items.item_ids.includes(item.id)) ?
-                        (<IconButton
-                            onClick={liked ? handleUndoHeart : handleFillHeart}
-                            defaultValue={liked}
-                        >
-                            {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                        </IconButton>)
-                    //     :
-                    //     (<IconButton
-                    //     onClick={initialHeartValue ? handleUndoHeart : handleFillHeart}
-                    //     defaultValue={initialHeartValue}
-                    //     >
-                    // {initialHeartValue ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                    // </IconButton>)
+                    <IconButton 
+                    onClick={liked ? handleUndoHeart : handleFillHeart}
+                    defaultValue={liked}>
+                        {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    </IconButton>
                 }
                 {user.id === item.user_id ?
                     <IconButton aria-label="delete"

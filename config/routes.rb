@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     delete "/emptycart", to: "user_cart_items#emptycart"
     post "/create-payment-intent", to: "checkout#create_payment_intent"
     get "/favorites", to: "user_likes_containers#mylikes"
-    post "/save/:item_id", to: "saved_items#create"
+    post "/save", to: "saved_items#create"
     get "/buy", to: "saved_items#index"
     delete "/unlike_item/:item_id", to: "saved_items#destroy"
     patch "/edit_heart/:id", to: "items#heart_change"
