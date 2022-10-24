@@ -31,6 +31,7 @@ function ItemsList({ addCartItem, addNewFavorite, favorites, setChange, setFavor
                 id={item.id}
                 clickedHeart={item.clickedHeart}
                 item_id={item.id}
+                user_likes_container_id={user.user_likes_container.id}
                 removeLike={removeLike}
                 itemname={item.itemname}
                 price={item.price}

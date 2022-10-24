@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class Api::SessionsController < ApplicationController
     #POST for '/login'
     #finds the user data from the username and if the password matches, it 
     #saves the user information in the sessions and stays logged in.

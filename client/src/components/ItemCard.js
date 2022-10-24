@@ -121,33 +121,34 @@ function ItemCard({ sold_by, clearAllFavorites, setFavorites, addCartItem, favor
     }
 
 
-    function handleFillHeart(id) {
-        console.log(user)
-
-        const likedItem = {
+    function handleFillHeart() {
+        const savedItem = {
             user_likes_container_id: user.user_likes_container.id,
             item_id: item.id,
         }
-        console.log(likedItem)
-        fetch("/api/save", {
-            method: "POST",
+        console.log(user)
+        console.log(savedItem)
+        fetch("/api/saved_items", {
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(likedItem),
-        })
-        .then(res => res.json())
-        .then(data => addNewFavorite(data))
+            body: JSON.stringify(savedItem),
+        }).then(res => res.json())
+        .then(data => addNewFavorite(data));                
+        // .then(res => res.json())
+        // .then(data => addNewFavorite(data))
         setIsFavorite(true)
         // addNewFavorite();
         // .then(addNewFavorite());
     }
 
-    function handleUndoHeart(id) {
-        fetch("/api/unlike_item", {
+    function handleUndoHeart(item_id) {
+        console.log(user, user.user_likes_container.id);
+        console.log(item)
+        fetch(`/api/remove-save/${id}`, {
             method: "DELETE",
         })
-        deleteFavorite();
         setIsFavorite(false)
         // deleteFavorite();
         // .then(setIsFavorite(isFavorite => !isFavorite))

@@ -9,7 +9,6 @@ Rails.application.routes.draw do
     #   get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
     #   get 'success', to: 'checkout#success', as: 'checkout_success'
     # end
-
   namespace :api do
     resources :items, only: [:index, :show, :create, :update, :heart_change, :cart_change, :destroy]
     resources :users 
@@ -17,7 +16,7 @@ Rails.application.routes.draw do
     resources :user_cart_items, only: [:destroy, :create, :emptycart]
     resources :user_carts, only: [:index, :show, :create]
     resources :user_likes_container, only: [:index, :show, :create]
-    resources :saved_items, only: [:index, :show, :create, :destroy, :emptysaves]
+    resources :saved_items, only: [:show, :create, :destroy, :delete]
     # resources :admin_access_only, only: [:update, :destroy]
 
     post '/payment', to: "checkout#create"
@@ -36,11 +35,10 @@ Rails.application.routes.draw do
     delete "/emptycart", to: "user_cart_items#emptycart"
     post "/create-payment-intent", to: "checkout#create_payment_intent"
     get "/mysaves", to: "user_likes_containers#show"
-    post "/save", to: "saved_items#create"
-    # delete "/unlike_item", to: "saved_items#destroy"
     patch "/edit_heart/:id", to: "items#heart_change"
+    delete "/remove-save/:id", to: "saved_items#destroy" 
     patch "/edit_cart/:id", to: "items#cart_change"
-    delete "/emptysaves", to: "saved_items#emptysaves"
+    # delete "/saved_items/emptysaves", to: "saved_items#emptysaves"
   end
     # patch "items/heart_change/:id", to: "items#heart_change"
     # post "/create_container", to: "user_likes_container#create"

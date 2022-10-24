@@ -35,14 +35,14 @@ function App() {
     fetch("/api/items")
       .then((r) => r.json())
       .then(data => { setItems(data) })
-  }, [favorites])
+  }, [])
   console.log(items)
 
 
   useEffect(() => {
     fetch("/api/mysaves")
       .then((r) => r.json())
-      .then(data => {setFavorites(data.saved_items)})
+      .then(data => { setFavorites(data.saved_items) })
   }, [change])
   console.log("my favorites: ", favorites)
 
@@ -75,8 +75,7 @@ function App() {
 
 
   function addNewFavorite(newItem) {
-    const updatedList = ([...favorites, newItem]);
-    setFavorites(updatedList);
+    setFavorites([...favorites, newItem]);
   }
 
 

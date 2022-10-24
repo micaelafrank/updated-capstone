@@ -7,10 +7,10 @@ class Item < ApplicationRecord
     has_many_attached :images
     # include Rails.application.routes.url_helpers
 
-    def sold_by
-        seller = user.id
-        User.find(seller).username
-    end
+    # def sold_by
+    #     seller = user.id
+    #     User.find(seller).username
+    # end
 
     def images_url
       images

@@ -1,6 +1,8 @@
 class Api::SavedItemsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :cant_show_favorite
     rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
+    skip_before_action :authorize
+    # before_action :set_item, only: [:destroy]
 
     def index
         saved_items = SavedItem.all
@@ -12,37 +14,41 @@ class Api::SavedItemsController < ApplicationController
         render json: item
     end
 
-    def create
-        liked = SavedItem.find_or_create_by(saveditem_params) 
-        liked.save
-        render json: liked, status: :created
-    end
 
     def destroy
-        saved = SavedItem.find_by(item_id: params[:id])
+        saved_item = SavedItem.find_by(item_id: params[:id]) 
+        saved_item.destroy
         head :no_content
+        # byebug
     end
 
+    def create
+        # userid = User.find(id: @current_user.id)
+        saves = SavedItem.create!(saveditem_params)
+        render json: saves, status: :created
+    end
+    #     if newsave.save 
+    #         render json: newsave, status: 201
+    #     end
+    # end
+
+
+    ## can also be written like: 
+    ## User.create_with(last_name: 'Johansson').find_or_create_by(first_name: 'Scarlett')
+        # => #<User id: 2, first_name: "Scarlett", last_name: "Johansson">
+
+    # def destroy
+    #     find_save = SavedItem.find_by(item_id: params[:id])
+    #     find_save.destroy
+    #     # SavedItem.where(item_id: @saved.item_id).destroy_all
+    #     head :no_content
+    # end
+
     def emptysaves
-        likes = UserLikesContainer.find_by(user_id: @current_user.id)
-        my_likes = likes.saved_items
-        my_likes.each do |item|
-            item_one = item.saved
-            item_one.destroy
-        end
-        my_likes.destroy_all
-        # render json: likes
-        # myItems = UserCartItem.all 
-        # myItems.destroy_all 
-        # for item in myItems do 
-        #     item = UserCartItem.find_by(item_id: params[:id])
-        #     item.destroy
-        # end
+        SavedItem.where(user_likes_container_id: params[:user_likes_container_id]).destroy_all
         head :no_content
-    end 
+    end
     
-
-
     private
 
     def saveditem_params
