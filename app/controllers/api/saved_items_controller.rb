@@ -6,32 +6,24 @@ class Api::SavedItemsController < ApplicationController
 
     def index
         saved_items = SavedItem.all
-        render json: saved_items
+        render json: saved_items, include: :items
     end
 
     def show 
         item = SavedItem.find(params[:id])
-        render json: item
-    end
-
-
-    def destroy
-        saved_item = SavedItem.find_by(item_id: params[:id]) 
-        saved_item.destroy
-        head :no_content
-        # byebug
+        render json: item, include: :items
     end
 
     def create
-        # userid = User.find(id: @current_user.id)
         saves = SavedItem.create!(saveditem_params)
-        render json: saves, status: :created
+        render json: saves, status: 201, include: :items
     end
-    #     if newsave.save 
-    #         render json: newsave, status: 201
-    #     end
-    # end
-
+  
+    def destroy
+        saved_item = SavedItem.where(id: params[:item_id]).destroy_all        
+        saved_item.destroy
+        # byebug
+    end
 
     ## can also be written like: 
     ## User.create_with(last_name: 'Johansson').find_or_create_by(first_name: 'Scarlett')
@@ -52,7 +44,7 @@ class Api::SavedItemsController < ApplicationController
     private
 
     def saveditem_params
-        params.require(:saved_item).permit(:item_id, :user_likes_container_id)
+        params.permit(:item_id, :id, :user_likes_container_id)
     end
 
     def cant_show_favorite 

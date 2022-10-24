@@ -61,6 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_212609) do
   create_table "saved_items", force: :cascade do |t|
     t.integer "user_likes_container_id"
     t.integer "item_id"
+    t.boolean "heartIcon", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -68,6 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_212609) do
   create_table "user_cart_items", force: :cascade do |t|
     t.integer "user_cart_id"
     t.integer "item_id"
+    t.boolean "cartIcon", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

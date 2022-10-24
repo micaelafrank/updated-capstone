@@ -19,7 +19,6 @@ function App() {
   const [user, setUser] = useState({});
   const [change, setChange] = useState(false);
   const [darkMode, setDarkMode] = useState(storedDarkMode);
-  const [favorites, setFavorites] = useState([]);
 
 
   useEffect(() => {
@@ -34,17 +33,9 @@ function App() {
   useEffect(() => {
     fetch("/api/items")
       .then((r) => r.json())
-      .then(data => { setItems(data) })
+      .then(data => { setItems(data)} )
   }, [])
   console.log(items)
-
-
-  useEffect(() => {
-    fetch("/api/mysaves")
-      .then((r) => r.json())
-      .then(data => { setFavorites(data.saved_items) })
-  }, [change])
-  console.log("my favorites: ", favorites)
 
 
 //   const uniqueSaves = [];
@@ -64,19 +55,11 @@ function App() {
     console.log("return item")
   }
 
-  function deleteFavorite(id) {
-    const updatedList = favorites.filter((item) => item.id !== id);
-    setFavorites(updatedList);
-  }
+
 
   // function clearAllFavorites(){
   //   setFavorites([]);
   // }
-
-
-  function addNewFavorite(newItem) {
-    setFavorites([...favorites, newItem]);
-  }
 
 
 
@@ -102,7 +85,7 @@ function App() {
           <Route path="/" element={<Homepage user={user} setUser={setUser} />} /> 
           <Route path="/profile" element={<Profile items={items} user={user} setUser={setUser} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList addCartItem={addCartItem} deleteFavorite={deleteFavorite} favorites={favorites} setFavorites={setFavorites} addNewFavorite={addNewFavorite} change={change} items={items} setItems={setItems} setChange={setChange} user={user} />} />
+          <Route path="/buy" element={<ItemsList addCartItem={addCartItem} change={change} items={items} setItems={setItems} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} items={items} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />

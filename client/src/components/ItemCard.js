@@ -21,7 +21,7 @@ import { darkScrollbar } from '@mui/material';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ sold_by, clearAllFavorites, setFavorites, addCartItem, favorites, addNewFavorite, deleteFavorite, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ sold_by, isFavorite, setIsFavorite, addCartItem, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -35,8 +35,13 @@ function ItemCard({ sold_by, clearAllFavorites, setFavorites, addCartItem, favor
     const [descriptionState, setDescriptionState] = useState("");
     const [editDescriptionState, setEditDescriptionState] = useState(false);
     const [initialDescriptionValue, setInitialDescriptionValue] = useState(description);
-    const [isFavorite, setIsFavorite] = useState(false);
     const [isAddedCart, setIsAddedCart] = useState(false);
+
+
+    // const listOfSaves = favorites.filter((favItem) => {
+    //     return favItem.item_id === item.id
+    // })
+    // console.log(listOfSaves)
 
 
     let handleEditDescription = () => {
@@ -125,25 +130,28 @@ function ItemCard({ sold_by, clearAllFavorites, setFavorites, addCartItem, favor
         const savedItem = {
             user_likes_container_id: user.user_likes_container.id,
             item_id: item.id,
-        }
+        };
         console.log(user)
         console.log(savedItem)
-        fetch("/api/saved_items", {
+        fetch(`/api/saved-items/${id}`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(savedItem),
-        }).then(res => res.json())
-        .then(data => addNewFavorite(data));                
+        })
+        .then(res => res.json())
+        .then(setChange(!change))
+        setIsFavorite(true);
+    }
+        // .then(res => res.json())
+        // .then(data => addNewFavorite(data));
         // .then(res => res.json())
         // .then(data => addNewFavorite(data))
-        setIsFavorite(true)
-        // addNewFavorite();
-        // .then(addNewFavorite());
-    }
 
-    function handleUndoHeart(item_id) {
+
+
+    function handleUndoHeart() {
         console.log(user, user.user_likes_container.id);
         console.log(item)
         fetch(`/api/remove-save/${id}`, {
