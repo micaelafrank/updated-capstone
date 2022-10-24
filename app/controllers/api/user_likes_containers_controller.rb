@@ -18,6 +18,15 @@ rescue_from ActiveRecord::RecordInvalid, with: :favorite_invalid
         render json: new_saves_container, status: :created
     end
 
+
+    def mylikes
+        user = UserLikesContainer.find_by(user_id: @current_user.id)
+        if user
+            favorites = user.saved_items 
+            render json: favorites
+        end
+    end
+    
     private 
 
     # def new_favorite_bucket

@@ -20,7 +20,7 @@ import Typography from '@mui/material/Typography';
 //     </Stack>
 // }
 
-function ItemsList({ addCartItem, clearAllFavorites, addNewFavorite, favorites, setChange, setFavorites, user, change, deleteFavorite, removeLike, items, setItems }) {
+function ItemsList({ addCartItem, addNewFavorite, favorites, setChange, setFavorites, user, change, deleteFavorite, removeLike, items, setItems }) {
     const theme = createTheme();
 
     const listOfItems = items.map((item) => {
@@ -54,17 +54,15 @@ function ItemsList({ addCartItem, clearAllFavorites, addNewFavorite, favorites, 
                 setFavorites={setFavorites}
                 items={items}
                 addCartItem={addCartItem}
-                clearAllFavorites={clearAllFavorites}
             />
         )
     })
 
-        function deleteSaves(){
-            fetch("/api/emptysaves", {
-                method: "DELETE",
-            })
-            clearAllFavorites();
-        }
+    function deleteSaves(){
+        fetch("/api/saved_items/emptysaves", {
+            method: "DELETE",
+        })
+    }
 
     return (
         <ThemeProvider theme={theme}>

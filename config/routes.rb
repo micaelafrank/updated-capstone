@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resources :user_cart_items, only: [:destroy, :create, :emptycart]
     resources :user_carts, only: [:index, :show, :create]
     resources :user_likes_container, only: [:index, :show, :create]
-    resources :saved_items, only: [:index, :show, :create, :destroy]
+    resources :saved_items, only: [:index, :show, :create, :destroy, :emptysaves]
     # resources :admin_access_only, only: [:update, :destroy]
 
     post '/payment', to: "checkout#create"
@@ -37,10 +37,10 @@ Rails.application.routes.draw do
     post "/create-payment-intent", to: "checkout#create_payment_intent"
     get "/mysaves", to: "user_likes_containers#show"
     post "/save", to: "saved_items#create"
-    delete "/unlike_item", to: "saved_items#destroy"
+    # delete "/unlike_item", to: "saved_items#destroy"
     patch "/edit_heart/:id", to: "items#heart_change"
     patch "/edit_cart/:id", to: "items#cart_change"
-    delete "/emptysaves", to: "saved_items#emptycart"
+    delete "/emptysaves", to: "saved_items#emptysaves"
   end
     # patch "items/heart_change/:id", to: "items#heart_change"
     # post "/create_container", to: "user_likes_container#create"

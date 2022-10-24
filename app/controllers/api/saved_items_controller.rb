@@ -18,15 +18,20 @@ class Api::SavedItemsController < ApplicationController
         render json: liked, status: :created
     end
 
-    def emptycart
+    def destroy
+        saved = SavedItem.find_by(item_id: params[:id])
+        head :no_content
+    end
+
+    def emptysaves
         likes = UserLikesContainer.find_by(user_id: @current_user.id)
         my_likes = likes.saved_items
         my_likes.each do |item|
-            item_one = item.item
+            item_one = item.saved
             item_one.destroy
         end
         my_likes.destroy_all
-        render json: likes
+        # render json: likes
         # myItems = UserCartItem.all 
         # myItems.destroy_all 
         # for item in myItems do 
@@ -37,11 +42,6 @@ class Api::SavedItemsController < ApplicationController
     end 
     
 
-    def destroy
-        likes = SavedItem.where(item_id: params[:item_id])
-        likes.destroy_all 
-        head :no_content
-    end
 
     private
 

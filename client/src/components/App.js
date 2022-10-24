@@ -43,7 +43,7 @@ function App() {
     fetch("/api/mysaves")
       .then((r) => r.json())
       .then(data => {setFavorites(data.saved_items)})
-  }, [])
+  }, [change])
   console.log("my favorites: ", favorites)
 
 
@@ -69,9 +69,9 @@ function App() {
     setFavorites(updatedList);
   }
 
-  function clearAllFavorites(){
-    setFavorites([]);
-  }
+  // function clearAllFavorites(){
+  //   setFavorites([]);
+  // }
 
 
   function addNewFavorite(newItem) {
@@ -103,7 +103,7 @@ function App() {
           <Route path="/" element={<Homepage user={user} setUser={setUser} />} /> 
           <Route path="/profile" element={<Profile items={items} user={user} setUser={setUser} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList clearAllFavorites={clearAllFavorites} addCartItem={addCartItem} deleteFavorite={deleteFavorite} favorites={favorites} setFavorites={setFavorites} addNewFavorite={addNewFavorite} change={change} items={items} setItems={setItems} setChange={setChange} user={user} />} />
+          <Route path="/buy" element={<ItemsList addCartItem={addCartItem} deleteFavorite={deleteFavorite} favorites={favorites} setFavorites={setFavorites} addNewFavorite={addNewFavorite} change={change} items={items} setItems={setItems} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} items={items} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
