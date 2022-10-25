@@ -30,12 +30,13 @@ function App() {
   }, [])
   console.log(user);
 
-  useEffect(() => {
-    fetch("/api/items")
-      .then((r) => r.json())
-      .then(data => { setItems(data)} )
-  }, [])
-  console.log(items)
+  // useEffect(() => {
+  //   fetch("/api/items")
+  //     .then((r) => r.json())
+  //     .then(data => setItems(data))
+  // }, [])
+  // console.log(items)
+
 
 
 //   const uniqueSaves = [];
@@ -54,12 +55,6 @@ function App() {
   function addCartItem(item){
     console.log("return item")
   }
-
-
-
-  // function clearAllFavorites(){
-  //   setFavorites([]);
-  // }
 
 
 
@@ -85,7 +80,7 @@ function App() {
           <Route path="/" element={<Homepage user={user} setUser={setUser} />} /> 
           <Route path="/profile" element={<Profile items={items} user={user} setUser={setUser} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList addCartItem={addCartItem} change={change} items={items} setItems={setItems} setChange={setChange} user={user} />} />
+          <Route path="/buy" element={<ItemsList addCartItem={addCartItem} items={items} setItems={setItems} change={change} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} items={items} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />

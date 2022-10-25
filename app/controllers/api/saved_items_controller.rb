@@ -5,22 +5,31 @@ class Api::SavedItemsController < ApplicationController
     # before_action :set_item, only: [:destroy]
 
     def index
-        saved_items = SavedItem.all
-        render json: saved_items, include: :items
+        if params[:user_likes_container_id]
+            mysave_container = UserLikesContainer.find(params[:user_likes_container_id])
+            saves = mysave_container.saved_items
+        else
+            saves = SavedItem.all
+        end
+        render json: saves, include: :user_likes_container
+        # saved_items = SavedItem.all
+        # render json: saved_items, include: :items
     end
 
     def show 
-        item = SavedItem.find(params[:id])
-        render json: item, include: :items
+        mysave_container = UserLikesContainer.find(params[:user_likes_container_id])
+        mysave_container.saved_items.find_by(item_id: params[:item_id])
+        render json: mysave_container
     end
+
 
     def create
         saves = SavedItem.create!(saveditem_params)
-        render json: saves, status: 201, include: :items
+        render json: saves, status: 201
     end
   
     def destroy
-        saved_item = SavedItem.where(id: params[:item_id]).destroy_all        
+        saved_item = UserCartItem.where(item_id: params[:id]).destroy_all        
         saved_item.destroy
         # byebug
     end

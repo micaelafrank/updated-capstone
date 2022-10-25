@@ -1,12 +1,10 @@
 class Api::UsersController < ApplicationController
-    skip_before_action :authorize, only: :create
+    wrap_parameters format: []
+    skip_before_action :authorized, only: [:create, :show]
+rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
 
     #POST method for '/signup'
     #This saves a new user and their info in the backend:
-
-    def show 
-        render json: @current_user
-    end
 
     def create
         user = User.create!(newuser_params)
@@ -20,37 +18,18 @@ class Api::UsersController < ApplicationController
         end
     end
 
-    # def update 
-    #     edit_user = User.find(id)
-    #     User.images.attach(params[:images])
-    #     pp edit_user 
-    #     if edit_user.save
-    #         render json: edit_user, status: :ok
-    #         pp edit_user.images 
-    #     else
-    #         pp edit_user.errors.full_messages
-    #     end    
-    # end
-
-    # def create
-    #     user = User.create!(newuser_params)
-    #     session[:user_id] = user.id 
-    #     render json: user, status: :created 
-    # end
-
-    #GET method for '/profile'
-    #This method finds the user data from the session (the logged-in user) and 
-    #sends the data to the front end
-
+    def show
+        render json: @current_user
+    end
 
     private 
 
-    # def image_params
-    #     params.permit(:images_url, images: [])
-    # end
-
     def newuser_params
         params.permit(:firstname, :lastname, :email, :password, :password_confirmation, :username)
+    end
+
+    def render_unprocessable_entity(invalid)
+      render json:{error: invalid.record.errors}, status: :unprocessable_entity
     end
 end
 

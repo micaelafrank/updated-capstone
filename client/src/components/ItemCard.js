@@ -21,7 +21,7 @@ import { darkScrollbar } from '@mui/material';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ sold_by, isFavorite, setIsFavorite, addCartItem, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ sold_by, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, addCartItem, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -36,7 +36,8 @@ function ItemCard({ sold_by, isFavorite, setIsFavorite, addCartItem, favorites, 
     const [editDescriptionState, setEditDescriptionState] = useState(false);
     const [initialDescriptionValue, setInitialDescriptionValue] = useState(description);
     const [isAddedCart, setIsAddedCart] = useState(false);
-
+    const [wasClicked, setWasClicked] = useState(false)
+    const [isSaved, setIsSaved] = useState(false)
 
     // const listOfSaves = favorites.filter((favItem) => {
     //     return favItem.item_id === item.id
@@ -127,22 +128,26 @@ function ItemCard({ sold_by, isFavorite, setIsFavorite, addCartItem, favorites, 
 
 
     function handleFillHeart() {
-        const savedItem = {
+        console.log(user)
+        const newFavoriteItem = {
             user_likes_container_id: user.user_likes_container.id,
             item_id: item.id,
-        };
+        }
         console.log(user)
-        console.log(savedItem)
-        fetch(`/api/saved-items/${id}`, {
+        console.log(newFavoriteItem)
+        fetch(`/api/saved-items`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(savedItem),
+            body: JSON.stringify(newFavoriteItem),
         })
         .then(res => res.json())
         .then(setChange(!change))
-        setIsFavorite(true);
+        // setIsFavorite(true);
+        addNewFavorite();
+        setIsSaved(isSaved => (!isSaved))
+        setWasClicked(wasClicked => (!wasClicked));
     }
         // .then(res => res.json())
         // .then(data => addNewFavorite(data));
@@ -157,7 +162,12 @@ function ItemCard({ sold_by, isFavorite, setIsFavorite, addCartItem, favorites, 
         fetch(`/api/remove-save/${id}`, {
             method: "DELETE",
         })
-        setIsFavorite(false)
+        .then((res) => res.json())
+        .then(data => handleUnlike(data))        
+        setIsSaved(isSaved => (!isSaved))
+        setWasClicked(wasClicked => (!wasClicked));
+        // handleUnlike();
+        // setIsFavorite(false)
         // deleteFavorite();
         // .then(setIsFavorite(isFavorite => !isFavorite))
     }
@@ -297,10 +307,9 @@ function ItemCard({ sold_by, isFavorite, setIsFavorite, addCartItem, favorites, 
                 <Button size="small">Edit</Button> */}
                 {user.id === item.user_id ? null :
                     <IconButton
-                        onClick={isFavorite ? handleUndoHeart : handleFillHeart}
-                        defaultValue={isFavorite}
+                        onClick={isSaved ? handleUndoHeart : handleFillHeart}
                     >
-                        {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                        {isSaved ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
                 }
                 {user.id === item.user_id ?

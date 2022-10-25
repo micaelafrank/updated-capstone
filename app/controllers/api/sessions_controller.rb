@@ -4,6 +4,7 @@ class Api::SessionsController < ApplicationController
     #saves the user information in the sessions and stays logged in.
     skip_before_action :authorize, only: :create
 
+  
     def create 
         user = User.find_by(username: params[:username])
         if user&.authenticate(params[:password])
