@@ -29,7 +29,7 @@ class Api::SavedItemsController < ApplicationController
     end
   
     def destroy
-        saved_item = UserCartItem.where(item_id: params[:id]).destroy_all        
+        saved_item = SavedItem.where(item_id: params[:id]).destroy_all        
         saved_item.destroy
         # byebug
     end

@@ -193,6 +193,24 @@ function ItemCard({ sold_by, handleUnlike, addNewFavorite, setFavorites, isFavor
         setIsAddedCart(isAddedCart => (!isAddedCart))
     }
 
+
+    // function deleteCartIcon(){
+    //     setEditCartState(!editCartState);
+    //     fetch(`/api/edit_cart/${id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             inCartIcon: false,
+    //             id: item.id,
+    //         }),
+    //     })
+    //     .then((resp) => resp.json())
+    //     .then(data => setInitialCartValue(data.inCartIcon));
+    //     setIsAddedCart(isAddedCart => (!isAddedCart))
+    // }
+
     function renderUserCartItem() {
         console.log(user)
         const newItemToAdd = {

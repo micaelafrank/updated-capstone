@@ -2,50 +2,39 @@ import React, { useEffect, useState } from 'react';
 // import StripeContainer from './StripeContainer';
 import CartItem from "./CartItem";
 
-function ShoppingCart({deleteItem, items, total, change, setChange, user}){
-    const [cartItems, setCartItems] = useState([]);
+function ShoppingCart({deleteItem, cartItems, setCartItems, deleteCartIcon, items, total, change, setChange, user}){
+    // const [cartItems, setCartItems] = useState([]);
     const [addedCartItems, setAddedCartItems] = useState(0);
     const [showCheckout, setShowCheckout] = useState(false)
 
-    useEffect(() => {
-        fetch("/api/mycart")
-            .then((r) => r.json())
-            .then(data => setCartItems(data.items))
-    }, [])
+    console.log(cartItems)
+    // useEffect(() => {
+    //     fetch("/api/mycart")
+    //         .then((r) => r.json())
+    //         .then(data => setCartItems(data.items))
+    // }, [change])
 
-
-    console.log(cartItems[0])
 
     function togglePayment() {
         setShowCheckout(showCheckout => (!showCheckout));
     }
 
-    function deleteItem(id) {
-        const updatedCart = uniqueCartItems.filter((cartItem) => cartItem.id !== id);
-        setCartItems(updatedCart);
-    }
+    // const uniqueIds = [];
 
-    const uniqueIds = [];
+    // const uniqueCartItems = cartItems.filter(cartItem => {
+    //     const isDuplicate = uniqueIds.includes(cartItem.id);
 
-    const uniqueCartItems = cartItems.filter(cartItem => {
-        const isDuplicate = uniqueIds.includes(cartItem.id);
-
-        if (!isDuplicate) {
-            uniqueIds.push(cartItem.id);
-            return true;
-        }
-        return false;
-    });
+    //     if (!isDuplicate) {
+    //         uniqueIds.push(cartItem.id);
+    //         return true;
+    //     }
+    //     return false;
+    // });
     
-    useEffect(() => {
-        fetch("/api/mycart")
-            .then((r) => r.json())
-            .then(data => setCartItems(data.items))
-    }, [])
     
     useEffect(() => {
         let total = 0;
-        uniqueCartItems.map((item) => {
+        cartItems.map((item) => {
             total += item.price
         })
         setAddedCartItems(total)
@@ -61,30 +50,30 @@ function ShoppingCart({deleteItem, items, total, change, setChange, user}){
                 </div>
                     {/* <div className="col-7" style={{width: "50%", marginRight: "5em"}}> */}
                     <div className="row text-right" style={{ marginBottom: "3em", width: "50%", fontFamily: "monospace", alignItems: "center", display: "flex", flexDirection: "row", justifyContent:"space-evenly"}}>
-                    <div className="col-4"
-                            style={{ width: "25%"}}
+                    <div className="col4"
+                            style={{ width: "100%"}}
                     >
                         <h5>SIZE</h5>
                     </div>
-                        <div className="col-4"
-                            style={{ width: "25%", fontFamily: "monospace", alignItems: "center" }}
+                        <div className="col4"
+                            style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
                         >                            
                             <h5>CATEGORY</h5>
                         </div>
-                        <div className="col-4"
-                            style={{ width: "25%", fontFamily: "monospace", alignItems: "center" }}
+                        <div className="col4"
+                            style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
                         >                            
-                            <h5>REMOVE ITEM</h5>
+                            <h5>REMOVE</h5>
                         </div>
-                        <div className="col-4" 
-                            style={{ width: "25%", fontFamily: "monospace", alignItems: "center" }}
+                        <div className="col4" 
+                            style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
                         >
                             <h5>PRICE</h5>
                         </div>
                     </div>
                 {/* </div> */}
             </div>
-            <div>{uniqueCartItems.map((cartItem) => {
+            <div>{cartItems.map((cartItem) => {
                 return (
                     <CartItem
                         cartItem={cartItem}

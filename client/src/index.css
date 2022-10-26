@@ -50,10 +50,17 @@ code {
   color: #FF5252;
 }
 
-.book,
-.book-img {
-  width: 120px;
-  height: 180px;
+.col4 h5{
+  font-size: 13px;
+}
+
+.book{
+  height: 160px;
+}
+
+.bookimg {
+  width: auto;
+  height: 150px;
   border-radius: 5px;
 }
 
@@ -161,7 +168,7 @@ button:focus {
 
   .book,
   .book-img {
-    width: 100px;
+    width: 150px;
     height: 150px;
   }
 

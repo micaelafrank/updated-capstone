@@ -19,6 +19,8 @@ function App() {
   const [user, setUser] = useState({});
   const [change, setChange] = useState(false);
   const [darkMode, setDarkMode] = useState(storedDarkMode);
+  const [cartItems, setCartItems] = useState([]);
+
 
   useEffect(() => {
     fetch("/api/items")
@@ -38,6 +40,14 @@ function App() {
   console.log(user);
 
 
+  useEffect(() => {
+    fetch("/api/mycart")
+      .then((r) => r.json())
+      .then(data => setCartItems(data.items))
+  }, [change])
+  console.log(cartItems)
+
+
   function addCartItem(item){
     console.log("return item")
   }
@@ -45,6 +55,11 @@ function App() {
 
   function addNewItem(newItem) {
     setItems(...items, newItem)
+  }
+
+  function deleteItem(id) {
+    const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
+    setCartItems(updatedCart);
   }
 
 
@@ -65,8 +80,8 @@ function App() {
           <Route path="/" element={<Homepage user={user} />} /> 
           <Route path="/profile" element={<Profile items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList addCartItem={addCartItem} items={items} setItems={setItems} change={change} setChange={setChange} user={user} />} />
-          <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} items={items} />} />
+            <Route path="/buy" element={<ItemsList addCartItem={addCartItem} items={items} setItems={setItems} change={change} setChange={setChange} user={user} />} />
+          <Route path="/mycart" element={<ShoppingCart deleteItem={deleteItem} cartItems={cartItems} setCartItems={setCartItems} total={items} setChange={setChange} change={change} user={user} items={items} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           {/* <Route path="/checkout" element={<StripeContainer total={1000} />} /> */}
           {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}

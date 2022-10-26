@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     get "/items", to: "items#index"
     # post "/create_cart" , to: "user_carts#create"
     post "/addtocart", to: "user_cart_items#create"
+    delete "/user_cart_items/:item_id", to: "user_cart_items#destroy"
     delete "/emptycart", to: "user_cart_items#emptycart"
     post "/create-payment-intent", to: "checkout#create_payment_intent"
     get "/user-likes-container/:user_id", to: "user_likes_containers#show"

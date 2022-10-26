@@ -25,7 +25,15 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     end
 
     def destroy
+        my_item = UserCartItem.find_by(item_id: params[:id])
+        found_item = Item.find(my_item.id)
+        if params.has_key?(:inCartIcon) then
+            found_item.update!(inCartIcon: params[:inCartIcon])
+        end
         UserCartItem.where(id: params[:item_id]).destroy_all
+        render json: found_item, status: :ok
+
+        # UserCartItem.where(id: params[:item_id]).destroy_all
         head :no_content
     end
 
