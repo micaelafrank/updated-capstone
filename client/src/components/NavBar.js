@@ -121,12 +121,25 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                         >
                                 BUY
                             </Button>
-                            <Button
+                        {user.username ? <Button
                             sx={{ my: 2, color: 'white', display: 'block', marginRight:"2em" }}
                             onClick={() => navigate('/profile')}
                         >
                                 PROFILE
-                            </Button>
+                            </Button> : null }
+                        {user.username ? 
+                            (<Button sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}                            
+                            onClick={handleLogout}>
+                                LOGOUT
+                            </Button>)
+                             : 
+                            (<Button sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}
+                            onClick={() => navigate('/login')}
+                            >
+                            LOGIN
+                            </Button>)
+                        }
+{/* 
                         {user.username ? 
                             (<Button
                                 onClick={handleLogout}
@@ -140,7 +153,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                                 sx={{ alignItems: 'right', float: 'right', my: 2, color: 'white', border: '1px solid white', marginLeft: '25px', marginRight: "2em", padding:'10px', display: 'block' }}
                             >
                                 LOGIN
-                            </Button>}
+                            </Button>} */}
                         {user.username ? null :
                             <Button
                             onClick={() => navigate('/signup')}

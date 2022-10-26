@@ -38,6 +38,7 @@ function ItemCard({ sold_by, handleUnlike, addNewFavorite, setFavorites, isFavor
     const [isAddedCart, setIsAddedCart] = useState(false);
     const [wasClicked, setWasClicked] = useState(false)
     const [isSaved, setIsSaved] = useState(false)
+    const [inCart, setInCart] = useState(false)
 
     // const listOfSaves = favorites.filter((favItem) => {
     //     return favItem.item_id === item.id
@@ -121,8 +122,10 @@ function ItemCard({ sold_by, handleUnlike, addNewFavorite, setFavorites, isFavor
             },
             body: JSON.stringify(newCartItem),
         })
-            .then(res => res.json())
-            .then(addCartItem)
+        .then(res => res.json())
+        .then(setInCart(inCart => (!inCart)))
+        // setInCart(inCart => (!inCart))
+        setWasClicked(wasClicked => (!wasClicked));
         // setIsFavorite(isFavorite => !isFavorite);
     }
 
@@ -143,9 +146,9 @@ function ItemCard({ sold_by, handleUnlike, addNewFavorite, setFavorites, isFavor
             body: JSON.stringify(newFavoriteItem),
         })
         .then(res => res.json())
-        .then(setChange(!change))
+        .then(data => addNewFavorite(data))
         // setIsFavorite(true);
-        addNewFavorite();
+        setChange(!change);
         setIsSaved(isSaved => (!isSaved))
         setWasClicked(wasClicked => (!wasClicked));
     }
@@ -157,7 +160,7 @@ function ItemCard({ sold_by, handleUnlike, addNewFavorite, setFavorites, isFavor
 
 
     function handleUndoHeart() {
-        console.log(user, user.user_likes_container.id);
+        console.log(user);
         console.log(item)
         fetch(`/api/remove-save/${id}`, {
             method: "DELETE",

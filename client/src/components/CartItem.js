@@ -20,35 +20,43 @@ function CartItem({ cartItem, deleteItem, id }){
     };
 
     return(
-        <div className="row d-flex justify-content-center border-top">
-            <div className="col-5">
-                <div className="row d-flex" style={{ paddingLeft: "10em" }}>
+        <div style={{ marginLeft: "10em"}} className="container px-4 py-5 mx-auto">
+            <div style={{ width:"100%", display: "flex", flexDirection: "row" }} className="row d-flex justify-content-center">
+                <div className="col-5" style={{width: "50%"}}>
+                    <h3 className="mob-text">{cartItem.itemname}</h3>
                     <div className="book">
                         <img src={cartItem.images_url} alt="blueberry-icecream-recipe1-1652730148.jpg" className="book-img" />
                     </div>
-                    <div className="my-auto flex-column d-flex pad-left" style={{paddingLeft:"1em"}}>
-                        <h6 className="mob-text">{cartItem.itemname}</h6>
-                        <h6 className="mob-text">Size: {cartItem.size}</h6>
+                </div>
+                <div className="row text-right" style={{ width: "50%", float: "right", display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
+                    <div className="col-4"
+                    style={{ width: "100%" }}
+                    >
+                        <h5>{cartItem.size}</h5>
+                    </div>
+                    <div className="col-4"
+                    style={{ width: "100%" }}
+                    >
+                        <h5>{cartItem.material}</h5>
+                    </div>
+                    <div className="col-4"
+                    style={{ width: "100%" }}
+                    >
+                        <CardActions>
+                            <IconButton className="mob-text" onClick={removeFromCart}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </CardActions>
+                        {wasClicked ? <Alert key={'success'} variant={'success'}>Item removed</Alert> : null}
+                    </div>
+                    <div className="col-4"
+                    style={{ width: "100%" }}
+                    >
+                        <h5>{cartItem.price}</h5>
                     </div>
                 </div>
-            </div>
-            <div className="my-auto col-7" style={{ width: "50%", float:"right"}} >
-                <div className="row text-right" style={{ display: "flex", flexDirection: "row", paddingLeft: "4em", alignItems:"center", justifyContent:"flex-start" }}>
-                    <div className="col-4" style={{width:"33%", paddingLeft:"4em"}}>
-                        <p className="mob-text">{cartItem.material}</p>
-                    </div>
-                    <CardActions style={{ width: "33%", paddingLeft: "4em" }}>
-                        <IconButton className="mob-text" onClick={removeFromCart}>
-                            <DeleteIcon/>
-                        </IconButton>
-                    </CardActions>
-                    {wasClicked ? <Alert key={'success'} variant={'success'}>Item removed</Alert> : null}
-                    <div className="col-4" style={{ width: "33%", paddingLeft: "4em" }}>
-                        <h6 className="mob-text">${cartItem.price}</h6>
-                    </div>
                 </div>
-            </div>
-        </div>
+            </div>   
     )
 }
 

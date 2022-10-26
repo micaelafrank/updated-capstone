@@ -21,34 +21,15 @@ import SavedContainer from './SavedContainer';
 //     </Stack>
 // }
 
-function ItemsList({ handleUnlike, addCartItem, items, setItems, addNewFavorite, setChange, user, change, deleteFavorite, removeLike }) {
-    const [favorites, setFavorites] = useState();
+function ItemsList({ handleUnlike, addCartItem, items, setItems, addNewFavorite, setChange, user, change, removeLike }) {
+    const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
         fetch("/api/items")
             .then((r) => r.json())
-            .then(data => { setItems(data) })
+            .then(data => { setItems(data) } )
     }, [])
     console.log(items)
-
-
-    useEffect(() => {
-        fetch(`/api/user-likes-container/${user.id}`)
-            .then((r) => r.json())
-            .then(data => setFavorites(data.items))
-    }, [change])
-    console.log("my favorites: ", favorites)
-
-
-    function handleUnlike(item_id){
-       const newList = favorites.filter((favorite) => favorite.id !== item_id)
-       setFavorites(newList)      
-    }
-
-
-    function addNewFavorite(savedItem) {
-        setFavorites([...favorites, savedItem]);
-    }
 
 
     const theme = createTheme();
@@ -80,7 +61,6 @@ function ItemsList({ handleUnlike, addCartItem, items, setItems, addNewFavorite,
                 images_url={item.images_url}
                 change={change}
                 setChange={setChange}
-                deleteFavorite={deleteFavorite}
                 addNewFavorite={addNewFavorite}
                 setFavorites={setFavorites}
                 items={items}
@@ -88,19 +68,6 @@ function ItemsList({ handleUnlike, addCartItem, items, setItems, addNewFavorite,
             />
         )
     })
-
-    function deleteSaves(){
-        fetch("/api/saved_items/emptysaves", {
-            method: "DELETE",
-        })
-    }
-
-    // useEffect(() => {
-    //     fetch("/api/items")
-    //         .then((r) => r.json())
-    //         .then(data => setItems(data))
-    // }, [])
-    // console.log(items)
 
 
     return (
@@ -136,7 +103,7 @@ function ItemsList({ handleUnlike, addCartItem, items, setItems, addNewFavorite,
                         >
                             <Button variant="contained" href="/sell">Sell something</Button>
                             <Button variant="contained" href="/mysaves"> Shop saved items only</Button>
-                            <Button variant="contained" onClick={deleteSaves}> Remove all saved items</Button>
+                            <Button variant="contained"> Remove all saved items</Button>
                         </Stack>
                     </Container>
                 </Box>

@@ -93,8 +93,8 @@ export default function SignInSide({ user, setUser, darkMode, setDarkMode }) {
                             Communal marketplace of bits and masterpieces sold, bought, and made by creatives.                       
                         </Typography>
                         <Typography component="h1" variant="h5"
-                            sx={{ paddingBottom: '55px', paddingTop:"25px", textAlign: "center", fontSize:"21px"}}>
-                            Sustainable shopping you can feel <span style={{ color: "blue" }}>good</span> about.
+                            sx={{ paddingBottom: '55px', fontFamily: 'monospace', paddingTop:"25px", textAlign: "center", fontSize:"21px"}}>
+                            SUSTAINABLE SHOPPING YOU CAN FEEL <span style={{ color: "green", fontWeight: 'bold' }}>GOOD</span> ABOUT.
                         </Typography>
                         {/* <Typography component="h1" variant="h5"
                             sx={{ paddingTop: '25px', paddingBottom: '45px', textAlign:"center", margin:'10px 20px', fontSize:"21px" }}>

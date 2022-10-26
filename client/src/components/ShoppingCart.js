@@ -7,6 +7,13 @@ function ShoppingCart({deleteItem, items, total, change, setChange, user}){
     const [addedCartItems, setAddedCartItems] = useState(0);
     const [showCheckout, setShowCheckout] = useState(false)
 
+    useEffect(() => {
+        fetch("/api/mycart")
+            .then((r) => r.json())
+            .then(data => setCartItems(data.items))
+    }, [])
+
+
     console.log(cartItems[0])
 
     function togglePayment() {
@@ -47,24 +54,35 @@ function ShoppingCart({deleteItem, items, total, change, setChange, user}){
 
     return(
     <>
-        <div className="container px-4 py-5 mx-auto">
-            <div style={{display:"flex", flexDirection:"row"}} className="row d-flex justify-content-center">
-                <div className="col-5" style={{ width:"50%", textAlign:"left", paddingLeft:"10em" }}>
-                    <h4 className="heading">Shopping Cart</h4>
+        <div style={{height:"18em", marginTop:"3em", marginLeft: "10em", marginRight: "10em"}} className="container px-4 py-5 mx-auto">
+            <div style={{display:"flex", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center">
+                <div className="col-5" style={{ width:"50%", marginLeft:"10em" }}>
+                    <h4 style={{fontFamily:"monospace", textAlign:"left"}} className="heading">SHOPPING CART</h4>
                 </div>
-                    <div className="col-7" style={{width: "50%"}}>
-                        <div className="row text-right" style={{ display: "flex", flexDirection: "row", justifyContent:"flex-start" }}>
-                            <div className="col-4" style={{ paddingRight: "7em", paddingLeft: "4em" }}>
-                            <h6 className="mt-2">Category</h6>
+                    {/* <div className="col-7" style={{width: "50%", marginRight: "5em"}}> */}
+                    <div className="row text-right" style={{ marginBottom: "3em", width: "50%", fontFamily: "monospace", alignItems: "center", display: "flex", flexDirection: "row", justifyContent:"space-evenly"}}>
+                    <div className="col-4"
+                            style={{ width: "25%"}}
+                    >
+                        <h5>SIZE</h5>
+                    </div>
+                        <div className="col-4"
+                            style={{ width: "25%", fontFamily: "monospace", alignItems: "center" }}
+                        >                            
+                            <h5>CATEGORY</h5>
                         </div>
-                        <div className="col-4" style={{ paddingRight: "7em", paddingLeft: "4em" }}>
-                            <h6 className="mt-2">Remove Item</h6>
+                        <div className="col-4"
+                            style={{ width: "25%", fontFamily: "monospace", alignItems: "center" }}
+                        >                            
+                            <h5>REMOVE ITEM</h5>
                         </div>
-                        <div className="col-4" style={{ paddingRight: "7em", paddingLeft: "4em" }}>
-                            <h6 className="mt-2">Price</h6>
+                        <div className="col-4" 
+                            style={{ width: "25%", fontFamily: "monospace", alignItems: "center" }}
+                        >
+                            <h5>PRICE</h5>
                         </div>
                     </div>
-                </div>
+                {/* </div> */}
             </div>
             <div>{uniqueCartItems.map((cartItem) => {
                 return (
@@ -82,7 +100,7 @@ function ShoppingCart({deleteItem, items, total, change, setChange, user}){
                 )
             })}
             </div>
-            {user.userCartItems >1 ? 
+            {user.userCartItems > 0 ? 
             (<div className="row justify-content-center" style={{marginTop:"4em"}}>
                 <div className="col-lg-12">
                     <div className="card" style={{ width: "65%", alignItems: "center", justifyContent:"space-evenly", margin: "auto" }}>
