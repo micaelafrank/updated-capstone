@@ -4,15 +4,28 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import CardActions from '@mui/material/CardActions';
 
-function CartItem({ cartItem, deleteCartIcon, deleteItem, id }){
+function CartItem({ cartItem, change, setChange, setCartValue, deleteItem, id }){
     const [wasClicked, setWasClicked] = useState(false)
 
     function removeFromCart(){
-        fetch(`/api/user_cart_items/${id}`, {
+        fetch(`/api/edit_cart/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                inCartIcon: false,
+                id: id,
+            }),
+        })
+        .then((resp) => resp.json())
+        .then(setCartValue);
+        fetch(`/api/removefromcart`, {
             method: "DELETE"
         })
         .then((r) => {
             if (r.ok) {
+                setChange(!change);
                 deleteItem(id);
         }})
         setWasClicked(wasClicked => (!wasClicked));
@@ -52,7 +65,7 @@ function CartItem({ cartItem, deleteCartIcon, deleteItem, id }){
                     >
                         <CardActions>
                             <IconButton className="mob-text" onClick={removeFromCart}>
-                                <DeleteIcon />
+                                <DeleteIcon onClick={removeFromCart} />
                             </IconButton>
                         </CardActions>
                         {wasClicked ? <Alert key={'success'} variant={'success'}>Item removed</Alert> : null}

@@ -50,6 +50,12 @@ code {
   color: #FF5252;
 }
 
+.logoimg{
+  height: 100px;
+  width: 100px;
+  background-image: url("./images/cube-logo.png");
+}
+
 .col4 h5{
   font-size: 13px;
 }

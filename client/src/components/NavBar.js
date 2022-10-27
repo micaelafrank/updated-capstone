@@ -38,6 +38,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
+                    {/* <img className='logoimg' alt="cube-logo" /> */}
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1}} />
                     <Typography
                         variant="h6"

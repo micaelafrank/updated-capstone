@@ -1,18 +1,39 @@
 import React, { useEffect, useState } from 'react';
-// import StripeContainer from './StripeContainer';
+import StripeContainer from './StripeContainer';
 import CartItem from "./CartItem";
+import StripeCheckout from 'react-stripe-checkout';
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutForm from "./CheckoutForm";
 
-function ShoppingCart({deleteItem, cartItems, setCartItems, deleteCartIcon, items, total, change, setChange, user}){
+function ShoppingCart({deleteItem, setCartItems, cartItems, setCartValue, items, total, change, setChange, user}){
     // const [cartItems, setCartItems] = useState([]);
     const [addedCartItems, setAddedCartItems] = useState(0);
     const [showCheckout, setShowCheckout] = useState(false)
 
-    console.log(cartItems)
+    // function deleteItem(id) {
+    //     const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
+    //     setCartItems(updatedCart);
+    //     fetch(`/api/edit_cart/${id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //         inCartIcon: false,
+    //         id: id,
+    //     }),
+    // })
+    // .then((resp) => resp.json())
+    // .then(setCartValue);
+    // }
+
     // useEffect(() => {
     //     fetch("/api/mycart")
     //         .then((r) => r.json())
     //         .then(data => setCartItems(data.items))
-    // }, [change])
+    // }, [])
+    // console.log(cartItems)
 
 
     function togglePayment() {
@@ -45,7 +66,7 @@ function ShoppingCart({deleteItem, cartItems, setCartItems, deleteCartIcon, item
     <>
         <div style={{height:"18em", marginTop:"3em", marginLeft: "10em", marginRight: "10em"}} className="container px-4 py-5 mx-auto">
             <div style={{display:"flex", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center">
-                <div className="col-5" style={{ width:"50%", marginLeft:"10em" }}>
+                <div className="col-5" style={{ width:"50%", justifyContent:"center", marginLeft:"10em" }}>
                     <h4 style={{fontFamily:"monospace", textAlign:"left"}} className="heading">SHOPPING CART</h4>
                 </div>
                     {/* <div className="col-7" style={{width: "50%", marginRight: "5em"}}> */}
@@ -77,8 +98,11 @@ function ShoppingCart({deleteItem, cartItems, setCartItems, deleteCartIcon, item
                 return (
                     <CartItem
                         cartItem={cartItem}
+                        change={change}
+                        setChange={setChange}
                         key={cartItem.id}
                         id={cartItem.id}
+                        inCartIcon={cartItem.inCartIcon}
                         price={cartItem.price}
                         material={cartItem.material}
                         setCartItems={setCartItems}
@@ -89,7 +113,7 @@ function ShoppingCart({deleteItem, cartItems, setCartItems, deleteCartIcon, item
                 )
             })}
             </div>
-            {user.userCartItems > 0 ? 
+            {/* {user.userCartItems > 1 ? 
             (<div className="row justify-content-center" style={{marginTop:"4em"}}>
                 <div className="col-lg-12">
                     <div className="card" style={{ width: "65%", alignItems: "center", justifyContent:"space-evenly", margin: "auto" }}>
@@ -129,17 +153,18 @@ function ShoppingCart({deleteItem, cartItems, setCartItems, deleteCartIcon, item
                                         <input style={{ marginTop: "10px" }} type="text" id="cvv" name="cvv" placeholder="***"/>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="col-lg-4 mt-2" style={{ width:"20%", display: "flex", flexDirection: "column", margin: "0" }}>
                                 <h5>Subtotal: {addedCartItems}</h5>
-                                <h6 style={{margin:"1em 1em 1em 0"}}>Shipping: 3.99 (Flat fee)</h6>
-                                <button style={{ padding:"10px", width:"60%"}} className="btn-block btn-blue" id="checkout">Checkout</button>
-                            </div>
+                                {/* <h6 style={{margin:"1em 1em 1em 0"}}>Shipping: 3.99 (Flat fee)</h6> */}
+                            {/* </div>
                         </div>
-                    </div>
-                </div>
-            </div>) : null}
-        </div>
+                    </div> */}
+                    <button onClick={togglePayment} style={{ padding: "10px", width: "60%" }} className="btn-block btn-blue" id="checkout">Checkout</button>
+                    {showCheckout ? <StripeContainer total={addedCartItems} /> : null}
+                {/* /* </div> */}
+            </div>
+        </div> 
     </>
 )}
 

@@ -21,7 +21,7 @@ import { darkScrollbar } from '@mui/material';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ sold_by, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, addCartItem, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ sold_by, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, addCartItem, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -184,7 +184,7 @@ function ItemCard({ sold_by, handleUnlike, addNewFavorite, setFavorites, isFavor
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                inCartIcon: true,
+                inCartIcon: !inCartIcon,
                 id: item.id,
             }),
         })
@@ -194,22 +194,10 @@ function ItemCard({ sold_by, handleUnlike, addNewFavorite, setFavorites, isFavor
     }
 
 
-    // function deleteCartIcon(){
-    //     setEditCartState(!editCartState);
-    //     fetch(`/api/edit_cart/${id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             inCartIcon: false,
-    //             id: item.id,
-    //         }),
-    //     })
-    //     .then((resp) => resp.json())
-    //     .then(data => setInitialCartValue(data.inCartIcon));
-    //     setIsAddedCart(isAddedCart => (!isAddedCart))
-    // }
+    function setCartValue(deletedItem){
+        setInitialCartValue(deletedItem.inCartIcon);
+        setIsAddedCart(isAddedCart => (!isAddedCart))
+    }
 
     function renderUserCartItem() {
         console.log(user)

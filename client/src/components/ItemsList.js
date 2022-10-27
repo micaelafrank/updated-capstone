@@ -12,6 +12,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SavedContainer from './SavedContainer';
+import ShoppingCart from './ShoppingCart';
 // import Pagination from '@mui/material/Pagination';
 
 
@@ -21,8 +22,9 @@ import SavedContainer from './SavedContainer';
 //     </Stack>
 // }
 
-function ItemsList({ handleUnlike, addCartItem, items, setItems, addNewFavorite, setChange, user, change, removeLike }) {
+function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCartItem, items, setItems, addNewFavorite, setChange, user, change, removeLike }) {
     const [favorites, setFavorites] = useState([]);
+
 
     useEffect(() => {
         fetch("/api/items")
@@ -38,7 +40,11 @@ function ItemsList({ handleUnlike, addCartItem, items, setItems, addNewFavorite,
         return (
             <ItemCard
                 key={item.id}
+                // deleteCartIcon={deleteCartIcon}
+                setCartValue={setCartValue}
                 inCartIcon={item.inCartIcon}
+                cartItems={cartItems}
+                setCartItems={setCartItems}
                 id={item.id}
                 clickedHeart={item.clickedHeart}
                 item_id={item.id}

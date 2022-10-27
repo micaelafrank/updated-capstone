@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :show, :create, :update, :heart_change, :cart_change, :destroy]
     resources :users 
     resources :checkout, only: [:create, :create_payment_intent]
-    resources :user_cart_items, only: [:destroy, :create, :emptycart]
+    resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
     resources :user_carts, only: [:index, :show, :create]
     resources :user_likes_container, only: [:index, :create]
     resources :user_likes_container, only: [:show] do
@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     get "/items", to: "items#index"
     # post "/create_cart" , to: "user_carts#create"
     post "/addtocart", to: "user_cart_items#create"
-    delete "/user_cart_items/:item_id", to: "user_cart_items#destroy"
+    delete "/removefromcart", to: "user_cart_items#removefromcart"
     delete "/emptycart", to: "user_cart_items#emptycart"
     post "/create-payment-intent", to: "checkout#create_payment_intent"
     get "/user-likes-container/:user_id", to: "user_likes_containers#show"
@@ -46,6 +46,7 @@ Rails.application.routes.draw do
     post "/saved-items", to: "items#create"
     delete "/remove-save/:id", to: "saved_items#destroy" 
     patch "/edit_cart/:id", to: "items#cart_change"
+    post '/create-payment-intent', to: 'checkout#create_payment_intent'
     # delete "/saved_items/emptysaves", to: "saved_items#emptysaves"
   end
     # patch "items/heart_change/:id", to: "items#heart_change"

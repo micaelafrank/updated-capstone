@@ -26,7 +26,7 @@ function App() {
     fetch("/api/items")
       .then((r) => r.json())
       .then(data => setItems(data))
-  }, [])
+  }, [change])
   console.log(items)
 
 
@@ -44,7 +44,7 @@ function App() {
     fetch("/api/mycart")
       .then((r) => r.json())
       .then(data => setCartItems(data.items))
-  }, [change])
+  }, [])
   console.log(cartItems)
 
 
@@ -52,15 +52,36 @@ function App() {
     console.log("return item")
   }
 
+  function deleteItem(id) {
+    const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
+    setCartItems(updatedCart);
+  }
 
   function addNewItem(newItem) {
     setItems(...items, newItem)
   }
 
-  function deleteItem(id) {
-    const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
-    setCartItems(updatedCart);
-  }
+  // function deleteItem(id) {
+  //   const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
+  //   setCartItems(updatedCart);
+  // }
+
+  // function deleteCartIcon(id) {
+  //   setEditCartState(!editCartState);
+  //   fetch(`/api/edit_cart/${id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       inCartIcon: false,
+  //       id: item.id,
+  //     }),
+  //   })
+  //     .then((resp) => resp.json())
+  //     .then(data => setInitialCartValue(data.inCartIcon));
+  //   setIsAddedCart(isAddedCart => (!isAddedCart))
+  // }
 
 
   useEffect(() => {
@@ -80,8 +101,8 @@ function App() {
           <Route path="/" element={<Homepage user={user} />} /> 
           <Route path="/profile" element={<Profile items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
-            <Route path="/buy" element={<ItemsList addCartItem={addCartItem} items={items} setItems={setItems} change={change} setChange={setChange} user={user} />} />
-          <Route path="/mycart" element={<ShoppingCart deleteItem={deleteItem} cartItems={cartItems} setCartItems={setCartItems} total={items} setChange={setChange} change={change} user={user} items={items} />} />
+          <Route path="/buy" element={<ItemsList cartItems={cartItems} setCartItems={setCartItems} addCartItem={addCartItem} items={items} setItems={setItems} change={change} setChange={setChange} user={user} />} />
+          <Route path="/mycart" element={<ShoppingCart deleteItem={deleteItem} total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           {/* <Route path="/checkout" element={<StripeContainer total={1000} />} /> */}
           {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}

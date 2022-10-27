@@ -24,16 +24,9 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
         render json: user_cart_items, status: :updated 
     end
 
-    def destroy
-        my_item = UserCartItem.find_by(item_id: params[:id])
-        found_item = Item.find(my_item.id)
-        if params.has_key?(:inCartIcon) then
-            found_item.update!(inCartIcon: params[:inCartIcon])
-        end
-        UserCartItem.where(id: params[:item_id]).destroy_all
-        render json: found_item, status: :ok
-
-        # UserCartItem.where(id: params[:item_id]).destroy_all
+    def removefromcart
+        myitem = UserCartItem.find(params[:id])
+        myitem.destroy!
         head :no_content
     end
 
@@ -55,7 +48,12 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
         head :no_content
     end 
 
-    private 
+      # DELETE /carts/1
+
+  private
+    # def set_cart
+    #   @cart = UserCart.find(params[:id])
+    # end
 
     def uci_params
         params.permit(:item_id, :id, :user_cart_id)
