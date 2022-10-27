@@ -52,10 +52,10 @@ function App() {
     console.log("return item")
   }
 
-  function deleteItem(id) {
-    const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
-    setCartItems(updatedCart);
-  }
+  // function deleteItem(id) {
+  //   const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
+  //   setCartItems(updatedCart);
+  // }
 
   function addNewItem(newItem) {
     setItems(...items, newItem)
@@ -102,9 +102,9 @@ function App() {
           <Route path="/profile" element={<Profile items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/buy" element={<ItemsList cartItems={cartItems} setCartItems={setCartItems} addCartItem={addCartItem} items={items} setItems={setItems} change={change} setChange={setChange} user={user} />} />
-          <Route path="/mycart" element={<ShoppingCart deleteItem={deleteItem} total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />
+          <Route path="/mycart" element={<ShoppingCart total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
-          {/* <Route path="/checkout" element={<StripeContainer total={1000} />} /> */}
+          <Route path="/checkout" element={<StripeContainer total={1000} />} />
           {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}
         </Route>
       </Routes>

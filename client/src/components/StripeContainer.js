@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Elements } from "react-stripe-elements"
+import { Elements } from "@stripe/react-stripe-js"
 // import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
 import CheckoutForm from "./CheckoutForm"
@@ -12,7 +12,7 @@ export const StripeContainer = ({ total }) => {
     const [clientSecret, setClientSecret] = useState("")
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("/api/create-payment-intent", {
+        fetch("/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ total: 1000 }),
@@ -33,7 +33,6 @@ export const StripeContainer = ({ total }) => {
     return (
         <>
             {clientSecret && (
-                
                 <Elements options={options} stripe={stripeTestPromise}>
                     <CheckoutForm />
                 </Elements>

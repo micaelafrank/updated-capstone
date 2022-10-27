@@ -9,10 +9,10 @@ Rails.application.routes.draw do
     #   get 'cancel', to: 'checkout#cancel', as: 'checkout_cancel'
     #   get 'success', to: 'checkout#success', as: 'checkout_success'
     # end
+    # resources :checkout, only: [:create, :create_payment_intent]
   namespace :api do
     resources :items, only: [:index, :show, :create, :update, :heart_change, :cart_change, :destroy]
     resources :users 
-    resources :checkout, only: [:create, :create_payment_intent]
     resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
     resources :user_carts, only: [:index, :show, :create]
     resources :user_likes_container, only: [:index, :create]
@@ -46,11 +46,13 @@ Rails.application.routes.draw do
     post "/saved-items", to: "items#create"
     delete "/remove-save/:id", to: "saved_items#destroy" 
     patch "/edit_cart/:id", to: "items#cart_change"
-    post '/create-payment-intent', to: 'checkout#create_payment_intent'
+    # post '/create-payment-intent', to: 'checkout#create_payment_intent'
     # delete "/saved_items/emptysaves", to: "saved_items#emptysaves"
   end
     # patch "items/heart_change/:id", to: "items#heart_change"
     # post "/create_container", to: "user_likes_container#create"
+    post '/payment', to: "checkout#create"
+    post '/create-payment-intent', to: 'checkout#create_payment_intent'
 
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 end

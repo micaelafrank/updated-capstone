@@ -6,8 +6,8 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 
-function ShoppingCart({deleteItem, setCartItems, cartItems, setCartValue, items, total, change, setChange, user}){
-    // const [cartItems, setCartItems] = useState([]);
+function ShoppingCart({deleteItem, setCartValue, items, total, change, setChange, user}){
+    const [cartItems, setCartItems] = useState([]);
     const [addedCartItems, setAddedCartItems] = useState(0);
     const [showCheckout, setShowCheckout] = useState(false)
 
@@ -28,30 +28,23 @@ function ShoppingCart({deleteItem, setCartItems, cartItems, setCartValue, items,
     // .then(setCartValue);
     // }
 
-    // useEffect(() => {
-    //     fetch("/api/mycart")
-    //         .then((r) => r.json())
-    //         .then(data => setCartItems(data.items))
-    // }, [])
-    // console.log(cartItems)
+    useEffect(() => {
+        fetch("/api/mycart")
+            .then((r) => r.json())
+            .then(data => setCartItems(data.items))
+    }, [])
+    console.log(cartItems)
 
 
     function togglePayment() {
         setShowCheckout(showCheckout => (!showCheckout));
     }
 
-    // const uniqueIds = [];
 
-    // const uniqueCartItems = cartItems.filter(cartItem => {
-    //     const isDuplicate = uniqueIds.includes(cartItem.id);
-
-    //     if (!isDuplicate) {
-    //         uniqueIds.push(cartItem.id);
-    //         return true;
-    //     }
-    //     return false;
-    // });
-    
+    function deleteItem(id) {
+        const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
+        setCartItems(updatedCart);
+    }
     
     useEffect(() => {
         let total = 0;
@@ -154,17 +147,26 @@ function ShoppingCart({deleteItem, setCartItems, cartItems, setCartValue, items,
                                     </div>
                                 </div>
                             </div> */}
-                            <div className="col-lg-4 mt-2" style={{ width:"20%", display: "flex", flexDirection: "column", margin: "0" }}>
-                                <h5>Subtotal: {addedCartItems}</h5>
-                                {/* <h6 style={{margin:"1em 1em 1em 0"}}>Shipping: 3.99 (Flat fee)</h6> */}
-                            {/* </div>
-                        </div>
-                    </div> */}
-                    <button onClick={togglePayment} style={{ padding: "10px", width: "60%" }} className="btn-block btn-blue" id="checkout">Checkout</button>
-                    {showCheckout ? <StripeContainer total={addedCartItems} /> : null}
-                {/* /* </div> */}
+                <div>
+                    <ul style={{ listStyleType: "none", fontWeight: "bold", display: "flex", margin: "50px" }}>
+                        <li style={{ position: "absolute", right: "340px" }}>Total: {addedCartItems}</li>
+                    </ul>
+                </div>
+                <button onClick={togglePayment}>Check Out</button>
+                {showCheckout ? <StripeContainer total={addedCartItems} /> : null}
             </div>
-        </div> 
+            {/* <div className="col-lg-4 mt-2" style={{ width:"20%", display: "flex", flexDirection: "column", margin: "0" }}>
+                <h5>Subtotal: {addedCartItems}</h5>
+            </div> */}
+
+            {/* <h6 style={{margin:"1em 1em 1em 0"}}>Shipping: 3.99 (Flat fee)</h6> */}
+            {/* </div>
+            </div>
+                </div> */}
+            {/* <button onClick={togglePayment} style={{ padding: "10px", width: "60%" }} className="btn-block btn-blue" id="checkout">Checkout</button>
+            {showCheckout ? <StripeContainer total={addedCartItems} /> : null} */}
+            {/* /* </div> */}
+            {/* </div> */}
     </>
 )}
 
