@@ -18,7 +18,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
         new_item.images.attach(params[:images])
         pp new_item
         if new_item.save
-            render json: new_item, status: :created
+            render json: new_item, status: :ok
             pp new_item.images
         else
             pp new_item.errors.full_messages
@@ -43,42 +43,32 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
         render json: item, status: :ok
     end
 
-    def heart_change
-        item = find_item
-        if params.has_key?(:clickedHeart) then
-            item.update!(clickedHeart: params[:clickedHeart])
-        end
-        render json: item, status: :ok
-    end
 
-    def cart_change
+    def update
         item = find_item
-        if params.has_key?(:inCartIcon) then
-            item.update!(inCartIcon: params[:inCartIcon])
-        end
-
+        item.update!(item_params)
         render json: item, status: :ok
     end
 
 
     def destroy 
         item = find_item
-        item.destroy 
+        item.destroy
         head :no_content
     end
 
     private 
 
-    def heart_params
-        params.permit(:itemname, :clickedHeart, :inCartIcon, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
-    end
+    # def heart_params
+    #     params.permit(:itemname, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
+    # end
 
-    def cart_params
-        params.require(:item).permit(:inCartIcon, :id)
-    end
+    # def cart_params
+    #     params.require(:item).permit(:id)
+    # end
 
     def item_params
-        params.permit(:itemname, :clickedHeart, :inCartIcon, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
+        params.permit(:itemname, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
         # params.require(:item).permit(:itemname, :price, :description, :color, :size, :condition, :user_id, images: [])
     end
 

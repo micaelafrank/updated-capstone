@@ -24,7 +24,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ sold_by, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, addCartItem, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ sold_by, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, addCartItem, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -239,13 +239,16 @@ function ItemCard({ sold_by, cartItems, setCartValue, setCartItems, handleUnlike
     }
 
 
-    function handleDelete(id) {
+    function handleDelete() {
+        console.log("I was clicked")
         fetch(`/api/items/${id}`, {
             method: "DELETE",
         })
-            .then((res) => res.json())
-            .then(data => setItems(items.filter((item) => item.id !== id)))
-    }
+        .then((r) => {
+            if (r.ok) {
+                deleteItemFromList(id);
+        }
+    })}
 
 
     return (
@@ -260,6 +263,7 @@ function ItemCard({ sold_by, cartItems, setCartValue, setCartItems, handleUnlike
                 <ArrowForwardIosIcon style={{ position: 'absolute', top: '50%', right: 20, transform: 'translate(-50%,-50%)' }}>Next</ArrowForwardIosIcon>               
             </Carousel> */}
             <CardMedia
+                className="itemImage"
                 component="img"
                 sx={{ maxHeight: "300" }}
                 image={images_url}
@@ -348,12 +352,8 @@ function ItemCard({ sold_by, cartItems, setCartValue, setCartItems, handleUnlike
                 }
                 {user.id === item.user_id ?
                     <IconButton aria-label="delete"
-                        onClick={() => {
-                            <p severity="warning" variant="outlined"
-                                onClick={handleDelete}
-                                onClose={() => { }}>alert('Are you sure you want to delete this item? This cannot be undone.')
-                            </p>
-                        }}>
+                        onClick={handleDelete}
+                    >
                         <DeleteIcon />
                     </IconButton> : null}
                 {user.id === item.user_id ? null :

@@ -60,7 +60,7 @@ function AddItemForm({ user, addNewItem }) {
                 if (r.ok) {
                     r.json().then(data => addNewItem(data));
                     navigate("/buy")
-                }
+                } 
                 else {
                     r.json().then((err) => setErrors(err.errors));
                 }
@@ -212,6 +212,7 @@ function AddItemForm({ user, addNewItem }) {
                                     type="file"
                                     id="file"
                                     name="file"
+                                    multiple
                                     accept="image/*"
                                     onChange={handleImages}
                                 />

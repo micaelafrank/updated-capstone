@@ -16,10 +16,11 @@ import ShoppingCart from './ShoppingCart';
 // import Pagination from '@mui/material/Pagination';
 
 
-function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCartItem, items, setItems, addNewFavorite, setChange, user, change, removeLike }) {
+function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, setCartItems, addCartItem, items, setItems, addNewFavorite, setChange, user, change, removeLike }) {
     const [favorites, setFavorites] = useState([]);
     const [cartIcons, setCartIcons] = useState([cartItems]);
 
+    
     useEffect(() => {
         fetch("/api/items")
             .then((r) => r.json())
@@ -34,6 +35,12 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
             .then(data => setCartItems(data.items))
     }, [])
     console.log(cartItems)
+
+
+    // function deleteItemFromList(id) {
+    //     const updatedItemsList = items.filter((item) => item.id !== id);
+    //     setItems(updatedItemsList);
+    // }
 
     const theme = createTheme({
         palette: {
@@ -58,11 +65,9 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
                 key={item.id}
                 // deleteCartIcon={deleteCartIcon}
                 setCartValue={setCartValue}
-                inCartIcon={item.inCartIcon}
                 cartItems={cartItems}
                 setCartItems={setCartItems}
                 id={item.id}
-                clickedHeart={item.clickedHeart}
                 item_id={item.id}
                 user_likes_container_id={user.user_likes_container}
                 removeLike={removeLike}
@@ -91,41 +96,6 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
             />
         )
     })
-
-    // function handleCartIcons(cartItems){
-    //     cartItems.map((cItem) => {
-    //         fetch(`/api/edit_cart/${cItem.id}`, {
-    //             method: "PATCH",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({
-    //                 inCartIcon: true,
-    //                 id: cItem.id,
-    //             }),
-    //         })
-    //         .then((resp) => resp.json())
-    //         .then(data => setCartIcons(data.inCartIcon));
-    //     })
-    // }
-
-    // let arr1 = {};
-    // let arr2 = cartItems;
-
-    // const itemCheck = items.map((item) => {
-    //     if(item.id.contains())
-    // })
-    // const renderIcons = cartItems.map((cItem) => {
-    //     const credential = { id: cItem.id };
-    // })
-    // const credential = { user: this.state.user, password: this.state.password };
-    // **if (this.state.credentialsList.length !== 0 && this.state.credentialsList.contains(credential)) {
-
-
-
-    // const fillCartIcon = cartItems.filter((cartItem) => {
-    //     cartItem.item_id 
-    // })
 
     return (
         <ThemeProvider theme={theme}>
@@ -159,7 +129,7 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
                             justifyContent="center"
                         >
                             <Button sx={{ pt: 1.5, pb: 1.5, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" href="/sell">SELL</Button>
-                            <Button sx={{ pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darker' }} variant="contained" href="/mysaves">SHOP SAVED ITEMS</Button>
+                            <Button sx={{ pt: 1.5, pb: 1.5, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" href="/mysaves">SHOP SAVED ITEMS</Button>
                             {/* <Button sx={{ bgcolor: 'secondary.main', color: 'secondary.darker' }} variant="contained"> Remove all saved items</Button> */}
                         </Stack>
                     </Container>

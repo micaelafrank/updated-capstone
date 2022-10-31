@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     # end
     # resources :checkout, only: [:create, :create_payment_intent]
   namespace :api do
-    resources :items, only: [:index, :show, :create, :update, :heart_change, :cart_change, :destroy]
+    resources :items, only: [:index, :show, :create, :update, :destroy]
     resources :users 
     resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
     resources :user_carts, only: [:index, :show, :create]
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     patch "/profile/:id", to: "users#update"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy" 
-    post "/sell", to: "items#create"
+    # post "/sell", to: "items#create"
     get "/mycart", to: "user_carts#show"  
     get "/items", to: "items#index"
     # post "/create_cart" , to: "user_carts#create"

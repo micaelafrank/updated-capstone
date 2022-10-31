@@ -33,6 +33,14 @@ function App() {
   console.log(user);
 
 
+  useEffect(() => {
+    fetch("/api/items")
+      .then((r) => r.json())
+      .then(data => setItems(data))
+  }, [])
+  console.log(items)
+
+
   const darkBrown = brown[300];
   const mainBrown = brown[200];
   const lightBrown = brown['A100'];
@@ -51,30 +59,17 @@ function App() {
   // let taupeDark = "#bcb3a9";
   // let taupeMain = "#efe5db";
 
-
-  useEffect(() => {
-    fetch("/api/items")
-      .then((r) => r.json())
-      .then(data => setItems(data))
-  }, [change])
-  console.log(items)
-
   
-  // useEffect(() => {
-  //   fetch("/api/mycart")
-  //     .then((r) => r.json())
-  //     .then(data => setCartItems(data.items))
-  // }, [])
+  function deleteItemFromList(id) {
+    const updatedItemsList = items.filter((item) => item.id !== id);
+    setItems(updatedItemsList);
+  }
 
 
   function addCartItem(item){
     console.log("return item")
   }
 
-  // function deleteItem(id) {
-  //   const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
-  //   setCartItems(updatedCart);
-  // }
 
   function addNewItem(newItem) {
     setItems(...items, newItem)
@@ -120,7 +115,7 @@ function App() {
           <Route path="/" element={<Homepage user={user} />} /> 
           <Route path="/profile" element={<Profile setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList cartItems={cartItems} setCartItems={setCartItems} addCartItem={addCartItem} items={items} setItems={setItems} change={change} setChange={setChange} user={user} />} />
+          <Route path="/buy" element={<ItemsList deleteItemFromList={deleteItemFromList} cartItems={cartItems} setCartItems={setCartItems} addCartItem={addCartItem} items={items} setItems={setItems} change={change} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />

@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+.itemImage{
+  max-height: 300px;
+}
+
 .fab-edit{
   opacity: 50%;
   float: right;
