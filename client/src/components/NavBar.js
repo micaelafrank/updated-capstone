@@ -1,6 +1,7 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import {brown} from '@mui/material/colors'; 
 import { useNavigate } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -8,14 +9,29 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
+// import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 const pages = ['SELL', 'BUY', 'PROFILE', 'LOGOUT'];
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            // Purple and green play nicely together.
+            main: '#795548',
+            lighter: brown.A100,
+        },
+        secondary: {
+            // This is green.A700 as hex.
+            main: '#bbe5ca',
+        },
+    },
+});
 
 const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
     const navigate = useNavigate();
@@ -25,7 +41,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
         fetch("/api/logout", { method: "DELETE" }).then((r) => {
             if (r.ok) {
                 setUser(null);
-                navigate("/login")
+                navigate("/")
             }
         });
     }
@@ -34,14 +50,18 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
         navigate("/mycart")
     }
 
+    const darkBrown = '#795548';
+    const mainBrown = '#e8eaf6';
+    const lightBrown = brown['A100'];
+
+
     return (
-        <AppBar position="static">
-            <Container maxWidth="xl">
+        <AppBar theme={theme} position="static">
+            <Container sx={{backgroundColor: darkBrown }} maxWidth="xl">
                 <Toolbar disableGutters>
                     {/* <img className='logoimg' alt="cube-logo" /> */}
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1}} />
                     <Typography
-                        variant="h6"
+                        variant="h4"
                         noWrap
                         component="a"
                         href="/"
@@ -112,7 +132,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             <Button
                                 onClick={() => navigate('/sell')}
-                                sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em", marginLeft:"1em"}}
+                                sx={{ my: 2, color: "secondary", display: 'block', marginRight: "2em", marginLeft:"1em"}}
                             >
                                 SELL
                             </Button>

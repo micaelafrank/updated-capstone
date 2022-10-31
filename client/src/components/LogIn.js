@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -32,11 +33,18 @@ function Copyright({ props }) {
 
 const theme = createTheme();
 
-export default function SignInSide({ user, setUser }) {
+export default function SignInSide({ user, setUser, items, setItems }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
+
+
+    useEffect(() => {
+        fetch("/items")
+            .then((r) => r.json())
+            .then(data => setItems(data))
+    }, [])
 
 
     function handleLogin(e) {

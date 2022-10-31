@@ -8,6 +8,7 @@ import ItemsList from './ItemsList';
 import AddItemForm from './AddItemForm';
 import { Route, Routes } from 'react-router-dom';
 import ShoppingCart from './ShoppingCart';
+import { brown, blueGrey } from '@mui/material/colors';
 import SavedContainer from './SavedContainer';
 // import NavBar from './NavBar';
 import StripeContainer from './StripeContainer';
@@ -23,14 +24,6 @@ function App() {
 
 
   useEffect(() => {
-    fetch("/api/items")
-      .then((r) => r.json())
-      .then(data => setItems(data))
-  }, [change])
-  console.log(items)
-
-
-  useEffect(() => {
     fetch("/api/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user))
@@ -40,12 +33,38 @@ function App() {
   console.log(user);
 
 
+  const darkBrown = brown[300];
+  const mainBrown = brown[200];
+  const lightBrown = brown['A100'];
+
+
+  // let yellowLight = "#f4f0ad";
+  // let yellowDark = "#c1be7d";
+  // let yellowMain = "#f4f0ad";
+  // let greenLight = "#eefffd";
+  // let greenDark = "#8ab399";
+  // let greenMain = "#bbe5ca";
+  let newGreen = '#cfe0c3';
+  const purple = '#bca5bb';
+  
+  // let taupeLight = "#ffffff";
+  // let taupeDark = "#bcb3a9";
+  // let taupeMain = "#efe5db";
+
+
   useEffect(() => {
-    fetch("/api/mycart")
+    fetch("/api/items")
       .then((r) => r.json())
-      .then(data => setCartItems(data.items))
-  }, [])
-  console.log(cartItems)
+      .then(data => setItems(data))
+  }, [change])
+  console.log(items)
+
+  
+  // useEffect(() => {
+  //   fetch("/api/mycart")
+  //     .then((r) => r.json())
+  //     .then(data => setCartItems(data.items))
+  // }, [])
 
 
   function addCartItem(item){
@@ -99,7 +118,7 @@ function App() {
         <Route path="/signup" element={<SignUp user={user} setUser={setUser} />} />
           <Route element={<WithNav user={user} setUser={setUser} darkMode={darkMode} setDarkMode={setDarkMode} />}>
           <Route path="/" element={<Homepage user={user} />} /> 
-          <Route path="/profile" element={<Profile items={items} user={user} />} />
+          <Route path="/profile" element={<Profile setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/buy" element={<ItemsList cartItems={cartItems} setCartItems={setCartItems} addCartItem={addCartItem} items={items} setItems={setItems} change={change} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />

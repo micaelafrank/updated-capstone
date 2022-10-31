@@ -16,15 +16,9 @@ import ShoppingCart from './ShoppingCart';
 // import Pagination from '@mui/material/Pagination';
 
 
-// function PaginationOutlined() {
-//     <Stack spacing={2}>
-//         <Pagination count={10} variant="outlined" color="primary" />
-//     </Stack>
-// }
-
 function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCartItem, items, setItems, addNewFavorite, setChange, user, change, removeLike }) {
     const [favorites, setFavorites] = useState([]);
-
+    const [cartIcons, setCartIcons] = useState([cartItems]);
 
     useEffect(() => {
         fetch("/api/items")
@@ -34,7 +28,29 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
     console.log(items)
 
 
-    const theme = createTheme();
+    useEffect(() => {
+        fetch("/api/mycart")
+            .then((r) => r.json())
+            .then(data => setCartItems(data.items))
+    }, [])
+    console.log(cartItems)
+
+    const theme = createTheme({
+        palette: {
+            primary: {
+                // Purple and green play nicely together.
+                main: '#efd6ed',
+                darker: '#bca5bb',
+            },
+            secondary: {
+                // This is green.A700 as hex.
+                main: '#cfe0c3',
+                darker: '#9eae93',
+                darkText: '#3b4234;'
+            },
+        },
+    });
+
 
     const listOfItems = items.map((item) => {
         return (
@@ -71,10 +87,45 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
                 setFavorites={setFavorites}
                 items={items}
                 addCartItem={addCartItem}
+                cartIcons={cartIcons}
             />
         )
     })
 
+    // function handleCartIcons(cartItems){
+    //     cartItems.map((cItem) => {
+    //         fetch(`/api/edit_cart/${cItem.id}`, {
+    //             method: "PATCH",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 inCartIcon: true,
+    //                 id: cItem.id,
+    //             }),
+    //         })
+    //         .then((resp) => resp.json())
+    //         .then(data => setCartIcons(data.inCartIcon));
+    //     })
+    // }
+
+    // let arr1 = {};
+    // let arr2 = cartItems;
+
+    // const itemCheck = items.map((item) => {
+    //     if(item.id.contains())
+    // })
+    // const renderIcons = cartItems.map((cItem) => {
+    //     const credential = { id: cItem.id };
+    // })
+    // const credential = { user: this.state.user, password: this.state.password };
+    // **if (this.state.credentialsList.length !== 0 && this.state.credentialsList.contains(credential)) {
+
+
+
+    // const fillCartIcon = cartItems.filter((cartItem) => {
+    //     cartItem.item_id 
+    // })
 
     return (
         <ThemeProvider theme={theme}>
@@ -93,7 +144,7 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
                             component="h1"
                             variant="h2"
                             align="center"
-                            color="text.primary"
+                            color="secondary.darker"
                             gutterBottom
                         >
                             SHOP
@@ -104,12 +155,12 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
                         <Stack
                             sx={{ pt: 4 }}
                             direction="row"
-                            spacing={2}
+                            spacing={3}
                             justifyContent="center"
                         >
-                            <Button variant="contained" href="/sell">Sell something</Button>
-                            <Button variant="contained" href="/mysaves"> Shop saved items only</Button>
-                            <Button variant="contained"> Remove all saved items</Button>
+                            <Button sx={{ pt: 1.5, pb: 1.5, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" href="/sell">SELL</Button>
+                            <Button sx={{ pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darker' }} variant="contained" href="/mysaves">SHOP SAVED ITEMS</Button>
+                            {/* <Button sx={{ bgcolor: 'secondary.main', color: 'secondary.darker' }} variant="contained"> Remove all saved items</Button> */}
                         </Stack>
                     </Container>
                 </Box>

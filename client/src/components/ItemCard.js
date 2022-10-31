@@ -16,6 +16,9 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { darkScrollbar } from '@mui/material';
+import {brown, orange} from '@mui/material/colors';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 // import SavedContainer from './SavedContainer';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -44,6 +47,22 @@ function ItemCard({ sold_by, cartItems, setCartValue, setCartItems, handleUnlike
     //     return favItem.item_id === item.id
     // })
     // console.log(listOfSaves)
+
+    const theme = createTheme({
+        palette: {
+            primary: {
+                // Purple and green play nicely together.
+                main: '#efd6ed',
+                darker: '#bca5bb',
+            },
+            secondary: {
+                // This is green.A700 as hex.
+                main: '#cfe0c3',
+                darker: '#9eae93',
+                darkText: '#3b4234;'
+            },
+        },
+    });
 
 
     let handleEditDescription = () => {
@@ -184,13 +203,13 @@ function ItemCard({ sold_by, cartItems, setCartValue, setCartItems, handleUnlike
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                inCartIcon: !inCartIcon,
+                inCartIcon: true,
                 id: item.id,
             }),
         })
         .then((resp) => resp.json())
         .then(data => setInitialCartValue(data.inCartIcon));
-        setIsAddedCart(isAddedCart => (!isAddedCart))
+        // setIsAddedCart(isAddedCart => (!isAddedCart))
     }
 
 
@@ -230,7 +249,9 @@ function ItemCard({ sold_by, cartItems, setCartValue, setCartItems, handleUnlike
 
 
     return (
-        <Card sx={{ border: "1px solid black" }}>
+        <Card theme={theme} 
+        sx={{ border: "1px solid black" }}
+        >
             {/* <Carousel
                 component = "img"
                 alt="random" 
@@ -243,11 +264,13 @@ function ItemCard({ sold_by, cartItems, setCartValue, setCartItems, handleUnlike
                 sx={{ maxHeight: "300" }}
                 image={images_url}
             />
-            <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h5" component="h2">
+            <CardContent color="primary" sx={{ flexGrow: 1 }}>
+                <Typography color="secondary.darkText" gutterBottom variant="h5" component="h2">
                     {user.id === item.user_id ?
                         <Fab className="fab-edit" size="small" aria-label="edit">
-                            <EditIcon onClick={handleEditItemName} sx={{ color: editNameState ? "green" : null }} />
+                            <EditIcon onClick={handleEditItemName} 
+                            // sx={{ color: editNameState ? "green" : null }} 
+                            />
                         </Fab>
                         : null}
                     {editNameState ? (
@@ -307,11 +330,13 @@ function ItemCard({ sold_by, cartItems, setCartValue, setCartItems, handleUnlike
                         </div>
                     )}
                 </Typography>
-                <Typography sx={{ fontSize: "14px", color: "#465C8B", fontWeight: "bold", paddingTop: "10px" }}>
+                <Typography sx={{ fontSize: "14px", color: brown[400], fontWeight: "bold", paddingTop: "10px" }}>
                     Sold by: {sold_by}
                 </Typography>
             </CardContent>
-            <CardActions>
+            <CardActions theme={theme} 
+            // sx={{bgcolor: orange[100]}}
+            >
                 {/* <Button size="small">View</Button>
                 <Button size="small">Edit</Button> */}
                 {user.id === item.user_id ? null :

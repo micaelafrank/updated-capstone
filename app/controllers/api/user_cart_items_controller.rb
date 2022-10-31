@@ -25,7 +25,9 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     end
 
     def removefromcart
-        myitem = UserCartItem.find(params[:id])
+        cart = UserCart.find_by(user_id: @current_user.id)
+        cItems = cart.user_cart_items 
+        myitem = cItems.find_by(item_id: params[:id])
         myitem.destroy!
         head :no_content
     end

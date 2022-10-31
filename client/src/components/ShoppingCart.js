@@ -31,9 +31,29 @@ function ShoppingCart({deleteItem, setCartValue, items, total, change, setChange
     useEffect(() => {
         fetch("/api/mycart")
             .then((r) => r.json())
-            .then(data => setCartItems(data.items))
+            .then(data => setCartItems(data))
     }, [])
     console.log(cartItems)
+
+    const myCartItems = cartItems.user_cart_items.map((cartItem) => {
+        return (
+            <CartItem
+                cartItem={cartItem.item}
+                change={change}
+                setChange={setChange}
+                key={cartItem.id}
+                itemname={cartItem.itemname}
+                id={cartItem.id}
+                inCartIcon={cartItem}
+                price={cartItem.price}
+                material={cartItem.material}
+                setCartItems={setCartItems}
+                cartItems={cartItems}
+                deleteItem={deleteItem}
+            >
+            </CartItem>
+        )
+    })
 
 
     function togglePayment() {
@@ -87,24 +107,7 @@ function ShoppingCart({deleteItem, setCartValue, items, total, change, setChange
                     </div>
                 {/* </div> */}
             </div>
-            <div>{cartItems.map((cartItem) => {
-                return (
-                    <CartItem
-                        cartItem={cartItem}
-                        change={change}
-                        setChange={setChange}
-                        key={cartItem.id}
-                        id={cartItem.id}
-                        inCartIcon={cartItem.inCartIcon}
-                        price={cartItem.price}
-                        material={cartItem.material}
-                        setCartItems={setCartItems}
-                        cartItems={cartItems}
-                        deleteItem={deleteItem}
-                    >
-                    </CartItem>
-                )
-            })}
+            <div>{myCartItems}
             </div>
             {/* {user.userCartItems > 1 ? 
             (<div className="row justify-content-center" style={{marginTop:"4em"}}>
