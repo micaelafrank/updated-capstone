@@ -16,11 +16,12 @@ import ShoppingCart from './ShoppingCart';
 // import Pagination from '@mui/material/Pagination';
 
 
-function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, setCartItems, addCartItem, items, setItems, addNewFavorite, setChange, user, change, removeLike }) {
+function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, user, change, removeLike }) {
     const [favorites, setFavorites] = useState([]);
     const [cartIcons, setCartIcons] = useState([cartItems]);
+    const [items, setItems] = useState([])
 
-    
+
     useEffect(() => {
         fetch("/api/items")
             .then((r) => r.json())
@@ -28,13 +29,19 @@ function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, 
     }, [])
     console.log(items)
 
+    function deleteItemFromList(id) {
+        const updatedItemsList = items.filter((item) => item.id !== id);
+        setItems(updatedItemsList);
+    }
+    console.log("after delete: ", items)
 
-    useEffect(() => {
-        fetch("/api/mycart")
-            .then((r) => r.json())
-            .then(data => setCartItems(data.items))
-    }, [])
-    console.log(cartItems)
+
+    // useEffect(() => {
+    //     fetch("/api/mycart")
+    //         .then((r) => r.json())
+    //         .then(data => setCartItems(data.items))
+    // }, [])
+    // console.log(cartItems)
 
 
     // function deleteItemFromList(id) {
@@ -93,6 +100,7 @@ function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, 
                 items={items}
                 addCartItem={addCartItem}
                 cartIcons={cartIcons}
+                deleteItemFromList={deleteItemFromList}
             />
         )
     })

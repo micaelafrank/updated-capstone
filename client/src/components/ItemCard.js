@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -145,7 +145,7 @@ function ItemCard({ sold_by, deleteItemFromList, cartItems, setCartValue, setCar
         .then(setInCart(inCart => (!inCart)))
         // setInCart(inCart => (!inCart))
         setWasClicked(wasClicked => (!wasClicked));
-        // setIsFavorite(isFavorite => !isFavorite);
+        handleCartClick();
     }
 
 
@@ -195,22 +195,36 @@ function ItemCard({ sold_by, deleteItemFromList, cartItems, setCartValue, setCar
     }
 
 
-    let handleCartClick = () => {
-        setEditCartState(!editCartState);
-        fetch(`/api/edit_cart/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                inCartIcon: true,
-                id: item.id,
-            }),
-        })
-        .then((resp) => resp.json())
-        .then(data => setInitialCartValue(data.inCartIcon));
-        // setIsAddedCart(isAddedCart => (!isAddedCart))
-    }
+    // let handleCartClick = () => {
+    //     setEditCartState(!editCartState);
+    //     fetch(`/api/edit_cart/${id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             id: item.id,
+    //         }),
+    //     })
+    //     .then((resp) => resp.json())
+    //     .then(data => setInitialCartValue(data.inCartIcon));
+    //     // setIsAddedCart(isAddedCart => (!isAddedCart))
+    // }
+
+    const handleCartClick = useCallback(item => {
+        setCartItems(cartItems => {
+            const index = cartItems.findIndex(currentItem => currentItem.id === item.id);
+            const updatedCart = [...cartItems];
+            if (index >= 0) {
+                // Be sure not to mutate the item object within in the cart state:
+                const updatedItem = { ...updatedCart[index] };
+                updatedItem.quantity += item.quantity;
+                updatedCart[index] = updatedItem;
+            }
+            else updatedCart.push(item);
+            return updatedCart;
+        });
+    }, [setCartItems]);
 
 
     function setCartValue(deletedItem){
@@ -240,13 +254,14 @@ function ItemCard({ sold_by, deleteItemFromList, cartItems, setCartValue, setCar
 
 
     function handleDelete() {
+        //ADD POP UP MODAL HERE: "ARE YOU SURE YOU WANT TO DELETE THIS ITEM"
         console.log("I was clicked")
-        fetch(`/api/items/${id}`, {
+        fetch(`/api/items/${item.id}`, {
             method: "DELETE",
         })
         .then((r) => {
             if (r.ok) {
-                deleteItemFromList(id);
+        deleteItemFromList(id);
         }
     })}
 

@@ -32,6 +32,9 @@ function App() {
   }, [])
   console.log(user);
 
+  function addNewItem(newItem) {
+    setItems(...items, newItem)
+  }
 
   useEffect(() => {
     fetch("/api/items")
@@ -60,20 +63,17 @@ function App() {
   // let taupeMain = "#efe5db";
 
   
-  function deleteItemFromList(id) {
-    const updatedItemsList = items.filter((item) => item.id !== id);
-    setItems(updatedItemsList);
-  }
+  // function deleteItemFromList(id) {
+  //   const updatedItemsList = items.filter((item) => item.id !== id);
+  //   setItems(updatedItemsList);
+  // }
 
 
-  function addCartItem(item){
-    console.log("return item")
-  }
+  // function addCartItem(item){
+  //   console.log("return item")
+  // }
 
 
-  function addNewItem(newItem) {
-    setItems(...items, newItem)
-  }
 
   // function deleteItem(id) {
   //   const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
@@ -115,7 +115,7 @@ function App() {
           <Route path="/" element={<Homepage user={user} />} /> 
           <Route path="/profile" element={<Profile setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList deleteItemFromList={deleteItemFromList} cartItems={cartItems} setCartItems={setCartItems} addCartItem={addCartItem} items={items} setItems={setItems} change={change} setChange={setChange} user={user} />} />
+          <Route path="/buy" element={<ItemsList cartItems={cartItems} setCartItems={setCartItems} change={change} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
