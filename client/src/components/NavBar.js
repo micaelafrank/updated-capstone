@@ -131,69 +131,65 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                     </Typography> */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             <Button
-                                onClick={() => navigate('/sell')}
-                                sx={{ my: 2, color: "secondary", display: 'block', marginRight: "2em", marginLeft:"1em"}}
+                            className='navButtonOption'
+                            onClick={() => navigate('/sell')}
+                            sx={{ my: 2, color: "white", display: 'block', marginRight: "2em", marginLeft:"1em"}}
                             >
                                 SELL
                             </Button>
                             <Button
+                            className='navButtonOption'
                             sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}
                             onClick={() => navigate('/buy')}
                         >
                                 BUY
                             </Button>
                         {user.username ? <Button
+                            className='navButtonOption'
                             sx={{ my: 2, color: 'white', display: 'block', marginRight:"2em" }}
                             onClick={() => navigate('/profile')}
                         >
                                 PROFILE
                             </Button> : null }
                         {user.username ? 
-                            (<Button sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}                            
-                            onClick={handleLogout}>
-                                LOGOUT
-                            </Button>)
-                             : 
-                            (<Button sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}
-                            onClick={() => navigate('/login')}
-                            >
-                            LOGIN
-                            </Button>)
-                        }
-{/* 
-                        {user.username ? 
-                            (<Button
-                                onClick={handleLogout}
-                                sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}
-                            >
-                                LOGOUT
-                            </Button>)
-                            : 
-                            <Button
-                            onClick={() => navigate('/login')}
-                                sx={{ alignItems: 'right', float: 'right', my: 2, color: 'white', border: '1px solid white', marginLeft: '25px', marginRight: "2em", padding:'10px', display: 'block' }}
-                            >
-                                LOGIN
-                            </Button>} */}
-                        {user.username ? null :
-                            <Button
-                            onClick={() => navigate('/signup')}
-                                sx={{ alignItems: 'right', my: 2, color: 'white', float: 'right', border: '1px solid white', marginLeft: '25px', marginRight: "2em", padding: '10px', display: 'block' }}
-                            >
-                                SIGN UP
-                            </Button>
-                        }
-                    </Box>
-                    {user.username ? 
-                    <Box sx={{ flexGrow: 0, display:"flex", textAlign: 'center', alignItems: 'center'}}>
-                        <p style={{paddingRight:'2em'}}>SIGNED IN AS:  {user.username}</p>
-                        <IconButton
+                            (<IconButton
                             onClick={openShoppingCart}
                             style={{color:'white', paddingRight:'2em'}}
                         >
                             <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
                             <ShoppingCartIcon/>
-                        </IconButton>
+                        </IconButton>)
+                             : 
+                            (<>
+                            <Button 
+                            sx={{ alignItems: 'right', my: 2, color: 'white', float: 'right', border: '1px solid white', marginLeft: '25px', marginRight: "2em", padding: '10px', display: 'block' }}
+                            onClick={() => navigate('/login')}
+                            >
+                                LOGIN
+                            </Button>
+                            <Button
+                                onClick={() => navigate('/signup')}
+                                sx={{ alignItems: 'right', my: 2, color: 'white', float: 'right', border: '1px solid white', marginLeft: '25px', marginRight: "2em", padding: '10px', display: 'block' }}
+                            >
+                                SIGN UP
+                            </Button>
+                            </>)
+                        }
+                    </Box>
+                    {user.username ? 
+                    <Box sx={{ flexGrow: 0, display:"flex", textAlign: 'center', alignItems: 'center'}}>
+                        <p style={{ fontSize:"15px", paddingRight: '1.5em' }}>SIGNED IN AS:<span style={{ fontFamily: 'monospace' }}> {user.username}</span></p>
+                        <Button sx={{ my: 2, color: 'white', display: 'block', marginRight: "1em" }}
+                            onClick={handleLogout}>
+                            LOGOUT
+                        </Button>
+                        {/* <IconButton
+                            onClick={openShoppingCart}
+                            style={{color:'white', paddingRight:'2em'}}
+                        >
+                            <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
+                            <ShoppingCartIcon/>
+                        </IconButton> */}
                         {/* <div className="cursor-pointer duration-200 hover:text-red-500 absolute right-8 dark:text-slate-400 dark:hover:text-slate-200"> */}
                         <IconButton style={{color:"white"}} onClick={() => setDarkMode(!darkMode)}>
                             {darkMode ? <LightModeIcon/> : <DarkModeIcon/> }

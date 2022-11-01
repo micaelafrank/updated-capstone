@@ -171,6 +171,11 @@ button:focus {
   float: left;
 }
 
+.navButtonOption:active{
+  font-weight: bold;
+  text-decoration-style: underline;
+}
+
 #check-amt {
   float: right;
 }
