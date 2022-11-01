@@ -10,6 +10,8 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { brown } from '@mui/material/colors';
+
 
 function Copyright({props}) {
     return (
@@ -27,12 +29,24 @@ function Copyright({props}) {
     );
 }
 
-const theme = createTheme();
-
 
 export default function SignInSide({ user, setUser, darkMode, setDarkMode }) {
 
     const navigate = useNavigate();
+
+    const theme = createTheme({
+        palette: {
+            primary: {
+                // Purple and green play nicely together.
+                main: '#795548',
+                lighter: brown.A100,
+            },
+            secondary: {
+                // This is green.A700 as hex.
+                main: '#bbe5ca',
+            },
+        },
+    });
 
     // function handleLogin(e) {
     //     e.preventDefault();
@@ -85,16 +99,17 @@ export default function SignInSide({ user, setUser, darkMode, setDarkMode }) {
                         }}
                         >
                             <Typography component="h1" variant="h2" 
-                                sx={{paddingTop: '35px', fontFamily: 'monospace'}}>
+                                sx={{paddingTop: '35px', color: "primary.main", fontFamily: 'monospace'}}>
                             GOOD GOODS
                         </Typography>
                         <Typography component="h1" variant="h5"
-                            sx={{ paddingTop: '15px', paddingBottom: '5px', textAlign: "center", fontSize:"23px" }}>
-                            Communal marketplace of bits and masterpieces sold, bought, and made by creatives.                       
+                            sx={{ pb: 4, ml: 3, mr: 3, fontFamily: 'monospace', pt:2, textAlign: "center", fontSize: "20px" }}>
+                            SUSTAINABLE SHOPPING YOU CAN FEEL <span style={{ color: "primary.main", fontWeight: 'bold' }}>GOOD</span> ABOUT.
                         </Typography>
                         <Typography component="h1" variant="h5"
-                            sx={{ paddingBottom: '55px', fontFamily: 'monospace', paddingTop:"25px", textAlign: "center", fontSize:"21px"}}>
-                            SUSTAINABLE SHOPPING YOU CAN FEEL <span style={{ color: "green", fontWeight: 'bold' }}>GOOD</span> ABOUT.
+                            sx={{ pb: 4, textAlign: "center", fontSize:"18px", color: "secondary.darker", letterSpacing:1.2, lineHeight: 2 }}>
+                            A communal marketplace of bits and masterpieces.<br></br>
+                            Sold, resold, bought, and made by one another.                   
                         </Typography>
                         {/* <Typography component="h1" variant="h5"
                             sx={{ paddingTop: '25px', paddingBottom: '45px', textAlign:"center", margin:'10px 20px', fontSize:"21px" }}>
@@ -103,21 +118,21 @@ export default function SignInSide({ user, setUser, darkMode, setDarkMode }) {
                         <Grid container>
                             <Grid item sx={{margin:'auto'}}>
                                 <Button
-                                    sx={{ mt: 3, mb: 2, alignItems: 'center', margin: 'auto'}}
+                                        sx={{ m: 3, fontFamily: 'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize: "18px" }}
                                     onClick={() => navigate("/login")}
                                     variant="contained"
                                     >
-                                    {"Log In"}
+                                    {"LOG IN"}
                                 </Button>
                             </Grid>
                         </Grid>
                         <Grid container>
                             <Grid item sx={{ margin: 'auto' }}>
                                 <Button 
-                                    sx={{ mt: 3, mb: 2 }}
+                                        sx={{ m: 3, fontFamily: 'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize: "18px" }}
                                     onClick={() => navigate("/signup")} 
                                     variant="outlined">
-                                    {"Sign Up"}
+                                    {"SIGN UP"}
                                 </Button>
                             </Grid>
                         </Grid>

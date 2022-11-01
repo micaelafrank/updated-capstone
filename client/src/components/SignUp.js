@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { brown } from '@mui/material/colors'; 
 
 
 function Copyright({ props }) {
@@ -30,7 +31,6 @@ function Copyright({ props }) {
     );
 }
 
-const theme = createTheme();
 
 function SignUp({ user, setUser }) {
     const navigate = useNavigate();
@@ -43,12 +43,27 @@ function SignUp({ user, setUser }) {
     const [password_confirmation, setPasswordConfirmation] = useState("");
     const [userCart, setCart] = useState(null);
     const [favoriteBucket, setFavoriteBucket] = useState(null);
-
+    const [isLoading, setIsLoading] = useState(false);
     const [userFromSignup, setUserFromSignup] = useState({});
+
+    const theme = createTheme({
+        palette: {
+            primary: {
+                // Purple and green play nicely together.
+                main: '#795548',
+                lighter: brown.A100,
+            },
+            secondary: {
+                // This is green.A700 as hex.
+                main: '#bbe5ca',
+            },
+        },
+    });
 
     const handleSignUp = (e) => {
         e.preventDefault();
         setErrors([]);
+        setIsLoading(true);
         fetch("/api/signup", {
             method: 'POST',
             headers: {
@@ -56,10 +71,17 @@ function SignUp({ user, setUser }) {
             },
             body: JSON.stringify({ firstname, lastname, email, username, password }),
         }).then((r) => {
+            setIsLoading(false);
             if (r.ok) {
                 r.json().then((user) => {
                     setUser(user)
+                    setIsLoading(!isLoading);
                     navigate("/profile")
+                    setFirstname("")
+                    setLastname("")
+                    setEmail("")
+                    setUsername("")
+                    setPassword("")
                 })
             } else {
                 r.json().then((err) => setErrors(err.errors));
@@ -96,12 +118,17 @@ function SignUp({ user, setUser }) {
                             alignItems: 'center',
                         }}
                     >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h1" variant="h4">
-                        Sign Up
+                    <Typography component="h2" variant="h3" style={{ fontFamily: "monospace", mt: 4 }}>
+                        SIGN UP
                     </Typography>
+                    {errors.map((err) => (
+                        <p key={err} style={{ color: "red" }}>
+                            {err}
+                        </p>
+                    ))}
                     <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
@@ -185,15 +212,15 @@ function SignUp({ user, setUser }) {
                                 <Button
                                     type="submit"
                                     variant="contained"
-                                    sx={{ mt: 3, mb: 2 }}
+                                    sx={{ m: 3, fontFamily: 'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize: "18px" }}
                                 >
-                                    Sign Up
+                                    SIGN UP
                                 </Button>
                             </Grid>
                         </Grid>
                         <Grid container justifyContent="center">
                             <Grid item>
-                                <Link href="/login" variant="body2">
+                                <Link href="/login" variant="body" style={{ fontSize: "16px" }}>
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>

@@ -40,8 +40,8 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
     function handleLogout() {
         fetch("/api/logout", { method: "DELETE" }).then((r) => {
             if (r.ok) {
-                setUser(null);
-                navigate("/")
+                setUser({});
+                navigate("/login")
             }
         });
     }

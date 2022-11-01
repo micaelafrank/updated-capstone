@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-
+import { brown } from '@mui/material/colors'; 
 
 function Copyright({ props }) {
     return (
@@ -31,17 +31,30 @@ function Copyright({ props }) {
     );
 }
 
-const theme = createTheme();
+const theme = createTheme({
+    palette: {
+        primary: {
+            // Purple and green play nicely together.
+            main: '#795548',
+            lighter: brown.A100,
+        },
+        secondary: {
+            // This is green.A700 as hex.
+            main: '#bbe5ca',
+        },
+    },
+});
 
 export default function SignInSide({ user, setUser, items, setItems }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
 
     useEffect(() => {
-        fetch("/items")
+        fetch("/api/items")
             .then((r) => r.json())
             .then(data => setItems(data))
     }, [])
@@ -49,6 +62,8 @@ export default function SignInSide({ user, setUser, items, setItems }) {
 
     function handleLogin(e) {
         e.preventDefault();
+        setErrors("");
+        setIsLoading(true);
         fetch("/api/login", {
             method: "POST",
             headers: {
@@ -56,11 +71,14 @@ export default function SignInSide({ user, setUser, items, setItems }) {
             },
             body: JSON.stringify({ username, password }),
         }).then((r) => {
+            setIsLoading(false);
             if (r.ok) {
                 r.json().then((user) => {
                     setUser(user)
                     navigate("/profile");
                 });
+                setUsername("")
+                setPassword("")
             } else {
                 r.json().then((err) => setErrors(err.errors));
             }
@@ -95,13 +113,14 @@ export default function SignInSide({ user, setUser, items, setItems }) {
                             alignItems: 'center',
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <Avatar sx={{ m: 1, mb: 3, bgcolor: 'primary.main' }}>
                             <LockOutlinedIcon />
                         </Avatar>
-                        <Typography component="h1" variant="h4">
-                            Sign In
+                        <Typography component="h2" variant="h3" style={{fontFamily:"monospace", mt: 4}}>
+                            LOGIN
                         </Typography>
-                        <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
+                        <p style={{ textAlign:"center", color: "red" }}>{errors}</p>
+                        <Box component="form" noValidate onSubmit={handleLogin} >
                             <TextField
                                 margin="normal"
                                 required
@@ -131,13 +150,13 @@ export default function SignInSide({ user, setUser, items, setItems }) {
                                     <Button
                                         type="submit"
                                         variant="contained"
-                                        sx={{ mt: 3 }}
+                                        sx={{ m: 3, fontFamily:'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize:"18px" }}
                                     >
-                                        Sign In
+                                        LOG IN
                                     </Button>
                                 </Grid>
-                                <Grid item sx={{ paddingTop: '20px', margin:'auto' }}>
-                                    <Link href="/signup" variant="body2">
+                                <Grid item sx={{ paddingTop: '10px', margin:'auto' }}>
+                                    <Link href="/signup" variant="body" style={{fontSize:"16px"}}>
                                         {"Don't have an account? Sign Up"}
                                     </Link>
                                 </Grid>
