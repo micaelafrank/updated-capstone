@@ -9,13 +9,15 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-// import Avatar from '@mui/material/Avatar';
+import HomeIcon from '@mui/icons-material/Home'; 
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 const pages = ['SELL', 'BUY', 'PROFILE', 'LOGOUT'];
 
@@ -183,6 +185,9 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                             onClick={handleLogout}>
                             LOGOUT
                         </Button>
+                        <IconButton style={{ color: "white" }} onClick={() => navigate('/')}>
+                            <LogoutIcon />
+                        </IconButton>
                         {/* <IconButton
                             onClick={openShoppingCart}
                             style={{color:'white', paddingRight:'2em'}}
@@ -191,6 +196,10 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                             <ShoppingCartIcon/>
                         </IconButton> */}
                         {/* <div className="cursor-pointer duration-200 hover:text-red-500 absolute right-8 dark:text-slate-400 dark:hover:text-slate-200"> */}
+                        <IconButton style={{ color: "white" }} onClick={() => navigate('/')}>
+                            <HomeIcon/>
+                        </IconButton>
+
                         <IconButton style={{color:"white"}} onClick={() => setDarkMode(!darkMode)}>
                             {darkMode ? <LightModeIcon/> : <DarkModeIcon/> }
                         </IconButton>

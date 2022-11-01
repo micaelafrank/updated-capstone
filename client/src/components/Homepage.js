@@ -48,26 +48,6 @@ export default function SignInSide({ user, setUser, darkMode, setDarkMode }) {
         },
     });
 
-    // function handleLogin(e) {
-    //     e.preventDefault();
-    //     fetch("/login", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({ username, password }),
-    //     }).then((r) => {
-    //         if (r.ok) {
-    //             r.json().then((user) => {
-    //                 setUser(user)
-    //                 navigate("/profile");
-    //             });
-    //         } else {
-    //             r.json().then((err) => setErrors(err.errors));
-    //         }
-    //     });
-    // }
-
     return (
         <>
         <ThemeProvider theme={theme}>

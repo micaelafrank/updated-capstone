@@ -12,8 +12,15 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import InputAdornment from '@mui/material/InputAdornment';
 import { useNavigate } from 'react-router-dom';
 import { brown } from '@mui/material/colors'; 
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import IconButton from '@mui/material/IconButton';
+
+
+
 
 function Copyright({ props }) {
     return (
@@ -50,6 +57,10 @@ export default function SignInSide({ user, setUser, items, setItems }) {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
     const navigate = useNavigate();
 
 
@@ -85,6 +96,7 @@ export default function SignInSide({ user, setUser, items, setItems }) {
         });
     }
 
+
     return (
         <ThemeProvider theme={theme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
@@ -117,7 +129,7 @@ export default function SignInSide({ user, setUser, items, setItems }) {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h2" variant="h3" style={{fontFamily:"monospace", mt: 4}}>
-                            LOGIN
+                            LOG IN
                         </Typography>
                         <p style={{ textAlign:"center", color: "red" }}>{errors}</p>
                         <Box component="form" noValidate onSubmit={handleLogin} >
@@ -130,7 +142,6 @@ export default function SignInSide({ user, setUser, items, setItems }) {
                                 id="username"
                                 label="Username"
                                 name="username"
-                                autoComplete="username"
                                 autoFocus
                             />
                             <TextField
@@ -141,16 +152,36 @@ export default function SignInSide({ user, setUser, items, setItems }) {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 label="Password"
-                                type="password"
+                                type={showPassword ? "text" : "password"} 
                                 id="password"
-                                autoComplete="current-password"
+                                InputProps={{ // <-- This is where the toggle button is added.
+                                    endAdornment: (
+                                        <InputAdornment className="MuiInputAdornment-hiddenLabel" sx={{bgcolor: "white"}} position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            >
+                                                {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                        </IconButton>
+                                    </InputAdornment>
+                                )}}
                             />
+                            {/* {revealText ? 
+                            <IconButton onClick={handleTextReveal} id="togglePassword">
+                                <VisibilityOutlinedIcon />
+                            </IconButton>
+                            : 
+                            <IconButton onClick={handleTextReveal} id="togglePassword">
+                                <VisibilityOffOutlinedIcon />
+                            </IconButton>
+                            } */}
                             <Grid container sx={{flexDirection: 'column'}}>
                                 <Grid item sx={{ margin: 'auto' }}>
                                     <Button
                                         type="submit"
                                         variant="contained"
-                                        sx={{ m: 3, fontFamily:'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize:"18px" }}
+                                        sx={{ color: "white", m: 3, fontFamily:'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize:"18px" }}
                                     >
                                         LOG IN
                                     </Button>

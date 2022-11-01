@@ -32,7 +32,7 @@ function Copyright({ props }) {
 }
 
 
-function SignUp({ user, setUser }) {
+function SignUp({ setUser }) {
     const navigate = useNavigate();
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -41,10 +41,8 @@ function SignUp({ user, setUser }) {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
     const [password_confirmation, setPasswordConfirmation] = useState("");
-    const [userCart, setCart] = useState(null);
-    const [favoriteBucket, setFavoriteBucket] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [userFromSignup, setUserFromSignup] = useState({});
+
 
     const theme = createTheme({
         palette: {
@@ -73,16 +71,14 @@ function SignUp({ user, setUser }) {
         }).then((r) => {
             setIsLoading(false);
             if (r.ok) {
-                r.json().then((user) => {
-                    setUser(user)
-                    setIsLoading(!isLoading);
-                    navigate("/profile")
-                    setFirstname("")
-                    setLastname("")
-                    setEmail("")
-                    setUsername("")
-                    setPassword("")
-                })
+                r.json().then((user) => setUser(user));
+                // setIsLoading(!isLoading);
+                navigate("/profile")
+                setFirstname("")
+                setLastname("")
+                setEmail("")
+                setUsername("")
+                setPassword("")
             } else {
                 r.json().then((err) => setErrors(err.errors));
             }
@@ -121,7 +117,7 @@ function SignUp({ user, setUser }) {
                     <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h2" variant="h3" style={{ fontFamily: "monospace", mt: 4 }}>
+                    <Typography component="h2" variant="h3" style={{ color: "primary.main", fontFamily: "monospace", mt: 4 }}>
                         SIGN UP
                     </Typography>
                     {errors.map((err) => (
@@ -129,7 +125,7 @@ function SignUp({ user, setUser }) {
                             {err}
                         </p>
                     ))}
-                    <Box component="form" noValidate onSubmit={handleSignUp} sx={{ mt: 3 }}>
+                    <Box component="form" onSubmit={handleSignUp} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField

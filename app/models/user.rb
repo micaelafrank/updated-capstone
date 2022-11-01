@@ -5,8 +5,10 @@ class User < ApplicationRecord
     has_one :user_likes_container 
     has_many :user_cart_items, through: :user_cart
     has_many :saved_items, through: :user_likes_container 
-    validates :email, uniqueness: true
-    validates :username, uniqueness: true
+    validates :username, presence: true, uniqueness: true
+    validates :email, presence: true, uniqueness: true
+    validates :password, presence: true, on: :create
+
     # has_many_attached :images
 
     # def images_url
