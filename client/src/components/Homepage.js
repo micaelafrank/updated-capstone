@@ -30,7 +30,7 @@ function Copyright({props}) {
 }
 
 
-export default function SignInSide({ user, setUser, darkMode, setDarkMode }) {
+export default function Homepage({ user, setUser, darkMode, setDarkMode }) {
 
     const navigate = useNavigate();
 

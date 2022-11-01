@@ -8,7 +8,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export default function Profile({ user }) {
+export default function Profile({ user, items, setItems, setUser }) {
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
     

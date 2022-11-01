@@ -32,7 +32,7 @@ function Copyright({ props }) {
 }
 
 
-function SignUp({ setUser }) {
+function SignUp({ onSignUp, user }) {
     const navigate = useNavigate();
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -58,32 +58,38 @@ function SignUp({ setUser }) {
         },
     });
 
-    const handleSignUp = (e) => {
+    function handleSubmit(e){
         e.preventDefault();
-        setErrors([]);
-        setIsLoading(true);
+        if(password !== password_confirmation){
+            setErrors.push("Passwords do not match.")
+        }
         fetch("/api/signup", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ firstname, lastname, email, username, password }),
-        }).then((r) => {
-            setIsLoading(false);
-            if (r.ok) {
-                r.json().then((user) => setUser(user));
-                // setIsLoading(!isLoading);
-                navigate("/profile")
-                setFirstname("")
-                setLastname("")
-                setEmail("")
-                setUsername("")
-                setPassword("")
+        })
+        .then((res) => {
+            if (res.ok) {
+                res.json().then((user) => onSignUp(user));
+                navigate("/profile");
             } else {
-                r.json().then((err) => setErrors(err.errors));
+                res.json().then((err) => setErrors(err.errors));
             }
         });
     }
+    //     .then((res) => {
+    //         console.log(errors)
+    //         if (res.ok) {
+    //             res.json().then((user) => onSignUp(user));
+    //             // setIsLoading(!isLoading);
+    //             navigate("/profile")
+    //         } else {
+    //             res.json().then((err) => setErrors(err.errors));
+    //         }
+    //     });
+    // }
 
 
     return (
@@ -121,11 +127,11 @@ function SignUp({ setUser }) {
                         SIGN UP
                     </Typography>
                     {errors.map((err) => (
-                        <p key={err} style={{ color: "red" }}>
+                        <p key={err} style={{ textAlign: "center", color: "red" }}>
                             {err}
                         </p>
                     ))}
-                    <Box component="form" onSubmit={handleSignUp} sx={{ mt: 3 }}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -157,6 +163,7 @@ function SignUp({ setUser }) {
                                     required
                                     fullWidth
                                     id="email"
+                                    className="form-control"
                                     label="Email Address"
                                     name="email"
                                     autoComplete="email"
@@ -167,9 +174,10 @@ function SignUp({ setUser }) {
                             <Grid item xs={12}>
                                 <TextField
                                     required
+                                    className="form-control"
                                     fullWidth
                                     id="username"
-                                    label="Create A Username"
+                                    label="Create Username"
                                     name="username"
                                     autoComplete="username"
                                     value={username}
@@ -185,6 +193,7 @@ function SignUp({ setUser }) {
                                     name="password"
                                     type="password"
                                     autoComplete="password"
+                                    className="form-control"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
@@ -193,6 +202,7 @@ function SignUp({ setUser }) {
                                 <TextField
                                     required
                                     fullWidth
+                                    className="form-control"
                                     name="passwordConfirmation"
                                     label="Confirm Password"
                                     type="password"

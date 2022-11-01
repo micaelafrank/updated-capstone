@@ -1,6 +1,8 @@
 class Api::UsersController < ApplicationController
+rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
+rescue_from ActiveRecord::RecordInvalid, with: :user_invalid
     skip_before_action :authorize, only: :create
-
+    
     #POST method for '/signup'
     #This saves a new user and their info in the backend:
 
@@ -10,9 +12,9 @@ class Api::UsersController < ApplicationController
             session[:user_id] = user.id
             new_user_cart = UserCart.create!(user_id: user.id)
             new_saves_container = UserLikesContainer.create!(user_id: user.id)
-            render json: user, status: 201
-        else
-            render json: { error: "Invalid user" }, status: :unprocessable_entity
+            render json: user, status: :created
+        else 
+            render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
         end
     end
 

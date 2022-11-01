@@ -111,10 +111,10 @@ function App() {
 
     {/* <div> */}
       <Routes>
-        <Route path="/login" element={<LogIn user={user} setUser={setUser} />} />
-        <Route path="/signup" element={<SignUp user={user} setUser={setUser} />} />
+        <Route path="/login" element={<LogIn user={user} onLogin={setUser} />} />
+        <Route path="/signup" element={<SignUp onSignUp={setUser} />} />
+        <Route path="/" element={<Homepage user={user} />} /> 
           <Route element={<WithNav user={user} setUser={setUser} darkMode={darkMode} setDarkMode={setDarkMode} />}>
-          <Route path="/" element={<Homepage user={user} />} /> 
           <Route path="/profile" element={<Profile setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/buy" element={<ItemsList cartItems={cartItems} setCartItems={setCartItems} change={change} setChange={setChange} user={user} />} />

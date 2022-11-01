@@ -4,14 +4,14 @@ class Api::SessionsController < ApplicationController
     #saves the user information in the sessions and stays logged in.
     skip_before_action :authorize, only: :create
 
-  
+    # post '/api/login'
     def create 
         user = User.find_by(username: params[:username])
         if user&.authenticate(params[:password])
             session[:user_id] = user.id
             render json: user, status: :ok
         else
-            render json: { errors: ["Invalid username or password"] }, status: :unprocessable_entity 
+            render json: { error: 'Invalid username or password.' }, status: :unauthorized
         end
     end
 
