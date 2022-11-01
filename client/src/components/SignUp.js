@@ -13,6 +13,10 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { brown } from '@mui/material/colors'; 
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
 
 
 function Copyright({ props }) {
@@ -42,6 +46,12 @@ function SignUp({ onSignUp, user }) {
     const [errors, setErrors] = useState([]);
     const [password_confirmation, setPasswordConfirmation] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword2, setShowPassword2] = useState(false);
+    const handleClickShowPassword = () => setShowPassword(!showPassword);
+    const handleMouseDownPassword = () => setShowPassword(!showPassword);
+    const handleClickShowPassword2 = () => setShowPassword2(!showPassword2);
+    const handleMouseDownPassword2 = () => setShowPassword2(!showPassword2);
 
 
     const theme = createTheme({
@@ -123,7 +133,7 @@ function SignUp({ onSignUp, user }) {
                     <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component="h2" variant="h3" style={{ color: "primary.main", fontFamily: "monospace", mt: 4 }}>
+                    <Typography component="h2" variant="h3" style={{ fontFamily: "monospace", mt: 4 }}>
                         SIGN UP
                     </Typography>
                     {errors.map((err) => (
@@ -131,7 +141,7 @@ function SignUp({ onSignUp, user }) {
                             {err}
                         </p>
                     ))}
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 6 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -191,11 +201,24 @@ function SignUp({ onSignUp, user }) {
                                     id="password"
                                     label="Password"
                                     name="password"
-                                    type="password"
+                                    type={showPassword ? "text" : "password"} 
                                     autoComplete="password"
                                     className="form-control"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
+                                    InputProps={{ // <-- This is where the toggle button is added.
+                                        endAdornment: (
+                                            <InputAdornment className="MuiInputAdornment-hiddenLabel" sx={{ bgcolor: "white" }} position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword}
+                                                    onMouseDown={handleMouseDownPassword}
+                                                >
+                                                    {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        )
+                                    }}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -205,12 +228,24 @@ function SignUp({ onSignUp, user }) {
                                     className="form-control"
                                     name="passwordConfirmation"
                                     label="Confirm Password"
-                                    type="password"
+                                    type={showPassword2 ? "text" : "password"} 
                                     id="passwordConfirmation"
                                     autoComplete="new-password"
                                     value={password_confirmation}
                                     onChange={(e) => setPasswordConfirmation(e.target.value)}
-                                />
+                                    InputProps={{ // <-- This is where the toggle button is added.
+                                        endAdornment: (
+                                            <InputAdornment className="MuiInputAdornment-hiddenLabel" sx={{ bgcolor: "white" }} position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onClick={handleClickShowPassword2}
+                                                    onMouseDown={handleMouseDownPassword2}
+                                                >
+                                                    {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        )}}
+                                    />
                             </Grid>
                         </Grid>
                         <Grid container sx={{ flexDirection: 'column' }}>

@@ -93,7 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_212609) do
     t.string "email"
     t.boolean "is_admin", default: false
     t.string "password_digest"
-    t.string "avatar_url"
+    t.string "profilepic", default: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

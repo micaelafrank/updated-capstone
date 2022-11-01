@@ -132,7 +132,7 @@ export default function SignInSide({ user, setUser, items, setItems }) {
                             LOG IN
                         </Typography>
                         <p style={{ textAlign:"center", color: "red" }}>{errors}</p>
-                        <Box component="form" noValidate onSubmit={handleLogin} >
+                        <Box component="form" autoComplete='off' noValidate onSubmit={handleLogin} >
                             <TextField
                                 margin="normal"
                                 required
@@ -140,14 +140,15 @@ export default function SignInSide({ user, setUser, items, setItems }) {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 id="username"
+                                autoComplete='off'
                                 label="Username"
                                 name="username"
-                                autoFocus
                             />
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
+                                autoComplete='off'
                                 name="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
