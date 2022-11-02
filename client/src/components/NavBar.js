@@ -156,7 +156,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                         {user.username ? 
                             (<Button
                             onClick={openShoppingCart}
-                            style={{color:'white', paddingRight:'2em'}}
+                            style={{my: 2, color:'white', paddingRight:'2em'}}
                         >
                             <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
                             <ShoppingCartIcon/>

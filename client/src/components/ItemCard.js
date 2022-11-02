@@ -274,16 +274,22 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                 <ArrowBackIosIcon style={{ position: 'absolute', top: '50%', left: 20, transform: 'translate(-50%,-50%)' }}>Back</ArrowBackIosIcon>
                 <ArrowForwardIosIcon style={{ position: 'absolute', top: '50%', right: 20, transform: 'translate(-50%,-50%)' }}>Next</ArrowForwardIosIcon>               
             </Carousel> */}
-            <CardMedia
-                className="itemImage"
-                component="img"
-                sx={{ maxHeight: "300" }}
-                image={images_url}
-            />
-            <CardContent color="primary" sx={{ flexGrow: 1 }}>
-                <Typography color="secondary.darkText" gutterBottom variant="h5" component="h2">
+            <div sx={{height: '300'}}>
+                <CardMedia
+                    className="itemImage"
+                    component="img"
+                    sx={{ maxHeight: "300" }}
+                    image={images_url}
+                />
+            </div>
+            <CardContent className="card-details" color="primary" sx={{ flexGrow: 1 }}>
+                {user.id === item.user_id ?
+                    <Typography sx={{ fontSize: "14px", color: "black", fontWeight: "bold", my: 1 }}>
+                        YOU ARE SELLING THIS ITEM
+                    </Typography> : null}
+                <Typography color="secondary.darkText" fontSize="1.4em" gutterBottom>
                     {user.id === item.user_id ?
-                        <Fab className="fab-edit" size="small" aria-label="edit">
+                        <Fab className="fab-edit" float="right" alignItem="right" size="small" aria-label="edit">
                             <EditIcon onClick={handleEditItemName} 
                             // sx={{ color: editNameState ? "green" : null }} 
                             />
@@ -303,35 +309,32 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                         </div>
                     )}
                 </Typography>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    <SellOutlinedIcon style={{ paddingRight: "4px" }} />
-                    <div style={{ paddingRight: "14px" }}>
-                        {editPriceState ? (
-                            <div>
-                                <textarea
-                                    className="form-control"
-                                    defaultValue={initialPriceValue}
-                                    onChange={(e) => setPriceState(e.target.value)}
-                                />
-                            </div>
-                        ) : (
-                            <div>
-                                <span>${initialPriceValue}</span>
-                            </div>
-                        )}
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        <SellOutlinedIcon style={{ paddingRight: "4px" }} />
+                        <div style={{ paddingRight: "14px" }}>
+                            {editPriceState ? (
+                                <div>
+                                    <textarea
+                                        className="form-control"
+                                        defaultValue={initialPriceValue}
+                                        onChange={(e) => setPriceState(e.target.value)}
+                                    />
+                                </div>
+                            ) : (
+                                <div>
+                                    <span>${initialPriceValue}</span>
+                                </div>
+                            )}
+                        </div>
                     </div>
                     {user.id === item.user_id ?
-                        <Fab className="fab-edit" size="small" aria-label="edit">
-                            <EditIcon onClick={handleEditPrice} sx={{ color: editPriceState ? "green" : null }} />
+                        <Fab className="fab-edit" size="small" float="right" aria-label="edit" align-item="right" justify-item="right">
+                            <EditIcon onClick={handleEditPrice} sx={{ float:"right", alignItem: "right", justifyItem: "right", color: editPriceState ? "green" : null }} />
                         </Fab>
-                        : null}
+                    : null}
                 </div>
-                <Typography>
-                    {user.id === item.user_id ?
-                        <Fab className="fab-edit" float="right" size="small" aria-label="edit">
-                            <EditIcon onClick={handleEditDescription} sx={{ color: editDescriptionState ? "green" : null }} />
-                        </Fab>
-                        : null}
+                <div style={{ display: "flex", alignItems: "center", justifyContent:"space-between" }}>
                     {editDescriptionState ? (
                         <div>
                             <textarea
@@ -345,12 +348,19 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                             <span>{initialDescriptionValue}</span>
                         </div>
                     )}
-                </Typography>
+                    {user.id === item.user_id ?
+                        <Fab className="fab-edit" size="small" aria-label="edit">
+                            <EditIcon onClick={handleEditDescription} sx={{ color: editDescriptionState ? "green" : null }} />
+                        </Fab>
+                        : null}
+                </div>
+                {user.id === item.user_id ? null :
                 <Typography sx={{ fontSize: "14px", color: brown[400], fontWeight: "bold", paddingTop: "10px" }}>
                     Sold by: {sold_by}
-                </Typography>
+                </Typography> 
+                }
             </CardContent>
-            <CardActions theme={theme} 
+            <CardActions className="bottom-card-details" theme={theme} 
             // sx={{bgcolor: orange[100]}}
             >
                 {/* <Button size="small">View</Button>

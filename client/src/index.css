@@ -13,12 +13,16 @@ code {
 }
 
 .itemImage{
-  max-height: 300px;
+  max-height: 260px;
+  min-height: 260px;
+  image-orientation: center;
 }
 
 .fab-edit{
   opacity: 50%;
   float: right;
+  font-size: inherit;
+  list-style: 1;
 }
 
 .items-grid {
@@ -34,6 +38,10 @@ code {
 
 .plus-minus {
   position: relative;
+}
+
+.bottom-card-details{
+  position:relative;
 }
 
 .plus {
@@ -87,6 +95,8 @@ code {
 .card {
   margin: 40px 0px;
   padding: 40px 50px;
+  max-width: 285px;
+  min-width: 280px;
   border-radius: 20px;
   border: none;
   box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
