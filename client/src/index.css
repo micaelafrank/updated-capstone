@@ -25,6 +25,15 @@ code {
   list-style: 1;
 }
 
+.descriptionInfo{
+  font-size: 13px;
+}
+
+.descriptionInfoEdit{
+  width: 80%;
+  font-size: 13px;
+}
+
 .items-grid {
   grid-template-columns: 1fr 1fr 1fr;
   display: grid;
@@ -41,8 +50,15 @@ code {
 }
 
 .bottom-card-details{
-  position:relative;
+  position:absolute;
+  bottom: 0;
+  margin:0 auto;
 }
+
+.card-details{
+  height: 250px;
+}
+
 
 .plus {
   position: absolute;
@@ -92,11 +108,21 @@ code {
   padding-top: 15px;
 }
 
-.card {
+.oneItemCard{
   margin: 40px 0px;
-  padding: 40px 50px;
-  max-width: 285px;
+  border-radius: 20px;
+  border: none;
+  height: 520px;
+  position: relative;
+  box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+  /* margin: 40px 0px;
+  padding: 40px 50px; */
+  /* max-width: 285px;
   min-width: 280px;
+  max-height: 530px; */
   border-radius: 20px;
   border: none;
   box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
@@ -104,13 +130,16 @@ code {
 
 input,
 textarea {
-  background-color: #F3E5F5;
   padding: 8px 15px 8px 15px;
   width: 100%;
   border-radius: 5px !important;
   box-sizing: border-box;
-  border: 1px solid #F3E5F5;
-  font-size: 15px !important;
+  border: 1px solid black;
+  font-family: "Roboto",
+    "Helvetica",
+    "Arial",
+    sans-serif;
+  font-size: 12px !important;
   color: #000 !important;
   font-weight: 300;
 }
@@ -120,9 +149,8 @@ textarea:focus {
   -moz-box-shadow: none !important;
   -webkit-box-shadow: none !important;
   box-shadow: none !important;
-  border: 1px solid #9FA8DA;
   outline-width: 0;
-  font-weight: 400;
+  font-size: 14px;
 }
 
 button:focus {

@@ -95,7 +95,9 @@ export default function Homepage({ user, setUser, darkMode, setDarkMode }) {
                             sx={{ paddingTop: '25px', paddingBottom: '45px', textAlign:"center", margin:'10px 20px', fontSize:"21px" }}>
                             High-quality bits and masterpieces sold, bought, and made by creatives.
                         </Typography> */}
-                        <Grid container>
+                        {user.username ? null :
+                        <>
+                        (<Grid container>
                             <Grid item sx={{margin:'auto'}}>
                                 <Button
                                         sx={{ m: 3, fontFamily: 'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize: "18px" }}
@@ -115,7 +117,9 @@ export default function Homepage({ user, setUser, darkMode, setDarkMode }) {
                                     {"SIGN UP"}
                                 </Button>
                             </Grid>
-                        </Grid>
+                        </Grid>)
+                    </>
+                    }
                     </Box>
                     <Copyright sx={{ mt: 5 }} />
                 </Grid>

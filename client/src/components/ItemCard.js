@@ -264,7 +264,7 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
 
 
     return (
-        <Card theme={theme} 
+        <Card className="oneItemCard" theme={theme} 
         sx={{ border: "1px solid black" }}
         >
             {/* <Carousel
@@ -283,10 +283,14 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                 />
             </div>
             <CardContent className="card-details" color="primary" sx={{ flexGrow: 1 }}>
-                {user.id === item.user_id ?
-                    <Typography sx={{ fontSize: "14px", color: "black", fontWeight: "bold", my: 1 }}>
-                        YOU ARE SELLING THIS ITEM
-                    </Typography> : null}
+            {user.id === item.user_id ?
+                <Typography sx={{ fontSize: "14px", color: "black", fontWeight: "bold", mb: 1.3 }}>
+                    YOU ARE SELLING THIS ITEM
+                </Typography> :
+                <Typography sx={{ fontSize: "14px", color: brown[400], fontWeight: "bold", mb: 1.3 }}>
+                    Sold by: {sold_by}
+                </Typography>
+                }                
                 <Typography color="secondary.darkText" fontSize="1.4em" gutterBottom>
                     {user.id === item.user_id ?
                         <Fab className="fab-edit" float="right" alignItem="right" size="small" aria-label="edit">
@@ -309,7 +313,7 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                         </div>
                     )}
                 </Typography>
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
                     <div style={{ display: "flex", alignItems: "center" }}>
                         <SellOutlinedIcon style={{ paddingRight: "4px" }} />
                         <div style={{ paddingRight: "14px" }}>
@@ -322,7 +326,7 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                                     />
                                 </div>
                             ) : (
-                                <div>
+                                <div style={{marginBottom: "5px", marginTop: "5px"}}>
                                     <span>${initialPriceValue}</span>
                                 </div>
                             )}
@@ -338,31 +342,26 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                     {editDescriptionState ? (
                         <div>
                             <textarea
-                                className="form-control"
+                                className="form-control descriptionInfo"
                                 defaultValue={initialDescriptionValue}
                                 onChange={(e) => setDescriptionState(e.target.value)}
                             />
                         </div>
                     ) : (
-                        <div>
+                        <div className="descriptionInfoEdit">
                             <span>{initialDescriptionValue}</span>
                         </div>
                     )}
                     {user.id === item.user_id ?
-                        <Fab className="fab-edit" size="small" aria-label="edit">
+                        <Fab className="fab-edit" size="small" float="right" aria-label="edit" align-item="right" justify-item="right">
                             <EditIcon onClick={handleEditDescription} sx={{ color: editDescriptionState ? "green" : null }} />
                         </Fab>
                         : null}
                 </div>
-                {user.id === item.user_id ? null :
-                <Typography sx={{ fontSize: "14px", color: brown[400], fontWeight: "bold", paddingTop: "10px" }}>
-                    Sold by: {sold_by}
-                </Typography> 
-                }
-            </CardContent>
-            <CardActions className="bottom-card-details" theme={theme} 
+                </CardContent>
+                <CardActions className="bottom-card-details" theme={theme} 
             // sx={{bgcolor: orange[100]}}
-            >
+                >
                 {/* <Button size="small">View</Button>
                 <Button size="small">Edit</Button> */}
                 {user.id === item.user_id ? null :
@@ -388,11 +387,6 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                         {initialCartValue ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
                     </IconButton>
                 }
-                {/* {user.id === item.user_id ?
-                    <Fab className="fab-edit" float="right" size="small" aria-label="edit">
-                        <EditIcon float="right"/>
-                    </Fab>
-                    : null} */}
             </CardActions>
         </Card>
     )
