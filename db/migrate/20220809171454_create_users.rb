@@ -7,7 +7,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :email 
       t.boolean :is_admin, :default => false
       t.string :password_digest 
-      t.string :avatar_url
+      t.string :profilepic, :default => ""
       t.timestamps
     end
   end

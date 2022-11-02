@@ -78,7 +78,7 @@ export default function Homepage({ user, setUser, darkMode, setDarkMode }) {
                             fontFamily: 'monospace',
                         }}
                         >
-                            <Typography component="h1" variant="h2" 
+                            <Typography component="h2" variant="h3" 
                                 sx={{paddingTop: '35px', color: "primary.main", fontFamily: 'monospace'}}>
                             GOOD GOODS
                         </Typography>

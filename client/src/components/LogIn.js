@@ -52,7 +52,7 @@ const theme = createTheme({
     },
 });
 
-export default function SignInSide({ user, setUser, items, setItems }) {
+export default function LogIn({ user, setUser, items, onLogin, setItems }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState("");

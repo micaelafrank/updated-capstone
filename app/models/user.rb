@@ -7,8 +7,7 @@ class User < ApplicationRecord
     has_many :saved_items, through: :user_likes_container 
     validates :username, presence: true, uniqueness: true
     validates :email, presence: true, uniqueness: true
-    validates :password, presence: true, on: :create
-
+    validates_confirmation_of :password
     # has_many_attached :images
 
     # def images_url

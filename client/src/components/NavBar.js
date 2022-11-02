@@ -63,7 +63,6 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                 <Toolbar disableGutters>
                     {/* <img className='logoimg' alt="cube-logo" /> */}
                     <Typography
-                        variant="h4"
                         noWrap
                         component="a"
                         href="/"
@@ -71,8 +70,9 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
                             fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
+                            fontWeight: 600,
+                            fontSize: '1.6rem',
+                            letterSpacing: '.17rem',
                             color: 'inherit',
                             textDecoration: 'none',
                         }}
@@ -154,13 +154,13 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                                 PROFILE
                             </Button> : null }
                         {user.username ? 
-                            (<IconButton
+                            (<Button
                             onClick={openShoppingCart}
                             style={{color:'white', paddingRight:'2em'}}
                         >
                             <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
                             <ShoppingCartIcon/>
-                        </IconButton>)
+                        </Button>)
                              : 
                             (<>
                             <Button 

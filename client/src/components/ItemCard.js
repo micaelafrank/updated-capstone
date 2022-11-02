@@ -18,13 +18,14 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { darkScrollbar } from '@mui/material';
 import {brown, orange} from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ConfirmDelete from './ConfirmDelete';
 
 
 // import SavedContainer from './SavedContainer';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ sold_by, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, addCartItem, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, addCartItem, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -43,10 +44,6 @@ function ItemCard({ sold_by, deleteItemFromList, cartItems, setCartValue, setCar
     const [isSaved, setIsSaved] = useState(false)
     const [inCart, setInCart] = useState(false)
 
-    // const listOfSaves = favorites.filter((favItem) => {
-    //     return favItem.item_id === item.id
-    // })
-    // console.log(listOfSaves)
 
     const theme = createTheme({
         palette: {
@@ -254,7 +251,7 @@ function ItemCard({ sold_by, deleteItemFromList, cartItems, setCartValue, setCar
 
 
     function handleDelete() {
-        //ADD POP UP MODAL HERE: "ARE YOU SURE YOU WANT TO DELETE THIS ITEM"
+        //ADD POP UP MODAL HERE: "ARE YOU SURE YOU WANT TO DELETE THIS"
         console.log("I was clicked")
         fetch(`/api/items/${item.id}`, {
             method: "DELETE",
@@ -371,6 +368,7 @@ function ItemCard({ sold_by, deleteItemFromList, cartItems, setCartValue, setCar
                     >
                         <DeleteIcon />
                     </IconButton> : null}
+                {show ? <ConfirmDelete /> : null}    
                 {user.id === item.user_id ? null :
                     <IconButton
                         onClick={initialCartValue ? alreadyInCart : renderUserCartItem}

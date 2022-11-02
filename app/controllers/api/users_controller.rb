@@ -8,14 +8,10 @@ rescue_from ActiveRecord::RecordInvalid, with: :user_invalid
 
     def create
         user = User.create!(newuser_params)
-        if user.valid? 
-            session[:user_id] = user.id
-            new_user_cart = UserCart.create!(user_id: user.id)
-            new_saves_container = UserLikesContainer.create!(user_id: user.id)
-            render json: user, status: :created
-        else 
-            render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
-        end
+        session[:user_id] = user.id
+        render json: user, status: :created
+        # else 
+        #     render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     def show
@@ -25,7 +21,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :user_invalid
     private 
 
     def newuser_params
-        params.permit(:firstname, :profilepic, :lastname, :email, :password, :username)
+        params.permit(:firstname, :profilepic, :lastname, :email, :password, :username, :password_confirmation)
     end
 
     def user_not_found(e)

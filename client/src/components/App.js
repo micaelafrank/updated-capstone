@@ -26,8 +26,8 @@ function App() {
   useEffect(() => {
     fetch("/api/me").then((r) => {
       if (r.ok) {
-        r.json().then((data) => {
-          setUser(data);
+        r.json().then((user) => {
+          setUser(user);
       })
     }
     })
@@ -36,6 +36,10 @@ function App() {
 
   function addNewItem(newItem) {
     setItems(...items, newItem)
+  }
+
+  function onLogin(user) {
+    setUser(user)
   }
 
   useEffect(() => {
@@ -104,17 +108,17 @@ function App() {
     localStorage.setItem("DARK_MODE", darkMode);
   }, [darkMode]);
 
+  if (!user) return <Homepage />;
 
   return (
     <div className={darkMode ? "App dark" : "App"}>
       <div className="h-auto dark:bg-slate-900" >
-
-    {/* <div> */}
       <Routes>
-        <Route exact="/" element={<Homepage user={user} />} /> 
-        <Route path="/login" element={<LogIn user={user} onLogin={setUser} />} />
+        {/* <Route path="/" element={<Homepage />} /> */}
+        <Route path="/login" element={<LogIn onLogin={onLogin} setUser={setUser} user={user} />} />
         <Route path="/signup" element={<SignUp onSignUp={setUser} />} />
           <Route element={<WithNav user={user} setUser={setUser} darkMode={darkMode} setDarkMode={setDarkMode} />}>
+          {user.username ? <Route path="/" element={<Homepage user={user} />} /> : <Route path="/" element={<Homepage />} />}
           <Route path="/profile" element={<Profile setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/buy" element={<ItemsList cartItems={cartItems} setCartItems={setCartItems} change={change} setChange={setChange} user={user} />} />

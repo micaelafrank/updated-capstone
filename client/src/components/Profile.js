@@ -31,7 +31,7 @@ export default function Profile({ user, items, setItems, setUser }) {
     // const initial = firstname[0];
 
     return (
-        <div className="profileContainer">
+        <div style={{margin:"1rem"}} className="profileContainer">
             <div className="heading-container">
                 <Avatar
                 sx={{ width: '100px', height: '100px' }} 
@@ -43,7 +43,7 @@ export default function Profile({ user, items, setItems, setUser }) {
                         Upload image
                         <input hidden accept="image/*" type="file" />
                     </Button>
-                    <Button type="submit">Use this image</Button>
+                    {/* <Button type="submit">Use this image</Button> */}
                     {/* <Button variant="outlined" startIcon={<DeleteIcon />}>
                         Delete
                     </Button> */}

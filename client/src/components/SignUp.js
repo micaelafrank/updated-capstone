@@ -48,10 +48,10 @@ function SignUp({ onSignUp, user }) {
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
-    const handleClickShowPassword = () => setShowPassword(!showPassword);
-    const handleMouseDownPassword = () => setShowPassword(!showPassword);
-    const handleClickShowPassword2 = () => setShowPassword2(!showPassword2);
-    const handleMouseDownPassword2 = () => setShowPassword2(!showPassword2);
+    const handleClickShowPassword = () => setShowPassword((showPassword) => !showPassword);
+    const handleMouseDownPassword = () => setShowPassword((showPassword) => !showPassword);
+    const handleClickShowPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
+    const handleMouseDownPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
 
 
     const theme = createTheme({
@@ -68,17 +68,28 @@ function SignUp({ onSignUp, user }) {
         },
     });
 
+    const pwError = "Passwords entered do not match. Please try again.";
+
     function handleSubmit(e){
+        console.log(password);
+        console.log(password_confirmation);
         e.preventDefault();
         if(password !== password_confirmation){
-            setErrors.push("Passwords do not match.")
+            errors.push(pwError);
         }
         fetch("/api/signup", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ firstname, lastname, email, username, password }),
+            body: JSON.stringify({ 
+                firstname: firstname, 
+                lastname: lastname, 
+                email: email,
+                username: username, 
+                password: password, 
+                password_confirmation: password_confirmation,
+            }),
         })
         .then((res) => {
             if (res.ok) {
@@ -136,12 +147,14 @@ function SignUp({ onSignUp, user }) {
                     <Typography component="h2" variant="h3" style={{ fontFamily: "monospace", mt: 4 }}>
                         SIGN UP
                     </Typography>
-                    {errors.map((err) => (
-                        <p key={err} style={{ textAlign: "center", color: "red" }}>
-                            {err}
-                        </p>
-                    ))}
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 6 }}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                        <div style={{ marginBottom:"2rem", color: 'red', alignItems:'center', textAlign:'center' }}>
+                            {errors.map((err) => (
+                                <Typography align="center" variant="p" key={err}>
+                                    {err}. Please try again
+                                </Typography>
+                            ))}
+                        </div>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
