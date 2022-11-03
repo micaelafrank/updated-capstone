@@ -26,7 +26,7 @@ function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, 
         fetch("/api/items")
             .then((r) => r.json())
             .then(data => { setItems(data) } )
-    }, [])
+    }, [change])
     console.log(items)
 
     function deleteItemFromList(id) {

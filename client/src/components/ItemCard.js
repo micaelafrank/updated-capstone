@@ -20,7 +20,6 @@ import {brown, orange} from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ConfirmDelete from './ConfirmDelete';
 
-
 // import SavedContainer from './SavedContainer';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -43,6 +42,10 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
     const [wasClicked, setWasClicked] = useState(false)
     const [isSaved, setIsSaved] = useState(false)
     const [inCart, setInCart] = useState(false)
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
 
     const theme = createTheme({
@@ -168,11 +171,6 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
         setIsSaved(isSaved => (!isSaved))
         setWasClicked(wasClicked => (!wasClicked));
     }
-        // .then(res => res.json())
-        // .then(data => addNewFavorite(data));
-        // .then(res => res.json())
-        // .then(data => addNewFavorite(data))
-
 
 
     function handleUndoHeart() {
@@ -249,18 +247,18 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
         handleCartClick();
     }
 
+    // function handleDelete() {
+    //     console.log("I was clicked")
+    //     fetch(`/api/items/${item.id}`, {
+    //         method: "DELETE",
+    //     })
+    //         .then((r) => {
+    //             if (r.ok) {
+    //                 deleteItemFromList(id);
+    //             }
+    //         })
+    // }
 
-    function handleDelete() {
-        //ADD POP UP MODAL HERE: "ARE YOU SURE YOU WANT TO DELETE THIS"
-        console.log("I was clicked")
-        fetch(`/api/items/${item.id}`, {
-            method: "DELETE",
-        })
-        .then((r) => {
-            if (r.ok) {
-        deleteItemFromList(id);
-        }
-    })}
 
 
     return (
@@ -373,11 +371,11 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                 }
                 {user.id === item.user_id ?
                     <IconButton aria-label="delete"
-                        onClick={handleDelete}
+                        onClick={handleOpen}
                     >
                         <DeleteIcon />
                     </IconButton> : null}
-                {show ? <ConfirmDelete /> : null}    
+                {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}    
                 {user.id === item.user_id ? null :
                     <IconButton
                         onClick={initialCartValue ? alreadyInCart : renderUserCartItem}

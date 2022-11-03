@@ -218,6 +218,45 @@ button:focus {
   float: right;
 }
 
+.XIconContainer {
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  padding-top: 1.2rem;
+  flex-direction: row;
+  justify-content: right;
+  align-items: right;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 100%;
+}
+
+
+#modal1, #modal2{
+    background-color: rgb(255, 255, 255);
+    border: 1px solid black;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: .6rem;
+    padding-bottom: .6rem;
+    margin: 1.2rem;
+}
+
+#modal1:hover, #modal2:hover {
+  background-color: rgb(212, 232, 198);
+  border: 2px solid black;
+  margin: 1.2rem;
+}
+
+.modal-content {
+  border-radius: 8px;
+  text-align: left;
+  align-items: center;
+  width: 80%;
+  padding: 0 1.5rem 1rem 1.5rem;
+  align-items: center;
+}
+
 @media screen and (max-width: 768px) {
 
   .book,

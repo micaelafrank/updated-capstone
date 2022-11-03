@@ -27,6 +27,7 @@ function AddItemForm({ user, addNewItem }) {
     const [condition, setCondition] = useState("")
     const [errors, setErrors] = useState([]);
     const [images, setImages] = useState("");
+
     // const [firstImage, setFirstImage] = useState("");
     // const [secondImage, setSecondImage] = useState("");
     // const [thirdImage, setThirdImage] = useState("");
