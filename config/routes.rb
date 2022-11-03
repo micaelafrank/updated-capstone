@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     # post "/sell", to: "items#create"
     get "/mycart", to: "user_carts#show"  
     get "/items", to: "items#index"
+    patch "/items/add-images"
     # post "/create_cart" , to: "user_carts#create"
     post "/addtocart", to: "user_cart_items#create"
     delete "/removefromcart", to: "user_cart_items#removefromcart"

@@ -10,8 +10,9 @@ import { Route, Routes } from 'react-router-dom';
 import ShoppingCart from './ShoppingCart';
 import { brown, blueGrey } from '@mui/material/colors';
 import SavedContainer from './SavedContainer';
-// import NavBar from './NavBar';
+import NewItemForm from './NewItemForm';
 import StripeContainer from './StripeContainer';
+import AddItemImages from './AddItemImages';
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
 function App() {
@@ -121,10 +122,12 @@ function App() {
           {user.username ? <Route path="/" element={<Homepage user={user} />} /> : <Route path="/" element={<Homepage />} />}
           <Route path="/profile" element={<Profile setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
+          <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/buy" element={<ItemsList cartItems={cartItems} setCartItems={setCartItems} change={change} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
+          <Route path="/add-images" element={<AddItemImages user={user} />} />
           {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}
         </Route>
       </Routes>

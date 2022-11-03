@@ -2,9 +2,10 @@ class Item < ApplicationRecord
     belongs_to :user
     has_many :user_cart_items
     has_many :saved_items  
-    validates :images, presence:true, allow_blank: true
 
     has_many_attached :images
+    validates :images, allow_blank: true
+
     # include Rails.application.routes.url_helpers
 
     def sold_by

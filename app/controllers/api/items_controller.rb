@@ -25,6 +25,12 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
         end
     end
 
+    def add_images
+        item = Item.find(params[:id])
+        dessert.images.attach(params[:images])
+        render json: dessert, status: :ok
+    end
+
     def update
         item = find_item
 
