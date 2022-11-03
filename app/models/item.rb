@@ -4,7 +4,7 @@ class Item < ApplicationRecord
     has_many :saved_items  
 
     has_many_attached :images
-    validates :images, allow_blank: true
+    validates :images, presence: true, allow_blank: true
 
     # include Rails.application.routes.url_helpers
 

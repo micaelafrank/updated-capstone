@@ -284,12 +284,12 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
             </div>
             <CardContent className="card-details" color="primary" sx={{ flexGrow: 1 }}>
             {user.id === item.user_id ?
-                <Typography sx={{ fontSize: "14px", color: "black", fontWeight: "bold", mb: 1.3 }}>
+                (<Typography sx={{ fontSize: "14px", color: "black", fontWeight: "bold", mb: 1.3 }}>
                     YOU ARE SELLING THIS ITEM
-                </Typography> :
-                <Typography sx={{ fontSize: "14px", color: brown[400], fontWeight: "bold", mb: 1.3 }}>
+                </Typography>) :
+                (<Typography sx={{ fontSize: "14px", color: brown[400], fontWeight: "bold", mb: 1.3 }}>
                     Sold by: {sold_by}
-                </Typography>
+                </Typography>)
                 }                
                 <Typography color="secondary.darkText" fontSize="1.4em" gutterBottom>
                     {user.id === item.user_id ?

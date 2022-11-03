@@ -21,7 +21,7 @@ function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, 
     const [cartIcons, setCartIcons] = useState([cartItems]);
     const [items, setItems] = useState([])
 
-
+    
     useEffect(() => {
         fetch("/api/items")
             .then((r) => r.json())
@@ -34,20 +34,6 @@ function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, 
         setItems(updatedItemsList);
     }
     console.log("after delete: ", items)
-
-
-    // useEffect(() => {
-    //     fetch("/api/mycart")
-    //         .then((r) => r.json())
-    //         .then(data => setCartItems(data.items))
-    // }, [])
-    // console.log(cartItems)
-
-
-    // function deleteItemFromList(id) {
-    //     const updatedItemsList = items.filter((item) => item.id !== id);
-    //     setItems(updatedItemsList);
-    // }
 
     const theme = createTheme({
         palette: {
@@ -84,11 +70,10 @@ function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, 
                 material={item.material}
                 color={item.color}
                 size={item.size}
-                seller={item.sold_by}
+                sold_by={item.sold_by}
                 item={item}
                 user={user}
                 favorites={user.saved_items}
-                sold_by={item.sold_by}
                 user_id={item.user_id}
                 condition={item.condition}
                 isForSale={item.isForSale}
