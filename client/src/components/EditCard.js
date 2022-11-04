@@ -22,7 +22,7 @@ const style = {
     pt: 6, pb: 6,
 };
 
-function EditCard({ openEdit, item, id, handleCloseEdit, handleOpenEdit, setOpenEdit, price, user, itemname, description }) {
+function EditCard({ openEdit, item, id, handleCloseEdit, images_url, handleOpenEdit, setOpenEdit, price, user, itemname, description }) {
     const [priceState, setPriceState] = useState(item.price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(item.price);
@@ -98,134 +98,125 @@ function EditCard({ openEdit, item, id, handleCloseEdit, handleOpenEdit, setOpen
             aria-describedby="modal-modal-description"
         >
             <Box className="modal-content" sx={style}>
-                <Typography style={{ textAlign: "center", fontWeight: "bold", fontFamily: "monospace", fontSize: "30px" }} className="modal-title1" id="modal-modal-title" variant="h6" component="h2">
-                    Edit Information
+                <div 
+                    component="img"
+                    src={item.images_url}>
+                </div>
+                <Typography style={{ textAlign: "center", fontFamily: "monospace", fontSize: "30px" }} className="modal-title1" id="modal-modal-title" variant="h6" component="h2">
+                    Edit Item Information
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2, mb: 1.5, width: "70%", letterSpacing: "0.05rem", textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
                     Click on the edit button pertaining to the item detail you want to change 
                 </Typography>
-                <Typography textAlign="center" color="secondary.darkText" fontSize="1.4em" gutterBottom>
-                        <div style={{display:"flex", flexDirection:"row" }}>
+                <Typography lineHeight="2rem" textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="2px" gutterBottom>
+                    <div style={{display:"flex", flexDirection:"row", alignItems:"center" }}>
                         {editNameState ? (
-                        <div className='field1' style={{justifyContent:"center", alignItems:"center", textAlign:"center" }}>
-                                <input
-                                    defaultValue={initialItemNameValue}
-                                    className="editItemInput" 
-                                    id="my-input"
-                                    aria-describedby='my-helper-text'
-                                    onChange={(e) => setItemNameState(e.target.value)}
-                                />
-                                <FormHelperText
-                                    id='my-helper-text'
-                                >
-                                    Edit your item name
-                                </FormHelperText>
-                            </div>
-                    ) : (
+                            <div className='field1' style={{ justifyContent: "center", marginLeft: "auto", marginRight: "auto", alignItems:"center", textAlign:"center" }}>
+                            <input
+                                defaultValue={initialItemNameValue}
+                                className="editItemInput" 
+                                id="my-input"
+                                aria-describedby='my-helper-text'
+                                onChange={(e) => setItemNameState(e.target.value)}
+                            />
+                            <FormHelperText id='my-helper-text'>
+                                Edit your item name
+                            </FormHelperText>
+                        </div>
+                        ) : (
                         <div 
                         style={{ marginLeft: "auto", marginRight: "auto", alignItems: "center", textAlign: "center" }}
                         >
-                            <span>{initialItemNameValue}</span>
+                            <span><span style={{ fontFamily: "monospace", fontSize: "14px" }}>ITEM NAME:</span> {initialItemNameValue}</span>
                         </div>
-                    )}
+                        )}
                         <Fab className="fab-edit" size="small" aria-label="edit">
                             <EditIcon onClick={handleEditItemName} />
                         </Fab>
                     </div>
                 </Typography>
-                <Typography style={{ marginTop: "5px", display:"flex", flexDirection:"row"}} textAlign="center" alignItems="center" justifyContent="center" color="secondary.darkText" fontSize="1em" gutterBottom>
-                    <Fab style={{ textAlign: "center", marginTop: "5px", alignItems:"center"}} className="fab-edit" size="small" aria-label="edit">
-                            <EditIcon onClick={handleEditPrice}/>
-                        </Fab>
-                        <div style={{ marginLeft:"auto", marginRight:"auto", display: "flex", alignItems: "center", justifyContent:"center" }}>
-                            {/* <div style={{ display: "flex", flexDirection:"row", alignItems: "center" }}> */}
-                                {/* <SellOutlinedIcon style={{ paddingRight: "4px" }} /> */}
-                                <div>
-                                    {editPriceState ? (
-                                    <div style={{ marginLeft: "auto", flexDirection:"row", marginRight:"auto", justifyContent:"center", alignItems:"center", textAlign:"center" }}>
-                                        <p style={{fontSize:"17px", textAlign:"center", alignItems:"center"}}>
-                                        Price:&nbsp;&nbsp;
-                                        </p>
-                                            <input
-                                                id="my-input"
-                                                aria-describedby='my-helper-text'
-                                                style={{ alignItems: "center", textAlign:"center", fontSize: "14px" }}
-                                                defaultValue={initialPriceValue}
-                                                onChange={(e) => setPriceState(e.target.value)}
-                                            />
-                                            <FormHelperText
-                                                id='my-helper-text'
-                                            >
-                                                Edit item price
-                                            </FormHelperText>
-                                        </div>
-                                    ) : (
-                                        <div>
-                                            <SellOutlinedIcon style={{ paddingRight: "4px" }} />
-                                            <span>${initialPriceValue}</span>
-                                        </div>
-                                    )}
-                                </div>
+                <Typography lineHeight="2rem" textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="5px" gutterBottom>
+                    <div style={{ display: "flex", flexDirection:"row", marginLeft:"0", marginRight: "0"}}>
+                        {editPriceState ? (
+                            <div className='field1' style={{justifyContent: "center", marginLeft:"auto", marginRight:"auto", alignItems: "center", textAlign: "center" }}>
+                                {/* <div style={{ alignItems: "center", textAlign: "center" }}> */}
+                                    <input
+                                        className="editItemInput"
+                                        id="my-price-input"
+                                        aria-describedby='my-helper-text'
+                                        defaultValue={initialPriceValue}
+                                        onChange={(e) => setPriceState(e.target.value)}
+                                    />
+                                    <FormHelperText
+                                        id='my-helper-text'
+                                    >
+                                        Edit item price
+                                    </FormHelperText>
+                                {/* </div> */}
                             </div>
-                        {/* </div> */}
+                        ) : (
+                        <div 
+                        style={{ marginLeft: "auto", marginRight: "auto", alignItems: "center", textAlign: "center" }}>
+                            <span><span style={{ fontFamily: "monospace", fontSize: "14px" }}>PRICE:</span> ${initialPriceValue}</span>
+                        </div>
+                        )}
+                        <Fab className="fab-edit" size="small" aria-label="edit">
+                            <EditIcon onClick={handleEditPrice} />
+                        </Fab>
+                    </div>
+                </Typography>
+                    <Typography lineHeight="2rem" textAlign="center" color="secondary.darkText" fontSize=".95em" marginTop="2px" gutterBottom>
+                        <div style={{ display: "flex", flexDirection: "row", marginLeft: "0", marginRight: "0" }}>
+                            {editDescriptionState ? (
+                            <div className='field1' style={{marginLeft: "auto", marginRight: "auto", justifyContent:"center", alignItems:"center"}}>
+                                <textarea
+                                    defaultValue={initialDescriptionValue}
+                                    id="my-input"
+                                    aria-describedby='my-helper-text'
+                                    onChange={(e) => setDescriptionState(e.target.value)}
+                                />
+                                <FormHelperText id='my-helper-price'>
+                                    Edit item description 
+                                </FormHelperText>
+                            </div>
+                        ) : (
+                            <div
+                                style={{width:"100%", marginLeft: "0", marginRight: "0", alignItems: "center", textAlign: "center" }}>
+                                    <span style={{}}><span style={{ fontFamily: "monospace", fontSize: "14px" }}>DESCRIPTION:</span> {initialDescriptionValue}</span>
+                            </div>
+                        )}
+                        <Fab className="fab-edit" size="small" aria-label="edit">
+                            <EditIcon onClick={handleEditDescription} />
+                        </Fab>
+                    </div>
                 </Typography>
 
 
-{/* 
-                <div style={{ display: "flex", flexDirection:"row" }}>
-                    <div style={{ paddingRight: "14px" }}>
-                        {editPriceState ? (
-                            <div style={{ marginLeft: "auto", marginRight:"auto", justifyContent:"center", alignItems:"center", textAlign:"center" }}>
-                                <SellOutlinedIcon style={{ paddingRight: "4px" }} />
-                                <p style={{fontSize:"17px", textAlign:"center", alignItems:"center"}}>
-                                    Price:&nbsp;&nbsp;
-                                </p>
-                                <div style={{ display: "flex", margin:"1", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-                                    <input
-                                    defaultValue={initialPriceValue}
-                                    onChange={(e) => setPriceState(e.target.value)}
-                                    />
-                                    <FormHelperText>
-                                        Edit item price
-                                    </FormHelperText>
-                                </div>
-                            </div>
-                    ) : (
-                        <div style={{ display:"flex", flexDirection:"row", marginBottom: "5px", marginTop: "5px" }}>
-                            <SellOutlinedIcon style={{ paddingRight: "4px" }} />
-                            <span>${initialPriceValue}</span>
+                {/* <Typography textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="2px" gutterBottom>
+                    <div style={{ alignItems: "center", flexDirection: "row", justifyContent: "center" }}>
+                        {editDescriptionState ? (
+                        <div>
+                            <textarea
+                                className="form-control descriptionInfo"
+                                defaultValue={initialDescriptionValue}
+                                onChange={(e) => setDescriptionState(e.target.value)}
+                            />
+                            <FormHelperText>
+                                Edit your item name
+                            </FormHelperText>
                         </div>
-                    )}
+                        ) : (
+                        <div className="descriptionInfoEdit">
+                            <span>{initialDescriptionValue}</span>
+                        </div>
+                        )}
+                        {user.id === item.user_id ?
+                        <Fab className="fab-edit" size="small" float="right" aria-label="edit" align-item="right" justify-item="right">
+                            <EditIcon onClick={handleEditDescription} sx={{ color: editDescriptionState ? "green" : null }} />
+                        </Fab>
+                        : null}
                     </div>
-                </div> */}
-                {user.id === item.user_id ?
-                    <Fab className="fab-edit" size="small" float="right" aria-label="edit" align-item="right" justify-item="right">
-                        <EditIcon onClick={handleEditPrice} sx={{ float: "right", alignItem: "right", justifyItem: "right", color: editPriceState ? "green" : null }} />
-                    </Fab>
-                    : null}
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                {editDescriptionState ? (
-                    <div>
-                        <textarea
-                            className="form-control descriptionInfo"
-                            defaultValue={initialDescriptionValue}
-                            onChange={(e) => setDescriptionState(e.target.value)}
-                        />
-                        <FormHelperText>
-                            Edit your item name
-                        </FormHelperText>
-                    </div>
-                     ) : (
-                    <div className="descriptionInfoEdit">
-                        <span>{initialDescriptionValue}</span>
-                    </div>
-                    )}
-                    {user.id === item.user_id ?
-                    <Fab className="fab-edit" size="small" float="right" aria-label="edit" align-item="right" justify-item="right">
-                        <EditIcon onClick={handleEditDescription} sx={{ color: editDescriptionState ? "green" : null }} />
-                    </Fab>
-                    : null}
-                </div>
+                </Typography> */}
 
                 <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: "12px" }}>
                     <Button variant="secondary" id="modal1" onClick={handleCloseEdit}>

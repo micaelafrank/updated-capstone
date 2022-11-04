@@ -373,7 +373,7 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                     >
                         <EditIcon />
                     </IconButton> : null}
-                {openEdit ? <EditCard handleOpenEdit={handleOpenEdit} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
+                {openEdit ? <EditCard handleOpenEdit={handleOpenEdit} images_url={images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
                 {user.id === item.user_id ? null :
                     <IconButton
                         onClick={initialCartValue ? alreadyInCart : renderUserCartItem}
