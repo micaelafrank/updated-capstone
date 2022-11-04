@@ -100,7 +100,8 @@ function NewItemForm({ user, addNewItem, setUser }) {
                             />
                             <FormHelperText id='my-helper-text'
                             >
-                                What are you selling?</FormHelperText>
+                                What are you selling?
+                            </FormHelperText>
                         </FormControl>
 
                         <FormControl>

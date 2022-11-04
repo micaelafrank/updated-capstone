@@ -19,7 +19,7 @@ import { darkScrollbar } from '@mui/material';
 import {brown, orange} from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ConfirmDelete from './ConfirmDelete';
-
+import EditCard from './EditCard';
 // import SavedContainer from './SavedContainer';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -43,9 +43,13 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
     const [isSaved, setIsSaved] = useState(false)
     const [inCart, setInCart] = useState(false)
     const [open, setOpen] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const handleOpenEdit = () => setOpenEdit(true);
+    const handleCloseEdit = () => setOpenEdit(false);
 
 
     const theme = createTheme({
@@ -65,61 +69,61 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
     });
 
 
-    let handleEditDescription = () => {
-        setEditDescriptionState(!editDescriptionState);
-        if (descriptionState !== "") {
-            fetch(`/api/items/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    description: descriptionState,
-                    id: item.id,
-                }),
-            })
-                .then((resp) => resp.json())
-                .then((data) => setInitialDescriptionValue(data.description));
-        }
-    };
+    // let handleEditDescription = () => {
+    //     setEditDescriptionState(!editDescriptionState);
+    //     if (descriptionState !== "") {
+    //         fetch(`/api/items/${id}`, {
+    //             method: "PATCH",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 description: descriptionState,
+    //                 id: item.id,
+    //             }),
+    //         })
+    //             .then((resp) => resp.json())
+    //             .then((data) => setInitialDescriptionValue(data.description));
+    //     }
+    // };
 
 
-    let handleEditItemName = () => {
-        setEditNameState(!editNameState);
-        if (itemNameState !== "") {
-            fetch(`/api/items/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    itemname: itemNameState,
-                    id: item.id,
-                }),
-            })
-                .then((resp) => resp.json())
-                .then((data) => setInitialItemNameValue(data.itemname));
-        }
-    };
+    // let handleEditItemName = () => {
+    //     setEditNameState(!editNameState);
+    //     if (itemNameState !== "") {
+    //         fetch(`/api/items/${id}`, {
+    //             method: "PATCH",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 itemname: itemNameState,
+    //                 id: item.id,
+    //             }),
+    //         })
+    //             .then((resp) => resp.json())
+    //             .then((data) => setInitialItemNameValue(data.itemname));
+    //     }
+    // };
 
 
-    let handleEditPrice = () => {
-        setEditPriceState(!editPriceState);
-        if (priceState !== 0) {
-            fetch(`/api/items/${id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    price: priceState,
-                    id: item.id,
-                }),
-            })
-            .then((resp) => resp.json())
-            .then((data) => setInitialPriceValue(data.price));
-        }
-    };
+    // let handleEditPrice = () => {
+    //     setEditPriceState(!editPriceState);
+    //     if (priceState !== 0) {
+    //         fetch(`/api/items/${id}`, {
+    //             method: "PATCH",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify({
+    //                 price: priceState,
+    //                 id: item.id,
+    //             }),
+    //         })
+    //         .then((resp) => resp.json())
+    //         .then((data) => setInitialPriceValue(data.price));
+    //     }
+    // };
 
 
     function alreadyInCart() {
@@ -247,19 +251,6 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
         handleCartClick();
     }
 
-    // function handleDelete() {
-    //     console.log("I was clicked")
-    //     fetch(`/api/items/${item.id}`, {
-    //         method: "DELETE",
-    //     })
-    //         .then((r) => {
-    //             if (r.ok) {
-    //                 deleteItemFromList(id);
-    //             }
-    //         })
-    // }
-
-
 
     return (
         <Card className="oneItemCard" theme={theme} 
@@ -290,13 +281,13 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                 </Typography>)
                 }                
                 <Typography color="secondary.darkText" fontSize="1.4em" gutterBottom>
-                    {user.id === item.user_id ?
+                    {/* {user.id === item.user_id ?
                         <Fab className="fab-edit" float="right" alignItem="right" size="small" aria-label="edit">
                             <EditIcon onClick={handleEditItemName} 
                             // sx={{ color: editNameState ? "green" : null }} 
                             />
                         </Fab>
-                        : null}
+                        : null} */}
                     {editNameState ? (
                         <div>
                             <textarea
@@ -311,7 +302,7 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                         </div>
                     )}
                 </Typography>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
+                <div className='form-box' style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
                     <div style={{ display: "flex", alignItems: "center" }}>
                         <SellOutlinedIcon style={{ paddingRight: "4px" }} />
                         <div style={{ paddingRight: "14px" }}>
@@ -330,11 +321,11 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                             )}
                         </div>
                     </div>
-                    {user.id === item.user_id ?
+                    {/* {user.id === item.user_id ?
                         <Fab className="fab-edit" size="small" float="right" aria-label="edit" align-item="right" justify-item="right">
                             <EditIcon onClick={handleEditPrice} sx={{ float:"right", alignItem: "right", justifyItem: "right", color: editPriceState ? "green" : null }} />
                         </Fab>
-                    : null}
+                    : null} */}
                 </div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent:"space-between" }}>
                     {editDescriptionState ? (
@@ -350,11 +341,11 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                             <span>{initialDescriptionValue}</span>
                         </div>
                     )}
-                    {user.id === item.user_id ?
+                    {/* {user.id === item.user_id ?
                         <Fab className="fab-edit" size="small" float="right" aria-label="edit" align-item="right" justify-item="right">
                             <EditIcon onClick={handleEditDescription} sx={{ color: editDescriptionState ? "green" : null }} />
                         </Fab>
-                        : null}
+                        : null} */}
                 </div>
                 </CardContent>
                 <CardActions className="bottom-card-details" theme={theme} 
@@ -376,6 +367,13 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                         <DeleteIcon />
                     </IconButton> : null}
                 {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}    
+                {user.id === item.user_id ?
+                    <IconButton aria-label="edit"
+                        onClick={handleOpenEdit}
+                    >
+                        <EditIcon />
+                    </IconButton> : null}
+                {openEdit ? <EditCard handleOpenEdit={handleOpenEdit} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
                 {user.id === item.user_id ? null :
                     <IconButton
                         onClick={initialCartValue ? alreadyInCart : renderUserCartItem}

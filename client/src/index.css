@@ -128,18 +128,38 @@ code {
   box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
+.editItemInput{
+  border: none;
+  padding: 12px 12px;
+  width: 70%;
+  font-size: 18px;
+  border-bottom: 1px solid black;
+  border-radius: none;
+  text-align: center;
+}
+
+.label{
+  font-family: monospace;
+  text-align: center;
+  align-items: center;
+  font-size: 17px;
+}
+
+#my-helper-text{
+  text-align: center;
+}
+
 input,
 textarea {
   padding: 8px 15px 8px 15px;
   width: 100%;
-  border-radius: 5px !important;
   box-sizing: border-box;
   border: 1px solid black;
   font-family: "Roboto",
     "Helvetica",
     "Arial",
     sans-serif;
-  font-size: 12px !important;
+  /* font-size: 12px !important; */
   color: #000 !important;
   font-weight: 300;
 }
