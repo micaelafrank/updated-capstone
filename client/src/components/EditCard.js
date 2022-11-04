@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
-import SellOutlinedIcon from '@mui/icons-material/SellOutlined';
 import FormHelperText from '@mui/material/FormHelperText'
 
 
@@ -22,16 +21,20 @@ const style = {
     pt: 6, pb: 6,
 };
 
-function EditCard({ openEdit, item, id, handleCloseEdit, images_url, handleOpenEdit, setOpenEdit, price, user, itemname, description }) {
-    const [priceState, setPriceState] = useState(item.price);
-    const [editPriceState, setEditPriceState] = useState(false);
-    const [initialPriceValue, setInitialPriceValue] = useState(item.price);
-    const [itemNameState, setItemNameState] = useState("");
-    const [editNameState, setEditNameState] = useState(false);
-    const [initialItemNameValue, setInitialItemNameValue] = useState(item.itemname);
-    const [descriptionState, setDescriptionState] = useState("");
-    const [editDescriptionState, setEditDescriptionState] = useState(false);
-    const [initialDescriptionValue, setInitialDescriptionValue] = useState(item.description);
+function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit, 
+    priceState, setPriceState, editPriceState, setEditPriceState, initialPriceValue, setInitialPriceValue,
+    itemNameState, setItemNameState, editDescriptionState, editNameState, setEditNameState, initialItemNameValue, setInitialItemNameValue,
+    descriptionState, setDescriptionState, setEditDescriptionState, initialDescriptionValue, setInitialDescriptionValue,
+    images_url, handleOpenEdit, setOpenEdit, price, user, itemname, description }) {
+    // const [priceState, setPriceState] = useState(item.price);
+    // const [editPriceState, setEditPriceState] = useState(false);
+    // const [initialPriceValue, setInitialPriceValue] = useState(item.price);
+    // const [itemNameState, setItemNameState] = useState("");
+    // const [editNameState, setEditNameState] = useState(false);
+    // const [initialItemNameValue, setInitialItemNameValue] = useState(item.itemname);
+    // const [descriptionState, setDescriptionState] = useState("");
+    // const [editDescriptionState, setEditDescriptionState] = useState(false);
+    // const [initialDescriptionValue, setInitialDescriptionValue] = useState(item.description);
 
     let handleEditDescription = () => {
         setEditDescriptionState(!editDescriptionState);
@@ -46,8 +49,9 @@ function EditCard({ openEdit, item, id, handleCloseEdit, images_url, handleOpenE
                     id: item.id,
                 }),
             })
-                .then((resp) => resp.json())
-                .then((data) => setInitialDescriptionValue(data.description));
+            .then((resp) => resp.json())
+            .then((data) => setInitialDescriptionValue(data.description));
+            setChange(!change);
         }
     };
 
@@ -65,8 +69,9 @@ function EditCard({ openEdit, item, id, handleCloseEdit, images_url, handleOpenE
                     id: item.id,
                 }),
             })
-                .then((resp) => resp.json())
-                .then((data) => setInitialItemNameValue(data.itemname));
+            .then((resp) => resp.json())
+            .then((data) => setInitialItemNameValue(data.itemname));
+            setChange(!change);
         }
     };
 
@@ -84,8 +89,9 @@ function EditCard({ openEdit, item, id, handleCloseEdit, images_url, handleOpenE
                     id: item.id,
                 }),
             })
-                .then((resp) => resp.json())
-                .then((data) => setInitialPriceValue(data.price));
+            .then((resp) => resp.json())
+            .then((data) => setInitialPriceValue(data.price));
+            setChange(!change);
         }
     };
 
@@ -190,34 +196,6 @@ function EditCard({ openEdit, item, id, handleCloseEdit, images_url, handleOpenE
                         </Fab>
                     </div>
                 </Typography>
-
-
-                {/* <Typography textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="2px" gutterBottom>
-                    <div style={{ alignItems: "center", flexDirection: "row", justifyContent: "center" }}>
-                        {editDescriptionState ? (
-                        <div>
-                            <textarea
-                                className="form-control descriptionInfo"
-                                defaultValue={initialDescriptionValue}
-                                onChange={(e) => setDescriptionState(e.target.value)}
-                            />
-                            <FormHelperText>
-                                Edit your item name
-                            </FormHelperText>
-                        </div>
-                        ) : (
-                        <div className="descriptionInfoEdit">
-                            <span>{initialDescriptionValue}</span>
-                        </div>
-                        )}
-                        {user.id === item.user_id ?
-                        <Fab className="fab-edit" size="small" float="right" aria-label="edit" align-item="right" justify-item="right">
-                            <EditIcon onClick={handleEditDescription} sx={{ color: editDescriptionState ? "green" : null }} />
-                        </Fab>
-                        : null}
-                    </div>
-                </Typography> */}
-
                 <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: "12px" }}>
                     <Button variant="secondary" id="modal1" onClick={handleCloseEdit}>
                         CANCEL

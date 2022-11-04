@@ -29,6 +29,7 @@ function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, 
     }, [change])
     console.log(items)
 
+
     function deleteItemFromList(id) {
         const updatedItemsList = items.filter((item) => item.id !== id);
         setItems(updatedItemsList);
@@ -89,7 +90,7 @@ function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, 
             />
         )
     })
-
+    // priceState, initialPriceValue, editPriceState, itemNameState, editNameState, initialItemNameValue, descriptionState, editDescriptionState, initialDescriptionValue
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

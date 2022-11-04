@@ -81,12 +81,6 @@ function App() {
   // }
 
 
-
-  // function deleteItem(id) {
-  //   const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
-  //   setCartItems(updatedCart);
-  // }
-
   // function deleteCartIcon(id) {
   //   setEditCartState(!editCartState);
   //   fetch(`/api/edit_cart/${id}`, {

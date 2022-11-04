@@ -49,8 +49,9 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
     const handleClose = () => setOpen(false);
 
     const handleOpenEdit = () => setOpenEdit(true);
-    const handleCloseEdit = () => setOpenEdit(false);
-
+    const handleCloseEdit = () => {
+        (setChange(!change))
+        setOpenEdit(false);}
 
     const theme = createTheme({
         palette: {
@@ -67,64 +68,6 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
             },
         },
     });
-
-
-    // let handleEditDescription = () => {
-    //     setEditDescriptionState(!editDescriptionState);
-    //     if (descriptionState !== "") {
-    //         fetch(`/api/items/${id}`, {
-    //             method: "PATCH",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({
-    //                 description: descriptionState,
-    //                 id: item.id,
-    //             }),
-    //         })
-    //             .then((resp) => resp.json())
-    //             .then((data) => setInitialDescriptionValue(data.description));
-    //     }
-    // };
-
-
-    // let handleEditItemName = () => {
-    //     setEditNameState(!editNameState);
-    //     if (itemNameState !== "") {
-    //         fetch(`/api/items/${id}`, {
-    //             method: "PATCH",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({
-    //                 itemname: itemNameState,
-    //                 id: item.id,
-    //             }),
-    //         })
-    //             .then((resp) => resp.json())
-    //             .then((data) => setInitialItemNameValue(data.itemname));
-    //     }
-    // };
-
-
-    // let handleEditPrice = () => {
-    //     setEditPriceState(!editPriceState);
-    //     if (priceState !== 0) {
-    //         fetch(`/api/items/${id}`, {
-    //             method: "PATCH",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify({
-    //                 price: priceState,
-    //                 id: item.id,
-    //             }),
-    //         })
-    //         .then((resp) => resp.json())
-    //         .then((data) => setInitialPriceValue(data.price));
-    //     }
-    // };
-
 
     function alreadyInCart() {
         <Alert key={'success'} variant={'success'}>This item is already in your cart</Alert>
@@ -281,91 +224,35 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                 </Typography>)
                 }                
                 <Typography color="secondary.darkText" fontSize="1.4em" gutterBottom>
-                    {/* {user.id === item.user_id ?
-                        <Fab className="fab-edit" float="right" alignItem="right" size="small" aria-label="edit">
-                            <EditIcon onClick={handleEditItemName} 
-                            // sx={{ color: editNameState ? "green" : null }} 
-                            />
-                        </Fab>
-                        : null} */}
-                    {editNameState ? (
-                        <div>
-                            <textarea
-                                className="form-control"
-                                defaultValue={initialItemNameValue}
-                                onChange={(e) => setItemNameState(e.target.value)}
-                            />
-                        </div>
-                    ) : (
-                        <div>
-                            <span>{initialItemNameValue}</span>
-                        </div>
-                    )}
+                    <div>
+                        <span>{initialItemNameValue}</span>
+                    </div>
                 </Typography>
                 <div className='form-box' style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
                     <div style={{ display: "flex", alignItems: "center" }}>
                         <SellOutlinedIcon style={{ paddingRight: "4px" }} />
                         <div style={{ paddingRight: "14px" }}>
-                            {editPriceState ? (
-                                <div>
-                                    <textarea
-                                        className="form-control"
-                                        defaultValue={initialPriceValue}
-                                        onChange={(e) => setPriceState(e.target.value)}
-                                    />
-                                </div>
-                            ) : (
-                                <div style={{marginBottom: "5px", marginTop: "5px"}}>
-                                    <span>${initialPriceValue}</span>
-                                </div>
-                            )}
+                            <div style={{marginBottom: "5px", marginTop: "5px"}}>
+                                <span>${initialPriceValue}</span>
+                            </div>
                         </div>
                     </div>
-                    {/* {user.id === item.user_id ?
-                        <Fab className="fab-edit" size="small" float="right" aria-label="edit" align-item="right" justify-item="right">
-                            <EditIcon onClick={handleEditPrice} sx={{ float:"right", alignItem: "right", justifyItem: "right", color: editPriceState ? "green" : null }} />
-                        </Fab>
-                    : null} */}
                 </div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent:"space-between" }}>
-                    {editDescriptionState ? (
-                        <div>
-                            <textarea
-                                className="form-control descriptionInfo"
-                                defaultValue={initialDescriptionValue}
-                                onChange={(e) => setDescriptionState(e.target.value)}
-                            />
-                        </div>
-                    ) : (
-                        <div className="descriptionInfoEdit">
-                            <span>{initialDescriptionValue}</span>
-                        </div>
-                    )}
-                    {/* {user.id === item.user_id ?
-                        <Fab className="fab-edit" size="small" float="right" aria-label="edit" align-item="right" justify-item="right">
-                            <EditIcon onClick={handleEditDescription} sx={{ color: editDescriptionState ? "green" : null }} />
-                        </Fab>
-                        : null} */}
+                    <div className="descriptionInfoEdit">
+                        <span>{initialDescriptionValue}</span>
+                    </div>
                 </div>
                 </CardContent>
-                <CardActions className="bottom-card-details" theme={theme} 
-            // sx={{bgcolor: orange[100]}}
-                >
-                {/* <Button size="small">View</Button>
-                <Button size="small">Edit</Button> */}
+                <CardActions className="bottom-card-details" theme={theme}>
                 {user.id === item.user_id ? null :
-                    <IconButton
-                        onClick={isSaved ? handleUndoHeart : handleFillHeart}
-                    >
-                        {isSaved ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                    </IconButton>
-                }
+                <IconButton onClick={isSaved ? handleUndoHeart : handleFillHeart}>
+                    {isSaved ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                </IconButton>}
                 {user.id === item.user_id ?
-                    <IconButton aria-label="delete"
-                        onClick={handleOpen}
-                    >
-                        <DeleteIcon />
-                    </IconButton> : null}
+                <IconButton aria-label="delete" onClick={handleOpen}>
+                    <DeleteIcon />
+                </IconButton> : null}
                 {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}    
                 {user.id === item.user_id ?
                     <IconButton aria-label="edit"
@@ -373,16 +260,16 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                     >
                         <EditIcon />
                     </IconButton> : null}
-                {openEdit ? <EditCard handleOpenEdit={handleOpenEdit} images_url={images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
+                {openEdit ? <EditCard priceState={priceState} setPriceState={setPriceState} initialPriceValue={initialPriceValue} setInitialPriceValue={setInitialPriceValue} editPriceState={editPriceState} setEditPriceState={setEditPriceState} itemNameState={itemNameState} setItemNameState={setItemNameState} editNameState={editNameState} setEditNameState={setEditNameState} initialItemNameValue={initialItemNameValue}
+                setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} images_url={images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
                 {user.id === item.user_id ? null :
-                    <IconButton
-                        onClick={initialCartValue ? alreadyInCart : renderUserCartItem}
-                        sx={{ pointerEvents: initialCartValue ? "none" : null }}
-                        defaultValue={initialCartValue}
-                    >
-                        {initialCartValue ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
-                    </IconButton>
-                }
+                <IconButton
+                    onClick={initialCartValue ? alreadyInCart : renderUserCartItem}
+                    sx={{ pointerEvents: initialCartValue ? "none" : null }}
+                    defaultValue={initialCartValue}
+                >
+                    {initialCartValue ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
+                </IconButton>}
             </CardActions>
         </Card>
     )
