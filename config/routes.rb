@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
     post '/payment', to: "checkout#create"
     post "/signup", to: "users#create"
+    patch "/items/edit/:item_id", to: "items#update"
     # delete "/favorites:user_id", to: "users#destroy"
     # patch "/profile/:id", to: "users#update"
     get "/me", to: "users#show"

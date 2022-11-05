@@ -13,6 +13,7 @@ import SavedContainer from './SavedContainer';
 import NewItemForm from './NewItemForm';
 import StripeContainer from './StripeContainer';
 import AddItemImages from './AddItemImages';
+import EditCard from './EditCard';
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
 function App() {

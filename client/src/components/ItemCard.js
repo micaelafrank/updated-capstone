@@ -216,11 +216,11 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
             </div>
             <CardContent className="card-details" color="primary" sx={{ flexGrow: 1 }}>
             {user.id === item.user_id ?
-                (<Typography sx={{ fontSize: "14px", color: "black", fontWeight: "bold", mb: 1.3 }}>
+                (<Typography sx={{ fontSize: "13px", color: "black", fontWeight: "bold", mb: .3}}>
                     YOU ARE SELLING THIS ITEM
                 </Typography>) :
-                (<Typography sx={{ fontSize: "14px", color: brown[400], fontWeight: "bold", mb: 1.3 }}>
-                    Sold by: {sold_by}
+                (<Typography sx={{ fontSize: "13px", color: brown[400], fontWeight: "bold", mb: .3 }}>
+                    SOLD BY: {sold_by}
                 </Typography>)
                 }                
                 <Typography color="secondary.darkText" fontSize="1.4em" gutterBottom>
@@ -232,7 +232,9 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                     <div style={{ display: "flex", alignItems: "center" }}>
                         <SellOutlinedIcon style={{ paddingRight: "4px" }} />
                         <div style={{ paddingRight: "14px" }}>
-                            <div style={{marginBottom: "5px", marginTop: "5px"}}>
+                            <div 
+                            // style={{marginBottom: "5px", marginTop: "5px"}}
+                            >
                                 <span>${initialPriceValue}</span>
                             </div>
                         </div>
@@ -261,7 +263,7 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                         <EditIcon />
                     </IconButton> : null}
                 {openEdit ? <EditCard priceState={priceState} setPriceState={setPriceState} initialPriceValue={initialPriceValue} setInitialPriceValue={setInitialPriceValue} editPriceState={editPriceState} setEditPriceState={setEditPriceState} itemNameState={itemNameState} setItemNameState={setItemNameState} editNameState={editNameState} setEditNameState={setEditNameState} initialItemNameValue={initialItemNameValue}
-                setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} images_url={images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
+                setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} images_url={item.images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
                 {user.id === item.user_id ? null :
                 <IconButton
                     onClick={initialCartValue ? alreadyInCart : renderUserCartItem}

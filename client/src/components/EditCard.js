@@ -6,7 +6,8 @@ import Modal from '@mui/material/Modal';
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
 import FormHelperText from '@mui/material/FormHelperText'
-
+import { Checkbox } from '@mui/material';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
 
 const style = {
     position: 'absolute',
@@ -39,7 +40,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
     let handleEditDescription = () => {
         setEditDescriptionState(!editDescriptionState);
         if (descriptionState !== "") {
-            fetch(`/api/items/${item.id}`, {
+            fetch(`/api/items/edit/${item.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -59,7 +60,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
     let handleEditItemName = () => {
         setEditNameState(!editNameState);
         if (itemNameState !== "") {
-            fetch(`/api/items/${item.id}`, {
+            fetch(`/api/items/edit/${item.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -79,7 +80,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
     let handleEditPrice = () => {
         setEditPriceState(!editPriceState);
         if (priceState !== 0) {
-            fetch(`/api/items/${item.id}`, {
+            fetch(`/api/items/edit/${item.id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -106,7 +107,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
             <Box className="modal-content" sx={style}>
                 <div 
                     component="img"
-                    src={item.images_url}>
+                    src={images_url}>
                 </div>
                 <Typography style={{ textAlign: "center", fontFamily: "monospace", fontSize: "30px" }} className="modal-title1" id="modal-modal-title" variant="h6" component="h2">
                     Edit Item Information
@@ -125,7 +126,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                                 aria-describedby='my-helper-text'
                                 onChange={(e) => setItemNameState(e.target.value)}
                             />
-                            <FormHelperText id='my-helper-text'>
+                            <FormHelperText sx={{mb: 2}} id='my-helper-text'>
                                 Edit your item name
                             </FormHelperText>
                         </div>
@@ -154,6 +155,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                                         onChange={(e) => setPriceState(e.target.value)}
                                     />
                                     <FormHelperText
+                                    sx={{mb: 2}}
                                         id='my-helper-text'
                                     >
                                         Edit item price
@@ -172,9 +174,9 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                     </div>
                 </Typography>
                     <Typography lineHeight="2rem" textAlign="center" color="secondary.darkText" fontSize=".95em" marginTop="2px" gutterBottom>
-                        <div style={{ display: "flex", flexDirection: "row", marginLeft: "0", marginRight: "0" }}>
+                        <div style={{ display: "flex", alignItems:"center", flexDirection: "row", marginLeft: "0", marginRight: "0" }}>
                             {editDescriptionState ? (
-                            <div className='field1' style={{marginLeft: "auto", marginRight: "auto", justifyContent:"center", alignItems:"center"}}>
+                            <div id="divDesc" className='field1' style={{marginLeft: "auto", marginRight: "auto", justifyContent:"center", alignItems:"center"}}>
                                 <textarea
                                     defaultValue={initialDescriptionValue}
                                     id="my-input"
@@ -187,12 +189,20 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                             </div>
                         ) : (
                             <div
-                                style={{width:"100%", marginLeft: "0", marginRight: "0", alignItems: "center", textAlign: "center" }}>
-                                    <span style={{}}><span style={{ fontFamily: "monospace", fontSize: "14px" }}>DESCRIPTION:</span> {initialDescriptionValue}</span>
+                                style={{lineHeight: "1.4", marginLeft: "auto", marginRight: "auto", alignItems: "center", textAlign: "center" }}>
+                                    <span style={{}}><span style={{ fontFamily: "monospace", fontSize: "14px" }}>DESCRIPTION:<br></br></span> {initialDescriptionValue}</span>
                             </div>
                         )}
-                        <Fab className="fab-edit" size="small" aria-label="edit">
-                            <EditIcon onClick={handleEditDescription} />
+                        <Fab lineHeight="1" className="fab-edit"                        
+                        size="small" aria-label="edit"
+                        >
+                            {editDescriptionState ?
+                            <DoneAllIcon
+                            style={{color: "black"}}
+                            onClick={handleEditDescription}
+                             /> :
+                            <EditIcon
+                             onClick={handleEditDescription} /> }
                         </Fab>
                     </div>
                 </Typography>
@@ -200,8 +210,9 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                     <Button variant="secondary" id="modal1" onClick={handleCloseEdit}>
                         CANCEL
                     </Button>
-                    <Button variant="primary" className="modal-btn" id="modal2"
-                        onClick={handleCloseEdit}>
+                    <Button style={ editPriceState || editNameState || editDescriptionState ? {pointerEvents: "none", opacity: ".5"} : null }
+                    variant="primary" className="modal-btn" id="modal2"
+                    onClick={handleCloseEdit}>
                         DONE
                     </Button>
                 </div>
