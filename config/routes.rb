@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     # end
     # resources :checkout, only: [:create, :create_payment_intent]
   namespace :api do
-    resources :items, only: [:index, :show, :create, :update, :destroy]
+    resources :items, only: [:index, :show, :create, :update, :destroy, :add_images]
     resources :users 
     resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
     resources :user_carts, only: [:index, :show, :create]
@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     # post "/sell", to: "items#create"
     get "/mycart", to: "user_carts#show"  
     get "/items", to: "items#index"
-    patch "/items/add-images"
+    post "/items/add-images", to: "items#add-images"
     # post "/create_cart" , to: "user_carts#create"
     post "/addtocart", to: "user_cart_items#create"
     delete "/removefromcart", to: "user_cart_items#removefromcart"

@@ -25,11 +25,15 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
         end
     end
 
-    # def add_images
-    #     item = Item.find(params[:id])
-    #     dessert.images.attach(params[:images])
-    #     render json: dessert, status: :ok
-    # end
+    # POST "/add-images" 
+    # item.images.attach(params[:images])
+    # @item.images.attach(io: File.open('/path/to/file'), filename: 'file.pdf')
+    # url_for(@item.images)
+    def add_images
+        item = Item.find(params[:id])
+        item.images.attach(params[:images])
+        render json: item, status: :ok
+    end
 
     def update
         item = find_item

@@ -37,6 +37,8 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
     // const [editDescriptionState, setEditDescriptionState] = useState(false);
     // const [initialDescriptionValue, setInitialDescriptionValue] = useState(item.description);
 
+    console.table(item)
+    console.log(item.images_url[0])
     let handleEditDescription = () => {
         setEditDescriptionState(!editDescriptionState);
         if (descriptionState !== "") {
@@ -105,10 +107,13 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
             aria-describedby="modal-modal-description"
         >
             <Box className="modal-content" sx={style}>
-                <div 
-                    component="img"
-                    src={images_url}>
-                </div>
+                <img 
+                onClick={addMultImages}
+                className="itemImage"
+                component="img"
+                image={images_url[0]}
+                style={{height: '300px', width: 'auto'}}
+                />
                 <Typography style={{ textAlign: "center", fontFamily: "monospace", fontSize: "30px" }} className="modal-title1" id="modal-modal-title" variant="h6" component="h2">
                     Edit Item Information
                 </Typography>
@@ -137,9 +142,20 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                             <span><span style={{ fontFamily: "monospace", fontSize: "14px" }}>ITEM NAME:</span> {initialItemNameValue}</span>
                         </div>
                         )}
-                        <Fab className="fab-edit" size="small" aria-label="edit">
-                            <EditIcon onClick={handleEditItemName} />
+                        <Fab lineHeight="1" className="fab-edit"
+                            size="small" aria-label="edit"
+                        >
+                        {editNameState ?
+                            <DoneAllIcon
+                            style={{ color: "primary.main" }}
+                            onClick={handleEditItemName}
+                            /> :
+                            <EditIcon
+                            onClick={handleEditItemName} />}
                         </Fab>
+                        {/* <Fab className="fab-edit" size="small" aria-label="edit">
+                            <EditIcon onClick={handleEditItemName} />
+                        </Fab> */}
                     </div>
                 </Typography>
                 <Typography lineHeight="2rem" textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="5px" gutterBottom>
@@ -168,9 +184,20 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                             <span><span style={{ fontFamily: "monospace", fontSize: "14px" }}>PRICE:</span> ${initialPriceValue}</span>
                         </div>
                         )}
-                        <Fab className="fab-edit" size="small" aria-label="edit">
-                            <EditIcon onClick={handleEditPrice} />
+                        <Fab lineHeight="1" className="fab-edit"
+                        size="small" aria-label="edit"
+                        >
+                        {editPriceState ?
+                            <DoneAllIcon
+                                style={{ color: "primary.main" }}
+                                onClick={handleEditPrice}
+                            /> :
+                            <EditIcon
+                                onClick={handleEditPrice} />}
                         </Fab>
+                        {/* <Fab className="fab-edit" size="small" aria-label="edit">
+                            <EditIcon onClick={handleEditPrice} />
+                        </Fab> */}
                     </div>
                 </Typography>
                     <Typography lineHeight="2rem" textAlign="center" color="secondary.darkText" fontSize=".95em" marginTop="2px" gutterBottom>
@@ -198,7 +225,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                         >
                             {editDescriptionState ?
                             <DoneAllIcon
-                            style={{color: "black"}}
+                            style={{color: "primary.main"}}
                             onClick={handleEditDescription}
                              /> :
                             <EditIcon

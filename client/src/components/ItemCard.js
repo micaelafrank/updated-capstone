@@ -89,10 +89,9 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
             body: JSON.stringify(newCartItem),
         })
         .then(res => res.json())
-        .then(setInCart(inCart => (!inCart)))
-        // setInCart(inCart => (!inCart))
+        .then(data => handleCartClick(data))
+        setInCart(inCart => (!inCart))
         setWasClicked(wasClicked => (!wasClicked));
-        handleCartClick();
     }
 
 
@@ -153,20 +152,20 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
     //     // setIsAddedCart(isAddedCart => (!isAddedCart))
     // }
 
-    const handleCartClick = useCallback(item => {
-        setCartItems(cartItems => {
-            const index = cartItems.findIndex(currentItem => currentItem.id === item.id);
-            const updatedCart = [...cartItems];
-            if (index >= 0) {
-                // Be sure not to mutate the item object within in the cart state:
-                const updatedItem = { ...updatedCart[index] };
-                updatedItem.quantity += item.quantity;
-                updatedCart[index] = updatedItem;
-            }
-            else updatedCart.push(item);
-            return updatedCart;
-        });
-    }, [setCartItems]);
+    // const handleCartClick = useCallback(item => {
+    //     setCartItems(cartItems => {
+    //         const index = cartItems.findIndex(currentItem => currentItem.id === item.id);
+    //         const updatedCart = [...cartItems];
+    //         if (index >= 0) {
+    //             // Be sure not to mutate the item object within in the cart state:
+    //             const updatedItem = { ...updatedCart[index] };
+    //             updatedItem.quantity += item.quantity;
+    //             updatedCart[index] = updatedItem;
+    //         }
+    //         else updatedCart.push(item);
+    //         return updatedCart;
+    //     });
+    // }, [setCartItems]);
 
 
     function setCartValue(deletedItem){
@@ -263,7 +262,7 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
                         <EditIcon />
                     </IconButton> : null}
                 {openEdit ? <EditCard priceState={priceState} setPriceState={setPriceState} initialPriceValue={initialPriceValue} setInitialPriceValue={setInitialPriceValue} editPriceState={editPriceState} setEditPriceState={setEditPriceState} itemNameState={itemNameState} setItemNameState={setItemNameState} editNameState={editNameState} setEditNameState={setEditNameState} initialItemNameValue={initialItemNameValue}
-                setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} images_url={item.images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
+                setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} images_url={images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
                 {user.id === item.user_id ? null :
                 <IconButton
                     onClick={initialCartValue ? alreadyInCart : renderUserCartItem}
