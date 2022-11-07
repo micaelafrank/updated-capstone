@@ -12,6 +12,7 @@ code {
     monospace;
 }
 
+
 .itemImage{
   max-height: 260px;
   min-height: 260px;
@@ -86,6 +87,11 @@ code {
 
 .col4 h5{
   font-size: 13px;
+}
+
+.cartHeaderRow{
+  border-bottom: 1px solid black;
+  margin-bottom: 1.6rem;
 }
 
 .checkoutBtn{

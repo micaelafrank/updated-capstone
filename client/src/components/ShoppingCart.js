@@ -5,6 +5,8 @@ import StripeCheckout from 'react-stripe-checkout';
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
+import { Typography } from '@mui/material';
+
 
 function ShoppingCart({deleteItem, addCartItem, cartItems, setCartItems, setCartValue, items, total, change, setChange, user}){
     const [addedCartItems, setAddedCartItems] = useState(0);
@@ -81,50 +83,57 @@ function ShoppingCart({deleteItem, addCartItem, cartItems, setCartItems, setCart
 
 
     return(
-    <>
-        <h2>SHOPPING CART</h2>
-        <div style={{height:"18em", marginTop:"3em", marginLeft: "10em", marginRight: "10em"}} className="container px-4 py-5 mx-auto">
-            <div style={{display:"flex", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center">
-                <div className="col-5" style={{ width:"50%", justifyContent:"center", marginLeft:"10em" }}>
-                    <h3 style={{fontFamily:"monospace", textAlign:"left"}} className="heading">ITEM</h3>
-                </div>
-                {/* <div className="col-7" style={{width: "50%", marginRight: "5em"}}> */}
-                <div className="row text-right" style={{ marginBottom: "3em", width: "50%", fontFamily: "monospace", alignItems: "center", display: "flex", flexDirection: "row", justifyContent:"space-evenly"}}>
-                <div className="col4"
-                        style={{ width: "100%"}}
-                >
-                    <h3>SIZE</h3>
-                </div>
-                    <div className="col4"
-                        style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
-                    >                            
-                        <h3>CATEGORY</h3>
+        <> 
+            <div style={{ height: "auto", marginLeft: "10em", marginRight: "10em" }} className="container px-4 py-5 mx-auto">
+                <Typography
+                    style={{marginTop: "1em", marginBottom: "1em", fontFamily: "monospace"}}
+                    component="h2"
+                    variant="h4"
+                    align="left">
+                        SHOPPING CART
+                    </Typography>
+                {/* <h1 style={{ marginTop: "2em", fontWeight:"normal"}}>SHOPPING CART</h1>               */}
+                <div style={{display:"flex", lineHeight:"1", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center cartHeaderRow">
+                    <div className="col-5" style={{ lineHeight: "1", width:"50%", justifyContent:"center", marginLeft:"10em" }}>
+                        <h3 style={{fontFamily:"monospace", textAlign:"left"}} className="heading">ITEM</h3>
                     </div>
+                    {/* <div className="col-7" style={{width: "50%", marginRight: "5em"}}> */}
+                    <div className="row text-right" style={{ width: "50%", fontFamily: "monospace", alignItems: "center", display: "flex", flexDirection: "row", justifyContent:"space-evenly"}}>
                     <div className="col4"
-                        style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
-                    >                            
-                        <h3>REMOVE</h3>
-                    </div>
-                    <div className="col4" 
-                        style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
+                            style={{ width: "100%"}}
                     >
-                        <h3>PRICE</h3>
+                        <h3>SIZE</h3>
+                    </div>
+                        <div className="col4"
+                        style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
+                    >                            
+                            <h3>CATEGORY</h3>
+                        </div>
+                        <div className="col4"
+                            style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
+                        >                            
+                            <h3>REMOVE</h3>
+                        </div>
+                        <div className="col4" 
+                            style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
+                        >
+                            <h3>PRICE</h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div>
-                {allInCart}
-            </div>
-            <div className="row text-right" style={{ marginBottom: "3em", width: "93%", fontFamily: "monospace", alignItems: "center",textAlign:"right", justifyContent: "space-evenly" }}>
-                <div className="col4"
-                    style={{ width: "100%", float:"right",fontWeight:"bold", fontFamily: "monospace", alignItems: "center", fontSize:"18px" }}
-                >
-                    Total: ${addedCartItems} 
+                <div>
+                    {allInCart}
                 </div>
-                <button className="checkoutBtn" onClick={togglePayment}>Check Out</button>
-                {showCheckout ? <StripeContainer total={addedCartItems} /> : null}
-                {/* <p className='col-4'>Total: {addedCartItems}</p> */}
-            </div>
+                <div className="row text-right" style={{ marginBottom: "3em", width: "93%", fontFamily: "monospace", alignItems: "center",textAlign:"right", justifyContent: "space-evenly" }}>
+                    <div className="col4"
+                        style={{ width: "100%", float:"right",fontWeight:"bold", fontFamily: "monospace", alignItems: "center", fontSize:"18px" }}
+                    >
+                        Total: ${addedCartItems} 
+                    </div>
+                    <button className="checkoutBtn" onClick={togglePayment}>CHECK OUT</button>
+                    {showCheckout ? <StripeContainer total={addedCartItems} /> : null}
+                    {/* <p className='col-4'>Total: {addedCartItems}</p> */}
+                </div>
             </div>
             {/* <div className="col-lg-4 mt-2" style={{ width:"20%", display: "flex", flexDirection: "column", margin: "0" }}>
                 <h5>Subtotal: {addedCartItems}</h5>

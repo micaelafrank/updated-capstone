@@ -44,23 +44,23 @@ function CartItem({ cartItem, itemname, size, image, price, material, change, se
         <div style={{ marginLeft: "10em"}} className="container px-4 py-5 mx-auto">
             <div style={{ width:"100%", display: "flex", flexDirection: "row" }} className="row d-flex justify-content-center">
                 <div className="col-5" style={{width: "50%"}}>
-                    <h3 className="mob-text">{cartItem.itemname}</h3>
+                    <h3 className="mob-text">{itemname}</h3>
                     <div className="book">
                         <img src={image} alt={image} className="bookimg" />
                     </div>
                 </div>
                 <div className="row text-right" style={{ width: "50%", display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
-                    <div className="col-4"
+                    <div className="col4"
                     style={{ width: "100%" }}
                     >
                         <h5>{size}</h5>
                     </div>
-                    <div className="col-4"
+                    <div className="col4"
                     style={{ width: "100%" }}
                     >
                         <h5>{material}</h5>
                     </div>
-                    <div className="col-4"
+                    <div className="col4"
                     style={{ width: "100%" }}
                     >
                         <CardActions>
@@ -70,7 +70,7 @@ function CartItem({ cartItem, itemname, size, image, price, material, change, se
                         </CardActions>
                         {wasClicked ? <Alert key={'success'} variant={'success'}>Item removed</Alert> : null}
                     </div>
-                    <div className="col-4"
+                    <div className="col4"
                     style={{ width: "100%" }}
                     >
                         <h5>{price}</h5>
