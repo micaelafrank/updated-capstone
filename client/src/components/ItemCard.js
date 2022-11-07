@@ -24,7 +24,7 @@ import EditCard from './EditCard';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, addCartItem, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -89,9 +89,10 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
             body: JSON.stringify(newCartItem),
         })
         .then(res => res.json())
-        .then(data => handleCartClick(data))
-        setInCart(inCart => (!inCart))
+        .then(setInCart(inCart => (!inCart)))
+        // setInCart(inCart => (!inCart))
         setWasClicked(wasClicked => (!wasClicked));
+        // handleCartClick();
     }
 
 
@@ -173,25 +174,6 @@ function ItemCard({ sold_by, show, deleteItemFromList, cartItems, setCartValue, 
         setIsAddedCart(isAddedCart => (!isAddedCart))
     }
 
-    function renderUserCartItem() {
-        console.log(user)
-        const newItemToAdd = {
-            user_cart_id: user.user_cart.id,
-            item_id: item.id,
-        }
-        console.log(newItemToAdd)
-        // const cartItem = item
-        fetch("/api/addtocart", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newItemToAdd),
-        })
-        .then(res => res.json())
-        .then(setChange(!change))
-        handleCartClick();
-    }
 
 
     return (

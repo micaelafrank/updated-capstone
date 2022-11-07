@@ -28,11 +28,8 @@ function App() {
   useEffect(() => {
     fetch("/api/me").then((r) => {
       if (r.ok) {
-        r.json().then((user) => {
-          setUser(user);
-      })
-    }
-    })
+        r.json().then((user) => setUser(user));
+    }})
   }, [])
   console.log(user);
 
@@ -109,24 +106,24 @@ function App() {
   return (
     <div className={darkMode ? "App dark" : "App"}>
       <div className="h-auto dark:bg-slate-900" >
-      <Routes>
-        {/* <Route path="/" element={<Homepage />} /> */}
-        <Route path="/login" element={<LogIn onLogin={onLogin} setUser={setUser} user={user} />} />
-        <Route path="/signup" element={<SignUp onSignUp={setUser} />} />
+        <Routes>
+          {/* <Route path="/" element={<Homepage />} /> */}
+          <Route path="/login" element={<LogIn onLogin={onLogin} setUser={setUser} user={user} />} />
+          <Route path="/signup" element={<SignUp user={user} onSignUp={setUser} />} />
           <Route element={<WithNav user={user} setUser={setUser} darkMode={darkMode} setDarkMode={setDarkMode} />}>
-          {user.username ? 
-            <Route path="/" element={<Homepage user={user} items={items} />} /> 
-            : 
-            <Route path="/" element={<Homepage items={items} />} />
-          }
+            {user.username ?
+              <Route path="/" element={<Homepage user={user} items={items} />} />
+              :
+              <Route path="/" element={<Homepage items={items} />} />
+            }
           <Route path="/profile" element={<Profile setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList cartItems={cartItems} setCartItems={setCartItems} change={change} setChange={setChange} user={user} />} />
-          <Route path="/mycart" element={<ShoppingCart total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />
+          <Route path="/buy" element={<ItemsList change={change} setChange={setChange} user={user} />} />
+          <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
-          <Route path="/add-images" element={<AddItemImages user={user} />} />
+          {/* <Route path="/add-images" element={<AddItemImages user={user} />} /> */}
           {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}
         </Route>
       </Routes>

@@ -8,10 +8,14 @@ rescue_from ActiveRecord::RecordInvalid, with: :user_invalid
 
     def create
         user = User.create!(newuser_params)
-        session[:user_id] = user.id
-        render json: user, status: :created
-        # else 
-        #     render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
+        if user.valid? 
+            session[:user_id] = user.id
+            new_user_cart = UserCart.create!(user_id: user.id)
+            # new_saves_container = UserLikesContainer.create!(user_id: user.id)
+            render json: user, status: 201
+        else
+            render json: { error: "Invalid user" }, status: :unprocessable_entity
+        end
     end
 
     def show

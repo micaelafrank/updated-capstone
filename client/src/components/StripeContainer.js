@@ -12,7 +12,7 @@ export const StripeContainer = ({ total }) => {
     const [clientSecret, setClientSecret] = useState("")
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("/create-payment-intent", {
+        fetch("/api/create-payment-intent", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ total: 1000 }),

@@ -70,11 +70,11 @@ function SignUp({ onSignUp, user }) {
 
     const pwError = "Passwords entered do not match. Please try again.";
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         console.log(password);
         console.log(password_confirmation);
         e.preventDefault();
-        if(password !== password_confirmation){
+        if (password !== password_confirmation) {
             errors.push(pwError);
         }
         fetch("/api/signup", {
@@ -82,23 +82,23 @@ function SignUp({ onSignUp, user }) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ 
-                firstname: firstname, 
-                lastname: lastname, 
+            body: JSON.stringify({
+                firstname: firstname,
+                lastname: lastname,
                 email: email,
-                username: username, 
-                password: password, 
+                username: username,
+                password: password,
                 password_confirmation: password_confirmation,
             }),
         })
-        .then((res) => {
-            if (res.ok) {
-                res.json().then((user) => onSignUp(user));
-                navigate("/profile");
-            } else {
-                res.json().then((err) => setErrors(err.errors));
-            }
-        });
+            .then((res) => {
+                if (res.ok) {
+                    res.json().then((user) => onSignUp(user));
+                    navigate("/profile");
+                } else {
+                    res.json().then((err) => setErrors(err.errors));
+                }
+            });
     }
     //     .then((res) => {
     //         console.log(errors)

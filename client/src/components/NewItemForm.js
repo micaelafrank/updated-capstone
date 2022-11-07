@@ -46,13 +46,15 @@ function NewItemForm({ user, addNewItem, setUser }) {
         setImages(e.target.files[0])
     }
 
+    const newSizeCat = `${category}, ${size}`;
+
     const formData = new FormData();
     formData.append('itemname', itemname);
     formData.append('price', price);
     formData.append('description', description);
     formData.append('color', color);
     formData.append('material', material);
-    formData.append('size', `${category}, ${size}`);
+    formData.append('size', newSizeCat);
     formData.append('condition', condition);
     formData.append('user_id', user.id);
     formData.append('images', images);

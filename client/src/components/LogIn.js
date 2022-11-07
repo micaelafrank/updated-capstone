@@ -64,11 +64,11 @@ export default function LogIn({ user, setUser, items, onLogin, setItems }) {
     const navigate = useNavigate();
 
 
-    useEffect(() => {
-        fetch("/api/items")
-            .then((r) => r.json())
-            .then(data => setItems(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch("/api/items")
+    //         .then((r) => r.json())
+    //         .then(data => setItems(data))
+    // }, [])
 
 
     function handleLogin(e) {

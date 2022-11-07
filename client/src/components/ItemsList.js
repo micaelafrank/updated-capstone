@@ -2,9 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import ItemCard from './ItemCard';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
-import AppBar from '@mui/material/AppBar';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
@@ -12,11 +10,10 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SavedContainer from './SavedContainer';
-import ShoppingCart from './ShoppingCart';
 // import Pagination from '@mui/material/Pagination';
 
 
-function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, user, change, removeLike }) {
+function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, user, change, removeLike }) {
     const [favorites, setFavorites] = useState([]);
     const [cartIcons, setCartIcons] = useState([cartItems]);
     const [items, setItems] = useState([])
@@ -90,7 +87,6 @@ function ItemsList({ handleUnlike, deleteItemFromList, setCartValue, cartItems, 
             />
         )
     })
-    // priceState, initialPriceValue, editPriceState, itemNameState, editNameState, initialItemNameValue, descriptionState, editDescriptionState, initialDescriptionValue
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

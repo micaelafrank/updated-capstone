@@ -11,8 +11,8 @@ Rails.application.routes.draw do
     # end
     # resources :checkout, only: [:create, :create_payment_intent]
   namespace :api do
-    resources :items, only: [:index, :show, :create, :update, :destroy, :add_images]
-    resources :users 
+    resources :items, only: [:index, :show, :create, :update, :destroy]
+    resources :users, only: [:create, :show, :index, :update, :destroy] 
     resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
     resources :user_carts, only: [:index, :show, :create]
     resources :user_likes_container, only: [:index, :create]
@@ -24,18 +24,18 @@ Rails.application.routes.draw do
     # resources :admin_access_only, only: [:update, :destroy]
 
     post '/payment', to: "checkout#create"
+    get "/me", to: "users#show"
     post "/signup", to: "users#create"
     patch "/items/edit/:item_id", to: "items#update"
     # delete "/favorites:user_id", to: "users#destroy"
     # patch "/profile/:id", to: "users#update"
-    get "/me", to: "users#show"
     patch "/profile/:id", to: "users#update"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy" 
     # post "/sell", to: "items#create"
     get "/mycart", to: "user_carts#show"  
     get "/items", to: "items#index"
-    post "/items/add-images", to: "items#add-images"
+    # post "/items/add-images", to: "items#add-images"
     # post "/create_cart" , to: "user_carts#create"
     post "/addtocart", to: "user_cart_items#create"
     delete "/removefromcart", to: "user_cart_items#removefromcart"

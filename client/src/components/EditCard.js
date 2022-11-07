@@ -107,20 +107,22 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
             aria-describedby="modal-modal-description"
         >
             <Box className="modal-content" sx={style}>
-                <img 
-                onClick={addMultImages}
-                className="itemImage"
-                component="img"
-                image={images_url[0]}
-                style={{height: '300px', width: 'auto'}}
-                />
                 <Typography style={{ textAlign: "center", fontFamily: "monospace", fontSize: "30px" }} className="modal-title1" id="modal-modal-title" variant="h6" component="h2">
                     Edit Item Information
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2, mb: 1.5, width: "70%", letterSpacing: "0.05rem", textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
-                    Click on the edit button pertaining to the item detail you want to change 
+                    Click on the edit button pertaining to the item detail you want to change
                 </Typography>
-                <Typography lineHeight="2rem" textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="2px" gutterBottom>
+                <div style={{height:'300px', width:'auto', justifyContent:'center', display:'flex', position: 'relative', marginLeft: '0', marginRight: '0', alignItems: 'center'}}>
+                    <img
+                        // onClick={addMultImages}
+                        className="itemImage"
+                        component="img"
+                        src={images_url[0]} alt="Image of sale item"
+                        style={{height: '100%', justifyContent:'center', alignItems:'center'}}
+                    />
+                </div>
+                <Typography style={{lineHeight:"1"}} textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="2px" gutterBottom>
                     <div style={{display:"flex", flexDirection:"row", alignItems:"center" }}>
                         {editNameState ? (
                             <div className='field1' style={{ justifyContent: "center", marginLeft: "auto", marginRight: "auto", alignItems:"center", textAlign:"center" }}>
@@ -142,7 +144,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                             <span><span style={{ fontFamily: "monospace", fontSize: "14px" }}>ITEM NAME:</span> {initialItemNameValue}</span>
                         </div>
                         )}
-                        <Fab lineHeight="1" className="fab-edit"
+                        <Fab style={{ lineHeight: "1" }} className="fab-edit"
                             size="small" aria-label="edit"
                         >
                         {editNameState ?
@@ -158,7 +160,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                         </Fab> */}
                     </div>
                 </Typography>
-                <Typography lineHeight="2rem" textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="5px" gutterBottom>
+                <Typography style={{ lineHeight: "2rem" }} textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="5px" gutterBottom>
                     <div style={{ display: "flex", flexDirection:"row", marginLeft:"0", marginRight: "0"}}>
                         {editPriceState ? (
                             <div className='field1' style={{justifyContent: "center", marginLeft:"auto", marginRight:"auto", alignItems: "center", textAlign: "center" }}>
@@ -184,7 +186,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                             <span><span style={{ fontFamily: "monospace", fontSize: "14px" }}>PRICE:</span> ${initialPriceValue}</span>
                         </div>
                         )}
-                        <Fab lineHeight="1" className="fab-edit"
+                        <Fab style={{ lineHeight: "1" }} className="fab-edit"
                         size="small" aria-label="edit"
                         >
                         {editPriceState ?
@@ -200,7 +202,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                         </Fab> */}
                     </div>
                 </Typography>
-                    <Typography lineHeight="2rem" textAlign="center" color="secondary.darkText" fontSize=".95em" marginTop="2px" gutterBottom>
+                <Typography style={{ lineHeight: "2rem" }} textAlign="center" color="secondary.darkText" fontSize=".95em" marginTop="2px" gutterBottom>
                         <div style={{ display: "flex", alignItems:"center", flexDirection: "row", marginLeft: "0", marginRight: "0" }}>
                             {editDescriptionState ? (
                             <div id="divDesc" className='field1' style={{marginLeft: "auto", marginRight: "auto", justifyContent:"center", alignItems:"center"}}>
@@ -220,7 +222,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                                     <span style={{}}><span style={{ fontFamily: "monospace", fontSize: "14px" }}>DESCRIPTION:<br></br></span> {initialDescriptionValue}</span>
                             </div>
                         )}
-                        <Fab lineHeight="1" className="fab-edit"                        
+                        <Fab style={{ lineHeight: "1" }} className="fab-edit"                        
                         size="small" aria-label="edit"
                         >
                             {editDescriptionState ?
