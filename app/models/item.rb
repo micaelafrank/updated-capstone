@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
     belongs_to :user
     has_many :user_cart_items
-    has_many :saved_items  
+    has_many :saved_items
 
     has_many_attached :images
     validates :images, presence: true, allow_blank: true

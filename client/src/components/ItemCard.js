@@ -89,10 +89,8 @@ function ItemCard({ sold_by, show, addCartItem, deleteItemFromList, cartItems, s
             body: JSON.stringify(newCartItem),
         })
         .then(res => res.json())
-        .then(setInCart(inCart => (!inCart)))
-        // setInCart(inCart => (!inCart))
-        setWasClicked(wasClicked => (!wasClicked));
-        // handleCartClick();
+        .then(setWasClicked(wasClicked => (!wasClicked)))
+        (setChange(!change))
     }
 
 
@@ -136,23 +134,6 @@ function ItemCard({ sold_by, show, addCartItem, deleteItemFromList, cartItems, s
         // .then(setIsFavorite(isFavorite => !isFavorite))
     }
 
-
-    // let handleCartClick = () => {
-    //     setEditCartState(!editCartState);
-    //     fetch(`/api/edit_cart/${id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             id: item.id,
-    //         }),
-    //     })
-    //     .then((resp) => resp.json())
-    //     .then(data => setInitialCartValue(data.inCartIcon));
-    //     // setIsAddedCart(isAddedCart => (!isAddedCart))
-    // }
-
     // const handleCartClick = useCallback(item => {
     //     setCartItems(cartItems => {
     //         const index = cartItems.findIndex(currentItem => currentItem.id === item.id);
@@ -173,8 +154,6 @@ function ItemCard({ sold_by, show, addCartItem, deleteItemFromList, cartItems, s
         setInitialCartValue(deletedItem.inCartIcon);
         setIsAddedCart(isAddedCart => (!isAddedCart))
     }
-
-
 
     return (
         <Card className="oneItemCard" theme={theme} 
@@ -247,11 +226,11 @@ function ItemCard({ sold_by, show, addCartItem, deleteItemFromList, cartItems, s
                 setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} images_url={images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
                 {user.id === item.user_id ? null :
                 <IconButton
-                    onClick={initialCartValue ? alreadyInCart : renderUserCartItem}
-                    sx={{ pointerEvents: initialCartValue ? "none" : null }}
-                    defaultValue={initialCartValue}
+                    onClick={wasClicked ? alreadyInCart : renderUserCartItem}
+                    sx={{ pointerEvents: wasClicked ? "none" : null }}
+                    // defaultValue={initialCartValue}
                 >
-                    {initialCartValue ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
+                    {wasClicked ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
                 </IconButton>}
             </CardActions>
         </Card>

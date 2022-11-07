@@ -107,10 +107,10 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
             aria-describedby="modal-modal-description"
         >
             <Box className="modal-content" sx={style}>
-                <Typography style={{ textAlign: "center", fontFamily: "monospace", fontSize: "30px" }} className="modal-title1" id="modal-modal-title" variant="h6" component="h2">
+                <Typography style={{ paddingTop: "0", textAlign: "center", fontFamily: "monospace", fontSize: "30px" }} className="modal-title1" id="modal-modal-title" variant="h6" component="h2">
                     Edit Item Information
                 </Typography>
-                <Typography id="modal-modal-description" sx={{ mt: 2, mb: 1.5, width: "70%", letterSpacing: "0.05rem", textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
+                <Typography id="modal-modal-description" sx={{ mt: 1, mb: 1, width: "70%", letterSpacing: "0.05rem", textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
                     Click on the edit button pertaining to the item detail you want to change
                 </Typography>
                 <div style={{height:'300px', width:'auto', justifyContent:'center', display:'flex', position: 'relative', marginLeft: '0', marginRight: '0', alignItems: 'center'}}>
@@ -122,7 +122,8 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                         style={{height: '100%', justifyContent:'center', alignItems:'center'}}
                     />
                 </div>
-                <Typography style={{lineHeight:"1"}} textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="2px" gutterBottom>
+                <div className='modal-item-description-box'>
+                <Typography style={{lineHeight:"3rem"}} textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="5px" gutterBottom>
                     <div style={{display:"flex", flexDirection:"row", alignItems:"center" }}>
                         {editNameState ? (
                             <div className='field1' style={{ justifyContent: "center", marginLeft: "auto", marginRight: "auto", alignItems:"center", textAlign:"center" }}>
@@ -160,7 +161,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                         </Fab> */}
                     </div>
                 </Typography>
-                <Typography style={{ lineHeight: "2rem" }} textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="5px" gutterBottom>
+                <Typography style={{ lineHeight: "3rem" }} textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="5px" gutterBottom>
                     <div style={{ display: "flex", flexDirection:"row", marginLeft:"0", marginRight: "0"}}>
                         {editPriceState ? (
                             <div className='field1' style={{justifyContent: "center", marginLeft:"auto", marginRight:"auto", alignItems: "center", textAlign: "center" }}>
@@ -202,7 +203,7 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                         </Fab> */}
                     </div>
                 </Typography>
-                <Typography style={{ lineHeight: "2rem" }} textAlign="center" color="secondary.darkText" fontSize=".95em" marginTop="2px" gutterBottom>
+                <Typography style={{ lineHeight: "3rem" }} textAlign="center" color="secondary.darkText" fontSize=".95em" marginTop="12px" gutterBottom>
                         <div style={{ display: "flex", alignItems:"center", flexDirection: "row", marginLeft: "0", marginRight: "0" }}>
                             {editDescriptionState ? (
                             <div id="divDesc" className='field1' style={{marginLeft: "auto", marginRight: "auto", justifyContent:"center", alignItems:"center"}}>
@@ -216,26 +217,27 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                                     Edit item description 
                                 </FormHelperText>
                             </div>
-                        ) : (
+                            ) : (
                             <div
                                 style={{lineHeight: "1.4", marginLeft: "auto", marginRight: "auto", alignItems: "center", textAlign: "center" }}>
                                     <span style={{}}><span style={{ fontFamily: "monospace", fontSize: "14px" }}>DESCRIPTION:<br></br></span> {initialDescriptionValue}</span>
                             </div>
-                        )}
-                        <Fab style={{ lineHeight: "1" }} className="fab-edit"                        
-                        size="small" aria-label="edit"
-                        >
-                            {editDescriptionState ?
-                            <DoneAllIcon
-                            style={{color: "primary.main"}}
-                            onClick={handleEditDescription}
+                            )}
+                            <Fab style={{ lineHeight: "1" }} className="fab-edit"                        
+                            size="small" aria-label="edit"
+                            >
+                                {editDescriptionState ?
+                                <DoneAllIcon
+                                style={{color: "primary.main"}}
+                                onClick={handleEditDescription}
                              /> :
-                            <EditIcon
-                             onClick={handleEditDescription} /> }
-                        </Fab>
-                    </div>
-                </Typography>
-                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", marginTop: "12px" }}>
+                                <EditIcon
+                                onClick={handleEditDescription} /> }
+                            </Fab>
+                        </div>
+                    </Typography>
+                </div>
+                <div className="modal-button-container" style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
                     <Button variant="secondary" id="modal1" onClick={handleCloseEdit}>
                         CANCEL
                     </Button>

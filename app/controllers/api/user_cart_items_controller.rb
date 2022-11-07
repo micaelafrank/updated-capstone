@@ -4,8 +4,11 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
 # skip_before_action :authorize, only: :create
     def index
-        user_cart_items = UserCartItem.all 
-        render json: user_cart_items
+        cart = UserCart.find_by(user_id: @current_user.id)
+        items = cart.user_cart_items
+        render json: items
+        # user_cart_items = UserCartItem.all 
+        # render json: user_cart_items
     end
 
     def show

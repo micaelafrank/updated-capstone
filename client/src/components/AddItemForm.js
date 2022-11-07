@@ -185,7 +185,7 @@ function AddItemForm({ user, addNewItem }) {
                                     <MenuItem value="M12">M12</MenuItem>
                                     <MenuItem value="M13">M13</MenuItem>
                                     <MenuItem value="M14">M14</MenuItem>
-                                    <MenuItem value="NA">N/A</MenuItem>
+                                    <MenuItem value="N/A">N/A</MenuItem>
                                     <MenuItem value="Other">Other</MenuItem>
                                 </Select>
                             </Grid>

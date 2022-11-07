@@ -120,7 +120,7 @@ function App() {
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/buy" element={<ItemsList change={change} setChange={setChange} user={user} />} />
-          <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} />} />
+          <Route path="/mycart" element={<ShoppingCart total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           {/* <Route path="/add-images" element={<AddItemImages user={user} />} /> */}

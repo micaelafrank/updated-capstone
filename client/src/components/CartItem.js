@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import CardActions from '@mui/material/CardActions';
 
-function CartItem({ cartItem, change, setChange, setCartValue, deleteItem, id }){
+function CartItem({ cartItem, itemname, size, image, price, material, change, setChange, setCartValue, deleteItem, id }){
     const [wasClicked, setWasClicked] = useState(false)
 
     function removeFromCart(){
@@ -46,19 +46,19 @@ function CartItem({ cartItem, change, setChange, setCartValue, deleteItem, id })
                 <div className="col-5" style={{width: "50%"}}>
                     <h3 className="mob-text">{cartItem.itemname}</h3>
                     <div className="book">
-                        <img src={cartItem.images_url} alt="blueberry-icecream-recipe1-1652730148.jpg" className="bookimg" />
+                        <img src={image} alt={image} className="bookimg" />
                     </div>
                 </div>
                 <div className="row text-right" style={{ width: "50%", display: "flex", flexDirection: "row", justifyContent: "space-evenly" }}>
                     <div className="col-4"
                     style={{ width: "100%" }}
                     >
-                        <h5>{cartItem.size}</h5>
+                        <h5>{size}</h5>
                     </div>
                     <div className="col-4"
                     style={{ width: "100%" }}
                     >
-                        <h5>{cartItem.material}</h5>
+                        <h5>{material}</h5>
                     </div>
                     <div className="col-4"
                     style={{ width: "100%" }}
@@ -73,7 +73,7 @@ function CartItem({ cartItem, change, setChange, setCartValue, deleteItem, id })
                     <div className="col-4"
                     style={{ width: "100%" }}
                     >
-                        <h5>{cartItem.price}</h5>
+                        <h5>{price}</h5>
                     </div>
                 </div>
                 </div>

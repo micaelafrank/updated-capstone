@@ -124,7 +124,7 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
                         </Stack>
                     </Container>
                 </Box>
-                <Container sx={{ py: 8 }} maxWidth="md">
+                <Container sx={{ py: 8 }}>
                     {/* End hero unit */}
                     <Grid container spacing={4}>
                         {/* {cards.map((card) => ( */}
