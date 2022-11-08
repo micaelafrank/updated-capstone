@@ -13,7 +13,7 @@ import SavedContainer from './SavedContainer';
 // import Pagination from '@mui/material/Pagination';
 
 
-function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, user, change, removeLike }) {
+function ItemsList({ handleUnlike, itemCount, setItemCount, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, user, change, removeLike }) {
     const [favorites, setFavorites] = useState([]);
     const [cartIcons, setCartIcons] = useState([cartItems]);
     const [items, setItems] = useState([])
@@ -54,6 +54,8 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
         return (
             <ItemCard
                 key={item.id}
+                itemCount={itemCount}
+                setItemCount={setItemCount}
                 // deleteCartIcon={deleteCartIcon}
                 setCartValue={setCartValue}
                 cartItems={cartItems}

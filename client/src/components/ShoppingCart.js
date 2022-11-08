@@ -11,15 +11,17 @@ import Alert from '@mui/material/Alert';
 
 
 
-function ShoppingCart({deleteItem, addCartItem, cartItems, setCartItems, setCartValue, items, total, change, setChange, user}){
+function ShoppingCart({deleteItem, itemCount, setItemCount, addCartItem, cartItems, setCartItems, setCartValue, items, total, change, setChange, user}){
     const [addedCartItems, setAddedCartItems] = useState(0);
-    const [showCheckout, setShowCheckout] = useState(false)
-    const navigate = useNavigate();
+    const [showCheckout, setShowCheckout] = useState(false);
+    // const [itemCount, setItemCount] = useState(cartItems.length);
 
+    const navigate = useNavigate();
 
     function deleteItem(id) {
         const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
         setCartItems(updatedCart);
+        setItemCount((itemCount) => itemCount-1)
     }
 
 
@@ -29,7 +31,7 @@ function ShoppingCart({deleteItem, addCartItem, cartItems, setCartItems, setCart
             .then(data => setCartItems(data))
     }, [])
     console.log("my cart items: ", cartItems)
-
+    let myTotal = cartItems.length
 
     function togglePayment() {
         setShowCheckout(showCheckout => (!showCheckout));
@@ -43,6 +45,7 @@ function ShoppingCart({deleteItem, addCartItem, cartItems, setCartItems, setCart
         })
         setAddedCartItems(total)
     }, [cartItems])
+
 
     const allInCart = cartItems.map((item) => {
         return (
@@ -74,14 +77,15 @@ function ShoppingCart({deleteItem, addCartItem, cartItems, setCartItems, setCart
         <> 
             <div style={{ height: "auto", marginLeft: "10em", marginRight: "10em" }} className="container px-4 py-5 mx-auto">
                 <Typography
-                    style={{marginTop: "1em", marginBottom: "1em", fontFamily: "monospace"}}
+                    style={{marginTop: "1em", marginBottom:'1em', fontFamily: "monospace"}}
                     component="h2"
                     variant="h4"
                     align="left">
                         SHOPPING CART
-                    </Typography>
+                    </Typography> 
+                {/* <Typography>{(myTotal===1) ? `THERE IS 1 ITEM IN YOUR CART` : `THERE ARE ${myTotal} ITEMS IN YOUR CART`}</Typography> */}
                 {/* <h1 style={{ marginTop: "2em", fontWeight:"normal"}}>SHOPPING CART</h1>               */}
-                {cartItems.length > 0 ?
+            {addedCartItems >0 ?
                 (<div style={{display:"flex", lineHeight:"1", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center cartHeaderRow">
                     <div className="col-5" style={{ lineHeight: "1", width:"50%", justifyContent:"center", marginLeft:"10em" }}>
                         <h3 style={{fontFamily:"monospace", textAlign:"left"}} className="heading">ITEM</h3>
@@ -109,17 +113,16 @@ function ShoppingCart({deleteItem, addCartItem, cartItems, setCartItems, setCart
                             <h3>PRICE</h3>
                         </div>
                     </div>
-                </div>) : null} 
+                </div>) : null}                
                 <div>
                     {allInCart}
                 </div>
                 <div className="row text-right" style={{ marginBottom: "3em", width: "93%", fontFamily: "monospace", alignItems: "center",textAlign:"right", justifyContent: "space-evenly" }}>
-                    {cartItems.length > 0 ? <div className="col4"
+                    {myTotal > 0 ? <div className="col4"
                         style={{ width: "100%", float:"right",fontWeight:"bold", fontFamily: "monospace", alignItems: "center", fontSize:"18px" }}
                     >
                         Total: ${addedCartItems} 
-                    </div> : 
-                    <p style={{float: "left", fontSize: "16px"}}>There are no items in your cart.</p>
+                    </div> : null
                     }
                     <button className="checkoutBtn" onClick={()=> navigate("/buy")}>CONTINUE SHOPPING</button> 
                     {addedCartItems > 0 ? <button className="checkoutBtn" onClick={togglePayment}>CHECK OUT</button> : null}
