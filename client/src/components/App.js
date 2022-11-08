@@ -14,6 +14,7 @@ import NewItemForm from './NewItemForm';
 import StripeContainer from './StripeContainer';
 import AddItemImages from './AddItemImages';
 import EditCard from './EditCard';
+import MakePurchase from './MakePurchase';
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
 function App() {
@@ -124,6 +125,7 @@ function App() {
           <Route path="/mycart" element={<ShoppingCart itemCount={itemCount} setItemCount={setItemCount} total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
+          <Route path="/payment" element={<MakePurchase />} />
           {/* <Route path="/add-images" element={<AddItemImages user={user} />} /> */}
           {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}
         </Route>

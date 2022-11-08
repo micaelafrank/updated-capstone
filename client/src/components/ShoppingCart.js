@@ -77,55 +77,58 @@ function ShoppingCart({deleteItem, itemCount, setItemCount, addCartItem, cartIte
         <> 
             <div style={{ height: "auto", marginLeft: "10em", marginRight: "10em" }} className="container px-4 py-5 mx-auto">
                 <Typography
-                    style={{marginTop: "1em", marginBottom:'1em', fontFamily: "monospace"}}
+                    style={{marginTop: "1em", fontFamily: "monospace"}}
                     component="h2"
                     variant="h4"
                     align="left">
                         SHOPPING CART
                     </Typography> 
-                {/* <Typography>{(myTotal===1) ? `THERE IS 1 ITEM IN YOUR CART` : `THERE ARE ${myTotal} ITEMS IN YOUR CART`}</Typography> */}
+                <Typography
+                style={{ marginBottom: '1em', fontFamily: "monospace" }}
+                >THERE ARE {myTotal} ITEMS IN YOUR CART</Typography>
                 {/* <h1 style={{ marginTop: "2em", fontWeight:"normal"}}>SHOPPING CART</h1>               */}
             {addedCartItems >0 ?
                 (<div style={{display:"flex", lineHeight:"1", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center cartHeaderRow">
                     <div className="col-5" style={{ lineHeight: "1", width:"50%", justifyContent:"center", marginLeft:"10em" }}>
-                        <h3 style={{fontFamily:"monospace", textAlign:"left"}} className="heading">ITEM</h3>
+                        <h4 style={{textAlign:"left"}} className="heading">ITEM</h4>
                     </div>
                     {/* <div className="col-7" style={{width: "50%", marginRight: "5em"}}> */}
-                    <div className="row text-right" style={{ width: "50%", fontFamily: "monospace", alignItems: "center", display: "flex", flexDirection: "row", justifyContent:"space-evenly"}}>
+                    <div className="row text-right" style={{ width: "50%", alignItems: "center", display: "flex", flexDirection: "row", justifyContent:"space-evenly"}}>
                     <div className="col4"
                             style={{ width: "100%"}}
                     >
-                        <h3>SIZE</h3>
+                            <h4>SIZE</h4>
                     </div>
                         <div className="col4"
-                        style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
+                        style={{ width: "100%", alignItems: "center" }}
                     >                            
-                            <h3>CATEGORY</h3>
+                            <h4>CATEGORY</h4>
                         </div>
                         <div className="col4"
-                            style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
+                            style={{ width: "100%", alignItems: "center" }}
                         >                            
-                            <h3>REMOVE</h3>
+                            <h4>REMOVE</h4>
                         </div>
                         <div className="col4" 
-                            style={{ width: "100%", fontFamily: "monospace", alignItems: "center" }}
+                            style={{ width: "100%", alignItems: "center" }}
                         >
-                            <h3>PRICE</h3>
+                            <h4>PRICE</h4>
                         </div>
                     </div>
                 </div>) : null}                
                 <div>
                     {allInCart}
                 </div>
-                <div className="row text-right" style={{ marginBottom: "3em", width: "93%", fontFamily: "monospace", alignItems: "center",textAlign:"right", justifyContent: "space-evenly" }}>
+                <div className="row text-right" style={{ marginBottom: "3em", width: "93%", alignItems: "center",textAlign:"right", justifyContent: "space-evenly" }}>
                     {myTotal > 0 ? <div className="col4"
-                        style={{ width: "100%", float:"right",fontWeight:"bold", fontFamily: "monospace", alignItems: "center", fontSize:"18px" }}
+                        style={{ width: "100%", float:"right",fontWeight:"bold", alignItems: "center", fontSize:"18px" }}
                     >
-                        Total: ${addedCartItems} 
+                        TOTAL: ${addedCartItems} 
                     </div> : null
                     }
                     <button className="checkoutBtn" onClick={()=> navigate("/buy")}>CONTINUE SHOPPING</button> 
-                    {addedCartItems > 0 ? <button className="checkoutBtn" onClick={togglePayment}>CHECK OUT</button> : null}
+                    {/* {addedCartItems > 0 ? <button className="checkoutBtn" onClick={togglePayment}>CHECK OUT</button> : null} */}
+                    <button className="checkoutBtn" onClick={()=> navigate("/payment")}>CHECK OUT</button>
                     {showCheckout ? <StripeContainer total={addedCartItems} /> : null}
                     {/* <p className='col-4'>Total: {addedCartItems}</p> */}
                 </div>
