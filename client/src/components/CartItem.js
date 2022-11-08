@@ -6,39 +6,20 @@ import CardActions from '@mui/material/CardActions';
 
 function CartItem({ cartItem, itemname, size, image, price, material, change, setChange, setCartValue, deleteItem, id }){
     const [wasClicked, setWasClicked] = useState(false)
+    const deleteBtn = document.getElementById('deleteBtn');
 
     function removeFromCart(){
-        fetch(`/api/edit_cart/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                inCartIcon: false,
-                id: id,
-            }),
-        })
-        .then((resp) => resp.json())
-        .then(setCartValue);
-        fetch(`/api/removefromcart`, {
+        fetch(`/api/removefromcart/${id}`, {
             method: "DELETE"
         })
         .then((r) => {
             if (r.ok) {
                 setChange(!change);
-                deleteItem(id);
         }})
-        setWasClicked(wasClicked => (!wasClicked));
-        <Alert key={'success'} variant={'success'}>Item removed</Alert>
+        setInterval(deleteItem, 1000, id);
+        setWasClicked((wasClicked) => (!wasClicked));
+        // deleteItem(id);
     };
-
-//     fetch(`items/${id}`, {
-//         method: "DELETE",
-//     })
-//         .then((res) => res.json())
-//         .then(data => setItems(items.filter((item) => item.id !== id)))
-// }
-
 
     return(
         <div style={{ marginLeft: "10em"}} className="container px-4 py-5 mx-auto">
@@ -64,8 +45,8 @@ function CartItem({ cartItem, itemname, size, image, price, material, change, se
                     style={{ width: "100%" }}
                     >
                         <CardActions>
-                            <IconButton className="mob-text" onClick={removeFromCart}>
-                                <DeleteIcon onClick={removeFromCart} />
+                            <IconButton id="deleteBtn" className="mob-text" onClick={removeFromCart}>
+                                <DeleteIcon />
                             </IconButton>
                         </CardActions>
                         {wasClicked ? <Alert key={'success'} variant={'success'}>Item removed</Alert> : null}

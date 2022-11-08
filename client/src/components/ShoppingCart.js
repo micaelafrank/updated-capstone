@@ -6,34 +6,22 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom'
+import Alert from '@mui/material/Alert';
+
 
 
 function ShoppingCart({deleteItem, addCartItem, cartItems, setCartItems, setCartValue, items, total, change, setChange, user}){
     const [addedCartItems, setAddedCartItems] = useState(0);
     const [showCheckout, setShowCheckout] = useState(false)
-    // function deleteItem(id) {
-    //     const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
-    //     setCartItems(updatedCart);
-    //     fetch(`/api/edit_cart/${id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //         inCartIcon: false,
-    //         id: id,
-    //     }),
-    // })
-    // .then((resp) => resp.json())
-    // .then(setCartValue);
-    // }
+    const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     fetch("/api/mycart")
-    //         .then((r) => r.json())
-    //         .then(data => setCartItems(data.user_cart_items))
-    // }, [])
-    // console.log(cartItems)
+
+    function deleteItem(id) {
+        const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
+        setCartItems(updatedCart);
+    }
+
 
     useEffect(() => {
         fetch("/api/mycart")
@@ -93,7 +81,8 @@ function ShoppingCart({deleteItem, addCartItem, cartItems, setCartItems, setCart
                         SHOPPING CART
                     </Typography>
                 {/* <h1 style={{ marginTop: "2em", fontWeight:"normal"}}>SHOPPING CART</h1>               */}
-                <div style={{display:"flex", lineHeight:"1", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center cartHeaderRow">
+                {cartItems.length > 0 ?
+                (<div style={{display:"flex", lineHeight:"1", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center cartHeaderRow">
                     <div className="col-5" style={{ lineHeight: "1", width:"50%", justifyContent:"center", marginLeft:"10em" }}>
                         <h3 style={{fontFamily:"monospace", textAlign:"left"}} className="heading">ITEM</h3>
                     </div>
@@ -120,33 +109,24 @@ function ShoppingCart({deleteItem, addCartItem, cartItems, setCartItems, setCart
                             <h3>PRICE</h3>
                         </div>
                     </div>
-                </div>
+                </div>) : null} 
                 <div>
                     {allInCart}
                 </div>
                 <div className="row text-right" style={{ marginBottom: "3em", width: "93%", fontFamily: "monospace", alignItems: "center",textAlign:"right", justifyContent: "space-evenly" }}>
-                    <div className="col4"
+                    {cartItems.length > 0 ? <div className="col4"
                         style={{ width: "100%", float:"right",fontWeight:"bold", fontFamily: "monospace", alignItems: "center", fontSize:"18px" }}
                     >
                         Total: ${addedCartItems} 
-                    </div>
-                    <button className="checkoutBtn" onClick={togglePayment}>CHECK OUT</button>
+                    </div> : 
+                    <p style={{float: "left", fontSize: "16px"}}>There are no items in your cart.</p>
+                    }
+                    <button className="checkoutBtn" onClick={()=> navigate("/buy")}>CONTINUE SHOPPING</button> 
+                    {addedCartItems > 0 ? <button className="checkoutBtn" onClick={togglePayment}>CHECK OUT</button> : null}
                     {showCheckout ? <StripeContainer total={addedCartItems} /> : null}
                     {/* <p className='col-4'>Total: {addedCartItems}</p> */}
                 </div>
             </div>
-            {/* <div className="col-lg-4 mt-2" style={{ width:"20%", display: "flex", flexDirection: "column", margin: "0" }}>
-                <h5>Subtotal: {addedCartItems}</h5>
-            </div> */}
-
-            {/* <h6 style={{margin:"1em 1em 1em 0"}}>Shipping: 3.99 (Flat fee)</h6> */}
-            {/* </div>
-            </div>
-                </div> */}
-            {/* <button onClick={togglePayment} style={{ padding: "10px", width: "60%" }} className="btn-block btn-blue" id="checkout">Checkout</button>
-            {showCheckout ? <StripeContainer total={addedCartItems} /> : null} */}
-            {/* /* </div> */}
-            {/* </div> */}
     </>
 )}
 

@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     # post "/items/add-images", to: "items#add-images"
     # post "/create_cart" , to: "user_carts#create"
     post "/addtocart", to: "user_cart_items#create"
-    delete "/removefromcart", to: "user_cart_items#removefromcart"
+    delete "/removefromcart/:id", to: "user_cart_items#removefromcart"
     delete "/emptycart", to: "user_cart_items#emptycart"
     post "/create-payment-intent", to: "checkout#create_payment_intent"
     get "/user-likes-container/:user_id", to: "user_likes_containers#show"
