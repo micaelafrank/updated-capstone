@@ -15,13 +15,15 @@ function ShoppingCart({deleteItem, itemCount, setItemCount, addCartItem, cartIte
     const [addedCartItems, setAddedCartItems] = useState(0);
     const [showCheckout, setShowCheckout] = useState(false);
     // const [itemCount, setItemCount] = useState(cartItems.length);
+    // const [wasClicked, setWasClicked] = useState(false)
+
 
     const navigate = useNavigate();
 
     function deleteItem(id) {
         const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
         setCartItems(updatedCart);
-        setItemCount((itemCount) => itemCount-1)
+        // setItemCount((itemCount) => itemCount-1)
     }
 
 
@@ -63,6 +65,8 @@ function ShoppingCart({deleteItem, itemCount, setItemCount, addCartItem, cartIte
                 setCartItems={setCartItems}
                 cartItems={cartItems}
                 deleteItem={deleteItem}
+                // wasClicked={wasClicked}
+                // setWasClicked={setWasClicked}
             >
             </CartItem>
         )})
@@ -87,8 +91,8 @@ function ShoppingCart({deleteItem, itemCount, setItemCount, addCartItem, cartIte
                 style={{ marginBottom: '1em', fontFamily: "monospace" }}
                 >THERE ARE {myTotal} ITEMS IN YOUR CART</Typography>
                 {/* <h1 style={{ marginTop: "2em", fontWeight:"normal"}}>SHOPPING CART</h1>               */}
-            {addedCartItems >0 ?
-                (<div style={{display:"flex", lineHeight:"1", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center cartHeaderRow">
+            {/* {myTotal >0 ? */}
+                <div style={{display:"flex", lineHeight:"1", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center cartHeaderRow">
                     <div className="col-5" style={{ lineHeight: "1", width:"50%", justifyContent:"center", marginLeft:"10em" }}>
                         <h4 style={{textAlign:"left"}} className="heading">ITEM</h4>
                     </div>
@@ -115,17 +119,17 @@ function ShoppingCart({deleteItem, itemCount, setItemCount, addCartItem, cartIte
                             <h4>PRICE</h4>
                         </div>
                     </div>
-                </div>) : null}                
+                </div> 
+                {/* : null}                 */}
                 <div>
                     {allInCart}
                 </div>
                 <div className="row text-right" style={{ marginBottom: "3em", width: "93%", alignItems: "center",textAlign:"right", justifyContent: "space-evenly" }}>
-                    {myTotal > 0 ? <div className="col4"
+                    <div className="col4"
                         style={{ width: "100%", float:"right",fontWeight:"bold", alignItems: "center", fontSize:"18px" }}
                     >
                         TOTAL: ${addedCartItems} 
-                    </div> : null
-                    }
+                    </div> 
                     <button className="checkoutBtn" onClick={()=> navigate("/buy")}>CONTINUE SHOPPING</button> 
                     {/* {addedCartItems > 0 ? <button className="checkoutBtn" onClick={togglePayment}>CHECK OUT</button> : null} */}
                     <button className="checkoutBtn" onClick={()=> navigate("/payment")}>CHECK OUT</button>

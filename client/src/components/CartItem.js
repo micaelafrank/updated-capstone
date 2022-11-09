@@ -6,7 +6,6 @@ import CardActions from '@mui/material/CardActions';
 
 function CartItem({ cartItem, itemname, size, image, price, material, change, setChange, setCartValue, deleteItem, id }){
     const [wasClicked, setWasClicked] = useState(false)
-    const deleteBtn = document.getElementById('deleteBtn');
 
     function removeFromCart(){
         fetch(`/api/removefromcart/${id}`, {
@@ -14,11 +13,10 @@ function CartItem({ cartItem, itemname, size, image, price, material, change, se
         })
         .then((r) => {
             if (r.ok) {
-                setChange(!change);
+                setWasClicked(wasClicked=> !wasClicked);
         }})
         setInterval(deleteItem, 1000, id);
-        setWasClicked((wasClicked) => (!wasClicked));
-        // deleteItem(id);
+        // setChange(!change)
     };
 
     return(
@@ -49,7 +47,7 @@ function CartItem({ cartItem, itemname, size, image, price, material, change, se
                                 <DeleteIcon />
                             </IconButton>
                         </CardActions>
-                        {wasClicked ? <Alert key={'success'} variant={'success'}>Item removed</Alert> : null}
+                        {wasClicked ? <Alert severity="success" color="success" variant='outlined'>Item removed</Alert> : null}
                     </div>
                     <div className="col4"
                     style={{ width: "100%" }}

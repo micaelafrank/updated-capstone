@@ -25,6 +25,12 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
         end
     end
 
+    # get items where user_id = current_user 
+    def myItemsForSale 
+        selling = Item.where(user_id: @current_user.id)
+        render json: selling 
+    end
+
     # POST "/add-images" 
     # item.images.attach(params[:images])
     # @item.images.attach(io: File.open('/path/to/file'), filename: 'file.pdf')
@@ -78,7 +84,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     # end
 
     def item_params
-        params.permit(:itemname, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
+        params.permit(:itemname, :created_at, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
         # params.require(:item).permit(:itemname, :price, :description, :color, :size, :condition, :user_id, images: [])
     end
 

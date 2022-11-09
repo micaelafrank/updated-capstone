@@ -118,7 +118,7 @@ function App() {
               :
               <Route path="/" element={<Homepage items={items} />} />
             }
-          <Route path="/profile" element={<Profile setItems={setItems} setUser={setUser} items={items} user={user} />} />
+          <Route path="/profile" element={<Profile change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/buy" element={<ItemsList change={change} setChange={setChange} user={user} />} />

@@ -17,6 +17,12 @@ code {
   max-height: 260px;
   min-height: 260px;
   image-orientation: center;
+  object-fit: cover;
+}
+
+.profItemImage{
+  height: 180px;
+  object-fit: cover;
 }
 
 .fab-edit{
@@ -42,6 +48,14 @@ code {
   grid-gap: 1em 1em;
 }
 
+.profileGrid{
+    grid-template-columns: 1fr 1fr 1fr;
+    display: grid;
+    grid-template-rows: auto;
+    grid-gap: 1em 1em;
+}
+
+
 .grid-container {
   padding: 15px;
 }
@@ -50,8 +64,10 @@ code {
   position: relative;
 }
 
+
 .bottom-card-details{
   position:absolute;
+  padding-left: 8px;  
   bottom: 0;
   margin:0 auto;
 }
@@ -133,6 +149,26 @@ code {
   border-radius: 20px;
   border: none;
   height: 510px;
+  position: relative;
+  box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+.profOneItemCard{
+    border-radius: 10px;
+    border: none;
+    width: 230px;
+    height: 290px;
+    position: relative;
+    box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+.profOneItemBottom{
+  margin-bottom: 10px;
+  /*border-radius: 10px;
+  border: none;
+  width: 210px;
+  align-items: center;
+  justify-content: center;
   position: relative;
   box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }

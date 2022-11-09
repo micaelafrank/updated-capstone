@@ -115,7 +115,6 @@ function ItemsList({ handleUnlike, itemCount, setItemCount, setCartValue, cartIt
                             Explore all available items. 
                         </Typography>
                         <Stack
-                            sx={{ pt: 4 }}
                             direction="row"
                             spacing={3}
                             justifyContent="center"
