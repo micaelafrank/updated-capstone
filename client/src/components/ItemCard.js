@@ -98,7 +98,7 @@ function ItemCard({ sold_by, itemCount, setItemCount, show, addCartItem, deleteI
     function handleFillHeart() {
         console.log(user)
         const newFavoriteItem = {
-            user_likes_container_id: user.user_likes_container_id,
+            user_likes_container_id: user.user_likes_container.id,
             item_id: item.id,
         }
         console.log(user)

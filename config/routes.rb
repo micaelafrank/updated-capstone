@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     post "/signup", to: "users#create"
     patch "/items/edit/:item_id", to: "items#update"
     get "/myitemsforsale", to: "items#myItemsForSale"
+    patch "/users/:id", to: "users#update"
     # delete "/favorites:user_id", to: "users#destroy"
     # patch "/profile/:id", to: "users#update"
     patch "/profile/:id", to: "users#update"

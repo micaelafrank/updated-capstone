@@ -9,8 +9,9 @@ rescue_from ActiveRecord::RecordInvalid, with: :favorite_invalid
 
     def show 
         likes = UserLikesContainer.find_by(user_id: @current_user.id)
+        likedItems = likes.saved_items 
         # cart = user.user_cart_items 
-        render json: likes
+        render json: likedItems
     end 
 
     def create 
