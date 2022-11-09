@@ -67,7 +67,7 @@ export default function Profile({ user, change, setChange, items, setItems, setU
     // const initial = firstname[0];
 
     return (
-        <div style={{margin:"2em"}} className="profileContainer">
+        <div style={{margin:"1em"}} className="profileContainer">
             <div className="heading-container">
                 <Avatar
                 sx={{ width: '100px', height: '100px' }} 
@@ -90,17 +90,16 @@ export default function Profile({ user, change, setChange, items, setItems, setU
                 </div>
             </div>
             <h2>YOUR ITEMS FOR SALE:</h2>
-                <Container sx={{ pt: 3 }}>
-                    {/* End hero unit */}
-                    <Grid container spacing={4}>
-                        {/* {cards.map((card) => ( */}
-                        <Grid className="profileGrid" >
-                            {/* item xs={12} sm={6} md={4} */}
-                            {myitemsforsale}
-                        </Grid>
-                        {/* ))} */}
+                <Grid sx={{ m: 3 }} container 
+                // spacing={4}
+                >
+                    {/* {cards.map((card) => ( */}
+                    <Grid className="profileGrid" >
+                        {/* item xs={12} sm={6} md={4} */}
+                        {myitemsforsale}
                     </Grid>
-                </Container>
+                    {/* ))} */}
+                </Grid>
             <h1>Saved Items:</h1>
             <h1>Previous Purchases:</h1>
             // ITEM CARDS

@@ -13,7 +13,7 @@ import SavedContainer from './SavedContainer';
 // import Pagination from '@mui/material/Pagination';
 
 
-function ItemsList({ handleUnlike, itemCount, setItemCount, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, user, change, removeLike }) {
+function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, user, change, removeLike }) {
     const [favorites, setFavorites] = useState([]);
     const [cartIcons, setCartIcons] = useState([cartItems]);
     const [items, setItems] = useState([])
@@ -54,8 +54,6 @@ function ItemsList({ handleUnlike, itemCount, setItemCount, setCartValue, cartIt
         return (
             <ItemCard
                 key={item.id}
-                itemCount={itemCount}
-                setItemCount={setItemCount}
                 // deleteCartIcon={deleteCartIcon}
                 setCartValue={setCartValue}
                 cartItems={cartItems}
@@ -115,6 +113,7 @@ function ItemsList({ handleUnlike, itemCount, setItemCount, setCartValue, cartIt
                             Explore all available items. 
                         </Typography>
                         <Stack
+                            sx={{ pt: 2 }}
                             direction="row"
                             spacing={3}
                             justifyContent="center"
@@ -125,7 +124,7 @@ function ItemsList({ handleUnlike, itemCount, setItemCount, setCartValue, cartIt
                         </Stack>
                     </Container>
                 </Box>
-                <Container sx={{ py: 8 }}>
+                <Container sx={{ py: 5 }}>
                     {/* End hero unit */}
                     <Grid container spacing={4}>
                         {/* {cards.map((card) => ( */}

@@ -98,7 +98,7 @@ function ItemCard({ sold_by, itemCount, setItemCount, show, addCartItem, deleteI
     function handleFillHeart() {
         console.log(user)
         const newFavoriteItem = {
-            user_likes_container_id: user.user_likes_container.id,
+            user_likes_container_id: user.user_likes_container_id,
             item_id: item.id,
         }
         console.log(user)
@@ -111,11 +111,9 @@ function ItemCard({ sold_by, itemCount, setItemCount, show, addCartItem, deleteI
             body: JSON.stringify(newFavoriteItem),
         })
         .then(res => res.json())
-        .then(data => addNewFavorite(data))
+        .then(setIsSaved(isSaved => (!isSaved)))
         // setIsFavorite(true);
         setChange(!change);
-        setIsSaved(isSaved => (!isSaved))
-        setWasClicked(wasClicked => (!wasClicked));
     }
 
 

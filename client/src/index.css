@@ -44,15 +44,17 @@ code {
 .items-grid {
   grid-template-columns: 1fr 1fr 1fr 1fr;
   display: grid;
+  margin: 20px;
   grid-template-rows: auto;
   grid-gap: 1em 1em;
 }
 
 .profileGrid{
-    grid-template-columns: 1fr 1fr 1fr;
-    display: grid;
-    grid-template-rows: auto;
-    grid-gap: 1em 1em;
+  margin-bottom: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: 1em 1em;
 }
 
 
@@ -145,10 +147,11 @@ code {
 }
 
 .oneItemCard{
-  margin: 40px 0px;
+  margin: 20px 0px;
   border-radius: 20px;
   border: none;
   height: 510px;
+  width: 280px;
   position: relative;
   box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
@@ -158,6 +161,9 @@ code {
     border: none;
     width: 230px;
     height: 290px;
+    margin-top: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
     position: relative;
     box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
@@ -171,12 +177,12 @@ code {
   justify-content: center;
   position: relative;
   box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
-}
+} /*
 
 .card {
-  /* margin: 40px 0px;
-  padding: 40px 50px; */
-  /* max-width: 285px;
+  margin: 40px 0px;
+  padding: 40px 50px;
+  max-width: 285px;
   min-width: 280px;
   max-height: 530px; */
   border-radius: 20px;

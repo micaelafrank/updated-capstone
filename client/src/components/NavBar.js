@@ -149,7 +149,7 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                         {user.username ? <Button
                             className='navButtonOption'
                             sx={{ my: 2, color: 'white', display: 'block', marginRight:"2em" }}
-                            onClick={() => navigate('/profile')}
+                            onClick={() => navigate('/profile/:username')}
                         >
                                 PROFILE
                             </Button> : null }
