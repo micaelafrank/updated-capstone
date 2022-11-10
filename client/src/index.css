@@ -107,6 +107,41 @@ code {
   font-size: 13px;
 }
 
+.heading-container{
+  padding: 30px;
+  margin: 50px;
+  flex-direction: column;
+  display: flex;
+  border: 1px solid black;
+  border-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 300px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.profileContainer{
+  align-items: center;
+  position: relative;
+  text-align: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 30px;
+}
+
+Avatar{
+  justify-content: center;
+  position: relative;
+  align-self: center;
+  align-items: center;
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .cartHeaderRow{
   border-bottom: 1px solid black;
   margin-bottom: 1.6rem;

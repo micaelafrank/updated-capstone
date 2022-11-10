@@ -26,10 +26,10 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     end
 
     # get items where user_id = current_user 
-    def myItemsForSale 
-        selling = Item.where(user_id: @current_user.id)
-        render json: selling 
-    end
+    # def myItemsForSale 
+    #     selling = Item.find(user_id: @current_user.id)
+    #     render json: selling 
+    # end
 
     # POST "/add-images" 
     # item.images.attach(params[:images])
