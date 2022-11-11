@@ -26,20 +26,21 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     end
 
     # get items where user_id = current_user 
-    # def myItemsForSale 
-    #     selling = Item.find(user_id: @current_user.id)
-    #     render json: selling 
-    # end
+    def myitemsforsale 
+        selling = Item.where(user_id: @current_user.id)
+        items = selling.order(id: :desc)
+        render json: items 
+    end
 
     # POST "/add-images" 
     # item.images.attach(params[:images])
     # @item.images.attach(io: File.open('/path/to/file'), filename: 'file.pdf')
     # url_for(@item.images)
-    # def add_images
-    #     item = Item.find(params[:id])
-    #     item.images.attach(params[:images])
-    #     render json: item, status: :ok
-    # end
+    def add_images
+        item = Item.find(params[:id])
+        item.images.attach(params[:images])
+        render json: item, status: :ok
+    end
 
     def update
         item = find_item
@@ -84,7 +85,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     # end
 
     def item_params
-        params.permit(:itemname, :created_at, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
+        params.permit(:itemname, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
         # params.require(:item).permit(:itemname, :price, :description, :color, :size, :condition, :user_id, images: [])
     end
 

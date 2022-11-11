@@ -12,17 +12,16 @@ rescue_from ActiveRecord::RecordInvalid, with: :user_invalid
             session[:user_id] = user.id
             new_user_cart = UserCart.create!(user_id: user.id)
             new_saves_container = UserLikesContainer.create!(user_id: user.id)
-            render json: user, status: 201
-        else
-            render json: { error: "Invalid user" }, status: :unprocessable_entity
+            render json: user, status: :created
+        # else
+        #     render json: { error: "Invalid user" }, status: :unprocessable_entity
         end
     end
 
-
-    def update
-        userInfo = @current_user.update!(user_params)
-        render json: userInfo, status: :updated
-    end
+    # def update
+    #     userInfo = @current_user.update!(user_params)
+    #     render json: userInfo, status: :updated
+    # end
 
     def show
         render json: @current_user
@@ -30,9 +29,9 @@ rescue_from ActiveRecord::RecordInvalid, with: :user_invalid
 
     private 
 
-    def user_params
-        params.permit(:id, :profilepic, :username)
-    end
+    # def user_params
+    #     params.permit(:id, :profilepic, :username)
+    # end
 
     def newuser_params
         params.permit(:firstname, :profilepic, :lastname, :email, :password, :username, :password_confirmation)

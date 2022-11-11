@@ -15,6 +15,7 @@ import StripeContainer from './StripeContainer';
 import AddItemImages from './AddItemImages';
 import EditCard from './EditCard';
 import MakePurchase from './MakePurchase';
+// import UserProfile from './UserProfile';
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
   useEffect(() => {
     fetch("/api/items")
       .then((r) => r.json())
-      .then(data => setItems(data))
+      .then(data => { setItems(data) })
   }, [])
   console.log(items)
 
@@ -70,10 +71,10 @@ function App() {
   // let taupeMain = "#efe5db";
 
   
-  // function deleteItemFromList(id) {
-  //   const updatedItemsList = items.filter((item) => item.id !== id);
-  //   setItems(updatedItemsList);
-  // }
+  function deleteItemFromList(id) {
+    const updatedItemsList = items.filter((item) => item.id !== id);
+    setItems(updatedItemsList);
+  }
 
 
   // function addCartItem(item){
@@ -113,19 +114,20 @@ function App() {
           <Route path="/login" element={<LogIn onLogin={onLogin} setUser={setUser} user={user} />} />
           <Route path="/signup" element={<SignUp user={user} onSignUp={setUser} />} />
           <Route element={<WithNav user={user} setUser={setUser} darkMode={darkMode} setDarkMode={setDarkMode} />}>
-            {user.username ?
-              <Route path="/" element={<Homepage user={user} items={items} />} />
-              :
+            {/* {user.username ? */}
+          <Route path="/" element={<Homepage user={user} items={items} />} />
+              {/* :
               <Route path="/" element={<Homepage items={items} />} />
-            }
-          <Route path="/profile/:username" element={<Profile change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
+            } */}
+          <Route path="/profile" element={<Profile change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList change={change} setChange={setChange} user={user} />} />
+          <Route path="/buy" element={<ItemsList change={change} setChange={setChange} user={user} items={items} setItems={setItems} />} />
           <Route path="/mycart" element={<ShoppingCart itemCount={itemCount} setItemCount={setItemCount} total={items} cartItems={cartItems} setCartItems={setCartItems} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           <Route path="/payment" element={<MakePurchase />} />
+          {/* <Route path="/new-profile" element={<UserProfile user={user} setUser={setUser} />} /> */}
           {/* <Route path="/add-images" element={<AddItemImages user={user} />} /> */}
           {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}
         </Route>

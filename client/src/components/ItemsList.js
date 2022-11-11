@@ -13,7 +13,7 @@ import SavedContainer from './SavedContainer';
 // import Pagination from '@mui/material/Pagination';
 
 
-function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, user, change, removeLike }) {
+function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, deleteItemFromList, user, change, removeLike }) {
     const [favorites, setFavorites] = useState([]);
     const [cartIcons, setCartIcons] = useState([cartItems]);
     const [items, setItems] = useState([])
@@ -27,11 +27,11 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
     console.log(items)
 
 
-    function deleteItemFromList(id) {
-        const updatedItemsList = items.filter((item) => item.id !== id);
-        setItems(updatedItemsList);
-    }
-    console.log("after delete: ", items)
+    // function deleteItemFromList(id) {
+    //     const updatedItemsList = items.filter((item) => item.id !== id);
+    //     setItems(updatedItemsList);
+    // }
+    // console.log("after delete: ", items)
 
     const theme = createTheme({
         palette: {

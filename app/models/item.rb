@@ -6,10 +6,9 @@ class Item < ApplicationRecord
     has_many_attached :images
     validates :images, presence: true, allow_blank: true
 
-    # include Rails.application.routes.url_helpers
 
     def sold_by
-        seller = user.id
+        seller = Item.user_id
         User.find(seller).username
     end
 
