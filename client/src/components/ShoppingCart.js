@@ -11,29 +11,32 @@ import Alert from '@mui/material/Alert';
 
 
 
-function ShoppingCart({deleteItem, itemCount, setItemCount, addCartItem, cartItems, setCartItems, setCartValue, items, total, change, setChange, user}){
+function ShoppingCart({deleteCartItem, itemCount, setItemCount, addCartItem, setCartValue, items, total, change, setChange, user}){
     const [addedCartItems, setAddedCartItems] = useState(0);
     const [showCheckout, setShowCheckout] = useState(false);
-    // const [itemCount, setItemCount] = useState(cartItems.length);
+    const [cartItems, setCartItems] = useState([]);
     // const [wasClicked, setWasClicked] = useState(false)
-
+    console.log(itemCount)
+    console.log(cartItems.length)
+    console.log(addedCartItems)
 
     const navigate = useNavigate();
-
-    function deleteItem(id) {
-        const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
-        setCartItems(updatedCart);
-        // setItemCount((itemCount) => itemCount-1)
-    }
-
 
     useEffect(() => {
         fetch("/api/mycart")
             .then((r) => r.json())
             .then(data => setCartItems(data))
+        // setItemCount(itemCount)})
     }, [])
     console.log("my cart items: ", cartItems)
-    let myTotal = cartItems.length
+
+    function deleteCartItem(id) {
+        const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
+        setCartItems(updatedCart);
+    }
+
+
+
 
     function togglePayment() {
         setShowCheckout(showCheckout => (!showCheckout));
@@ -64,7 +67,7 @@ function ShoppingCart({deleteItem, itemCount, setItemCount, addCartItem, cartIte
                 material={item.material}
                 setCartItems={setCartItems}
                 cartItems={cartItems}
-                deleteItem={deleteItem}
+                deleteCartItem={deleteCartItem}
                 // wasClicked={wasClicked}
                 // setWasClicked={setWasClicked}
             >
@@ -89,7 +92,7 @@ function ShoppingCart({deleteItem, itemCount, setItemCount, addCartItem, cartIte
                     </Typography> 
                 <Typography
                 style={{ marginBottom: '1em', fontFamily: "monospace" }}
-                >THERE ARE {myTotal} ITEMS IN YOUR CART</Typography>
+                >THERE ARE {cartItems.length} ITEMS IN YOUR CART</Typography>
                 {/* <h1 style={{ marginTop: "2em", fontWeight:"normal"}}>SHOPPING CART</h1>               */}
             {/* {myTotal >0 ? */}
                 <div style={{display:"flex", lineHeight:"1", width: "100%", flexDirection:"row"}} className="row d-flex justify-content-center cartHeaderRow">

@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     get "/myitemsforsale", to: "items#myitemsforsale"
     # patch "/users/:id", to: "users#update"
     # delete "/favorites:user_id", to: "users#destroy"
-    # patch "/profile/:id", to: "users#update"
+    get "/profile/:username", to: "users#show"
     patch "/profile/:id", to: "users#update"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy" 

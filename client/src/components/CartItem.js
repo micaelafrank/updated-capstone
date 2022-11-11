@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import CardActions from '@mui/material/CardActions';
 
-function CartItem({ cartItem, itemname, size, image, price, material, change, setChange, setCartValue, deleteItem, id }){
+function CartItem({ cartItem, itemname, size, image, price, material, change, setChange, setCartValue, deleteCartItem, id }){
     const [wasPressed, setWasPressed] = useState(false)
 
     function removeFromCart(){
@@ -13,10 +13,10 @@ function CartItem({ cartItem, itemname, size, image, price, material, change, se
         })
         .then((r) => {
             if (r.ok) {
-                setWasPressed(wasPressed=> !wasPressed);
+                setWasPressed(true);
         }})
-        setInterval(deleteItem, 1000, id);
-        // setChange(!change)
+        setInterval(deleteCartItem, 1000, id);
+        setWasPressed(false);
     };
 
     return(
@@ -52,7 +52,7 @@ function CartItem({ cartItem, itemname, size, image, price, material, change, se
                     <div className="col4"
                     style={{ width: "100%" }}
                     >
-                        <h5>{price}</h5>
+                        <h5>${price}</h5>
                     </div>
                 </div>
                 </div>

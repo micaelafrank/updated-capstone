@@ -94,7 +94,7 @@ function SignUp({ onSignUp, user }) {
             .then((res) => {
                 if (res.ok) {
                     res.json().then((user) => onSignUp(user));
-                    navigate("/profile");
+                    navigate(`/profile/${username}`);
                 } else {
                     res.json().then((err) => setErrors(err.errors));
                 }

@@ -134,7 +134,7 @@ export default function Profile({ user, change, setChange, items, setItems, setU
                     {/* {cards.map((card) => ( */}
                     <Grid className="profileGrid" >
                         {/* item xs={12} sm={6} md={4} */}
-                        {myitemsforsale}
+                        {myitemsforsale.length > 0 ? myitemsforsale : "You are not selling anything yet. Get started here!"}
                     </Grid>
                     {/* ))} */}
                 </Grid>
