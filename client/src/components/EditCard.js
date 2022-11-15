@@ -37,6 +37,32 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
     // const [editDescriptionState, setEditDescriptionState] = useState(false);
     // const [initialDescriptionValue, setInitialDescriptionValue] = useState(item.description);
 
+
+    function handleSubmit(e){
+        e.preventDefault();
+        const formData = new FormData();
+
+        const itemCardId = document.getElementById(item.id).value;
+        formData.append("[itemCardId]", itemCardId);
+
+        let imagesLength = e.target.images.files.length;
+        let eachImage = e.target.images.files;
+
+        for (var x = 0; x < imagesLength; x++) {
+            formData.append("images[]", eachImage[x]);
+        }
+        submitToApi(formData);
+        e.target.reset();
+    }
+
+    let submitToApi = (data) => {
+        fetch("/add-images", {
+            method: "POST",
+            body: data,
+        })
+            // .then(changeSubmissionStateTrue())
+    };
+
     console.table(item)
     console.log(item.images_url[0])
     let handleEditDescription = () => {
@@ -113,6 +139,25 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                 <Typography id="modal-modal-description" sx={{ mt: 1, mb: 1, width: "70%", letterSpacing: "0.05rem", textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
                     Click on the edit button pertaining to the item detail you want to change
                 </Typography>
+
+                {/* TEST FOR IMAGE CONTAINER */}
+                <form onSubmit={handleSubmit}>
+                    <input 
+                    type="file"
+                    accept="image/*"
+                    multiple="multiple"
+                    name="images"
+                    id="images"
+                    />
+                    <div className="text-center mt-3">
+                        <button variant="primary" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+
+                {/* TEST FOR IMAGE CONTAINER */}
+
                 <div style={{height:'300px', width:'auto', justifyContent:'center', display:'flex', position: 'relative', marginLeft: '0', marginRight: '0', alignItems: 'center'}}>
                     <img
                         // onClick={addMultImages}

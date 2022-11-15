@@ -24,7 +24,7 @@ function App() {
   const [change, setChange] = useState(false);
   const [darkMode, setDarkMode] = useState(storedDarkMode);
   const [cartItems, setCartItems] = useState([]);
-  const [itemCount, setItemCount] = useState(0);
+
 
   useEffect(() => {
     fetch("/api/me").then((r) => {
@@ -128,8 +128,8 @@ function App() {
           <Route path="/profile/:username" element={<Profile change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
-            <Route path="/buy" element={<ItemsList itemCount={itemCount} setItemCount={setItemCount} change={change} setChange={setChange} user={user} />} />
-          <Route path="/mycart" element={<ShoppingCart total={items} itemCount={itemCount} setItemCount={setItemCount} setChange={setChange} change={change} user={user} />} />
+            <Route path="/buy" element={<ItemsList change={change} setChange={setChange} user={user} />} />
+          <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           <Route path="/payment" element={<MakePurchase />} />

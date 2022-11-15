@@ -24,7 +24,7 @@ import EditCard from './EditCard';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ sold_by, itemCount, setItemCount, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -90,7 +90,6 @@ function ItemCard({ sold_by, itemCount, setItemCount, show, addCartItem, deleteI
         })
         .then(res => res.json())
         .then(setWasClicked(wasClicked => (!wasClicked)))
-        setItemCount((itemCount) => itemCount+1)
         (setChange(!change))
     }
 
@@ -103,7 +102,7 @@ function ItemCard({ sold_by, itemCount, setItemCount, show, addCartItem, deleteI
         }
         console.log(user)
         console.log(newFavoriteItem)
-        fetch(`/api/saved-items`, {
+        fetch(`/api/save-item`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -126,7 +125,7 @@ function ItemCard({ sold_by, itemCount, setItemCount, show, addCartItem, deleteI
         .then((res) => res.json())
         .then(data => handleUnlike(data))        
         setIsSaved(isSaved => (!isSaved))
-        setWasClicked(wasClicked => (!wasClicked));
+        // setWasClicked(wasClicked => (!wasClicked));
         // handleUnlike();
         // setIsFavorite(false)
         // deleteFavorite();

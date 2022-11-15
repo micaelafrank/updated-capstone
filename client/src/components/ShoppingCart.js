@@ -11,10 +11,11 @@ import Alert from '@mui/material/Alert';
 
 
 
-function ShoppingCart({deleteCartItem, itemCount, setItemCount, addCartItem, setCartValue, items, total, change, setChange, user}){
+function ShoppingCart({deleteCartItem, addCartItem, setCartValue, items, total, change, setChange, user}){
     const [addedCartItems, setAddedCartItems] = useState(0);
     const [showCheckout, setShowCheckout] = useState(false);
     const [cartItems, setCartItems] = useState([]);
+    const [itemCount, setItemCount] = useState(0);
     // const [wasClicked, setWasClicked] = useState(false)
     console.log(itemCount)
     console.log(cartItems.length)
@@ -36,8 +37,6 @@ function ShoppingCart({deleteCartItem, itemCount, setItemCount, addCartItem, set
     }
 
 
-
-
     function togglePayment() {
         setShowCheckout(showCheckout => (!showCheckout));
     }
@@ -46,6 +45,7 @@ function ShoppingCart({deleteCartItem, itemCount, setItemCount, addCartItem, set
     useEffect(() => {
         let total = 0;
         cartItems.map((item) => {
+            setItemCount(itemCount + 1)
             total += item.price
         })
         setAddedCartItems(total)
