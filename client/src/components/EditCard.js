@@ -8,6 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import FormHelperText from '@mui/material/FormHelperText'
 import { Checkbox } from '@mui/material';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
+import ImageCarousel from "./ImageCarousel"
 
 const style = {
     position: 'absolute',
@@ -22,7 +23,7 @@ const style = {
     pt: 6, pb: 6,
 };
 
-function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit, 
+function EditCard({ submitToApi, addToCarousel, openEdit, item, id, change, setChange, handleCloseEdit, 
     priceState, setPriceState, editPriceState, setEditPriceState, initialPriceValue, setInitialPriceValue,
     itemNameState, setItemNameState, editDescriptionState, editNameState, setEditNameState, initialItemNameValue, setInitialItemNameValue,
     descriptionState, setDescriptionState, setEditDescriptionState, initialDescriptionValue, setInitialDescriptionValue,
@@ -55,13 +56,6 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
         e.target.reset();
     }
 
-    let submitToApi = (data) => {
-        fetch("/add-images", {
-            method: "POST",
-            body: data,
-        })
-            // .then(changeSubmissionStateTrue())
-    };
 
     console.table(item)
     console.log(item.images_url[0])
@@ -139,7 +133,6 @@ function EditCard({ openEdit, item, id, change, setChange, handleCloseEdit,
                 <Typography id="modal-modal-description" sx={{ mt: 1, mb: 1, width: "70%", letterSpacing: "0.05rem", textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
                     Click on the edit button pertaining to the item detail you want to change
                 </Typography>
-
                 {/* TEST FOR IMAGE CONTAINER */}
                 <form onSubmit={handleSubmit}>
                     <input 

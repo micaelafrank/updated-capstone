@@ -46,5 +46,11 @@
       "last 1 safari version"
     ]
   },
+    "overrides": {
+      "react-material-ui-carousel": {
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+      }
+    },
   "proxy": "http://localhost:3000"
 }
