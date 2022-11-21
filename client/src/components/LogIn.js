@@ -18,8 +18,8 @@ import { brown } from '@mui/material/colors';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from '@mui/material/IconButton';
-
-
+import SpecialNavBar from './SpecialNavBar';
+import WithNav from './WithNav';
 
 
 function Copyright({ props }) {
@@ -52,7 +52,7 @@ const theme = createTheme({
     },
 });
 
-export default function LogIn({ user, setUser, items, onLogin, setItems }) {
+export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, user, setUser, items, onLogin, setItems }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState("");
@@ -63,6 +63,9 @@ export default function LogIn({ user, setUser, items, onLogin, setItems }) {
 
     const navigate = useNavigate();
 
+    // useEffect(() => {
+    //     setImageNum(Math.floor(Math.random() * 5));
+    // }, []);
 
     // useEffect(() => {
     //     fetch("/api/items")
@@ -99,103 +102,115 @@ export default function LogIn({ user, setUser, items, onLogin, setItems }) {
 
     return (
         <ThemeProvider theme={theme}>
+            {user.username ? <WithNav /> : <SpecialNavBar />}
             <Grid container component="main" sx={{ height: '100vh' }}>
-                <CssBaseline />
+            <CssBaseline />
                 <Grid
                     item
                     xs={false}
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(https://source.unsplash.com/random)',
-                        backgroundRepeat: 'no-repeat',
+                        backgroundImage: `url(${loginImgs[imageNum]})`,
+                        backgroundRepeat: "no-repeat",
                         backgroundColor: (t) =>
-                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+                            t.palette.mode === "light"
+                                ? t.palette.grey[50]
+                                : t.palette.grey[900],
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
                     }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <Box
+            {/* <Typography component="h1" variant="h1" style={{ fontFamily: "monospace", mt: 3, fontSize: "3rem" }}>
+                GOOD GOODS
+            </Typography> */}
+            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Box
+                sx={{
+                    mt: 8,
+                    mx: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+                >
+                <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+                    <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h2" variant="h3" style={{fontFamily:"monospace", mt: 3, fontSize:"2.4rem"}}>
+                    SIGN IN
+                </Typography>
+                <p style={{ textAlign:"center", color: "red" }}>{errors}</p>
+                <Box component="form" autoComplete='off' noValidate onSubmit={handleLogin} >
+                    <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    id="username"
+                    autoComplete='off'
+                    label="Username"
+                    name="username"
+                    />
+                    <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    autoComplete='off'
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    label="Password"
+                    type={showPassword ? "text" : "password"} 
+                    id="password"
+                    InputProps={{ // <-- This is where the toggle button is added.
+                        endAdornment: (
+                            <InputAdornment className="MuiInputAdornment-hiddenLabel" sx={{bgcolor: "white"}} position="end">
+                                <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                >
+                                    {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                </IconButton>
+                            </InputAdornment>
+                    )}}
+                    />
+                        {/* {revealText ? 
+                        <IconButton onClick={handleTextReveal} id="togglePassword">
+                            <VisibilityOutlinedIcon />
+                        </IconButton>
+                        : 
+                        <IconButton onClick={handleTextReveal} id="togglePassword">
+                            <VisibilityOffOutlinedIcon />
+                        </IconButton>
+                        } */}
+                            {/* <Grid container sx={{flexDirection: 'column'}}> */}
+                    <Grid item 
                         sx={{
-                            my: 8,
-                            mx: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Avatar sx={{ m: 1, mb: 3, bgcolor: 'primary.main' }}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h2" variant="h3" style={{fontFamily:"monospace", mt: 4}}>
-                            LOG IN
-                        </Typography>
-                        <p style={{ textAlign:"center", color: "red" }}>{errors}</p>
-                        <Box component="form" autoComplete='off' noValidate onSubmit={handleLogin} >
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                id="username"
-                                autoComplete='off'
-                                label="Username"
-                                name="username"
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                autoComplete='off'
-                                name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                label="Password"
-                                type={showPassword ? "text" : "password"} 
-                                id="password"
-                                InputProps={{ // <-- This is where the toggle button is added.
-                                    endAdornment: (
-                                        <InputAdornment className="MuiInputAdornment-hiddenLabel" sx={{bgcolor: "white"}} position="end">
-                                            <IconButton
-                                            aria-label="toggle password visibility"
-                                            onClick={handleClickShowPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                            >
-                                                {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                        </IconButton>
-                                    </InputAdornment>
-                                )}}
-                            />
-                            {/* {revealText ? 
-                            <IconButton onClick={handleTextReveal} id="togglePassword">
-                                <VisibilityOutlinedIcon />
-                            </IconButton>
-                            : 
-                            <IconButton onClick={handleTextReveal} id="togglePassword">
-                                <VisibilityOffOutlinedIcon />
-                            </IconButton>
-                            } */}
-                            <Grid container sx={{flexDirection: 'column'}}>
-                                <Grid item sx={{ margin: 'auto' }}>
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        sx={{ color: "white", m: 3, fontFamily:'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize:"18px" }}
-                                    >
-                                        LOG IN
-                                    </Button>
-                                </Grid>
-                                <Grid item sx={{ paddingTop: '10px', margin:'auto' }}>
-                                    <Link href="/signup" variant="body" style={{fontSize:"16px"}}>
-                                        {"Don't have an account? Sign Up"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                        </Box>
+                        mx: 4,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}>
+                        <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{ alignItems:"center", justifyContent:"center", color: "white", m: 3, fontFamily:'monospace', pl: 4, pr: 4, pt: 2, pb: 2, fontSize:"15px" }}
+                        >
+                        SHOW ME THE GOOD GOODS
+                    </Button>
+                    </Grid>
+                    <Grid item sx={{ paddingTop: '10px', margin: 'auto', flexDirection: "column", display: "flex", alignItems: "center" }}>
+                        <Link onClick={()=> navigate("/signup")}
+                        style={{ fontFamily:"monospace", fontSize:"16px", alignItems: "center" }}>
+                            Don't have an account? Sign up!
+                        </Link>
+                    </Grid>
+                    {/* </Grid> */}
                     </Box>
-                    <Copyright sx={{ mt: 5 }} />
+                    </Box>
                 </Grid>
             </Grid>
         </ThemeProvider>

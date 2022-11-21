@@ -17,26 +17,16 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
+import WithNav from './WithNav';
+import SpecialNavBar from './SpecialNavBar';
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import Input from '@mui/material/Input'
+import FormHelperText from '@mui/material/FormHelperText'
 
 
-function Copyright({ props }) {
-    return (
-        <Typography
-            sx={{ bottom: '0', position: 'absolute', width: '43%', textAlign: 'center', paddingBottom: '5px' }}
-            variant="body2" color="text.secondary"
-            align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="">
-                Marketplace
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
-
-function SignUp({ onSignUp, user }) {
+function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
     const navigate = useNavigate();
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -115,6 +105,7 @@ function SignUp({ onSignUp, user }) {
 
     return (
         <ThemeProvider theme={theme}>
+            {user.username ? <WithNav /> : <SpecialNavBar />}
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
@@ -131,23 +122,27 @@ function SignUp({ onSignUp, user }) {
                         backgroundPosition: 'center',
                     }}
                 />
+                
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box
                         sx={{
-                            my: 8,
-                            mx: 4,
+                            my: 4,
+                            mx: 5,
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
                         }}
                     >
-                    <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h2" variant="h3" style={{ fontFamily: "monospace", mt: 4 }}>
-                        SIGN UP
+                    <Typography component="h1" variant="h1" sx={{ fontFamily: "monospace", mt: 2, fontSize: "3.2rem", fontWeight:"bold", color:"primary.main" }}>
+                        GOOD GOODS
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    {/* <Avatar sx={{ mt: 5,bgcolor: 'primary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar> */}
+                    <Typography component="h2" variant="h3" sx={{ borderBottom: "1px solid black", fontFamily: "monospace", mt: 5, fontSize: "2.2rem" }}>
+                        sign up
+                    </Typography>                    
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <div style={{ marginBottom:"2rem", color: 'red', alignItems:'center', textAlign:'center' }}>
                             {errors.map((err) => (
                                 <Typography align="center" variant="p" key={err}>
@@ -157,7 +152,11 @@ function SignUp({ onSignUp, user }) {
                         </div>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
-                                <TextField
+                                <FormControl>
+                                    <InputLabel style={{ fontFamily: "monospace" }} htmlFor='my-input' >
+                                        FIRST NAME</InputLabel>
+                                    <Input
+                                    className="signUpFormInput"
                                     autoComplete="given-name"
                                     name="firstName"
                                     required
@@ -165,12 +164,21 @@ function SignUp({ onSignUp, user }) {
                                     id="firstName"
                                     label="First Name"
                                     autoFocus
+                                    style={{minWidth: "290px"}}
                                     value={firstname}
                                     onChange={(e) => setFirstname(e.target.value)}
-                                />
+                                    />
+                                    <FormHelperText style={{ textAlign: "left" }} id='my-helper-text'
+                                    >
+                                        Enter your first name
+                                    </FormHelperText>
+                                </FormControl>
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <TextField
+                                <FormControl>
+                                    <InputLabel style={{fontFamily:"monospace"}} htmlFor='my-input' >
+                                        LAST NAME</InputLabel>
+                                    <Input
                                     required
                                     fullWidth
                                     id="lastName"
@@ -179,109 +187,147 @@ function SignUp({ onSignUp, user }) {
                                     autoComplete="family-name"
                                     value={lastname}
                                     onChange={(e) => setLastname(e.target.value)}
-                                />
+                                    style={{ minWidth: "290px" }}
+                                    />
+                                    <FormHelperText style={{ textAlign: "left" }} id='my-helper-text'
+                                    >
+                                        Enter your last name
+                                    </FormHelperText>
+                                </FormControl>
                             </Grid>
-                            <Grid item xs={12}>
-                                <TextField
+                            <Grid item xs={12} sm={6}>
+                                <FormControl>
+                                    <InputLabel style={{ fontFamily: "monospace" }} htmlFor='my-input' >
+                                        EMAIL ADDRESS</InputLabel>
+                                    <Input
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        className="form-control"
+                                        label="Email Address"
+                                        name="email"
+                                        autoComplete="email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        style={{ minWidth: "290px" }}
+                                    />
+                                    <FormHelperText style={{textAlign:"left"}} id='my-helper-text'
+                                    >
+                                        Enter your email address
+                                    </FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <FormControl>
+                                    <InputLabel style={{ fontFamily: "monospace" }} htmlFor='my-input' >
+                                        USERNAME</InputLabel>
+                                    <Input
+                                        required
+                                        className="form-control"
+                                        fullWidth
+                                        id="username"
+                                        label="Create Username"
+                                        name="username"
+                                        autoComplete="username"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        style={{ minWidth: "290px" }}
+                                    />
+                                    <FormHelperText style={{ textAlign: "left" }} id='my-helper-text'
+                                    >
+                                        Create a unique username
+                                    </FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <FormControl>
+                                    <InputLabel sx={{ fontFamily: "monospace" }} htmlFor='my-input' >
+                                        PASSWORD
+                                    </InputLabel>
+                                    <div style={{display:"flex", lineHeight:"6", marginTop:"8px", flexDirection:"row"}}>
+                                    <Input
                                     required
-                                    fullWidth
-                                    id="email"
                                     className="form-control"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    className="form-control"
-                                    fullWidth
-                                    id="username"
-                                    label="Create Username"
-                                    name="username"
-                                    autoComplete="username"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
                                     fullWidth
                                     id="password"
-                                    label="Password"
                                     name="password"
-                                    type={showPassword ? "text" : "password"} 
+                                    type={showPassword ? "text" : "password"}
                                     autoComplete="password"
-                                    className="form-control"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    InputProps={{ // <-- This is where the toggle button is added.
-                                        endAdornment: (
-                                            <InputAdornment className="MuiInputAdornment-hiddenLabel" sx={{ bgcolor: "white" }} position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword}
-                                                    onMouseDown={handleMouseDownPassword}
-                                                >
-                                                    {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        )
-                                    }}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    className="form-control"
-                                    name="passwordConfirmation"
-                                    label="Confirm Password"
-                                    type={showPassword2 ? "text" : "password"} 
-                                    id="passwordConfirmation"
-                                    autoComplete="new-password"
-                                    value={password_confirmation}
-                                    onChange={(e) => setPasswordConfirmation(e.target.value)}
-                                    InputProps={{ // <-- This is where the toggle button is added.
-                                        endAdornment: (
-                                            <InputAdornment className="MuiInputAdornment-hiddenLabel" sx={{ bgcolor: "white" }} position="end">
-                                                <IconButton
-                                                    aria-label="toggle password visibility"
-                                                    onClick={handleClickShowPassword2}
-                                                    onMouseDown={handleMouseDownPassword2}
-                                                >
-                                                    {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                                </IconButton>
-                                            </InputAdornment>
-                                        )}}
+                                    style={{ minWidth: "250px" }}                                        
                                     />
+                                        <IconButton
+                                            position="end"
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                        >
+                                            {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                        </IconButton>
+                                        </div>
+                                    <FormHelperText style={{ textAlign: "left" }} id='my-helper-text'
+                                    >
+                                        Create a password
+                                    </FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <FormControl>
+                                    <InputLabel sx={{ fontFamily: "monospace" }} htmlFor='my-input' >
+                                        CONFIRM PASSWORD
+                                    </InputLabel>
+                                    <div style={{ display: "flex", lineHeight: "6", marginTop: "8px", flexDirection: "row" }}>
+                                    <Input
+                                        required
+                                        className="form-control"
+                                        fullWidth
+                                        name="passwordConfirmation"
+                                        type={showPassword2 ? "text" : "password"}
+                                        id="passwordConfirmation"
+                                        autoComplete="new-password"
+                                        value={password_confirmation}
+                                        onChange={(e) => setPasswordConfirmation(e.target.value)}
+                                        style={{ minWidth: "250px" }}
+                                        />
+                                        <IconButton
+                                            position="end"
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword2}
+                                        >
+                                            {showPassword2 ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                        </IconButton>
+                                    </div>
+                                    
+                                    <FormHelperText style={{ textAlign: "left" }} id='my-helper-text'
+                                    >
+                                        Re-enter your password 
+                                    </FormHelperText>
+                                </FormControl>
                             </Grid>
                         </Grid>
-                        <Grid container sx={{ flexDirection: 'column' }}>
-                            <Grid item sx={{ margin: 'auto' }}>
-                                <Button
-                                    type="submit"
-                                    variant="contained"
-                                    sx={{ m: 3, fontFamily: 'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize: "18px" }}
-                                >
-                                    SIGN UP
-                                </Button>
-                            </Grid>
+                        <Grid item
+                            sx={{
+                                mx: 4,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                            }}>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                sx={{ alignItems: "center", justifyContent: "center", color: "white", m: 3, mt:5, fontFamily: 'monospace', pl: 4, pr: 4, pt: 2, pb: 2, fontSize: "15px" }}
+                            >
+                                SIGN UP
+                            </Button>
                         </Grid>
-                        <Grid container justifyContent="center">
-                            <Grid item>
-                                <Link href="/login" variant="body" style={{ fontSize: "16px" }}>
-                                    Already have an account? Sign in
-                                </Link>
-                            </Grid>
+                        <Grid item sx={{ paddingTop: '10px', margin: 'auto', flexDirection: "column", display: "flex", alignItems: "center" }}>
+                            <Link onClick={() => navigate("/login")}
+                                style={{ fontFamily: "monospace", fontSize: "16px", alignItems: "center" }}>
+                                Already have an account? Sign in!
+                            </Link>
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 5 }} />
                 </Grid>
             </Grid>
         </ThemeProvider>
