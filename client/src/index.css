@@ -32,6 +32,16 @@ code {
   list-style: 1;
 }
 
+.header {
+  font-size: 90px;
+  color: rgb(84, 43, 43);
+  text-align: center;
+  position: relative;
+  justify-content: center;
+  font-family: monospace;
+  font-weight: normal;
+}
+
 .descriptionInfo{
   font-size: 13px;
 }
