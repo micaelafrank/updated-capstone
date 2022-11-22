@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -43,6 +43,9 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
     const handleClickShowPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
     const handleMouseDownPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
 
+    useEffect(() => {
+        setImageNum(Math.floor(Math.random() * 26));
+    }, []);
 
     const theme = createTheme({
         palette: {
@@ -114,12 +117,14 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(https://source.unsplash.com/random)',
-                        backgroundRepeat: 'no-repeat',
+                        backgroundImage: `url(${loginImgs[imageNum]})`,
+                        backgroundRepeat: "no-repeat",
                         backgroundColor: (t) =>
-                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
+                            t.palette.mode === "light"
+                                ? t.palette.grey[50]
+                                : t.palette.grey[900],
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
                     }}
                 />
                 
@@ -139,7 +144,7 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                     {/* <Avatar sx={{ mt: 5,bgcolor: 'primary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar> */}
-                    <Typography component="h2" variant="h3" sx={{ borderBottom: "1px solid black", fontFamily: "monospace", mt: 5, fontSize: "2.2rem" }}>
+                        <Typography component="h3" variant="h3" sx={{ textShadow: "1px 1px #c98d6d", fontFamily: "monospace", mt: 5, fontSize: "2rem" }}>
                         sign up
                     </Typography>                    
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>

@@ -20,6 +20,10 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import IconButton from '@mui/material/IconButton';
 import SpecialNavBar from './SpecialNavBar';
 import WithNav from './WithNav';
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import Input from '@mui/material/Input'
+import FormHelperText from '@mui/material/FormHelperText'
 
 
 function Copyright({ props }) {
@@ -63,9 +67,9 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
 
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     setImageNum(Math.floor(Math.random() * 5));
-    // }, []);
+    useEffect(() => {
+        setImageNum(Math.floor(Math.random() * 26));
+    }, []);
 
     // useEffect(() => {
     //     fetch("/api/items")
@@ -125,71 +129,91 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
                 GOOD GOODS
             </Typography> */}
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-            <Box
-                sx={{
-                    mt: 8,
-                    mx: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-                >
-                <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h2" variant="h3" style={{fontFamily:"monospace", mt: 3, fontSize:"2.4rem"}}>
-                    SIGN IN
-                </Typography>
-                <p style={{ textAlign:"center", color: "red" }}>{errors}</p>
-                <Box component="form" autoComplete='off' noValidate onSubmit={handleLogin} >
-                    <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    id="username"
-                    autoComplete='off'
-                    label="Username"
-                    name="username"
-                    />
-                    <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    autoComplete='off'
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    label="Password"
-                    type={showPassword ? "text" : "password"} 
-                    id="password"
-                    InputProps={{ // <-- This is where the toggle button is added.
-                        endAdornment: (
-                            <InputAdornment className="MuiInputAdornment-hiddenLabel" sx={{bgcolor: "white"}} position="end">
-                                <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
+                    <Box
+                        sx={{
+                            my: 4,
+                            mx: 5,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Typography component="h1" variant="h1" sx={{ fontFamily: "monospace", mt: 2, fontSize: "3.2rem", fontWeight: "bold", color: "primary.main" }}>
+                            GOOD GOODS
+                        </Typography>
+                        {/* <Avatar sx={{ mt: 5,bgcolor: 'primary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar> */}
+                        <Typography component="h3" variant="h3" sx={{ textShadow: "1px 1px #c98d6d", fontFamily: "monospace", mt: 5, fontSize: "2rem" }}>
+                            log in
+                        </Typography>
+                        {/* <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}> */}
+                    <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
+                        <p style={{ textAlign: "center", color: "red" }}>{errors}</p>
+                        {/* <div style={{ marginBottom: "2rem", color: 'red', alignItems: 'center', textAlign: 'center' }}>
+                        {errors.map((err) => (
+                            <Typography align="center" variant="p" key={err}>
+                                {err}. Please try again
+                            </Typography>
+                        ))}
+                    </div> */}
+                    <Grid container spacing={2}>
+                        <Grid style={{marginBottom:"5px"}} item xs={12}>
+                            <FormControl>
+                                <InputLabel style={{ fontFamily: "monospace" }} htmlFor='my-input' >
+                                    USERNAME</InputLabel>
+                                <Input
+                                required
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                id="username"
+                                autoComplete='off'
+                                label="Username"
+                                name="username"
+                                style={{ minWidth: "350px" }}
+                                />
+                                <FormHelperText style={{ textAlign: "left" }} id='my-helper-text'
                                 >
-                                    {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
-                                </IconButton>
-                            </InputAdornment>
-                    )}}
-                    />
-                        {/* {revealText ? 
-                        <IconButton onClick={handleTextReveal} id="togglePassword">
-                            <VisibilityOutlinedIcon />
-                        </IconButton>
-                        : 
-                        <IconButton onClick={handleTextReveal} id="togglePassword">
-                            <VisibilityOffOutlinedIcon />
-                        </IconButton>
-                        } */}
-                            {/* <Grid container sx={{flexDirection: 'column'}}> */}
+                                    Enter your username
+                                </FormHelperText>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControl>
+                                <InputLabel sx={{ fontFamily: "monospace" }} htmlFor='my-input' >
+                                    PASSWORD
+                                </InputLabel>
+                                <div style={{ display: "flex", lineHeight: "6", marginTop: "8px", flexDirection: "row" }}>
+                                <Input
+                                    required
+                                    autoComplete='off'
+                                    name="password"
+                                    value={password}
+                                    style={{ minWidth: "320px" }}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    label="Password"
+                                    type={showPassword ? "text" : "password"}
+                                    id="password"
+                                    />
+                                    <IconButton
+                                        position="end"
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                    >
+                                        {showPassword ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}
+                                    </IconButton>
+                                </div>
+                                <FormHelperText style={{ textAlign: "left" }} id='my-helper-text'
+                                >
+                                    Enter your password
+                                </FormHelperText>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
                     <Grid item 
                         sx={{
                         mx: 4,
+                        mt: 1,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
