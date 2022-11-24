@@ -9,6 +9,9 @@ import FormHelperText from '@mui/material/FormHelperText'
 import { Checkbox } from '@mui/material';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import ImageCarousel from "./ImageCarousel"
+import Grid from '@mui/material/Grid';
+import InputLabel from '@mui/material/InputLabel';
+
 
 const style = {
     position: 'absolute',
@@ -23,7 +26,7 @@ const style = {
     pt: 6, pb: 6,
 };
 
-function EditCard({ submitToApi, addToCarousel, openEdit, item, id, change, setChange, handleCloseEdit, 
+function EditCard({ imageState, setImageState, initialImageValue, setInitialImageValue, editImageState, setEditImageState, submitToApi, addToCarousel, openEdit, item, id, change, setChange, handleCloseEdit, 
     priceState, setPriceState, editPriceState, setEditPriceState, initialPriceValue, setInitialPriceValue,
     itemNameState, setItemNameState, editDescriptionState, editNameState, setEditNameState, initialItemNameValue, setInitialItemNameValue,
     descriptionState, setDescriptionState, setEditDescriptionState, initialDescriptionValue, setInitialDescriptionValue,
@@ -37,6 +40,14 @@ function EditCard({ submitToApi, addToCarousel, openEdit, item, id, change, setC
     // const [descriptionState, setDescriptionState] = useState("");
     // const [editDescriptionState, setEditDescriptionState] = useState(false);
     // const [initialDescriptionValue, setInitialDescriptionValue] = useState(item.description);
+
+    // function handleImages(e) {
+    //     console.log(e.target.files[0])
+    //     setImageState(e.target.files[0])
+    // }
+
+    const formData = new FormData();
+    formData.append('image', images_url);
 
 
     function handleSubmit(e){
@@ -59,6 +70,24 @@ function EditCard({ submitToApi, addToCarousel, openEdit, item, id, change, setC
 
     console.table(item)
     console.log(item.images_url[0])
+
+
+    let handleEditImage = () => {
+        setEditImageState(!editImageState);
+        if (imageState !== 0) {
+            fetch(`/api/items/edit/${item.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: formData,
+            })
+                .then((resp) => resp.json())
+                .then((data) => setInitialImageValue(data));
+            setChange(!change);
+        }
+    };
+
     let handleEditDescription = () => {
         setEditDescriptionState(!editDescriptionState);
         if (descriptionState !== "") {
@@ -134,7 +163,18 @@ function EditCard({ submitToApi, addToCarousel, openEdit, item, id, change, setC
                     Click on the edit button pertaining to the item detail you want to change
                 </Typography>
                 {/* TEST FOR IMAGE CONTAINER */}
-                <form onSubmit={handleSubmit}>
+                <Grid item xs={12}>
+                    <InputLabel>Upload Image:</InputLabel>
+                    <input
+                        type="file"
+                        id="file"
+                        name="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleEditImage}
+                    />
+                </Grid>
+                {/* <form onSubmit={handleSubmit}>
                     <input 
                     type="file"
                     accept="image/*"
@@ -147,7 +187,7 @@ function EditCard({ submitToApi, addToCarousel, openEdit, item, id, change, setC
                             Submit
                         </button>
                     </div>
-                </form>
+                </form> */}
 
                 {/* TEST FOR IMAGE CONTAINER */}
 

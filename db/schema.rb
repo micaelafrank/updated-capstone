@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_12_212609) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_24_001257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_212609) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "profiles", force: :cascade do |t|
+    t.string "photo"
+  end
+
   create_table "saved_items", force: :cascade do |t|
     t.integer "user_likes_container_id"
     t.integer "item_id"
@@ -91,7 +95,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_12_212609) do
     t.string "email"
     t.boolean "is_admin", default: false
     t.string "password_digest"
-    t.string "profilepic", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

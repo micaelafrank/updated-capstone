@@ -93,7 +93,7 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
             if (r.ok) {
                 r.json().then((user) => {
                     setUser(user)
-                    navigate("/profile");
+                    navigate(`/profile/${user.username}`);
                 });
                 setUsername("")
                 setPassword("")

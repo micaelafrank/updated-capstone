@@ -28,6 +28,9 @@ function ItemCard({ sold_by, show, addCartItem, deleteItemFromList, cartItems, s
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
+    const [imageState, setImageState] = useState(images_url);
+    const [editImageState, setEditImageState] = useState(false);
+    const [initialImageValue, setInitialImageValue] = useState(images_url)
     const [itemNameState, setItemNameState] = useState("");
     const [editNameState, setEditNameState] = useState(false);
     const [initialItemNameValue, setInitialItemNameValue] = useState(itemname);
@@ -171,6 +174,7 @@ function ItemCard({ sold_by, show, addCartItem, deleteItemFromList, cartItems, s
                     sx={{ maxHeight: "300" }}
                     image={images_url}
                 />
+                <button>X</button>
             </div>
             <CardContent className="card-details" color="primary" sx={{ flexGrow: 1 }}>
             {user.id === item.user_id ?
@@ -221,7 +225,9 @@ function ItemCard({ sold_by, show, addCartItem, deleteItemFromList, cartItems, s
                         <EditIcon />
                     </IconButton> : null}
                 {openEdit ? <EditCard priceState={priceState} setPriceState={setPriceState} initialPriceValue={initialPriceValue} setInitialPriceValue={setInitialPriceValue} editPriceState={editPriceState} setEditPriceState={setEditPriceState} itemNameState={itemNameState} setItemNameState={setItemNameState} editNameState={editNameState} setEditNameState={setEditNameState} initialItemNameValue={initialItemNameValue}
-                setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} images_url={images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
+                setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} 
+                images_url={images_url} handleCloseEdit={handleCloseEdit} setImageState={setImageState} imageState={imageState} initialImageValue={initialImageValue}
+                setInitialImageValue={setInitialImageValue} editImageState={editImageState} setEditImageState={setEditImageState} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
                 {user.id === item.user_id ? null :
                 <IconButton
                     onClick={wasClicked ? alreadyInCart : renderUserCartItem}
