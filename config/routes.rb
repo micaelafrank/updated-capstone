@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     patch "/profile/:id", to: "users#update"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy" 
+    patch "/profile/:id/add-image", to: "photos#create"
     # post "/sell", to: "items#create"
     get "/mycart", to: "user_carts#show" 
     get "/rendercart", to: "user_cart_items#index" 

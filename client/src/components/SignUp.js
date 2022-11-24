@@ -39,9 +39,9 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
     const handleClickShowPassword = () => setShowPassword((showPassword) => !showPassword);
-    const handleMouseDownPassword = () => setShowPassword((showPassword) => !showPassword);
+    // const handleMouseDownPassword = () => setShowPassword((showPassword) => !showPassword);
     const handleClickShowPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
-    const handleMouseDownPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
+    // const handleMouseDownPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
 
     useEffect(() => {
         setImageNum(Math.floor(Math.random() * 26));
@@ -86,7 +86,7 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
         })
             .then((res) => {
                 if (res.ok) {
-                    res.json().then((user) => onSignUp(user));
+                    res.json().then((data) => onSignUp(data));
                     navigate(`/profile/${username}`);
                 } else {
                     res.json().then((err) => setErrors(err.errors));
@@ -151,7 +151,7 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                         <div style={{ marginBottom:"2rem", color: 'red', alignItems:'center', textAlign:'center' }}>
                             {errors.map((err) => (
                                 <Typography align="center" variant="p" key={err}>
-                                    {err}. Please try again
+                                    {err}. Please try again.
                                 </Typography>
                             ))}
                         </div>

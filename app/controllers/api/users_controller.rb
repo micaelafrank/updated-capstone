@@ -34,7 +34,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :user_invalid
     # end
 
     def newuser_params
-        params.permit(:firstname, :profilepic, :lastname, :email, :password, :username, :password_confirmation)
+        params.permit(:firstname, :lastname, :email, :password, :username, :password_confirmation)
     end
 
     def user_not_found(e)
