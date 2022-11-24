@@ -20,9 +20,29 @@ code {
   object-fit: cover;
 }
 
+.profileBioBox{ 
+  position: right;
+  margin: 1em;
+  margin-left: auto;
+  float:right;
+  align-items: left;
+  justify-content: right;
+  text-align: left;
+  width: auto;
+  height: auto;
+  padding: 1.5em 1.5em 1.5em 1.5em;
+  background-color: rgb(111, 77, 60);
+  border-radius: 15px;
+}
+
 .profItemImage{
   height: 180px;
   object-fit: cover;
+}
+
+.avatarImg{
+  height: 200;
+  width: 200;
 }
 
 .fab-edit{
@@ -138,9 +158,6 @@ code {
   position: relative;
   text-align: center;
   justify-content: center;
-  margin-left: auto;
-  margin-right: auto;
-  margin: 30px;
 }
 
 Avatar{

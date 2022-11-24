@@ -9,6 +9,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :user_invalid
     def create
         user = User.create!(newuser_params)
         if user.valid? 
+            user.images.attach(params[:images])
             session[:user_id] = user.id
             new_user_cart = UserCart.create!(user_id: user.id)
             new_saves_container = UserLikesContainer.create!(user_id: user.id)
@@ -17,6 +18,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :user_invalid
         #     render json: { error: "Invalid user" }, status: :unprocessable_entity
         end
     end
+
 
     # def update
     #     userInfo = @current_user.update!(user_params)
@@ -29,12 +31,8 @@ rescue_from ActiveRecord::RecordInvalid, with: :user_invalid
 
     private 
 
-    # def user_params
-    #     params.permit(:id, :profilepic, :username)
-    # end
-
     def newuser_params
-        params.permit(:firstname, :lastname, :email, :password, :username, :password_confirmation)
+        params.permit(:firstname, :lastname, :email, :password, :username, :password_confirmation, :images_url, images: [])
     end
 
     def user_not_found(e)

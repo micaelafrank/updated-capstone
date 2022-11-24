@@ -38,6 +38,8 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showPassword2, setShowPassword2] = useState(false);
+    const [images, setImages] = useState("");
+
     const handleClickShowPassword = () => setShowPassword((showPassword) => !showPassword);
     // const handleMouseDownPassword = () => setShowPassword((showPassword) => !showPassword);
     const handleClickShowPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
@@ -46,6 +48,22 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
     useEffect(() => {
         setImageNum(Math.floor(Math.random() * 26));
     }, []);
+
+    function handleImages(e) {
+        setImages(e.target.files[0])
+        console.log(e.target.files[0])
+    }
+
+    const formData = new FormData();
+    formData.append('firstname', firstname);
+    formData.append('lastname', lastname);
+    formData.append('email', email);
+    formData.append('username', username);
+    formData.append('password', password);
+    formData.append('password_confirmation', password_confirmation);
+    formData.append('user_id', user.id);
+    formData.append('images', images);
+
 
     const theme = createTheme({
         palette: {
@@ -61,38 +79,54 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
         },
     });
 
-    const pwError = "Passwords entered do not match. Please try again.";
+    // const pwError = "Passwords entered do not match. Please try again.";
 
     function handleSubmit(e) {
-        console.log(password);
-        console.log(password_confirmation);
         e.preventDefault();
-        if (password !== password_confirmation) {
-            errors.push(pwError);
-        }
         fetch("/api/signup", {
             method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                firstname: firstname,
-                lastname: lastname,
-                email: email,
-                username: username,
-                password: password,
-                password_confirmation: password_confirmation,
-            }),
+            body: formData,
         })
-            .then((res) => {
-                if (res.ok) {
-                    res.json().then((data) => onSignUp(data));
-                    navigate(`/profile/${username}`);
-                } else {
-                    res.json().then((err) => setErrors(err.errors));
-                }
-            });
+        .then((res) => {
+            if (res.ok) {
+                res.json().then((data) => onSignUp(data));
+                navigate(`/profile/${user.username}`);
+            } else {
+                res.json().then((err) => setErrors(err.errors));
+            }
+        });
     }
+    
+    // function handleSubmit(e) {
+    //     console.log(password);
+    //     console.log(password_confirmation);
+    //     e.preventDefault();
+    //     if (password !== password_confirmation) {
+    //         errors.push(pwError);
+    //     }
+    //     fetch("/api/signup", {
+    //         method: 'POST',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             firstname: firstname,
+    //             lastname: lastname,
+    //             email: email,
+    //             username: username,
+    //             password: password,
+    //             password_confirmation: password_confirmation,
+    //         }),
+    //     })
+    //         .then((res) => {
+    //             if (res.ok) {
+    //                 res.json().then((data) => onSignUp(data));
+    //                 navigate(`/profile/${username}`);
+    //             } else {
+    //                 res.json().then((err) => setErrors(err.errors));
+    //             }
+    //         });
+    // }
     //     .then((res) => {
     //         console.log(errors)
     //         if (res.ok) {
@@ -308,6 +342,17 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                                         Re-enter your password 
                                     </FormHelperText>
                                 </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <InputLabel>Upload Image:</InputLabel>
+                                <input
+                                    type="file"
+                                    id="file"
+                                    name="file"
+                                    multiple
+                                    accept="image/*"
+                                    onChange={handleImages}
+                                />
                             </Grid>
                         </Grid>
                         <Grid item

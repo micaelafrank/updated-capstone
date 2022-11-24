@@ -10,16 +10,14 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import ProfileItemCard from "./ProfileItemCard";
 
+
 export default function Profile({ user, change, setChange, items, setItems, setUser }) {
-    const { username, firstname, lastname, email, password, profilepic } = user;
+    const { username, firstname, lastname, email, password, images_url } = user;
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
     const [myItems, setMyItems] = useState([]);
     const [show, setShow] = useState(false);
-    const [avatars, setAvatars] = useState([]);
-    // const [newProfPic, setNewProfPic] = useState("");
 
-    console.log("user: ", user)
 
     // useEffect(() => {
     //     fetch("/api/myitemsforsale")
@@ -61,32 +59,7 @@ export default function Profile({ user, change, setChange, items, setItems, setU
     // })
 
     const id = user.id;
-
-    function handleImageChange(e) {
-        console.log(e.target.files[0]);
-        setAvatars(e.target.files[0]);
-        console.log("avatars: ", avatars);
-    };
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        uploadPhoto();
-    }
-
-    const uploadPhoto = () => {
-        const formData = new FormData();
-        formData.append("avatars", avatars);
-
-        // configure your fetch url appropriately
-        fetch(`profile/${user.id}/add-image`, {
-            method: "POST",
-            body: formData
-        })
-            .then(res => res.json())
-            .then(data => setAvatars(data));
-            navigate(`profile/${user.username}`);
-    };
-
+    
     //     fetch(`/profile/${id}`, {
     //         method: "PATCH",
     //         body: formData,
@@ -98,73 +71,26 @@ export default function Profile({ user, change, setChange, items, setItems, setU
     // const initial = firstname[0];
 
     return (
-        <div style={{margin:"1em"}}>
-            <div className="profileContainer">
-                <div style={{fontFamily:"monospace", alignItems:"center", textAlign:"center"}}>
-                    <h1 style={{ fontFamily: "monospace", alignItems: "center", textAlign: "center" }}>Welcome, @{user.username}.</h1>
-                    <p style={{ fontFamily: "monospace", alignItems: "center", textAlign: "center" }}>Start buying and selling!</p>
-                </div>
-                <div className="heading-container">
-                    {/* <img
-                        src={profilepic}
-                        alt="profile"
-                        style={{ width: "175px", borderRadius: "50%" }}
-    />*/}
-                    <form 
-                    onSubmit={handleSubmit}>
-                    {/* className="mb-2"> */}
-                        {/* {show ? 
-                        <>
-                        <input
-                        type="text"
-                        placeholder="Enter image url..."
-                        value={profilepic}
-                        onChange={(e) => setNewProfPic(e.target.value)}
-                        />
-                        <Button type="submit">Looks Good</Button>
-                        </>
-                        : null} 
-                    </form> */}
-                    {show ? 
-                    <Avatar image={avatars[0]}/>
-                    : null}
-                    <input 
-                        type="file"
-                        id="file"
-                        name="file"
-                        accept="image/*"
-                    onChange={handleImageChange} 
-                    />
-                    </form>
-                    {/* <Button
-                        variant="outlined"
-                        onClick={() => setShow(show => !show)}
-                        className="rounded"
-                        size="sm"
-                        style={{ marginTop:"30px", marginBottom:"30px" }}
-                    >
-                        Upload Image
-                    </Button> */}
-                    {/* <img
-                        src={profilepic}
-                        alt="profile-picture"
-                        style={{ width: "175px", margin:"0", borderRadius: "50%", alignItems:"center", justifyContent: "center" }}
-                    /> */}
-                    <br />
-                    <h2>{user.firstname} {user.lastname} </h2>
-                    {/* <Button variant="contained" 
-                    component="label"
-                    onClick={handleImageUpload}
-                    >
-                        Upload image
-                        <input hidden accept="image/*" type="file" />
-                    </Button> */}
-                        <Button type="submit">Use this image</Button>
-                        {/* <Button variant="outlined" startIcon={<DeleteIcon />}>
-                            Delete
-                        </Button> */}
-                </div>
+        <>
+            <div className="profileBioBox">
+                <Avatar
+                    className="avatarImg"
+                    sx={{height:"150px", border:"1px solid white", width:"150px", marginLeft:"auto", marginRight:"auto", alignItems:"center", justifyContent: "center"}}
+                    src={user.images_url}
+                />
+                <br />
+                <h3 style={{color:"white", fontSize:"20px", fontFamily: "monospace" }}>@{user.username} </h3>
+                <h3 style={{ color: "white", fontWeight:"normal", fontSize:"18px", fontFamily:"monospace"}}>NAME: {user.firstname} {user.lastname} </h3>
+                <h3 style={{ color: "white", fontWeight: "normal", fontSize: "15px", fontFamily: "monospace" }}>EMAIL: {user.email}</h3>
             </div>
+            <div style={{margin:"1em"}}>
+                <div className="profileContainer" style={{width:"100%", display:"flex", justifyContent:"flex-start", flexDirection:"row"}}>
+                {/* <div style={{ fontFamily: "monospace", flexDirection: "column", marginLeft: "auto", justifyContent:"center", marginRight: "auto", alignItems: "center", textAlign: "center" }}>
+                    <h2 style={{ fontFamily: "monospace", textAlign: "center" }}>Welcome, @{user.username}.</h2>
+                    <p style={{ fontFamily: "monospace", textAlign: "center" }}>Start buying and selling!</p>
+                </div> */}
+                
+            <div style={{flexDirection:"column"}}>
             <h2 style={{textAlign:"center", fontFamily:"monospace"}}>WHAT YOU'RE SELLING</h2>
                 <Grid sx={{ m: 3 }} container 
                 // spacing={4}
@@ -176,7 +102,7 @@ export default function Profile({ user, change, setChange, items, setItems, setU
                     </Grid>
                     {/* ))} */}
                 </Grid>
-            <h2 style={{ textAlign: "center", fontFamily: "monospace" }}>SAVED ITEMS</h2>
+            <h2 style={{ fontFamily: "monospace" }}>SAVED ITEMS</h2>
                 <Grid sx={{ m: 3 }} container
                 // spacing={4}
                 >
@@ -188,7 +114,10 @@ export default function Profile({ user, change, setChange, items, setItems, setU
                     </Grid>
                     {/* ))} */}
                 </Grid>
-            <h2 style={{ textAlign: "center", fontFamily: "monospace" }}>PREVIOUS PURCHASES</h2>
+            <h2 style={{ fontFamily: "monospace" }}>PREVIOUS PURCHASES</h2>
             // ITEM CARDS
-        </div>
+            </div>
+                </div>
+            </div>
+        </>
 )}
