@@ -26,21 +26,21 @@ import Input from '@mui/material/Input'
 import FormHelperText from '@mui/material/FormHelperText'
 
 
-function Copyright({ props }) {
-    return (
-        <Typography
-            sx={{ bottom: '0', position: 'absolute', width: '43%', textAlign: 'center', paddingBottom: '5px' }}
-            variant="body2" color="text.secondary"
-            align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="">
-                Marketplace
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+// function Copyright({ props }) {
+//     return (
+//         <Typography
+//             sx={{ bottom: '0', position: 'absolute', width: '43%', textAlign: 'center', paddingBottom: '5px' }}
+//             variant="body2" color="text.secondary"
+//             align="center" {...props}>
+//             {'Copyright © '}
+//             <Link color="inherit" href="">
+//                 Marketplace
+//             </Link>{' '}
+//             {new Date().getFullYear()}
+//             {'.'}
+//         </Typography>
+//     );
+// }
 
 const theme = createTheme({
     palette: {
@@ -59,7 +59,7 @@ const theme = createTheme({
 export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, user, setUser, items, onLogin, setItems }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState("");
+    const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -80,7 +80,7 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
 
     function handleLogin(e) {
         e.preventDefault();
-        setErrors("");
+        // setError("");
         setIsLoading(true);
         fetch("/api/login", {
             method: "POST",
@@ -90,19 +90,22 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
             body: JSON.stringify({ username, password }),
         }).then((r) => {
             setIsLoading(false);
+            console.log("set is loading false")
             if (r.ok) {
+                console.log("i am in the r.ok file")
                 r.json().then((user) => {
-                    setUser(user)
+                    onLogin(user)
                     navigate(`/profile/${user.username}`);
                 });
                 setUsername("")
                 setPassword("")
             } else {
-                r.json().then((err) => setErrors(err.errors));
+                r.json().then((err) => setError(err.error));
+                console.log("my error: ", error.message)
             }
         });
     }
-
+    console.log(error)
 
     return (
         <ThemeProvider theme={theme}>
@@ -149,13 +152,13 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
                         </Typography>
                         {/* <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}> */}
                     <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
-                        <p style={{ textAlign: "center", color: "red" }}>{errors}</p>
+                        <p style={{ marginTop:"25px", marginBottom:"25px", color: "red", textAlign:"center" }}>{error}</p>
                         {/* <div style={{ marginBottom: "2rem", color: 'red', alignItems: 'center', textAlign: 'center' }}>
-                        {errors.map((err) => (
+                        {errors ? errors.map((err) => (
                             <Typography align="center" variant="p" key={err}>
                                 {err}. Please try again
                             </Typography>
-                        ))}
+                        )) : null}
                     </div> */}
                     <Grid container spacing={2}>
                         <Grid style={{marginBottom:"5px"}} item xs={12}>
@@ -226,6 +229,8 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
                         SHOW ME THE GOOD GOODS
                     </Button>
                     </Grid>
+                        </Box>
+
                     <Grid item sx={{ paddingTop: '10px', margin: 'auto', flexDirection: "column", display: "flex", alignItems: "center" }}>
                         <Link onClick={()=> navigate("/signup")}
                         style={{ fontFamily:"monospace", fontSize:"16px", alignItems: "center" }}>
@@ -233,7 +238,6 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
                         </Link>
                     </Grid>
                     {/* </Grid> */}
-                    </Box>
                     </Box>
                 </Grid>
             </Grid>

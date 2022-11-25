@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     # resources :checkout, only: [:create, :create_payment_intent]
   namespace :api do
     resources :items, only: [:index, :myItemsForSale, :show, :create, :update, :destroy]
+    resources :sessions, only: [:create, :destroy]
     resources :users, only: [:create, :show, :index, :update, :destroy] 
     resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
     resources :user_carts, only: [:index, :show, :create]
