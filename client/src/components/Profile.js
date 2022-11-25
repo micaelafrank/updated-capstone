@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 import ProfileItemCard from "./ProfileItemCard";
 
 
-export default function Profile({ user, change, setChange, items, setItems, setUser }) {
+function Profile({ user, change, setChange, items, setItems, setUser }) {
     const { username, firstname, lastname, email, password, images_url } = user;
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
@@ -19,12 +19,12 @@ export default function Profile({ user, change, setChange, items, setItems, setU
     const [show, setShow] = useState(false);
 
 
-    // useEffect(() => {
-    //     fetch("/api/myitemsforsale")
-    //         .then((r) => r.json())
-    //         .then(data => { setMyItems(data) })
-    // }, [])
-    // console.log("my items: ", myItems);
+    useEffect(() => {
+        fetch("/api/myitemsforsale")
+            .then((r) => r.json())
+            .then(data => { setMyItems(data) })
+    }, [])
+    console.log("my items: ", myItems);
 
 
     const myitemsforsale = myItems.map((item) => {
@@ -59,7 +59,8 @@ export default function Profile({ user, change, setChange, items, setItems, setU
     // })
 
     const id = user.id;
-    
+    console.log("my items: ", myItems);
+    console.log("my items for sale: ", myitemsforsale)
     //     fetch(`/profile/${id}`, {
     //         method: "PATCH",
     //         body: formData,
@@ -71,7 +72,7 @@ export default function Profile({ user, change, setChange, items, setItems, setU
     // const initial = firstname[0];
 
     return (
-        <>
+        <div style={{ display: "flex", flexDirection: "row" }}>
             <div className="profileBioBox">
                 <Avatar
                     className="avatarImg"
@@ -80,44 +81,45 @@ export default function Profile({ user, change, setChange, items, setItems, setU
                 />
                 <br />
                 <h3 style={{color:"white", fontSize:"20px", fontFamily: "monospace" }}>@{user.username} </h3>
-                <h3 style={{ color: "white", fontWeight:"normal", fontSize:"18px", fontFamily:"monospace"}}>NAME: {user.firstname} {user.lastname} </h3>
-                <h3 style={{ color: "white", fontWeight: "normal", fontSize: "15px", fontFamily: "monospace" }}>EMAIL: {user.email}</h3>
+                <h3 style={{ color: "white", fontWeight:"normal", fontSize:"16px", fontFamily:"monospace"}}>{user.firstname} {user.lastname} </h3>
+                <h3 style={{ color: "white", fontWeight: "normal", fontSize: "15px", fontFamily: "monospace" }}>{user.email}</h3>
             </div>
-            <div style={{margin:"1em"}}>
-                <div className="profileContainer" style={{width:"100%", display:"flex", justifyContent:"flex-start", flexDirection:"row"}}>
+            <div style={{margin:"1em", width:"auto"}}>
+                <div className="profileContainer" style={{display:"flex", flexDirection:"row"}}>
                 {/* <div style={{ fontFamily: "monospace", flexDirection: "column", marginLeft: "auto", justifyContent:"center", marginRight: "auto", alignItems: "center", textAlign: "center" }}>
                     <h2 style={{ fontFamily: "monospace", textAlign: "center" }}>Welcome, @{user.username}.</h2>
                     <p style={{ fontFamily: "monospace", textAlign: "center" }}>Start buying and selling!</p>
                 </div> */}
                 
-            <div style={{flexDirection:"column"}}>
-            <h2 style={{textAlign:"center", fontFamily:"monospace"}}>WHAT YOU'RE SELLING</h2>
-                <Grid sx={{ m: 3 }} container 
-                // spacing={4}
-                >
-                    {/* {cards.map((card) => ( */}
-                    <Grid className="profileGrid" >
-                        {/* item xs={12} sm={6} md={4} */}
-                        {/* {myItems.length > 0 ? myitemsforsale : "You are not selling anything yet. Get started here!"} */}
+                <div style={{flexDirection:"column"}}>
+                <h2 style={{textAlign:"center", fontFamily:"monospace"}}>WHAT YOU'RE SELLING</h2>
+                    <Grid sx={{ m: 3 }} container 
+                    // spacing={4}
+                    >
+                        {/* {cards.map((card) => ( */}
+                        <Grid className="profileGrid" >
+                            {/* item xs={12} sm={6} md={4} */}
+                            {myitemsforsale.length > 0 ? myitemsforsale : "You are not selling anything yet. Get started here!"}
+                        </Grid>
+                        {/* ))} */}
                     </Grid>
-                    {/* ))} */}
-                </Grid>
-            <h2 style={{ fontFamily: "monospace" }}>SAVED ITEMS</h2>
-                <Grid sx={{ m: 3 }} container
-                // spacing={4}
-                >
-                    {/* {cards.map((card) => ( */}
-                    <Grid className="profileGrid" >
-                        {/* item xs={12} sm={6} md={4} */}
-                        {/* {mySavedItems} */}
-                        // ITEM CARDS
+                <h2 style={{ textAlign:"center", fontFamily: "monospace" }}>SAVED ITEMS</h2>
+                    <Grid sx={{ m: 3 }} container
+                    // spacing={4}
+                    >
+                        {/* {cards.map((card) => ( */}
+                        <Grid className="profileGrid" >
+                            {/* item xs={12} sm={6} md={4} */}
+                            {/* {mySavedItems} */}
+                            // ITEM CARDS
+                        </Grid>
+                        {/* ))} */}
                     </Grid>
-                    {/* ))} */}
-                </Grid>
-            <h2 style={{ fontFamily: "monospace" }}>PREVIOUS PURCHASES</h2>
-            // ITEM CARDS
-            </div>
+                <h2 style={{ textAlign:"center", fontFamily: "monospace" }}>PREVIOUS PURCHASES</h2>
+                // ITEM CARDS
+                </div>
+                    </div>
                 </div>
             </div>
-        </>
-)}
+    )}
+export default Profile;

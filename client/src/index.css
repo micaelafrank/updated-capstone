@@ -21,16 +21,16 @@ code {
 }
 
 .profileBioBox{ 
-  position: right;
+  /* position: right; */
   margin: 1em;
-  margin-left: auto;
+  /* margin-left: auto; */
   float:right;
   align-items: left;
   justify-content: right;
   text-align: left;
   width: auto;
   height: auto;
-  padding: 1.5em 1.5em 1.5em 1.5em;
+  padding: 1.5em 1.8em 1.5em 1.5em;
   background-color: rgb(111, 77, 60);
   border-radius: 15px;
 }
@@ -156,7 +156,6 @@ code {
 .profileContainer{
   align-items: center;
   position: relative;
-  text-align: center;
   justify-content: center;
 }
 
@@ -221,32 +220,20 @@ Avatar{
 .profOneItemCard{
     border-radius: 10px;
     border: none;
-    width: 230px;
+    width: 240px;
     height: 290px;
     margin-top: 10px;
     margin-right: 20px;
     margin-bottom: 20px;
+    align-items: left;
+    justify-content: left;
     position: relative;
     box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 .profOneItemBottom{
   margin-bottom: 10px;
-  /*border-radius: 10px;
-  border: none;
-  width: 210px;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
-} /*
-
-.card {
-  margin: 40px 0px;
-  padding: 40px 50px;
-  max-width: 285px;
-  min-width: 280px;
-  max-height: 530px; */
+  text-align: left;
   border-radius: 20px;
   border: none;
   box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);

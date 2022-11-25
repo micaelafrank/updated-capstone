@@ -4,6 +4,6 @@ class UserSerializer < ActiveModel::Serializer
   # has_one :user_likes_container
   # has_one :user_cart 
   # has_many :saved_items, through: :user_likes_container
-  # has_many :items
+  has_many :items
 
 end

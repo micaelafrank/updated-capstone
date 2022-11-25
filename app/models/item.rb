@@ -8,7 +8,7 @@ class Item < ApplicationRecord
 
 
     def sold_by
-        seller = Item.user_id
+        seller = user.id
         User.find(seller).username
     end
 

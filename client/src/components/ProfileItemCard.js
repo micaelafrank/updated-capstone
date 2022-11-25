@@ -86,8 +86,8 @@ function ProfileItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLik
                 />
             </div>
                 {/* <Typography sx={{ lineHeight: "1", fontSize: "1.2em", paddingLeft: "12px", paddingRight: "16px", paddingTop: "10px", }} color="secondary.darkText" gutterBottom> */}
-            <p style={{ lineHeight: "1", marginTop:"0", marginBottom:"0", fontSize: "23px", paddingLeft: "12px", justifyContent: "center", paddingTop:"15px" }}>{initialItemNameValue}</p>
-            <p style={{ marginTop: "0", marginBottom: "0", lineHeight: "1", fontSize: "12px", paddingLeft: "12px", justifyContent: "center", paddingTop:"10px" }}>ON SALE SINCE: <span style={{ fontWeight: "bold" }}>{dateItem}</span></p>
+            <p style={{ marginLeft:"10px", lineHeight: "1", marginTop:"0", marginBottom:"0", fontSize: "18px", paddingRight:"12px", justifyContent: "left", alignItems:"left", paddingTop:"15px" }}>{initialItemNameValue}</p>
+            <p style={{ marginLeft: "10px", marginTop: "0", marginBottom: "0", lineHeight: "1", fontSize: "12px", paddingRight: "12px", justifyContent: "left", paddingTop:"10px" }}>ON SALE SINCE: <span style={{ fontWeight: "bold" }}>{dateItem}</span></p>
             <CardActions style={{marginTop:"8px"}} className="prof-bottom-card-details" theme={theme}>
                 <IconButton aria-label="delete" style={{alignItems:"center", paddingTop:"0", marginTop:"0"}} onClick={handleOpen}>
                     <span style={{ fontSize: "18px", fontFamily:"monospace", color:"black", marginRight: "3px" }}>DELETE </span> <DeleteIcon />

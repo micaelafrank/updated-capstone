@@ -174,7 +174,6 @@ function ItemCard({ sold_by, show, addCartItem, deleteItemFromList, cartItems, s
                     sx={{ maxHeight: "300" }}
                     image={images_url}
                 />
-                <button>X</button>
             </div>
             <CardContent className="card-details" color="primary" sx={{ flexGrow: 1 }}>
             {user.id === item.user_id ?
