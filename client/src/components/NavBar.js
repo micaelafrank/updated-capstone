@@ -21,24 +21,25 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 const pages = ['SELL', 'BUY', 'PROFILE', 'LOGOUT'];
 
-const theme = createTheme({
-    palette: {
-        primary: {
-            // Purple and green play nicely together.
-            main: '#795548',
-            lighter: brown.A100,
-        },
-        secondary: {
-            // This is green.A700 as hex.
-            main: '#bbe5ca',
-        },
-    },
-});
 
-const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
+function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
     const navigate = useNavigate();
 
-    
+    const theme = createTheme({
+        palette: {
+            primary: {
+                // Purple and green play nicely together.
+                main: '#efd6ed',
+                darker: '#bca5bb',
+            },
+            secondary: {
+                // This is green.A700 as hex.
+                main: '#cfe0c3',
+                darker: '#9eae93',
+                darkText: '#3b4234;'
+            },
+        },
+    });
     function handleLogout() {
         fetch("/api/logout", { method: "DELETE" }).then((r) => {
             if (r.ok) {
@@ -146,22 +147,24 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                         >
                                 BUY
                             </Button>
-                        {user.username ? <Button
+                        {/* {user.username ?  */}
+                        <Button
                             className='navButtonOption'
                             sx={{ my: 2, color: 'white', display: 'block', marginRight:"2em" }}
                             onClick={() => navigate(`/profile/${user.username}`)}
                         >
                                 PROFILE
-                            </Button> : null }
-                        {user.username ? 
-                            (<Button
-                            onClick={openShoppingCart}
+                            </Button> 
+                            {/* : null } */}
+                        {/* {user.username ?  */}
+                            <Button
+                            onClick={() => navigate(`/mycart`)}
                             style={{my: 2, color:'white', paddingRight:'2em'}}
                         >
                             <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
                             <ShoppingCartIcon/>
-                        </Button>)
-                             : 
+                        </Button>
+                             {/* : 
                             (<>
                             <Button 
                             sx={{ alignItems: 'right', my: 2, color: 'white', float: 'right', border: '1px solid white', marginLeft: '25px', marginRight: "2em", padding: '10px', display: 'block' }}
@@ -176,11 +179,11 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                                 SIGN UP
                             </Button>
                             </>)
-                        }
+                        } */}
                     </Box>
-                    {user.username ? 
+                    {/* {user.username ?  */}
                     <Box sx={{ flexGrow: 0, display:"flex", textAlign: 'center', alignItems: 'center'}}>
-                        <p style={{ fontSize:"15px", paddingRight: '1.5em' }}>SIGNED IN AS:<span style={{ fontFamily: 'monospace' }}> {user.username}</span></p>
+                        {/* <p style={{ fontSize:"15px", paddingRight: '1.5em' }}>SIGNED IN AS:<span style={{ fontFamily: 'monospace' }}> {user.username}</span></p> */}
                         <Button sx={{ my: 2, color: 'white', display: 'block', marginRight: "1em" }}
                             onClick={handleLogout}>
                             LOGOUT
@@ -214,7 +217,8 @@ const ResponsiveAppBar = ({ user, setUser, setDarkMode, darkMode }) => {
                                     </IconButton>
                                     }
                             </button> */}
-                    </Box> : null}
+                    </Box> 
+                    {/* : null} */}
                 </Toolbar>
             </Container>
         </AppBar>

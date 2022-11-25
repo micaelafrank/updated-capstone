@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import ProfileItemCard from "./ProfileItemCard";
+import SavedItemCard from "./SavedItemCard";
 
 
 function Profile({ userLikes, setUserLikes, user, change, setChange, items, setItems, setUser }) {
@@ -36,23 +37,23 @@ function Profile({ userLikes, setUserLikes, user, change, setChange, items, setI
 
     const myLikedItems = userLikes.map((item) => {
         return(
-            <ProfileItemCard
-                key={item.item.id}
+            <SavedItemCard
+                key={item.id}
                 // deleteCartIcon={deleteCartIcon}
-                id={item.item.id}
+                id={item.id}
                 // user_likes_container_id={user.user_likes_container}
-                itemname={item.item.itemname}
-                price={item.item.price}
-                description={item.item.description}
+                itemname={item.itemname}
+                price={item.price}
+                description={item.description}
                 material={item.material}
-                color={item.item.color}
-                size={item.item.size}
-                sold_by={item.item.sold_by}
+                color={item.color}
+                size={item.size}
+                sold_by={item.sold_by}
                 // favorites={user.saved_items}
                 // user_id={item.user_id}
                 // condition={item.condition}
                 // isForSale={item.isForSale}
-                images_url={item.item.images_url}
+                images_url={item.images_url}
                 // change={change}
                 // setChange={setChange}
                 // addNewFavorite={addNewFavorite}
@@ -149,7 +150,6 @@ function Profile({ userLikes, setUserLikes, user, change, setChange, items, setI
                         <Grid className="profileGrid" >
                             {/* item xs={12} sm={6} md={4} */}
                             {/* {mySavedItems} */}
-                            // ITEM CARDS
                         </Grid>
                         {/* ))} */}
                     </Grid>

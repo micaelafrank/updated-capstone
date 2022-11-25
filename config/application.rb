@@ -18,7 +18,7 @@ module FinalProject
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
     config.middleware.use ActionDispatch::Flash
-
+  
     # Use SameSite=Strict for all cookies to help protect against CSRF
     # config.action_dispatch.cookies_same_site_protection = :strict
     config.api_only = true

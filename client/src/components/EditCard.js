@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import FormHelperText from '@mui/material/FormHelperText'
 import { Checkbox } from '@mui/material';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import ImageCarousel from "./ImageCarousel"
+import ImageCarousel from "./ignore/ImageCarousel"
 import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
 

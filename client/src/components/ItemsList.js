@@ -26,7 +26,18 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
     }, [change])
     console.log(items)
 
+    // useEffect(() => {
+    //     fetch(`/api/user-likes-container/${user.id}`)
+    //         .then((r) => r.json())
+    //         .then(data => setUserLikes(data))
+    //     // setItemCount(itemCount)})
+    // }, [])
+    // console.log("my likes: ", userLikes)
 
+    // const myLikedItems = userLikes.filter((item) => {
+    //         console.log(item.item_id === item.item.id ? "I am a liked item" : "I am not a liked item")
+    // })
+    // console.log("my liked items filtered: ", myLikedItems)
     // function deleteItemFromList(id) {
     //     const updatedItemsList = items.filter((item) => item.id !== id);
     //     setItems(updatedItemsList);

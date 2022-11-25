@@ -12,7 +12,7 @@ import { brown, blueGrey } from '@mui/material/colors';
 import SavedContainer from './SavedContainer';
 import NewItemForm from './NewItemForm';
 import StripeContainer from './StripeContainer';
-import AddItemImages from './AddItemImages';
+import AddItemImages from './ignore/AddItemImages';
 import EditCard from './EditCard';
 import MakePurchase from './MakePurchase';
 // import PurchaseLandingPage from './PurchaseLandingPage';
@@ -90,13 +90,13 @@ function App() {
   console.log("my cart items: ", cartItems)
 
 
-  useEffect(() => {
-    fetch(`/api/user-likes-container/${user.id}`)
-      .then((r) => r.json())
-      .then(data => setUserLikes(data))
-    // setItemCount(itemCount)})
-  }, [])
-  console.log("my likes: ", userLikes)
+  // useEffect(() => {
+  //   fetch(`/api/user-likes-container/${user.id}`)
+  //     .then((r) => r.json())
+  //     .then(data => setUserLikes(data))
+  //   // setItemCount(itemCount)})
+  // }, [])
+  // console.log("my likes: ", userLikes)
 
   
   // function handleSignIn() {

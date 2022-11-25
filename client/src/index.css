@@ -231,6 +231,20 @@ Avatar{
     box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
+.savedItemCard {
+  border-radius: 10px;
+  border: none;
+  width: 240px;
+  max-height: 320px;
+  margin-top: 10px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  align-items: left;
+  justify-content: left;
+  position: relative;
+  box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
 .profOneItemBottom{
   margin-bottom: 10px;
   text-align: left;
