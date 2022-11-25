@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 import ProfileItemCard from "./ProfileItemCard";
 
 
-function Profile({ user, change, setChange, items, setItems, setUser }) {
+function Profile({ userLikes, setUserLikes, user, change, setChange, items, setItems, setUser }) {
     const { username, firstname, lastname, email, password, images_url } = user;
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
@@ -26,6 +26,44 @@ function Profile({ user, change, setChange, items, setItems, setUser }) {
     }, [])
     console.log("my items: ", myItems);
 
+    useEffect(() => {
+        fetch(`/api/user-likes-container/${user.id}`)
+            .then((r) => r.json())
+            .then(data => setUserLikes(data))
+        // setItemCount(itemCount)})
+    }, [])
+    console.log("my likes: ", userLikes)
+
+    const myLikedItems = userLikes.map((item) => {
+        return(
+            <ProfileItemCard
+                key={item.item.id}
+                // deleteCartIcon={deleteCartIcon}
+                id={item.item.id}
+                // user_likes_container_id={user.user_likes_container}
+                itemname={item.item.itemname}
+                price={item.item.price}
+                description={item.item.description}
+                material={item.material}
+                color={item.item.color}
+                size={item.item.size}
+                sold_by={item.item.sold_by}
+                // favorites={user.saved_items}
+                // user_id={item.user_id}
+                // condition={item.condition}
+                // isForSale={item.isForSale}
+                images_url={item.item.images_url}
+                // change={change}
+                // setChange={setChange}
+                // addNewFavorite={addNewFavorite}
+                // setFavorites={setFavorites}
+                // items={items}
+                // addCartItem={addCartItem}
+                // cartIcons={cartIcons}
+                // deleteItemFromList={deleteItemFromList}
+            />
+        )
+    })
 
     const myitemsforsale = myItems.map((item) => {
             return(
@@ -107,7 +145,7 @@ function Profile({ user, change, setChange, items, setItems, setUser }) {
                     <Grid sx={{ m: 3 }} container
                     // spacing={4}
                     >
-                        {/* {cards.map((card) => ( */}
+                        {myLikedItems}
                         <Grid className="profileGrid" >
                             {/* item xs={12} sm={6} md={4} */}
                             {/* {mySavedItems} */}

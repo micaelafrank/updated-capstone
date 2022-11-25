@@ -25,6 +25,7 @@ function App() {
   const [darkMode, setDarkMode] = useState(storedDarkMode);
   const [cartItems, setCartItems] = useState([]);
   const [imageNum, setImageNum] = useState(0);
+  const [userLikes, setUserLikes] = useState([]);
   // const [showLogin, setShowLogin] = useState(false);
   // const [showSignUp, setShowSignUp] = useState(false);
 
@@ -88,6 +89,16 @@ function App() {
   }, [])
   console.log("my cart items: ", cartItems)
 
+
+  useEffect(() => {
+    fetch(`/api/user-likes-container/${user.id}`)
+      .then((r) => r.json())
+      .then(data => setUserLikes(data))
+    // setItemCount(itemCount)})
+  }, [])
+  console.log("my likes: ", userLikes)
+
+  
   // function handleSignIn() {
   //   setShowSignUp(showSignUp => !showSignUp);
   // }
@@ -163,7 +174,7 @@ function App() {
               {/* :
               <Route path="/" element={<Homepage items={items} />} />
             } */}
-          <Route path="/profile/:username" element={<Profile change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
+          <Route path="/profile/:username" element={<Profile userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
             <Route path="/buy" element={<ItemsList change={change} setChange={setChange} user={user} />} />
