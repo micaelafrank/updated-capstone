@@ -113,11 +113,6 @@ function Profile({ userLikes, setUserLikes, user, change, setChange, items, setI
             </div>
             <div style={{margin:"1em", width:"auto"}}>
                 <div className="profileContainer" style={{display:"flex", flexDirection:"row"}}>
-                {/* <div style={{ fontFamily: "monospace", flexDirection: "column", marginLeft: "auto", justifyContent:"center", marginRight: "auto", alignItems: "center", textAlign: "center" }}>
-                    <h2 style={{ fontFamily: "monospace", textAlign: "center" }}>Welcome, @{user.username}.</h2>
-                    <p style={{ fontFamily: "monospace", textAlign: "center" }}>Start buying and selling!</p>
-                </div> */}
-                
                 <div style={{flexDirection:"column"}}>
                 <h2 style={{textAlign:"center", fontFamily:"monospace"}}>WHAT YOU'RE SELLING</h2>
                     <Grid sx={{ m: 3 }} container 

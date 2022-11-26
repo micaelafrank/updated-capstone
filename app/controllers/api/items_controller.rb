@@ -36,6 +36,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     # item.images.attach(params[:images])
     # @item.images.attach(io: File.open('/path/to/file'), filename: 'file.pdf')
     # url_for(@item.images)
+    
     def add_images
         item = Item.find(params[:id])
         item.images.attach(params[:images])
@@ -75,14 +76,6 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     end
 
     private 
-
-    # def heart_params
-    #     params.permit(:itemname, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
-    # end
-
-    # def cart_params
-    #     params.require(:item).permit(:id)
-    # end
 
     def item_params
         params.permit(:itemname, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])

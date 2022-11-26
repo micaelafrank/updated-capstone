@@ -182,8 +182,6 @@ function App() {
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           <Route path="/payment" element={<MakePurchase />} />
-          {/* <Route path="/add-images" element={<AddItemImages user={user} />} /> */}
-          {/* <Route path="/orderconfirmation" element={<PurchaseLandingPage items={items} user={user} />} />*/}
         </Route>
       </Routes>
       {/* <Footer /> */}
