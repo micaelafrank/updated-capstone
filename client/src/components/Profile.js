@@ -49,19 +49,7 @@ function Profile({ userLikes, setUserLikes, user, change, setChange, items, setI
                 color={item.color}
                 size={item.size}
                 sold_by={item.sold_by}
-                // favorites={user.saved_items}
-                // user_id={item.user_id}
-                // condition={item.condition}
-                // isForSale={item.isForSale}
                 images_url={item.images_url}
-                // change={change}
-                // setChange={setChange}
-                // addNewFavorite={addNewFavorite}
-                // setFavorites={setFavorites}
-                // items={items}
-                // addCartItem={addCartItem}
-                // cartIcons={cartIcons}
-                // deleteItemFromList={deleteItemFromList}
             />
         )
     })
