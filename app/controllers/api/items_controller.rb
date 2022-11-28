@@ -3,7 +3,7 @@ rescue_from ActiveRecord::RecordNotFound, with: :cant_show_item
 rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
     def index 
-        items = Item.order(id: :desc)
+        items = Item.all.order(id: :desc)
         render json: items
     end
 

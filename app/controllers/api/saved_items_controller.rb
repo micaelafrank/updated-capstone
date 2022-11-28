@@ -25,16 +25,14 @@ class Api::SavedItemsController < ApplicationController
 
     def create
         saves = SavedItem.create!(saveditem_params)
-        render json: saves, status: 201, include: items
+        render json: saves, status: 201
     end
   
     def destroy
-        saved_item = @current_user.saved_items.find(params[:item_id])
-        if favorite.destroy
-            flash[:notice] = "Post unfavorited."
-        else
-            flash[:alert] = "Unfavoriting failed."
-        end
+        # item = UserLikesContainer.find_by(user_id: @current_user.id)
+        sItems = item.saved_items.where(item_id: params[:id])
+        sItems.destroy_all
+        head :no_content
         # saved_item = SavedItem.find(item_id: params[:id])
         # saved_item.destroy_all        
         # saved_item.destroy

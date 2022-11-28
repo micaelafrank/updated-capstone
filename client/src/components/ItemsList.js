@@ -19,6 +19,7 @@ function ItemsList({ handleUnlike, userLikes, setUserLikes, setCartValue, cartIt
     const [items, setItems] = useState([])
 
     
+
     useEffect(() => {
         fetch("/api/items")
             .then((r) => r.json())
@@ -34,7 +35,19 @@ function ItemsList({ handleUnlike, userLikes, setUserLikes, setCartValue, cartIt
     }, [])
     console.log("my likes: ", userLikes)
 
+    // const array3 = userLikes.map(function (item) {
+    //     if (items.includes(item.id)) {
+    //         item.clickedHeart = true;
+    //     }
+    //     return item;
+    // })
+    // setItems(array3)
 
+
+    function handleUnlike(myItem){
+        const newLikedList = userLikes.filter((item) => item.id !== myItem.id)
+        setUserLikes(newLikedList)
+    }
     // console.log("my liked items filtered: ", myLikedItems)
     // function deleteItemFromList(id) {
     //     const updatedItemsList = items.filter((item) => item.id !== id);
@@ -57,18 +70,14 @@ function ItemsList({ handleUnlike, userLikes, setUserLikes, setCartValue, cartIt
             },
         },
     });
-    const res = userLikes.filter(like => items.some(item => item.id === like.item_id));
-    const resIds = res.map((item) => item.id)
+    // const res = userLikes.filter(like => items.some(item => item.id === like.item_id));
+    // const resIds = res.map((item) => item.id)
     // const isSaved = resIds.filter((item) => item.id ===)
-    const likedIdIcon = res.map((item) => item.id)
-    console.log("res ids: ", resIds)
     const listOfItems = items.map((item) => {
         return (
             <ItemCard
                 key={item.id}
-                likedIdIcon={likedIdIcon}
-                resIds={resIds}
-                // deleteCartIcon={deleteCartIcon}
+                clickedHeart={item.clickedHeart}
                 setCartValue={setCartValue}
                 cartItems={cartItems}
                 setCartItems={setCartItems}
@@ -107,18 +116,7 @@ function ItemsList({ handleUnlike, userLikes, setUserLikes, setCartValue, cartIt
     console.log("my likes item ids: ", userLikesIds)
     console.log("all item ids: ", itemIdsList)
 
-
-    // function myCallBack(el) {
-    //     return likesId.indexOf(el) < 0;
-    // }
-
-    // filteredArray = listOfItems.filter(function (listOfItems_el) {
-    //     return likesId.filter(function (likesId_el) {
-    //         return likesId_el.id == listOfItems_el.id;
-    //     }).length == 0
-    // });    
     
-    console.log("results array: ", res)
 
     return (
         <ThemeProvider theme={theme}>
