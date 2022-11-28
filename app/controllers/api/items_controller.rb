@@ -78,7 +78,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     private 
 
     def item_params
-        params.permit(:itemname, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images:[])
+        params.permit(:itemname, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images: [])
         # params.require(:item).permit(:itemname, :price, :description, :color, :size, :condition, :user_id, images: [])
     end
 

@@ -18,7 +18,7 @@ function Profile({ userLikes, setUserLikes, user, change, setChange, items, setI
     const navigate = useNavigate();
     const [myItems, setMyItems] = useState([]);
     const [show, setShow] = useState(false);
-
+    
 
     useEffect(() => {
         fetch("/api/myitemsforsale")
@@ -33,23 +33,24 @@ function Profile({ userLikes, setUserLikes, user, change, setChange, items, setI
             .then(data => setUserLikes(data))
         // setItemCount(itemCount)})
     }, [])
-    console.log("my likes: ", userLikes)
+    console.log("my likesss: ", userLikes)
 
     const myLikedItems = userLikes.map((item) => {
         return(
             <SavedItemCard
-                key={item.id}
+                key={item.item.id}
                 // deleteCartIcon={deleteCartIcon}
-                id={item.id}
+                id={item.item.id}
                 // user_likes_container_id={user.user_likes_container}
-                itemname={item.itemname}
-                price={item.price}
-                description={item.description}
-                material={item.material}
-                color={item.color}
-                size={item.size}
-                sold_by={item.sold_by}
-                images_url={item.images_url}
+                itemname={item.item.itemname}
+                price={item.item.price}
+                description={item.item.description}
+                material={item.item.material}
+                color={item.item.color}
+                size={item.item.size}
+                sold_by={item.item.sold_by}
+                images_url={item.item.images_url}
+                date={item.item.created_at}
             />
         )
     })

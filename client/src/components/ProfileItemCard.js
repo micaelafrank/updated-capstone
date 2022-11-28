@@ -90,13 +90,13 @@ function ProfileItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLik
             <p style={{ marginLeft: "10px", marginTop: "0", marginBottom: "0", lineHeight: "1", fontSize: "12px", paddingRight: "12px", justifyContent: "left", paddingTop:"10px" }}>ON SALE SINCE: <span style={{ fontWeight: "bold" }}>{dateItem}</span></p>
             <CardActions style={{marginTop:"8px"}} className="prof-bottom-card-details" theme={theme}>
                 <IconButton aria-label="delete" style={{alignItems:"center", paddingTop:"0", marginTop:"0"}} onClick={handleOpen}>
-                    <span style={{ fontSize: "18px", fontFamily:"monospace", color:"black", marginRight: "3px" }}>DELETE </span> <DeleteIcon />
+                    <span style={{ fontSize: "14px", color:"black", marginRight: "3px" }}>DELETE </span> <DeleteIcon />
                 </IconButton> 
                 {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}
                 <IconButton aria-label="edit" style={{ alignItems: "center", paddingTop: "0", marginTop: "0" }}
                     onClick={handleOpenEdit}
                 >
-                    <span style={{ fontSize: "18px", fontFamily: "monospace", color: "black", marginRight: "3px" }}>EDIT </span> <EditIcon />                    </IconButton> 
+                    <span style={{ fontSize: "14px", color: "black", marginRight: "3px" }}>EDIT </span> <EditIcon />                    </IconButton> 
                 {openEdit ? <EditCard priceState={priceState} setPriceState={setPriceState} initialPriceValue={initialPriceValue} setInitialPriceValue={setInitialPriceValue} editPriceState={editPriceState} setEditPriceState={setEditPriceState} itemNameState={itemNameState} setItemNameState={setItemNameState} editNameState={editNameState} setEditNameState={setEditNameState} initialItemNameValue={initialItemNameValue}
                     setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} images_url={images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}
             </CardActions>

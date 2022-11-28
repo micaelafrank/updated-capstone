@@ -88,14 +88,14 @@ function SavedItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLike,
                 />
             </div>
             {/* <Typography sx={{ lineHeight: "1", fontSize: "1.2em", paddingLeft: "12px", paddingRight: "16px", paddingTop: "10px", }} color="secondary.darkText" gutterBottom> */}
-            <p style={{ marginLeft: "10px", lineHeight: "1", marginTop: "0", marginBottom: "0", fontSize: "18px", paddingRight: "12px", justifyContent: "left", alignItems: "left", paddingTop: "15px" }}>{initialItemNameValue}</p>
+            <p style={{ marginLeft: "10px", lineHeight: "1", marginTop: "0", marginBottom: "0", fontSize: "18px", paddingRight: "12px", justifyContent: "left", alignItems: "left", paddingTop: "15px" }}>{itemname}</p>
             <p style={{ marginLeft: "10px", marginTop: "0", marginBottom: "0", lineHeight: "1", fontSize: "12px", paddingRight: "12px", justifyContent: "left", paddingTop: "10px" }}>ON SALE SINCE: <span style={{ fontWeight: "bold" }}>{dateItem}</span></p>
             <CardActions style={{ marginTop: "8px", alignItems:"center" }} className="prof-bottom-card-details" theme={theme}>
                 <IconButton aria-label="delete" style={{ alignItems: "center", paddingTop: "0", marginTop: "0", marginBottom:"1"}} onClick={handleOpen}>
                     <FavoriteIcon/>               
                 </IconButton>
                 {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}
-                <Button style={{alignItems:"center", color: "black", border: ".8px solid black", marginBottom:"10px"}}>VIEW DETAILS</Button>
+                <Button style={{alignItems:"center", color: "black", marginBottom:"5px"}}>VIEW DETAILS</Button>
                 {/* <IconButton aria-label="edit" style={{ alignItems: "center", paddingTop: "0", marginTop: "0" }}
                     onClick={handleOpenEdit}
                 >

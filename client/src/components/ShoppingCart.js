@@ -17,25 +17,37 @@ function ShoppingCart({deleteCartItem, addCartItem, setCartValue, items, total, 
     const [cartItems, setCartItems] = useState([]);
     const [itemCount, setItemCount] = useState(0);
     // const [wasClicked, setWasClicked] = useState(false)
-    console.log(itemCount)
-    console.log(cartItems.length)
-    console.log(addedCartItems)
+    // console.log(itemCount)
+    // console.log(cartItems.length)
+    // console.log(addedCartItems)
 
     const navigate = useNavigate();
 
     useEffect(() => {
         fetch("/api/mycart")
             .then((r) => r.json())
-            .then(data => setCartItems(data))
+            .then(data => setCartItems(data.items))
         // setItemCount(itemCount)})
     }, [])
     console.log("my cart items: ", cartItems)
+
+    // const uniqueIds = [];
+
+    // const uniqueCartItems = cartItems.filter(cartItem => {
+    //     const isDuplicate = uniqueIds.includes(cartItem.id);
+
+    //     if (!isDuplicate) {
+    //         uniqueIds.push(cartItem.id);
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    // );
 
     function deleteCartItem(id) {
         const updatedCart = cartItems.filter((cartItem) => cartItem.id !== id);
         setCartItems(updatedCart);
     }
-
 
     function togglePayment() {
         setShowCheckout(showCheckout => (!showCheckout));
@@ -62,7 +74,7 @@ function ShoppingCart({deleteCartItem, addCartItem, setCartValue, items, total, 
                 itemname={item.itemname}
                 id={item.id}
                 size={item.size}
-                image={item.images_url[0]}
+                image={item.images_url}
                 price={item.price}
                 material={item.material}
                 setCartItems={setCartItems}
