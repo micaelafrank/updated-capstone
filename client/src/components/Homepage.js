@@ -70,7 +70,7 @@ export default function Homepage({
     return (
         <>
         <ThemeProvider theme={theme}>
-            {user.username ? <WithNav/> : <SpecialNavBar/>}
+            {/* {user.username ? <WithNav/> : <SpecialNavBar/>} */}
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
@@ -126,6 +126,7 @@ export default function Homepage({
                             High-quality bits and masterpieces sold, bought, and made by creatives.
                         </Typography> */}
                         {/* <Grid container> */}
+                            {user.username ? null : 
                             <Grid item sx={{margin:'auto'}}>
                                 <Button
                                     sx={{ m: 3, fontFamily: 'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize: "18px" }}
@@ -143,56 +144,11 @@ export default function Homepage({
                                 </Button>
                                 {showLogin ? (
                                     navigate("/login")
-                                    // <LogIn 
-                                    // imageNum={imageNum} 
-                                    // setImageNum={setImageNum} 
-                                    // loginImgs={loginImgs} 
-                                    // setUser={setUser} 
-                                    // user={user}
-                                    // onLogin={onLogin} 
-                                    // />
                                 ) : null }
                                 {showSignUp ? (
                                 navigate("/signup")
                                 ) : null}
-                            </Grid>
-                            {/* <Grid item sx={{ paddingTop: '10px', margin: 'auto', flexDirection: "column", display: "flex", alignItems: "center" }}>
-                                <Link onClick={renderSignUp}
-                                    style={{ fontFamily: "monospace", fontSize: "16px", alignItems: "center" }}>
-                                    Don't have an account? Sign up!
-                                </Link>
-                            </Grid> */}
-{/* 
-                            {showLogin ?
-                            <Grid item sx={{ paddingTop: '10px', margin: 'auto', flexDirection: "column", display: "flex", alignItems: "center" }}>
-                                <Link href="/signup" variant="body" style={{ fontSize: "16px", alignItems: "center" }}>
-                                    {"Don't have an account? Sign up!"}
-                                </Link>
-                            </Grid> 
-                                : <Grid item sx={{ paddingTop: '10px', margin: 'auto', flexDirection: "column", display: "flex", alignItems: "center" }}>
-                                    <Link href="/signup" variant="body" style={{ fontSize: "16px", alignItems: "center" }}>
-                                        {"Don't have an account? Sign up!"}
-                                    </Link>
-                                </Grid>}
-                            {showSignUp ? 
-                            <Grid item sx={{ paddingTop: '10px', margin: 'auto', flexDirection: "column", display: "flex", alignItems: "center" }}>
-                                <Link href="/login" variant="body" style={{ fontSize: "16px", alignItems: "center" }}>
-                                    {"Already have an account? Sign in!"}
-                                </Link>
-                            </Grid>
-                            : null} */}
-                        {/* </Grid> */}
-                        {/* <Grid container>
-                            <Grid item sx={{ margin: 'auto' }}>
-                                <Button 
-                                sx={{ m: 3, fontFamily: 'monospace', pl: 4, pr: 4, pt: 1, pb: 1, fontSize: "18px" }}
-                                onClick={() => navigate("/signup")} 
-                                variant="outlined">
-                                {"SIGN UP"}
-                                </Button>
-                                {showSignUp ? <SignUp /> : null}
-                            </Grid>
-                        </Grid> */}
+                            </Grid>}
                     </Box>
                     <Copyright sx={{ mt: 5 }} />
                 </Grid>

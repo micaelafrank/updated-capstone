@@ -13,7 +13,7 @@ import SavedContainer from './SavedContainer';
 // import Pagination from '@mui/material/Pagination';
 
 
-function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, deleteItemFromList, user, change, removeLike }) {
+function ItemsList({ handleUnlike, userLikes, setUserLikes, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, deleteItemFromList, user, change, removeLike }) {
     const [favorites, setFavorites] = useState([]);
     const [cartIcons, setCartIcons] = useState([cartItems]);
     const [items, setItems] = useState([])
@@ -26,17 +26,15 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
     }, [change])
     console.log(items)
 
-    // useEffect(() => {
-    //     fetch(`/api/user-likes-container/${user.id}`)
-    //         .then((r) => r.json())
-    //         .then(data => setUserLikes(data))
-    //     // setItemCount(itemCount)})
-    // }, [])
-    // console.log("my likes: ", userLikes)
+    useEffect(() => {
+        fetch(`/api/user-likes-container/${user.id}`)
+            .then((r) => r.json())
+            .then(data => setUserLikes(data))
+        // setItemCount(itemCount)})
+    }, [])
+    console.log("my likes: ", userLikes)
 
-    // const myLikedItems = userLikes.filter((item) => {
-    //         console.log(item.item_id === item.item.id ? "I am a liked item" : "I am not a liked item")
-    // })
+
     // console.log("my liked items filtered: ", myLikedItems)
     // function deleteItemFromList(id) {
     //     const updatedItemsList = items.filter((item) => item.id !== id);
@@ -59,12 +57,17 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
             },
         },
     });
-
-
+    const res = userLikes.filter(like => items.some(item => item.id === like.item_id));
+    const resIds = res.map((item) => item.id)
+    // const isSaved = resIds.filter((item) => item.id ===)
+    const likedIdIcon = res.map((item) => item.id)
+    console.log("res ids: ", resIds)
     const listOfItems = items.map((item) => {
         return (
             <ItemCard
                 key={item.id}
+                likedIdIcon={likedIdIcon}
+                resIds={resIds}
                 // deleteCartIcon={deleteCartIcon}
                 setCartValue={setCartValue}
                 cartItems={cartItems}
@@ -98,6 +101,25 @@ function ItemsList({ handleUnlike, setCartValue, cartItems, setCartItems, addCar
             />
         )
     })
+
+    const userLikesIds = userLikes.map((like) => like.item_id)
+    const itemIdsList = items.map((item) => item.id)
+    console.log("my likes item ids: ", userLikesIds)
+    console.log("all item ids: ", itemIdsList)
+
+
+    // function myCallBack(el) {
+    //     return likesId.indexOf(el) < 0;
+    // }
+
+    // filteredArray = listOfItems.filter(function (listOfItems_el) {
+    //     return likesId.filter(function (likesId_el) {
+    //         return likesId_el.id == listOfItems_el.id;
+    //     }).length == 0
+    // });    
+    
+    console.log("results array: ", res)
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

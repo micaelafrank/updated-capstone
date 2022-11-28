@@ -18,16 +18,14 @@ import MakePurchase from './MakePurchase';
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
 function App() {
-  const storedDarkMode = JSON.parse(localStorage.getItem("DARK_MODE"));
   const [items, setItems] = useState([]);
   const [user, setUser] = useState({});
   const [change, setChange] = useState(false);
-  const [darkMode, setDarkMode] = useState(storedDarkMode);
   const [cartItems, setCartItems] = useState([]);
   const [imageNum, setImageNum] = useState(0);
   const [userLikes, setUserLikes] = useState([]);
-  // const [showLogin, setShowLogin] = useState(false);
-  // const [showSignUp, setShowSignUp] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
 
   const loginImgs = [
     "https://static.zarahome.net/8/photos4/2022/I/4/1/p/2130/005/500/2130005500_2_7_2.jpg?t=1665749355836&imwidth=985&imformat=chrome",
@@ -154,22 +152,17 @@ function App() {
   //   setIsAddedCart(isAddedCart => (!isAddedCart))
   // }
 
-
-  useEffect(() => {
-    localStorage.setItem("DARK_MODE", darkMode);
-  }, [darkMode]);
-
   if (!user) return <Homepage />;
 
   return (
-    <div className={darkMode ? "App dark" : "App"}>
+    <div>
       <div className="h-auto dark:bg-slate-900" >
         <Routes>
           {/* <Route path="/" element={<Homepage />} /> */}
-          <Route path="/login" element={<LogIn imageNum={imageNum} setImageNum={setImageNum} loginImgs={loginImgs} onLogin={onLogin} setUser={setUser} user={user} />} />
-          <Route path="/signup" element={<SignUp imageNum={imageNum} setImageNum={setImageNum} loginImgs={loginImgs} user={user} onSignUp={setUser} />} />
-          <Route path="/" element={<Homepage imageNum={imageNum} setUser={setUser} onLogin={onLogin} onSignUp={setUser} setImageNum={setImageNum} loginImgs={loginImgs} user={user} items={items} />} />
-          <Route element={<WithNav user={user} setUser={setUser} darkMode={darkMode} setDarkMode={setDarkMode} />}>
+          <Route path="/login" element={<LogIn onLogin={onLogin} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} setUser={setUser} user={user} />} />
+          <Route path="/signup" element={<SignUp user={user} onSignUp={setUser} />} />
+          <Route path="/" element={<Homepage setUser={setUser} onLogin={onLogin} onSignUp={setUser} user={user} items={items} />} />
+          <Route element={<WithNav user={user} setUser={setUser} />}>
             {/* {user.username ? */}
               {/* :
               <Route path="/" element={<Homepage items={items} />} />
@@ -177,7 +170,7 @@ function App() {
           <Route path="/profile/:username" element={<Profile userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
-            <Route path="/buy" element={<ItemsList change={change} setChange={setChange} user={user} />} />
+          <Route path="/buy" element={<ItemsList userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} />} />
           {/* <Route path="/mysaves" element={<SavedContainer setChange={setChange} change={change} user={user} />} /> */}
           <Route path="/checkout" element={<StripeContainer total={1000} />} />

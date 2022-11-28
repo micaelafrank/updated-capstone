@@ -1,5 +1,4 @@
 class Api::SessionsController < ApplicationController
-rescue_from ActiveRecord::RecordNotFound, with: :invalid_user
     #POST for '/login'
     #finds the user data from the username and if the password matches, it 
     #saves the user information in the sessions and stays logged in.
@@ -24,10 +23,5 @@ rescue_from ActiveRecord::RecordNotFound, with: :invalid_user
         head :no_content
     end 
 
-    private
-
-    def invalid_user
-        render json: { error: 'Invalid username or password.' }, status: :unauthorized
-    end
 
 end

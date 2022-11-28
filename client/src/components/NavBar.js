@@ -18,8 +18,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-
-const pages = ['SELL', 'BUY', 'PROFILE', 'LOGOUT'];
+const pages = ['ABOUT', 'SELL', 'BUY', 'PROFILE', 'LOGOUT'];
 
 
 function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
@@ -29,7 +28,8 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
         palette: {
             primary: {
                 // Purple and green play nicely together.
-                main: '#efd6ed',
+                main: brown[500],
+                // main: '#efd6ed',
                 darker: '#bca5bb',
             },
             secondary: {
@@ -44,7 +44,7 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
         fetch("/api/logout", { method: "DELETE" }).then((r) => {
             if (r.ok) {
                 setUser({});
-                navigate("/login")
+                navigate('/login')
             }
         });
     }
@@ -74,7 +74,7 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                             fontWeight: 600,
                             fontSize: '1.6rem',
                             letterSpacing: '.17rem',
-                            color: 'inherit',
+                            color: 'white',
                             textDecoration: 'none',
                         }}
                     >
@@ -133,6 +133,13 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                         LOGO
                     </Typography> */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                        <Button
+                            className='navButtonOption'
+                            onClick={() => navigate('/')}
+                            sx={{ my: 2, color: "white", display: 'block', marginRight: "2em", marginLeft: "1em" }}
+                        >
+                            ABOUT
+                        </Button>
                             <Button
                             className='navButtonOption'
                             onClick={() => navigate('/sell')}
@@ -164,22 +171,6 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                             <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
                             <ShoppingCartIcon/>
                         </Button>
-                             {/* : 
-                            (<>
-                            <Button 
-                            sx={{ alignItems: 'right', my: 2, color: 'white', float: 'right', border: '1px solid white', marginLeft: '25px', marginRight: "2em", padding: '10px', display: 'block' }}
-                            onClick={() => navigate('/login')}
-                            >
-                                LOGIN
-                            </Button>
-                            <Button
-                                onClick={() => navigate('/signup')}
-                                sx={{ alignItems: 'right', my: 2, color: 'white', float: 'right', border: '1px solid white', marginLeft: '25px', marginRight: "2em", padding: '10px', display: 'block' }}
-                            >
-                                SIGN UP
-                            </Button>
-                            </>)
-                        } */}
                     </Box>
                     {/* {user.username ?  */}
                     <Box sx={{ flexGrow: 0, display:"flex", textAlign: 'center', alignItems: 'center'}}>
@@ -188,35 +179,12 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                             onClick={handleLogout}>
                             LOGOUT
                         </Button>
-                        <IconButton style={{ color: "white" }} onClick={() => navigate('/')}>
+                        {/* <IconButton style={{ color: "white" }} onClick={() => navigate('/login')}>
                             <LogoutIcon />
-                        </IconButton>
-                        {/* <IconButton
-                            onClick={openShoppingCart}
-                            style={{color:'white', paddingRight:'2em'}}
-                        >
-                            <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
-                            <ShoppingCartIcon/>
                         </IconButton> */}
-                        {/* <div className="cursor-pointer duration-200 hover:text-red-500 absolute right-8 dark:text-slate-400 dark:hover:text-slate-200"> */}
                         <IconButton style={{ color: "white" }} onClick={() => navigate('/')}>
                             <HomeIcon/>
                         </IconButton>
-
-                        <IconButton style={{color:"white"}} onClick={() => setDarkMode(!darkMode)}>
-                            {darkMode ? <LightModeIcon/> : <DarkModeIcon/> }
-                        </IconButton>
-                            {/* <button onClick={() => setDarkMode(!darkMode)} >
-                                {darkMode ? 
-                                    <IconButton>
-                                        <LightModeIcon/>
-                                    </IconButton>
-                                     : 
-                                    <IconButton>
-                                        <DarkModeIcon />
-                                    </IconButton>
-                                    }
-                            </button> */}
                     </Box> 
                     {/* : null} */}
                 </Toolbar>

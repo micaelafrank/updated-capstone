@@ -25,12 +25,19 @@ class Api::SavedItemsController < ApplicationController
 
     def create
         saves = SavedItem.create!(saveditem_params)
-        render json: saves, status: 201
+        render json: saves, status: 201, include: items
     end
   
     def destroy
-        saved_item = SavedItem.where(item_id: params[:id]).destroy_all        
-        saved_item.destroy
+        saved_item = @current_user.saved_items.find(params[:item_id])
+        if favorite.destroy
+            flash[:notice] = "Post unfavorited."
+        else
+            flash[:alert] = "Unfavoriting failed."
+        end
+        # saved_item = SavedItem.find(item_id: params[:id])
+        # saved_item.destroy_all        
+        # saved_item.destroy
         # byebug
     end
 

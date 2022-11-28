@@ -24,7 +24,8 @@ import EditCard from './EditCard';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ myLikedItem, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ myLikedItem, userLikes, resIds, likedIdIcon, res, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+    const [hearts, setHearts] = useState(resIds);
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -34,20 +35,30 @@ function ItemCard({ myLikedItem, sold_by, show, addCartItem, deleteItemFromList,
     const [itemNameState, setItemNameState] = useState("");
     const [editNameState, setEditNameState] = useState(false);
     const [initialItemNameValue, setInitialItemNameValue] = useState(itemname);
-    // const [initialHeartValue, setInitialHeartValue] = useState(clickedHeart);
+    const [initialHeartValue, setInitialHeartValue] = useState(clickedHeart);
     // const [editHeartState, setEditHeartState] = useState(false);
-    const [initialCartValue, setInitialCartValue] = useState(inCartIcon);
+    const [initialCartValue, setInitialCartValue] = useState(isFavorite);
     const [editCartState, setEditCartState] = useState(false);
     const [descriptionState, setDescriptionState] = useState("");
     const [editDescriptionState, setEditDescriptionState] = useState(false);
     const [initialDescriptionValue, setInitialDescriptionValue] = useState(description);
     const [isAddedCart, setIsAddedCart] = useState(false);
     const [wasClicked, setWasClicked] = useState(false)
-    const [isSaved, setIsSaved] = useState(false)
+    const [isSaved, setIsSaved] = useState(false);
     const [inCart, setInCart] = useState(false)
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
 
+
+//     const setLikeButtons = () => hearts.filter(heart => {
+//         if (heart === item.id) {
+//             setIsSaved(true);
+//         } else{
+//             setIsSaved(false);
+//     }
+// })
+            
+    console.log(likedIdIcon)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -113,7 +124,8 @@ function ItemCard({ myLikedItem, sold_by, show, addCartItem, deleteItemFromList,
             body: JSON.stringify(newFavoriteItem),
         })
         .then(res => res.json())
-        .then(setIsSaved(isSaved => (!isSaved)))
+        .then(data => setIsSaved(data))
+        // .then(setIsSaved(isSaved => (!isSaved)))
         // setIsFavorite(true);
         setChange(!change);
     }
@@ -209,8 +221,8 @@ function ItemCard({ myLikedItem, sold_by, show, addCartItem, deleteItemFromList,
                 </CardContent>
                 <CardActions className="bottom-card-details" theme={theme}>
                 {user.id === item.user_id ? null :
-                <IconButton onClick={isSaved ? handleUndoHeart : handleFillHeart}>
-                    {isSaved ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                <IconButton onClick={initialHeartValue ? handleUndoHeart : handleFillHeart}>
+                {isSaved ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                 </IconButton>}
                 {user.id === item.user_id ?
                 <IconButton aria-label="delete" onClick={handleOpen}>

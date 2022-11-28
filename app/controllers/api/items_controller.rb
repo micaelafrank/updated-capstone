@@ -4,7 +4,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
 
     def index 
         items = Item.order(id: :desc)
-        render json: items 
+        render json: items
     end
 
     def show
@@ -36,7 +36,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     # item.images.attach(params[:images])
     # @item.images.attach(io: File.open('/path/to/file'), filename: 'file.pdf')
     # url_for(@item.images)
-    
+
     def add_images
         item = Item.find(params[:id])
         item.images.attach(params[:images])

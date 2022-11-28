@@ -105,20 +105,31 @@ const SpecialNavBar = ({ user, setUser, setDarkMode, darkMode }) => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {/* {pages.map((page) => (
-                                <MenuItem key={page}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))} */}
                         </Menu>
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
+                            onClick={() => navigate('/')}
                             className='navButtonOption'
                             sx={{ my: 2, color: 'white', display: 'block', marginLeft: "2em" }}
                         >
                             ABOUT
                         </Button>
+                        <Button
+                            onClick={() => navigate('/login')}
+                            className='navButtonOption'
+                            sx={{ my: 2, color: 'white', display: 'block', marginLeft: "2em" }}
+                        >
+                            LOGIN
+                        </Button>
+                        <Button
+                            onClick={() => navigate('/signup')}
+                            className='navButtonOption'
+                            sx={{ my: 2, color: 'white', display: 'block', marginLeft: "2em" }}
+                        >
+                            SIGN UP
+                        </Button>
+
                     </Box>
                     <IconButton style={{ color: "white" }} onClick={() => navigate('/')}>
                         <HomeIcon />

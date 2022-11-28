@@ -16,11 +16,11 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :show, :index, :update, :destroy] 
     resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
     resources :user_carts, only: [:index, :show, :create]
+    resources :saved_items, only: [:show, :create, :destroy, :delete]
     resources :user_likes_container, only: [:index, :create]
     resources :user_likes_container, only: [:show] do
       resources :saved_items, only: [:index, :show]
     end
-    resources :saved_items, only: [:show, :create, :destroy, :delete]
 
     # resources :admin_access_only, only: [:update, :destroy]
 
