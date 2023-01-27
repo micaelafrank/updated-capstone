@@ -66,7 +66,7 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                     <Typography
                         noWrap
                         component="a"
-                        href="/"
+                        href="/about"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },

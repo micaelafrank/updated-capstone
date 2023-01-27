@@ -41,10 +41,6 @@ function EditCard({ imageState, setImageState, initialImageValue, setInitialImag
     // const [editDescriptionState, setEditDescriptionState] = useState(false);
     // const [initialDescriptionValue, setInitialDescriptionValue] = useState(item.description);
 
-    // function handleImages(e) {
-    //     console.log(e.target.files[0])
-    //     setImageState(e.target.files[0])
-    // }
 
     const formData = new FormData();
     formData.append('image', images_url);
