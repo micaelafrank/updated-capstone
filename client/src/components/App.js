@@ -160,8 +160,8 @@ function App() {
         <Routes>
           {/* <Route path="/" element={<Homepage />} /> */}
           <Route path="/login" element={<LogIn onLogin={onLogin} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} setUser={setUser} user={user} />} />
-          <Route path="/signup" element={<SignUp user={user} onSignUp={setUser} />} />
-          <Route path="/about" element={<Homepage setUser={setUser} onLogin={onLogin} onSignUp={setUser} user={user} items={items} />} />
+          <Route path="/signup" element={<SignUp user={user} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} onSignUp={setUser} />} />
+          <Route path="/" element={<Homepage loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} setUser={setUser} onLogin={onLogin} onSignUp={setUser} user={user} items={items} />} />
           <Route element={<WithNav user={user} setUser={setUser} />}>
             {/* {user.username ? */}
               {/* :

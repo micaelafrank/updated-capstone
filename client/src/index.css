@@ -320,6 +320,7 @@ textarea {
   font-weight: 300;
 }
 
+
 input:focus,
 textarea:focus {
   -moz-box-shadow: none !important;
@@ -363,6 +364,10 @@ button:focus {
   border-top: 1px lightgray solid;
   margin-top: 10px;
   padding-top: 10px;
+}
+
+#signUpButton:hover{
+  font-weight: bold;
 }
 
 

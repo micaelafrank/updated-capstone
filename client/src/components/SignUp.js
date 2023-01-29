@@ -45,9 +45,11 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
     const handleClickShowPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
     // const handleMouseDownPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
 
+
     useEffect(() => {
         setImageNum(Math.floor(Math.random() * 26));
     }, []);
+
 
     function handleImages(e) {
         setImages(e.target.files[0])
@@ -278,7 +280,7 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                                     </FormHelperText>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} sm={6} spacing={2}>
                                 <FormControl>
                                     <InputLabel sx={{ fontFamily: "monospace" }} htmlFor='my-input' >
                                         PASSWORD
@@ -310,6 +312,7 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                                     </FormHelperText>
                                 </FormControl>
                             </Grid>
+                            <br></br>
                             <Grid item xs={12} sm={6}>
                                 <FormControl>
                                     <InputLabel sx={{ fontFamily: "monospace" }} htmlFor='my-input' >
@@ -343,13 +346,14 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                                     </FormHelperText>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={12}>
-                                <InputLabel>Upload Image:</InputLabel>
+                            <Grid style={{paddingTop:"25px", marginLeft:"10px"}} item xs={12}>
+                                <InputLabel style={{fontFamily:"monospace"}}>UPLOAD PROFILE PHOTO:</InputLabel>
                                 <input
                                     type="file"
                                     id="file"
                                     name="file"
                                     multiple
+                                    style={{border:"none", fontFamily:"monospace"}}
                                     accept="image/*"
                                     onChange={handleImages}
                                 />
@@ -364,15 +368,16 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                             }}>
                             <Button
                                 type="submit"
+                                id="signUpButton"
                                 variant="contained"
-                                sx={{ alignItems: "center", justifyContent: "center", color: "white", m: 3, mt:5, fontFamily: 'monospace', pl: 4, pr: 4, pt: 2, pb: 2, fontSize: "15px" }}
+                                sx={{ alignItems: "center", justifyContent: "center", color: "white", m: 3, mt:5, fontFamily: 'monospace', pl: 6, pr: 6, pt: 1.5, pb: 1.5, fontSize: "15px" }}
                             >
                                 SIGN UP
                             </Button>
                         </Grid>
                         <Grid item sx={{ paddingTop: '10px', margin: 'auto', flexDirection: "column", display: "flex", alignItems: "center" }}>
                             <Link onClick={() => navigate("/login")}
-                                style={{ fontFamily: "monospace", fontSize: "16px", alignItems: "center" }}>
+                                style={{ cursor:"pointer", fontFamily: "monospace", fontSize: "16px", alignItems: "center" }}>
                                 Already have an account? Sign in!
                             </Link>
                         </Grid>

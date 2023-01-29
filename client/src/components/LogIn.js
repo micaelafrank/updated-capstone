@@ -232,7 +232,8 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
                         </Box>
 
                         <Grid item sx={{ paddingTop: '10px', margin: 'auto', flexDirection: "column", display: "flex", alignItems: "center" }}>
-                            <Link onClick={() => navigate("/signup")}
+                            <Link sx={{cursor: "pointer"}}
+                            onClick={() => navigate("/signup")}
                                 style={{ fontFamily: "monospace", fontSize: "16px", alignItems: "center" }}>
                                 Don't have an account? Sign up!
                             </Link>
