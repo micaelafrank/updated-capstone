@@ -163,6 +163,7 @@ function App() {
           <Route path="/login" element={<LogIn onLogin={onLogin} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} setUser={setUser} user={user} />} />
           <Route path="/signup" element={<SignUp user={user} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} onSignUp={setUser} />} />
           <Route path="/" element={<Homepage loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} setUser={setUser} onLogin={onLogin} onSignUp={setUser} user={user} items={items} />} />
+          <Route path="/about" element={<About user={user} />} />
           <Route element={<WithNav user={user} setUser={setUser} />}>
             {/* {user.username ? */}
               {/* :
@@ -173,7 +174,6 @@ function App() {
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/buy" element={<ItemsList userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} user={user} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} />} />
-          <Route path="/about" element={<About />} />
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           <Route path="/payment" element={<MakePurchase />} />
         </Route>

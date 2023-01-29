@@ -290,6 +290,14 @@ textarea#my-input {
   line-height: 1;
 }
 
+textarea#my-item-input{
+    border: none;
+    font-size: 14px;
+    border-bottom: 1px solid black;
+    border-radius: none;
+    text-align: left;
+}
+
 .label{
   font-family: monospace;
   text-align: center;

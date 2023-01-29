@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { createTheme } from '@mui/material'
-
+import { brown } from '@mui/material/colors';
 
 
 function NewItemForm({ user, addNewItem, setUser }) {
@@ -20,7 +20,7 @@ function NewItemForm({ user, addNewItem, setUser }) {
     const [material, setMaterial] = useState("")
     const [size, setSize] = useState("")
     const [condition, setCondition] = useState("")
-    const [category, setCategory] = useState("")
+    const [category, setCategory] = useState("DEFAULT")
     const [errors, setErrors] = useState([]);
 
     const theme = createTheme({
@@ -38,6 +38,11 @@ function NewItemForm({ user, addNewItem, setUser }) {
             },
         },
     });
+    const veryDarkBrown = brown[500];
+    const darkBrown = brown[300];
+    const mainBrown = brown[200];
+    const lightBrown = brown['A100'];
+
 
     const navigate = useNavigate();
 
@@ -80,122 +85,85 @@ function NewItemForm({ user, addNewItem, setUser }) {
 
 
     return (
-        <div className='form-box'>
-            <h5 className='form-box-h5'> Page {page} of 3</h5>
-            <form onSubmit={handleSubmit}>
+        <div className='form-box' style={{alignItems:"center", marginLeft:"auto", marginRight:"auto", justifyContent:"center"}}>
+            <form style={{marginLeft:"15px", marginBottom:"20px", alignItems:"center", width:"760px"}} onSubmit={handleSubmit}>
                 {page === 1 ? (  
-                    <div className='field1'>
-                        <h1>Sell An Item</h1>
-                        <label className='label'>
-                            Please fill in all required fields to list your item.
-                        </label>
-                        <p>Complete all of the steps below</p>
-                        <FormControl>
-                            <InputLabel htmlFor='my-input' >
-                                Item Name </InputLabel>
+                    <div className='field1' style={{ display: "flex", flexDirection: "column", marginLeft: "auto", marginRight: "auto" }}>
+                        <h1 style={{ textAlign: "center", fontSize: "35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "normal", color: veryDarkBrown, marginBottom: "0" }}>SELL YOUR GOODS</h1>
+                        <p style={{ textAlign: "center", fontSize: "16px", paddingBottom: "10px", color: veryDarkBrown }}>TO LIST AN ITEM FOR SALE, ALL SECTIONS MUST BE FILLED OUT</p>
+                        <h5 style={{ marginLeft: "15px" }} className='form-box-h5'> Page {page} of 2</h5>
+                        <div style={{ width: "100%", height: "120px", justifyContent: "space-around", display: "flex", flexDirection: "row" }}>
+                        <FormControl sx={{mr: 4}}>
+                            <InputLabel htmlFor='my-input' style={{fontFamily:"monospace"}}>
+                                Item Name  </InputLabel>
                             <Input
                                 id="my-input"
+                                required
                                 aria-describedby='my-helper-text'
                                 name="itemname"
                                 onChange={(e) => setItemName(e.target.value)}
                                 value={itemname}
                             />
-                            <FormHelperText id='my-helper-text'
+                            <FormHelperText style={{ fontFamily: "Roboto, Helvetica,Arial, sans-serif"}} id='my-helper-text'
                             >
-                                What are you selling?
+                                (EX: ACRYLIC PAINTING, KNIT SCARF, BOYFRIEND JEANS)
                             </FormHelperText>
                         </FormControl>
 
                         <FormControl>
-                            <InputLabel htmlFor='my-input' >
+                            <InputLabel htmlFor='my-input' style={{ fontFamily: "monospace" }}>
                                 Price</InputLabel>
                             <Input
                                 id="my-input"
                                 aria-describedby='my-helper-text'
                                 name="price"
+                                required
                                 value={price}
                                 onChange={(e) => setPrice(e.target.value)}
                             />
-                            <FormHelperText id='my-helper-text'
+                            <FormHelperText id='my-helper-text' style={{ padding:"0px 10px", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}
                             >
-                                How much does your item cost?</FormHelperText>
+                                HOW MUCH DOES YOUR ITEM COST?</FormHelperText>
                         </FormControl>
-                        <br></br>
-                        <FormControl>
-                            <InputLabel htmlFor='my-input'
-                            >
-                                Description</InputLabel>
-                            <Input
-                                id="my-input"
-                                aria-describedby='my-helper-text'
-                                name="description"
-                                onChange={(e) => setDescription(e.target.value)}
-                                value={description}
-                            />
-                            <FormHelperText id='my-helper-text'
-                            >
-                                Write a description to accompany your listing. Feel free to expand on an item's fit, its origin story, a brand, etc.
-                            </FormHelperText>
-                        </FormControl>
-                        <br ></br>
-                        <FormControl>
-                            <InputLabel htmlFor='my-input' >
+                        </div>
+                        <div style={{ width: "100%", height:"120px", justifyContent:"space-around", display:"flex", flexDirection:"row" }}>
+                        <FormControl sx={{ mr: 4 }}>
+                            <InputLabel htmlFor='my-input' style={{ fontFamily: "monospace" }} >
                                 Color </InputLabel>
                             <Input
                                 id="my-input"
                                 aria-describedby='my-helper-text'
                                 name="color"
+                                required
                                 value={color}
                                 onChange={(e) => setColor(e.target.value)}
                             />
-                            <FormHelperText id='my-helper-text'
+                            <FormHelperText id='my-helper-text' style={{ padding: "0px 15px", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}
                             >
-                                What color is it?</FormHelperText>
+                                WHAT COLOR IS IT?</FormHelperText>
                         </FormControl>
-                        <br></br>
-                        <button
-                        type="button"
-                        onClick={(() => setPage(page - 1))}
-                        >
-                        BACK
-                        </button>
-                        <button
-                        type="button"
-                        onClick={() => setPage((page) => page + 1)}
-                        >
-                        NEXT
-                        </button>
-                    </div>) : null}
-            </form>
-
-            {page === 2 ? (
-                <>
-                    <div>
-                        <h1>Sell An Item</h1>
-                        <label>
-                            You're almost there!
-                        </label>
-                        <p>It's all in the details</p>
-                        <FormControl>
-                            <InputLabel htmlFor='my-input' >
-                                Material</InputLabel>
+                        <FormControl sx={{ mr: 2 }}>
+                            <InputLabel htmlFor='my-input' style={{ fontFamily: "monospace" }}>
+                                Material </InputLabel>
                             <Input
                                 id="my-input"
+                                required
                                 aria-describedby='my-helper-text'
                                 name="material"
                                 value={material}
                                 onChange={(e) => setMaterial(e.target.value)}
                             />
-                            <FormHelperText id='my-helper-text'
+                            <FormHelperText id='my-helper-text' style={{ padding: "0px 15px", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}
                             >
-                                What material is it?
+                                WHAT MATERIAL IS IT? 
                             </FormHelperText>
                         </FormControl>
                         <FormControl>
-                            <InputLabel htmlFor='my-input' >
-                                Condition</InputLabel>
+                            <InputLabel htmlFor='my-input' style={{ fontFamily: "monospace" }}>
+                                Condition </InputLabel>
                             <Input
                                 id="my-input"
+                                required
                                 aria-describedby='my-helper-text'
                                 name="condition"
                                 value={condition}
@@ -203,26 +171,31 @@ function NewItemForm({ user, addNewItem, setUser }) {
                             />
                             <FormHelperText id='my-helper-text'
                             >
-                                Specify the item's condition (New, Good, Average, Used, etc.)
+                                (EX: NEW, GOOD, AVERAGE, USED)
                             </FormHelperText>
                         </FormControl>
-                        <br></br>
-                        <FormControl
-                            style={{ marginTop: "3em" }}
-                        >
-                            <InputLabel htmlFor='my-input' >
+                        </div>
+                        <div style={{ width: "100%", height: "120px", justifyContent: "space-around", display: "flex", flexDirection: "row" }}>
+                        <FormControl sx={{mr: 4}}>
+                            {/* <InputLabel style={{fontFamily:"monospace", marginTop:"10px"}} htmlFor='my-input' >
                                 Category
-                            </InputLabel>
-                            <FormHelperText id='my-helper-text'
+                            </InputLabel> */}
+                            <FormHelperText id='my-helper-text' style={{ fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}
                             >
-                                Select a category to filter size options.
+                                SELECT A CATEGORY TO FILTER SIZE OPTIONS
                             </FormHelperText>
                             <Select
                                 id="my-input"
+                                required
                                 aria-describedby='my-helper-text'
+                                style={{height:"45%"}}
+                                defaultValue={'DEFAULT'}
+                                label="Category"
+                                name="category"
                                 value={category}
                                 onChange={(e) => setCategory(e.target.value)}
                             >
+                                <MenuItem value="DEFAULT">Category </MenuItem>
                                 <MenuItem value="mClothing">Men's Clothing</MenuItem>
                                 <MenuItem value="wClothing">Women's Clothing</MenuItem>
                                 <MenuItem value="uClothing">Unisex Clothing</MenuItem>
@@ -233,38 +206,77 @@ function NewItemForm({ user, addNewItem, setUser }) {
                                 <MenuItem value="art">Art</MenuItem>
                                 <MenuItem value="other">Other</MenuItem>
                                 <MenuItem value="na">N/A</MenuItem>
-                            </Select> 
-                        </FormControl>  
-                        <FormControl
-                        style={{ marginTop: "3em" }}
-                        >
-                            <InputLabel htmlFor='my-input' >
-                                Size</InputLabel>
+                            </Select>
+                        </FormControl>
+                        <FormControl>
+                            <InputLabel htmlFor='my-input' style={{fontFamily:"monospace"}} >
+                                Size </InputLabel>
                             <Input
                                 id="my-input"
                                 aria-describedby='my-helper-text'
                                 name="size"
                                 value={size}
+                                required
                                 onChange={(e) => setSize(e.target.value)}
+                            />
+                            <FormHelperText id='my-helper-text' style={{ fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}
+                            >
+                                WHAT IS THE ITEM'S SIZE AND/OR DIMENSIONS?
+                            </FormHelperText>
+                        </FormControl>
+                        </div>
+                        <div style={{marginLeft:"5px", width:"100%", display:"flex", flexDirection:"row", justifyContent:"flex-end"}}>
+                            {/* <button
+                            type="button"
+                            style={{ cursor:"pointer", fontSize:"15px", marginLeft:"20px", marginTop:"15px", border:"1px solid black", borderRadius:"3px", letterSpacing:"1.2px", backgroundColor: veryDarkBrown, marginRight:"30px", padding:"9px 20px", color: "white"}}
+                            onClick={(() => setPage(page - 1))}
+                            >
+                            BACK
+                            </button> */}
+                            <button
+                            type="button"
+                            style={{ cursor:"pointer", marginTop: "15px", marginRight:"30px", fontSize: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
+                            onClick={() => setPage((page) => page + 1)}
+                            >
+                            NEXT
+                            </button>
+                        </div>
+                    </div>) : null}
+            {/* </form> */}
+
+            {page === 2 ? (
+                <>
+                    <div className='field1' style={{display:"flex", flexDirection:"column", marginLeft:"auto", marginRight:"auto"}}>
+                        <h1 style={{ textAlign:"center", fontSize:"35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "normal", color:veryDarkBrown, marginBottom:"0" }}>SELL YOUR GOODS</h1>
+                        <p style={{ textAlign: "center", fontSize:"16px", paddingBottom: "10px", color:veryDarkBrown }}>IT'S ALL IN THE DETAILS.</p>
+                        <h5 style={{ marginLeft: "15px" }} className='form-box-h5'> Page {page} of 2</h5>
+                        <div style={{ width: "100%", height: "120px", justifyContent:"center", textAlign:"left"}}>
+                        <FormControl>
+                            <InputLabel htmlFor='my-input' style={{ fontFamily: "monospace" }}
+                            >
+                                Description </InputLabel>
+                            <Input
+                                id="my-input"
+                                style={{textAlign:"left"}}
+                                aria-describedby='my-helper-text'
+                                name="description"
+                                required
+                                onChange={(e) => setDescription(e.target.value)}
+                                value={description}
                             />
                             <FormHelperText id='my-helper-text'
                             >
-                                Item's size and/or dimensions
+                                EXPAND ON AN ITEM'S FIT, ORIGIN STORY, BRAND NAME, ETC.
                             </FormHelperText>
-                        </FormControl>             
-                        <br></br>
-                        <FormControl
-                        style={{ marginTop: "3em" }}
-                        >
+                        </FormControl>
+                        </div>
+                        <div style={{ width: "100%", height: "120px"}}>
+                        <FormControl>
                             <InputLabel
-                                style={{ marginBottom: "1em" }}
+                                style={{ position:"relative", fontFamily:"monospace" }}
                                 htmlFor='my-input' >
-                                Upload Photo
+                                Upload an image 
                             </InputLabel>
-                            <FormHelperText id='my-helper-text'
-                            >
-                                Show off your item!
-                            </FormHelperText>
                             <Input
                             type="file"
                             id="file"
@@ -272,56 +284,36 @@ function NewItemForm({ user, addNewItem, setUser }) {
                             multiple
                             accept="image/*"
                             onChange={handleImages}
-                            style={{ marginTop: "2em" }}
+                            style={{ alignItems:"left", marginTop: "2em", paddingLeft:"20px", paddingRight: "330px", }}
                             />
+                            <FormHelperText id='my-helper-text' style={{ textAlign:"left", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}>
+                                SHOW OFF YOUR ITEM
+                            </FormHelperText>
                         </FormControl>
-                        <br></br>
-                        <br></br>
-                        <button
-                        type="button"
-                        onClick={() => setPage((page) => page - 1)}
-                        >
-                            BACK
-                        </button>
-                        <button
-                        className="nextBtn"
-                        type="button"
-                        onClick={() => setPage((page) => page + 1)}
-                        >
-                            NEXT
-                        </button>
-                    </div>
-                </>
-            ) : null}
-
+                        </div>
+                        <div style={{ marginTop:"10px", marginLeft: "5px", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                            <button
+                            type="button"
+                            style={{ cursor: "pointer", fontSize: "15px", marginLeft: "20px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
+                            onClick={() => setPage((page) => page - 1)}
+                            >
+                                BACK    
+                            </button>
+                            <button
+                            style={{ cursor: "pointer", fontSize: "15px", marginLeft: "20px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
+                            className="nextBtn"
+                            type="submit"
+                            // onClick={() => setPage((page) => page + 1)}
+                            >
+                                SUBMIT
+                            </button>
+                        </div>
+                        </div>
+                    </>
+                ) : null}
             {/* PAGE THREE  */}
             {/* <div> */}
-            {page === 3 ?
-             <>
-                <div className='field1'>
-                    <h1>Sell An Item</h1>
-                    <label className='label'>
-                        Everything look good?
-                    </label>
-                    <p>Confirm your info in order to list your item</p>
-                    <br></br>
-                <div style={{border: "1px solid black", width: "30%", height: "200px", marginLeft: "20px", padding: "30px"}}>
-                    <p>PREVIEW</p>
-                </div>
-                <br></br>
-                <button
-                type="button"
-                onClick = {() => setPage((page) => page - 1)}
-                >
-                BACK
-                </button>
-                <button
-                type="submit"
-                >
-                    LOOKS GOOD!
-                </button>                
-            </div>
-        </> : null}
+        </form>
         </div>
     )}
 

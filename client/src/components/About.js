@@ -5,8 +5,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { brown } from '@mui/material/colors';
 import { Container } from '@mui/material';
 import { Box } from '@mui/material';
+import WithNav from './WithNav';
+import SpecialNavBar from './SpecialNavBar';
 
-function About(){
+
+function About({ user }){
     const theme = createTheme({
         palette: {
             primary: {
@@ -22,7 +25,9 @@ function About(){
     });
 
     return(
+    <>
     <ThemeProvider theme={theme}>
+        {user.username ? <WithNav /> : <SpecialNavBar />}
         <Container component="main">
             <CssBaseline />
                 <Box>
@@ -31,7 +36,7 @@ function About(){
                         GOOD GOODS
                     </Typography>
                     <Typography component="h1" variant="h5"
-                     sx={{ ml: 3, mr: 3, mb:5, color: "primary", fontFamily: 'monospace', pt: 2, textAlign: "center", lineHeight: 1.6, fontSize: "24px" }}>
+                     sx={{ ml: 3, mr: 3, mb:2, color: "primary", fontFamily: 'monospace', pt: 2, textAlign: "center", lineHeight: 1.6, fontSize: "24px" }}>
                         SUSTAINABLE SHOPPING YOU CAN FEEL <span style={{ color: "primary.main", fontWeight: 'bold' }}>GOOD</span> ABOUT 
                     </Typography>
                     <Typography component="h1" variant="h5"
@@ -58,6 +63,7 @@ function About(){
                 </Box>
             </Container>
         </ThemeProvider >
+    </>
     )
 }
 
