@@ -66,7 +66,7 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                     <Typography
                         noWrap
                         component="a"
-                        href="/about"
+                        href="/"
                         sx={{
                             mr: 2,
                             display: { xs: 'none', md: 'flex' },
@@ -135,7 +135,7 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
                             className='navButtonOption'
-                            onClick={() => navigate('/')}
+                            onClick={() => navigate('/about')}
                             sx={{ my: 2, color: "white", display: 'block', marginRight: "2em", marginLeft: "1em" }}
                         >
                             ABOUT

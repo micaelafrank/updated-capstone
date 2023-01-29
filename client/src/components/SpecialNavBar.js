@@ -109,7 +109,7 @@ const SpecialNavBar = ({ user, setUser, setDarkMode, darkMode }) => {
                     </Box>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
-                            onClick={() => navigate('/')}
+                            onClick={() => navigate('/about')}
                             className='navButtonOption'
                             sx={{ my: 2, color: 'white', display: 'block', marginLeft: "2em" }}
                         >
