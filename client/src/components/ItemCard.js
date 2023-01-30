@@ -26,7 +26,7 @@ import { useNavigate } from 'react-router-dom';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ myLikedItem, userLikes, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ myLikedItem, category, userLikes, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -223,7 +223,8 @@ function ItemCard({ myLikedItem, userLikes, sold_by, show, addCartItem, deleteIt
                 </div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent:"space-between" }}>
                     <div className="descriptionInfoEdit">
-                        <span>{initialDescriptionValue}</span>
+                        <span>SIZE {size}, {material}</span>
+                        {/* <span>{initialDescriptionValue}</span> */}
                     </div>
                 </div>
                 </CardContent>
@@ -256,7 +257,8 @@ function ItemCard({ myLikedItem, userLikes, sold_by, show, addCartItem, deleteIt
                     {wasClicked ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
                 </IconButton>}
                 {/* {moreInfo ? () => navigate(`/buy/${item.id}`) : null} */}
-                { moreInfo ? <ItemDetails item_id={item_id} items={items} setItems={setItems} moreInfo={moreInfo} handleMoreInfo={handleMoreInfo} handleCloseMoreInfo={handleCloseMoreInfo} item={item} id={id} itemname={itemname} price={price} color={color} material={material} condition={condition} size={size} description={description} images_url={images_url}
+                {moreInfo ? <ItemDetails wasClicked={wasClicked} initialCartValue={initialCartValue} ShoppingCartIcon={ShoppingCartIcon} AddShoppingCartIcon={AddShoppingCartIcon} inCartIcon={inCartIcon} renderUserCartItem={renderUserCartItem}
+                user={user} initialHeartValue={initialHeartValue} isSaved={isSaved} handleUndoHeart={handleUndoHeart} handleFillHeart={handleFillHeart} FavoriteIcon={FavoriteIcon} FavoriteBorderIcon={FavoriteBorderIcon} item_id={item_id} items={items} setItems={setItems} moreInfo={moreInfo} handleMoreInfo={handleMoreInfo} handleCloseMoreInfo={handleCloseMoreInfo} item={item} id={id} itemname={itemname} price={price} color={color} material={material} condition={condition} size={size} description={description} images_url={images_url}
                 /> 
                 : null}
                 <button 

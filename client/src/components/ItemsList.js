@@ -4,6 +4,7 @@ import ItemCard from './ItemCard';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { brown, green, deepOrange, lightGreen } from '@mui/material/colors';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -76,6 +77,7 @@ function ItemsList({ handleUnlike, userLikes, setUserLikes, setCartValue, cartIt
     const listOfItems = items.map((item) => {
         return (
             <ItemCard
+                category={item.category}
                 key={item.id}
                 clickedHeart={item.clickedHeart}
                 setCartValue={setCartValue}
@@ -121,7 +123,7 @@ function ItemsList({ handleUnlike, userLikes, setUserLikes, setCartValue, cartIt
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <main>
+            <main style={{alignItems:"center", justifyContent:"center", marginLeft:"auto", marginRight:"auto"}}>
                 {/* Hero unit */}
                 <Box
                     sx={{
@@ -135,29 +137,41 @@ function ItemsList({ handleUnlike, userLikes, setUserLikes, setCartValue, cartIt
                             component="h1"
                             variant="h2"
                             align="center"
-                            color="secondary.darker"
                             gutterBottom
+                            sx={{ paddingTop: "0", textAlign: "center", fontFamily: "monospace", marginTop: "0", textShadow: "2px 2px #c98d6d", color: "black", marginBottom: "14px" }}
                         >
-                            SHOP
+                            shop
                         </Typography>
-                        <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                            Explore all available items. 
-                        </Typography>
-                        <Stack
-                            sx={{ pt: 2 }}
-                            direction="row"
-                            spacing={3}
-                            justifyContent="center"
+                        <Typography component="h5" variant="h5" align="center" paragraph
+                            sx={{
+                            color: brown[700], fontSize:"17px", letterSpacing:"1.3", fontFamily: "Roboto, Helvetica, Arial, sans-serif" }}
                         >
-                            <Button sx={{ pt: 1.5, pb: 1.5, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" href="/sell">SELL</Button>
-                            <Button sx={{ pt: 1.5, pb: 1.5, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" href="/mysaves">SHOP SAVED ITEMS</Button>
-                            {/* <Button sx={{ bgcolor: 'secondary.main', color: 'secondary.darker' }} variant="contained"> Remove all saved items</Button> */}
-                        </Stack>
+                            <p style={{ textAlign: "center", fontSize: "20px", paddingBottom: "0", marginBottom: "7px", textShadow: "1px 1px #c98d6d", fontFamily: "monospace", color: "black" }}>good goods need a great home</p>
+                        </Typography>
+                        <Typography component="h5" variant="h5" align="center" paragraph
+                            sx={{fontSize:"17px",letterSpacing:".8px", fontFamily: "Roboto, Helvetica, sans serif", color: brown[700]}}>
+                            <p style={{fontWeight:"bold"}}>EXPLORE ALL AVAILABLE BITS AND MASTERPIECES</p>
+                        </Typography>
                     </Container>
+                    <Stack
+                        sx={{ pt: 5, mt:3, ml: 20, mr:18, mb:0, pb:0 }}
+                        direction="row"
+                        spacing={3}
+                        justifyContent="space-between"
+                    >
+                        <Button sx={{ pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText', fontFamily:"monospace" }} variant="contained" 
+                        // onClick={handleFilter}
+                        >filter items</Button>
+                        <div>
+                            <Button sx={{ mr:5, pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" href="/sell">sell</Button>
+                            <Button sx={{ pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" href="/mysaves">my liked items</Button>
+                        {/* <Button sx={{ bgcolor: 'secondary.main', color: 'secondary.darker' }} variant="contained"> Remove all saved items</Button> */}
+                        </div>
+                    </Stack>
                 </Box>
-                <Container sx={{ py: 5 }}>
+                <Container sx={{ py: 2, ml: "auto", mr:"auto", justifyContent:"center", alignItems:"center" }}>
                     {/* End hero unit */}
-                    <Grid container spacing={4}>
+                    <Grid container spacing={4} sx={{ml: "auto", mr: "auto", justifyContent:"center", alignItems:"center"}}>
                         {/* {cards.map((card) => ( */}
                         <Grid className="items-grid" >
                             {/* item xs={12} sm={6} md={4} */}

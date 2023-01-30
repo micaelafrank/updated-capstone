@@ -11,8 +11,8 @@ import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { brown } from '@mui/material/colors';
-
+import { brown, green, deepOrange, lightGreen } from '@mui/material/colors';
+import IconButton from '@mui/material/IconButton';
 
 const style = {
     position: 'absolute',
@@ -24,10 +24,10 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     pl: 4, pr: 4,
-    pt: 6, pb: 6,
+    pt: 4, pb: 6,
 };
 
-function ItemDetails({ items, setItems, moreInfo, handleCloseMoreInfo, item, id, itemname, price, color, material, condition, size, description, images_url }) {
+function ItemDetails({ user, initialHeartValue, items, isSaved, handleFillHeart, handleUndoHeart, FavoriteIcon, renderUserCartItem, inCartIcon, FavoriteBorderIcon, setItems, moreInfo, handleCloseMoreInfo, item, id, itemname, price, color, material, condition, size, description, images_url, ShoppingCartIcon, AddShoppingCartIcon, wasClicked, alreadyInCart }) {
     const [itemDetail, setItemDetail] = useState({});
     const navigate = useNavigate();
 
@@ -42,13 +42,13 @@ function ItemDetails({ items, setItems, moreInfo, handleCloseMoreInfo, item, id,
     console.log("my one item: ", itemDetail)
 
     return (
-        <Modal className="modal-container"
+        <Modal className="detail-modal-container"
             open={moreInfo}
             onClose={handleCloseMoreInfo}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box className="modal-content" sx={style}>
+            <Box className="detail-modal-content" sx={style}>
                 <Typography style={{ paddingTop: "0", textAlign: "center", fontFamily: "monospace", fontSize: "30px", marginTop: "0", textShadow: "1px 1px #c98d6d", color: "black", marginBottom: "0" }} className="modal-title1" id="modal-modal-title" variant="h6" component="h2"> 
                     {itemname}
                 </Typography>
@@ -59,39 +59,41 @@ function ItemDetails({ items, setItems, moreInfo, handleCloseMoreInfo, item, id,
                         SOLD BY: <span style={{ fontSize:"15px", letterSpacing:"1.4px", fontFamily:"monospace", fontWeight:"bold" }}>{item.sold_by}</span>
                     </div>
                 </Typography>
-
-                <div style={{ height: '300px', width: 'auto', justifyContent: 'center', display: 'flex', position: 'relative', marginLeft: '0', marginRight: '0', alignItems: 'center' }}>
+                <p style={{ margin: "0", padding: "0", color: "gray", textAlign: "center" }}><i>{material}, {color}</i></p>
+                <div style={{ justifyContent: 'center', display: 'flex', position: 'relative', marginLeft: '0', marginRight: '0', marginBottom:"20px", alignItems: 'center' }}>
                     <img
                         // onClick={addMultImages}
                         className="itemImage"
                         component="img"
                         src={images_url} alt="Image of sale item"
-                        style={{ height: '100%', justifyContent: 'center', alignItems: 'center' }}
+                        style={{ width: '300px', objectFit:"cover", objectPosition:"center", marginTop:"20px", height: 'auto', maxHeight: "300px", justifyContent: 'center', alignItems: 'center' }}
                     />
                 </div>
                 {/* LINK TO PROFILE OF SELLER AND ONLY SHOW WHAT THEY ARE SELLING IF THAT USER IS NOT THE LOGGED IN USER. DON'T SHOW PROFILE DETAILS. */}
-                <div className='modal-item-description-box'>
-                    <Typography style={{ lineHeight: "3rem" }} textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="5px" gutterBottom>
-                                <div
-                                    style={{ alignItems: "left", textAlign: "left" }}>
-                                    <span><span style={{ fontFamily: "monospace", fontSize: "14px" }}>PRICE:</span> ${price}</span>
-                                </div>
-                            {/* <Fab className="fab-edit" size="small" aria-label="edit">
-                            <EditIcon onClick={handleEditPrice} />
-                        </Fab> */}
-                        {/* </div> */}
-                    </Typography>
-                    <Typography style={{ lineHeight: "3rem" }} textAlign="center" color="secondary.darkText" fontSize=".95em" marginTop="12px" gutterBottom>
-                        {/* <div style={{ display: "flex", alignItems: "center", flexDirection: "row", marginLeft: "0", marginRight: "0" }}> */}
-                                <div
-                                    style={{ lineHeight: "1.4", marginLeft: "auto", marginRight: "auto", alignItems: "left", textAlign: "left" }}>
-                                    <span style={{}}><span style={{ fontFamily: "monospace", fontSize: "14px" }}>DESCRIPTION:</span> {description}</span>
-                                </div>
-                        {/* </div> */}
-                    </Typography>
-                </div>
-                <div className="modal-button-container" style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-                    <Button style={{fontFamily:"monospace"}} variant="secondary" id="modal1" onClick={handleCloseMoreInfo}>
+                <div className='modal-item-description-box' style={{ marginLeft: "8%", marginRight: "8%", marginTop:"25px", display: "flex", height:"auto", flexDirection: "row", justifyContent: "start", alignItems: "start", textAlign: "left" }}>
+                    {/* <div style={{display:"flex", flexDirection:"row", height:"500px", justifyContent:"space-between", alignItems:"center", textAlign:"left"}}> */}
+                        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"start", width:"80%", flexDirection: "column", margin:"0", paddingTop:"0" }}>
+                            <p style={{ marginBottom: "10px" }}><span style={{ fontFamily: "monospace", fontSize: "16px", textShadow: "1px 1px #c98d6d" }}>price:</span> ${price}</p>
+                            <p style={{ marginBottom: "10px" }}><span style={{ fontFamily: "monospace", fontSize: "16px", textShadow: "1px 1px #c98d6d" }}>size:</span> {size}</p>
+                            <p style={{ marginBottom: "10px" }}><span style={{ fontFamily: "monospace", fontSize: "16px", textShadow: "1px 1px #c98d6d" }}>description:</span> {description}</p>
+                        </div>
+                        {user.id === item.user_id ? null :
+                        <div style={{ alignItems: "right", display:"flex", marginTop:"5px", width:"20%", flexDirection: "row", marginLeft: "auto", paddingBottom:"10px", }}>
+                            <IconButton onClick={initialHeartValue ? handleUndoHeart : handleFillHeart}>
+                                {isSaved ? <FavoriteIcon sx={{ color: deepOrange[400] }} fontSize="large" /> : <FavoriteBorderIcon sx={{ color: deepOrange[400] }} fontSize="large" />}
+                            </IconButton>
+                            <IconButton
+                                onClick={wasClicked ? alreadyInCart : renderUserCartItem}
+                            // defaultValue={initialCartValue}
+                            >
+                                {wasClicked ? <ShoppingCartIcon fontSize="large" sx={{
+                                    color:"black"}} /> : <AddShoppingCartIcon sx={{color: "black" }} fontSize="large" />}
+                            </IconButton>
+                        </div>}
+                    </div>
+                {/* </div> */}
+                <div className="detail-modal-button-container" style={{ display: "flex", flexDirection: "row", alignItems: "right", justifyContent: "right" }}>
+                    <Button style={{marginTop:"25px", fontFamily:"monospace"}} variant="secondary" id="detailModal1" onClick={handleCloseMoreInfo}>
                         close
                     </Button>
                 </div>
