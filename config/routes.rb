@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :sessions, only: [:create, :destroy]
     resources :users, only: [:create, :show, :index, :update, :destroy] 
     resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
-    resources :user_carts, only: [:index, :show, :create]
+    resources :user_carts, only: [:index, :show, :create, :get_count]
     resources :saved_items, only: [:show, :create, :destroy, :delete]
     resources :user_likes_container, only: [:index, :create]
     resources :user_likes_container, only: [:show] do
@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     post "/signup", to: "users#create"
     patch "/items/edit/:item_id", to: "items#update"
     get "/myitemsforsale", to: "items#myitemsforsale"
+    get "/cart-count/:user_id", to: "user_carts#get_count"
     # patch "/users/:id", to: "users#update"
     # delete "/favorites:user_id", to: "users#destroy"
     get "/profile/:username", to: "users#show"

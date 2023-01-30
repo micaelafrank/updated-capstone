@@ -11,7 +11,7 @@ import Alert from '@mui/material/Alert';
 
 
 
-function ShoppingCart({deleteCartItem, addCartItem, setCartValue, items, total, change, setChange, user}){
+function ShoppingCart({ deleteCartItem, addCartItem, setCartValue, items, total, change, setChange, user}){
     const [addedCartItems, setAddedCartItems] = useState(0);
     const [showCheckout, setShowCheckout] = useState(false);
     const [cartItems, setCartItems] = useState([]);

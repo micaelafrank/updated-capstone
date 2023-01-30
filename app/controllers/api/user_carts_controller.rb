@@ -10,16 +10,16 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     def show 
         #user = find_user_cart
         userCart = UserCart.find_by(user_id: @current_user.id)
-        cartItems = userCart 
+        cartItems = userCart
         render json: cartItems
     end 
 
 
-    # def showCart
-    #     user = User.find(params[:id])
-    #     cart = user.user_cart_items 
-    #     render json: cart
-    # end
+    def get_count
+        user = UserCart.find_by(user_id: @current_user.id)
+        cart = user.user_cart_items.count
+        render json: cart
+    end
 
     def create
         new_user_cart = UserCart.create!(user_id: @current_user.id)

@@ -21,7 +21,7 @@ import { useParams } from 'react-router-dom';
 
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
-function App() {
+function App({ itemCount }) {
   const [items, setItems] = useState([]);
   const [user, setUser] = useState({});
   const [change, setChange] = useState(false);
@@ -30,6 +30,8 @@ function App() {
   const [userLikes, setUserLikes] = useState([]);
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
+  const [cartCount, setCartCount] = useState([]);
+  // const cartTotalNum = cartItems.user_cart_items.length;
 
   const loginImgs = [
     "https://static.zarahome.net/8/photos4/2022/I/4/1/p/2130/005/500/2130005500_2_7_2.jpg?t=1665749355836&imwidth=985&imformat=chrome",
@@ -61,6 +63,13 @@ function App() {
   ];
 
 
+  // function handleSelect(id) {
+  //   fetch(`/posts/${id}`)
+  //     .then(res => res.json())
+  //     .then(card => setSelectedCard(card))
+  //   scrollTo()
+  // }
+
   useEffect(() => {
     fetch("/api/me").then((r) => {
       if (r.ok) {
@@ -77,6 +86,14 @@ function App() {
     setUser(user)
   }
 
+
+  useEffect(() => {
+    fetch(`/api/cart-count/${user.id}`)
+      .then((r) => r.json())
+      .then(data => setCartCount(data))
+  }, [change])
+  console.log("Cart count: ", cartCount)
+
   useEffect(() => {
     fetch("/api/items")
       .then((r) => r.json())
@@ -89,9 +106,7 @@ function App() {
       .then((r) => r.json())
       .then(data => setCartItems(data))
     // setItemCount(itemCount)})
-  }, [])
-  console.log("my cart items: ", cartItems)
-
+  }, [change])
 
   // useEffect(() => {
   //   fetch(`/api/user-likes-container/${user.id}`)
@@ -168,7 +183,7 @@ function App() {
           <Route path="/signup" element={<SignUp user={user} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} onSignUp={setUser} />} />
           <Route path="/" element={<Homepage loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} setUser={setUser} onLogin={onLogin} onSignUp={setUser} user={user} items={items} />} />
           <Route path="/about" element={<About user={user} />} />
-          <Route element={<WithNav user={user} setUser={setUser} />}>
+          <Route element={<WithNav cartCount={cartCount} user={user} setUser={setUser} />}>
             {/* {user.username ? */}
               {/* :
               <Route path="/" element={<Homepage items={items} />} />
@@ -177,7 +192,8 @@ function App() {
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/buy" element={<ItemsList userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} user={user} />} />
-          <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} />} />
+            {/* <Route path=":id" element={<ItemDetails selectedCard={selectedCard} setSelectedCard={setSelectedCard} user={user} details={details} />} /> */}
+          <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} cartItems={cartItems} setCartItems={setCartItems} user={user} />} />
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           <Route path="/payment" element={<MakePurchase />} />
           {/* <Route path={`${process.env.PUBLIC_URL}/buy/${items?.id}/${items?.itemname}`} element={<ItemDetails items={items} setItems={setItems} />} /> */}

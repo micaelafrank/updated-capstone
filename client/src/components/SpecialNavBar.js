@@ -34,7 +34,7 @@ const theme = createTheme({
     },
 });
 
-const SpecialNavBar = ({ user, setUser, setDarkMode, darkMode }) => {
+const SpecialNavBar = ({ cartItems, user, setUser, setDarkMode, darkMode }) => {
     const navigate = useNavigate();
 
 

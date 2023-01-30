@@ -332,6 +332,10 @@ textarea {
   font-weight: 300;
 }
 
+#root.div.div.header.div.div.div.MuiBox-root.css-1t6c9ts.button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.css-xpprwh-MuiButtonBase-root-MuiButton-root.span.MuiBadge-root.BaseBadge-root.css-3ulxv9-MuiBadge-root.span.MuiBadge-badge.MuiBadge-standard.MuiBadge-anchorOriginTopRight.MuiBadge-anchorOriginTopRightRectangular.MuiBadge-overlapRectangular.BaseBadge-badge.css-fvc8ir-MuiBadge-badge{
+  background-color: pink;
+}
+
 
 input:focus,
 textarea:focus {

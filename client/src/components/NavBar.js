@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
+import { Avatar } from '@mui/material';
 import Box from '@mui/material/Box';
-import {brown} from '@mui/material/colors'; 
+import {brown, green, pink } from '@mui/material/colors'; 
 import { useNavigate } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -17,18 +19,23 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+
 
 const pages = ['ABOUT', 'SELL', 'BUY', 'PROFILE', 'LOGOUT'];
 
 
-function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
+function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
     const navigate = useNavigate();
 
+    
     const theme = createTheme({
         palette: {
             primary: {
                 // Purple and green play nicely together.
                 main: brown[500],
+                pinker: pink[200],
                 // main: '#efd6ed',
                 darker: '#bca5bb',
             },
@@ -58,9 +65,15 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
     const lightBrown = brown['A100'];
 
 
+    // const StyledBadge = styled(Badge)(({ theme }) => ({
+    //     '& .MuiBadge-badge': {
+    //         color: "primary.pinker",
+    //     },
+    // }));
+
     return (
         <AppBar theme={theme} position="static">
-            <Container sx={{backgroundColor: darkBrown }} maxWidth="xl">
+            <Container sx={{backgroundColor: darkBrown, mt:1, mb:1 }} maxWidth="xl">
                 <Toolbar disableGutters>
                     {/* <img className='logoimg' alt="cube-logo" /> */}
                     <Typography
@@ -68,7 +81,7 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                         component="a"
                         href="/"
                         sx={{
-                            mr: 2,
+                            mr: 4,
                             display: { xs: 'none', md: 'flex' },
                             fontFamily: 'monospace',
                             fontWeight: 600,
@@ -113,42 +126,23 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                             ))}
                         </Menu>
                     </Box>
-                    {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-                    {/* <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href="/{page}"
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        LOGO
-                    </Typography> */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         <Button
-                            className='navButtonOption'
+                            // className='navButtonOption'
                             onClick={() => navigate('/about')}
                             sx={{ my: 2, color: "white", display: 'block', marginRight: "2em", marginLeft: "1em" }}
                         >
                             ABOUT
                         </Button>
                             <Button
-                            className='navButtonOption'
+                            // className='navButtonOption'
                             onClick={() => navigate('/sell')}
                             sx={{ my: 2, color: "white", display: 'block', marginRight: "2em", marginLeft:"1em"}}
                             >
                                 SELL
                             </Button>
                             <Button
-                            className='navButtonOption'
+                            // className='navButtonOption'
                             sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}
                             onClick={() => navigate('/buy')}
                         >
@@ -156,7 +150,7 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                             </Button>
                         {/* {user.username ?  */}
                         <Button
-                            className='navButtonOption'
+                            // className='navButtonOption'
                             sx={{ my: 2, color: 'white', display: 'block', marginRight:"2em" }}
                             onClick={() => navigate(`/profile/${user.username}`)}
                         >
@@ -164,27 +158,43 @@ function ResponsiveAppBar({ user, setUser, setDarkMode, darkMode }) {
                             </Button> 
                             {/* : null } */}
                         {/* {user.username ?  */}
-                            <Button
+                        <Button
                             onClick={() => navigate(`/mycart`)}
-                            style={{my: 2, color:'white', paddingRight:'2em'}}
+                            style={{my: 2, color:'white', marginRight:'2em'}}
+                            // className='navButtonOption'
                         >
-                            <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
-                            <ShoppingCartIcon/>
+                        <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
+                        <Badge badgeContent={cartCount} color="warning">
+                            <ShoppingCartIcon color="white" />
+                        </Badge> 
+                        </Button>
+                        <Button 
+                        // className='navButtonOption'
+                            sx={{ color: 'white', display: 'block' }}
+                            onClick={handleLogout}>
+                            LOGOUT
                         </Button>
                     </Box>
                     {/* {user.username ?  */}
                     <Box sx={{ flexGrow: 0, display:"flex", textAlign: 'center', alignItems: 'center'}}>
                         {/* <p style={{ fontSize:"15px", paddingRight: '1.5em' }}>SIGNED IN AS:<span style={{ fontFamily: 'monospace' }}> {user.username}</span></p> */}
-                        <Button sx={{ my: 2, color: 'white', display: 'block', marginRight: "1em" }}
+                        {/* <Button sx={{ my: 2, color: 'white', display: 'block', marginRight: "1em" }}
                             onClick={handleLogout}>
                             LOGOUT
-                        </Button>
+                        </Button> */}
+                        {/* make this a dropdown! options for profile nav link or logout */}
+                        <Avatar
+                            className="avatarImg"
+                            sx={{ height: "50px", border: "1px solid white", width: "50px", marginLeft: "auto", marginRight: "auto", alignItems: "center", justifyContent: "center" }}
+                            src={user.images_url}
+                        />
+                        {/* make this a dropdown! options for profile nav link or logout */}
                         {/* <IconButton style={{ color: "white" }} onClick={() => navigate('/login')}>
                             <LogoutIcon />
                         </IconButton> */}
-                        <IconButton style={{ color: "white" }} onClick={() => navigate('/')}>
+                        {/* <IconButton style={{ color: "white" }} onClick={() => navigate('/')}>
                             <HomeIcon/>
-                        </IconButton>
+                        </IconButton> */}
                     </Box> 
                     {/* : null} */}
                 </Toolbar>
