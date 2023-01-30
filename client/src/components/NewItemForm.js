@@ -85,15 +85,16 @@ function NewItemForm({ user, addNewItem, setUser }) {
 
 
     return (
-        <div className='form-box' style={{alignItems:"center", marginLeft:"auto", marginRight:"auto", justifyContent:"center"}}>
-            <form style={{marginLeft:"15px", marginBottom:"20px", alignItems:"center", width:"760px"}} onSubmit={handleSubmit}>
+        <div className='form-box' style={{alignItems:"center", marginLeft:"auto", marginRight:"auto",}}>
+            <form style={{marginLeft:"auto", marginRight:"auto", marginBottom:"20px", justifyContent:"center", alignItems:"center", width:"760px"}} onSubmit={handleSubmit}>
                 {page === 1 ? (  
                     <div className='field1' style={{ display: "flex", flexDirection: "column", marginLeft: "auto", marginRight: "auto" }}>
-                        <h1 style={{ textAlign: "center", fontSize: "35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "normal", color: veryDarkBrown, marginBottom: "0" }}>SELL YOUR GOODS</h1>
-                        <p style={{ textAlign: "center", fontSize: "16px", paddingBottom: "10px", color: veryDarkBrown }}>TO LIST AN ITEM FOR SALE, ALL SECTIONS MUST BE FILLED OUT</p>
+                        <h1 style={{ textAlign: "center", fontSize: "35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "bold", color: veryDarkBrown, marginBottom: "0" }}>SELL YOUR GOODS</h1>
+                        <p style={{ textAlign: "center", fontSize: "22px", paddingBottom: "0", marginBottom: "7px", textShadow: "1px 1px #c98d6d", fontFamily: "monospace",color: "black" }}>great sellers make good goods</p>
+                        <p style={{ textAlign: "center", fontSize: "17px", paddingBottom: "20px", paddingTop:"15px", color: "black" }}>TO LIST AN ITEM FOR SALE, ALL SECTIONS MUST BE FILLED OUT</p>
                         <h5 style={{ marginLeft: "15px" }} className='form-box-h5'> Page {page} of 2</h5>
                         <div style={{ width: "100%", height: "120px", justifyContent: "space-around", display: "flex", flexDirection: "row" }}>
-                        <FormControl sx={{mr: 4}}>
+                        <FormControl sx={{mr: 4}} theme={theme}>
                             <InputLabel htmlFor='my-input' style={{fontFamily:"monospace"}}>
                                 Item Name  </InputLabel>
                             <Input
@@ -235,7 +236,7 @@ function NewItemForm({ user, addNewItem, setUser }) {
                             </button> */}
                             <button
                             type="button"
-                            style={{ cursor:"pointer", marginTop: "15px", marginRight:"30px", fontSize: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
+                            style={{ cursor: "pointer", fontFamily: "monospace", marginTop: "15px", marginRight:"30px", fontSize: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
                             onClick={() => setPage((page) => page + 1)}
                             >
                             NEXT
@@ -247,8 +248,9 @@ function NewItemForm({ user, addNewItem, setUser }) {
             {page === 2 ? (
                 <>
                     <div className='field1' style={{display:"flex", flexDirection:"column", marginLeft:"auto", marginRight:"auto"}}>
-                        <h1 style={{ textAlign:"center", fontSize:"35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "normal", color:veryDarkBrown, marginBottom:"0" }}>SELL YOUR GOODS</h1>
-                        <p style={{ textAlign: "center", fontSize:"16px", paddingBottom: "10px", color:veryDarkBrown }}>IT'S ALL IN THE DETAILS.</p>
+                        <h1 style={{ textAlign: "center", fontSize: "35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "bold", color: veryDarkBrown, marginBottom: "0" }}>SELL YOUR GOODS</h1>
+                        <p style={{ textAlign: "center", fontSize: "22px", paddingBottom: "0", marginBottom: "7px", textShadow: "1px 1px #c98d6d", fontFamily: "monospace", color: "black" }}>great sellers make good goods</p>
+                        <p style={{ textAlign: "center", fontSize: "17px", paddingBottom: "20px", paddingTop:"15px", color: "black" }}>IT'S ALL IN THE DETAILS</p>
                         <h5 style={{ marginLeft: "15px" }} className='form-box-h5'> Page {page} of 2</h5>
                         <div style={{ width: "100%", height: "120px", justifyContent:"center", textAlign:"left"}}>
                         <FormControl>
@@ -264,7 +266,7 @@ function NewItemForm({ user, addNewItem, setUser }) {
                                 onChange={(e) => setDescription(e.target.value)}
                                 value={description}
                             />
-                            <FormHelperText id='my-helper-text'
+                                <FormHelperText style={{ paddingRight: "300px" }} id='my-helper-text'
                             >
                                 EXPAND ON AN ITEM'S FIT, ORIGIN STORY, BRAND NAME, ETC.
                             </FormHelperText>
@@ -284,7 +286,7 @@ function NewItemForm({ user, addNewItem, setUser }) {
                             multiple
                             accept="image/*"
                             onChange={handleImages}
-                            style={{ alignItems:"left", marginTop: "2em", paddingLeft:"20px", paddingRight: "330px", }}
+                            style={{ alignItems:"left", marginTop: "2em", paddingLeft:"20px", paddingRight: "390px", }}
                             />
                             <FormHelperText id='my-helper-text' style={{ textAlign:"left", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}>
                                 SHOW OFF YOUR ITEM
@@ -294,13 +296,13 @@ function NewItemForm({ user, addNewItem, setUser }) {
                         <div style={{ marginTop:"10px", marginLeft: "5px", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                             <button
                             type="button"
-                            style={{ cursor: "pointer", fontSize: "15px", marginLeft: "20px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
+                            style={{ cursor: "pointer", fontSize: "15px", marginLeft: "20px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", fontFamily:"monospace", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
                             onClick={() => setPage((page) => page - 1)}
                             >
                                 BACK    
                             </button>
                             <button
-                            style={{ cursor: "pointer", fontSize: "15px", marginLeft: "20px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
+                            style={{ cursor: "pointer", fontSize: "15px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, fontFamily: "monospace", marginRight: "30px", padding: "9px 20px", color: "white" }}
                             className="nextBtn"
                             type="submit"
                             // onClick={() => setPage((page) => page + 1)}

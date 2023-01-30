@@ -33,7 +33,7 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState([]);
+    const [errors, setErrors] = useState("");
     const [password_confirmation, setPasswordConfirmation] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -184,13 +184,15 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                         sign up
                     </Typography>                    
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                        <div style={{ marginBottom:"2rem", color: 'red', alignItems:'center', textAlign:'center' }}>
+                        <p style={{ marginTop: "25px", marginBottom: "25px", color: "red", textAlign: "center" }}>{errors}</p>
+
+                        {/* <div style={{ marginBottom:"2rem", color: 'red', alignItems:'center', textAlign:'center' }}>
                             {errors.map((err) => (
                                 <Typography align="center" variant="p" key={err}>
                                     {err}. Please try again.
                                 </Typography>
                             ))}
-                        </div>
+                        </div> */}
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <FormControl>

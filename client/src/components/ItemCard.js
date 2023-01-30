@@ -20,6 +20,8 @@ import {brown, orange} from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ConfirmDelete from './ConfirmDelete';
 import EditCard from './EditCard';
+import ItemDetails from './ItemDetails';
+import { useNavigate } from 'react-router-dom';
 // import SavedContainer from './SavedContainer';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -47,7 +49,8 @@ function ItemCard({ myLikedItem, userLikes, sold_by, show, addCartItem, deleteIt
     const [inCart, setInCart] = useState(false)
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
-
+    const [moreInfo, setMoreInfo] = useState(false);
+    const navigate = useNavigate();
 
 //     const setLikeButtons = () => hearts.filter(heart => {
 //         if (heart === item.id) {
@@ -79,6 +82,14 @@ function ItemCard({ myLikedItem, userLikes, sold_by, show, addCartItem, deleteIt
             },
         },
     });
+
+    function handleMoreInfo(){
+        setMoreInfo(true)
+    }
+
+    function handleCloseMoreInfo(){
+        setMoreInfo(false);
+    }
 
     function alreadyInCart() {
         <Alert key={'success'} variant={'success'}>This item is already in your cart</Alert>
@@ -244,6 +255,21 @@ function ItemCard({ myLikedItem, userLikes, sold_by, show, addCartItem, deleteIt
                 >
                     {wasClicked ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
                 </IconButton>}
+                {/* {moreInfo ? () => navigate(`/buy/${item.id}`) : null} */}
+                { moreInfo ? <ItemDetails item_id={item_id} items={items} setItems={setItems} moreInfo={moreInfo} handleMoreInfo={handleMoreInfo} handleCloseMoreInfo={handleCloseMoreInfo} item={item} id={id} itemname={itemname} price={price} color={color} material={material} condition={condition} size={size} description={description} images_url={images_url}
+                /> 
+                : null}
+                <button 
+                style={{ fontFamily: "monospace", padding: "6px 15px", alignItems:"center", justifyContent:"center", backgroundColor: brown[500], border:"1px solid white", borderRadius:"4px", color:"white"}}
+                onClick={handleMoreInfo}
+                    // onClick={() => navigate(`/buy/${item?.id}/${item?.itemname}`, {
+                    //     itemname: itemname,
+                    //     item: item,
+                    //     id: id,
+                    // })}
+                >
+                    more info
+                </button>
             </CardActions>
         </Card>
     )

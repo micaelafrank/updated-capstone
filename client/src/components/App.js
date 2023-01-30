@@ -16,6 +16,9 @@ import AddItemImages from './ignore/AddItemImages';
 import EditCard from './EditCard';
 import MakePurchase from './MakePurchase';
 import About from './About';
+import ItemDetails from './ItemDetails';
+import { useParams } from 'react-router-dom';
+
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
 function App() {
@@ -56,6 +59,7 @@ function App() {
     "https://static.zarahome.net/8/photos4/2022/I/4/1/p/7298/401/826/7298401826_2_7_2.jpg?t=1662108367272&imwidth=985&imformat=chrome",
     "https://i.etsystatic.com/21668141/r/il/9b0a1f/4390569481/il_1588xN.4390569481_a8vw.jpg",
   ];
+
 
   useEffect(() => {
     fetch("/api/me").then((r) => {
@@ -109,7 +113,7 @@ function App() {
   const darkBrown = brown[300];
   const mainBrown = brown[200];
   const lightBrown = brown['A100'];
-
+  const darkestBrown = brown['A700']
 
   // let yellowLight = "#f4f0ad";
   // let yellowDark = "#c1be7d";
@@ -176,6 +180,7 @@ function App() {
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} user={user} />} />
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           <Route path="/payment" element={<MakePurchase />} />
+          {/* <Route path={`${process.env.PUBLIC_URL}/buy/${items?.id}/${items?.itemname}`} element={<ItemDetails items={items} setItems={setItems} />} /> */}
         </Route>
       </Routes>
       {/* <Footer /> */}
