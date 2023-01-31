@@ -148,20 +148,20 @@ function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
                         >
                             ABOUT
                         </Button>
-                            <Button
-                            // className='navButtonOption'
-                            onClick={() => navigate('/sell')}
-                            sx={{ my: 2, color: "white", display: 'block', marginRight: "2em", marginLeft:"1em"}}
-                            >
-                                SELL
-                            </Button>
-                            <Button
-                            // className='navButtonOption'
-                            sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}
-                            onClick={() => navigate('/buy')}
+                        <Button
+                        // className='navButtonOption'
+                        onClick={() => navigate('/sell')}
+                        sx={{ my: 2, color: "white", display: 'block', marginRight: "2em", marginLeft:"1em"}}
                         >
-                                BUY
-                            </Button>
+                            SELL
+                        </Button>
+                        <Button
+                        // className='navButtonOption'
+                        sx={{ my: 2, color: 'white', display: 'block', marginRight: "2em" }}
+                        onClick={() => navigate('/buy')}
+                        >
+                            BUY
+                        </Button>
                         {/* {user.username ?  */}
                         {/* <Button
                             // className='navButtonOption'
@@ -173,9 +173,8 @@ function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
                             {/* : null } */}
                         {/* {user.username ?  */}
                     </Box>
-                    {/* {user.username ?  */}
                     <Box sx={{ flexGrow: 0, display:"flex", justifyContent:"center", textAlign: 'center', alignItems: 'center'}}>
-                        <Button
+                         <Button
                             onClick={() => navigate(`/mycart`)}
                             style={{ my: 2, color: 'white' }}
                         // className='navButtonOption'
@@ -199,8 +198,9 @@ function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
                                     src={user.images_url}
                                 />
                             </IconButton>
+                        
                         </Tooltip>
-                    </Box>
+                    </Box> 
                     <Menu
                         anchorEl={anchorEl}
                         id="account-menu"
@@ -236,9 +236,9 @@ function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
                         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                     >
-                        <MenuItem>
+                        {/* <MenuItem>
                             <Typography>{user.username}</Typography>
-                        </MenuItem>
+                        </MenuItem> */}
                         <Divider/>
                         <MenuItem onClick={() => navigate(`/profile/${user.username}`)}>
                             <Avatar /> Profile
@@ -250,13 +250,6 @@ function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
                             Logout
                         </MenuItem>
                     </Menu>
-                {/* make this a dropdown! options for profile nav link or logout */}
-                {/* <IconButton style={{ color: "white" }} onClick={() => navigate('/login')}>
-                            <LogoutIcon />
-                        </IconButton> */}
-                {/* <IconButton style={{ color: "white" }} onClick={() => navigate('/')}>
-                            <HomeIcon/>
-                        </IconButton> */}
                 </Toolbar>
             </Container>
         </AppBar>

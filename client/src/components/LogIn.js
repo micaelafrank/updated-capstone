@@ -160,7 +160,7 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
                             </Typography>
                         )) : null}
                     </div> */}
-                            <Grid container spacing={2}>
+                            <Grid container sx={{ml:"auto", mr:"auto", width:"400px"}} spacing={2}>
                                 <Grid style={{ marginBottom: "5px" }} item xs={12}>
                                     <FormControl>
                                         <InputLabel style={{ fontFamily: "monospace" }} htmlFor='my-input' >

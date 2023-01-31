@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const DetailedItemCard = ({ itemname, id, description, condition, category, id, selectCard, condition, size, images_url, scrollToDetails, limit }) => {
+const DetailedItemCard = ({ itemname, description, category, id, selectCard, condition, size, images_url, scrollToDetails, limit }) => {
 
 
     return (

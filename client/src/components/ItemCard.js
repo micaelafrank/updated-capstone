@@ -22,6 +22,7 @@ import ConfirmDelete from './ConfirmDelete';
 import EditCard from './EditCard';
 import ItemDetails from './ItemDetails';
 import { useNavigate } from 'react-router-dom';
+import DetailedItemCard from './DetailedItemCard';
 // import SavedContainer from './SavedContainer';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -273,6 +274,7 @@ function ItemCard({ myLikedItem, category, userLikes, sold_by, show, addCartItem
                 >
                     more info
                 </button>
+                {/* <button onClick={<DetailedItemCard item={item} id={id} />}>Detail card</button> */}
             </CardActions>
         </Card>
     )
