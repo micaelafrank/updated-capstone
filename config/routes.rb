@@ -41,7 +41,7 @@ Rails.application.routes.draw do
     get "/mycart", to: "user_carts#show" 
     get "/rendercart", to: "user_cart_items#index" 
     get "/items", to: "items#index"
-    get "/items/:itemname:id", to: "items#show"
+    get "/items/:item_id/:itemname", to: "items#show"
     post "/items/add-images", to: "items#add-images"
     # post "/create_cart" , to: "user_carts#create"
     post "/addtocart", to: "user_cart_items#create"

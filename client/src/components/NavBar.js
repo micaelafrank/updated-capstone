@@ -1,8 +1,11 @@
 import * as React from 'react';
+import Logout from '@mui/icons-material/Logout';
 import { useEffect } from 'react';
+import InfoIcon from '@mui/icons-material/Info';
 import AppBar from '@mui/material/AppBar';
-import { Avatar } from '@mui/material';
+import { Avatar, Divider } from '@mui/material';
 import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
 import {brown, green, pink } from '@mui/material/colors'; 
 import { useNavigate } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,14 +16,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import HomeIcon from '@mui/icons-material/Home'; 
 import Button from '@mui/material/Button';
-import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from '@mui/icons-material/Logout'; 
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
+import MenuList from '@mui/material/MenuList';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+
 
 
 const pages = ['ABOUT', 'SELL', 'BUY', 'PROFILE', 'LOGOUT'];
@@ -28,6 +34,14 @@ const pages = ['ABOUT', 'SELL', 'BUY', 'PROFILE', 'LOGOUT'];
 
 function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
     const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     
     const theme = createTheme({
@@ -149,54 +163,100 @@ function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
                                 BUY
                             </Button>
                         {/* {user.username ?  */}
-                        <Button
+                        {/* <Button
                             // className='navButtonOption'
                             sx={{ my: 2, color: 'white', display: 'block', marginRight:"2em" }}
                             onClick={() => navigate(`/profile/${user.username}`)}
                         >
                                 PROFILE
-                            </Button> 
+                            </Button>  */}
                             {/* : null } */}
                         {/* {user.username ?  */}
-                        <Button
-                            onClick={() => navigate(`/mycart`)}
-                            style={{my: 2, color:'white', marginRight:'2em'}}
-                            // className='navButtonOption'
-                        >
-                        <p style={{ fontSize: "15px" }}>MY CART&nbsp;&nbsp;</p>
-                        <Badge badgeContent={cartCount} color="warning">
-                            <ShoppingCartIcon color="white" />
-                        </Badge> 
-                        </Button>
-                        <Button 
-                        // className='navButtonOption'
-                            sx={{ color: 'white', display: 'block' }}
-                            onClick={handleLogout}>
-                            LOGOUT
-                        </Button>
                     </Box>
                     {/* {user.username ?  */}
-                    <Box sx={{ flexGrow: 0, display:"flex", textAlign: 'center', alignItems: 'center'}}>
-                        {/* <p style={{ fontSize:"15px", paddingRight: '1.5em' }}>SIGNED IN AS:<span style={{ fontFamily: 'monospace' }}> {user.username}</span></p> */}
-                        {/* <Button sx={{ my: 2, color: 'white', display: 'block', marginRight: "1em" }}
-                            onClick={handleLogout}>
-                            LOGOUT
-                        </Button> */}
-                        {/* make this a dropdown! options for profile nav link or logout */}
-                        <Avatar
-                            className="avatarImg"
-                            sx={{ height: "50px", border: "1px solid white", width: "50px", marginLeft: "auto", marginRight: "auto", alignItems: "center", justifyContent: "center" }}
-                            src={user.images_url}
-                        />
-                        {/* make this a dropdown! options for profile nav link or logout */}
-                        {/* <IconButton style={{ color: "white" }} onClick={() => navigate('/login')}>
+                    <Box sx={{ flexGrow: 0, display:"flex", justifyContent:"center", textAlign: 'center', alignItems: 'center'}}>
+                        <Button
+                            onClick={() => navigate(`/mycart`)}
+                            style={{ my: 2, color: 'white' }}
+                        // className='navButtonOption'
+                        >
+                            <Badge badgeContent={cartCount} color="warning">
+                                <ShoppingCartIcon fontSize="large" color="white" />
+                            </Badge>
+                        </Button>
+                        <Tooltip title="Account settings">
+                            <IconButton
+                                onClick={handleClick}
+                                size="small"
+                                sx={{ ml: 2 }}
+                                aria-controls={open ? 'account-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                            >
+                                <Avatar
+                                    className="avatarImg"
+                                    sx={{ height: "50px", border: "1px solid white", width: "50px", marginLeft: "auto", marginRight: "auto", alignItems: "center", justifyContent: "center" }}
+                                    src={user.images_url}
+                                />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+                    <Menu
+                        anchorEl={anchorEl}
+                        id="account-menu"
+                        open={open}
+                        onClose={handleClose}
+                        onClick={handleClose}
+                        PaperProps={{
+                            elevation: 0,
+                            sx: {
+                                overflow: 'visible',
+                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                mt: 1.5,
+                                '& .MuiAvatar-root': {
+                                    width: 32,
+                                    height: 32,
+                                    ml: -0.5,
+                                    mr: 1,
+                                },
+                                '&:before': {
+                                    content: '""',
+                                    display: 'block',
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 14,
+                                    width: 10,
+                                    height: 10,
+                                    bgcolor: 'background.paper',
+                                    transform: 'translateY(-50%) rotate(45deg)',
+                                    zIndex: 0,
+                                },
+                            },
+                        }}
+                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    >
+                        <MenuItem>
+                            <Typography>{user.username}</Typography>
+                        </MenuItem>
+                        <Divider/>
+                        <MenuItem onClick={() => navigate(`/profile/${user.username}`)}>
+                            <Avatar /> Profile
+                        </MenuItem>
+                        <MenuItem onClick={handleLogout} >
+                            <ListItemIcon>
+                                <LogoutIcon fontSize="small" />
+                            </ListItemIcon>
+                            Logout
+                        </MenuItem>
+                    </Menu>
+                {/* make this a dropdown! options for profile nav link or logout */}
+                {/* <IconButton style={{ color: "white" }} onClick={() => navigate('/login')}>
                             <LogoutIcon />
                         </IconButton> */}
-                        {/* <IconButton style={{ color: "white" }} onClick={() => navigate('/')}>
+                {/* <IconButton style={{ color: "white" }} onClick={() => navigate('/')}>
                             <HomeIcon/>
                         </IconButton> */}
-                    </Box> 
-                    {/* : null} */}
                 </Toolbar>
             </Container>
         </AppBar>

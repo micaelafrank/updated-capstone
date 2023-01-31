@@ -264,6 +264,7 @@ function ItemCard({ myLikedItem, category, userLikes, sold_by, show, addCartItem
                 <button 
                 style={{ fontFamily: "monospace", padding: "6px 15px", alignItems:"center", justifyContent:"center", backgroundColor: brown[500], border:"1px solid white", borderRadius:"4px", color:"white"}}
                 onClick={handleMoreInfo}
+                // onClick={handleSelect}
                     // onClick={() => navigate(`/buy/${item?.id}/${item?.itemname}`, {
                     //     itemname: itemname,
                     //     item: item,

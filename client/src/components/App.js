@@ -1,7 +1,7 @@
 import LogIn from './LogIn';
 import WithNav from './WithNav';
 import SignUp from './SignUp';
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Profile from './Profile';
 import Homepage from './Homepage';
 import ItemsList from './ItemsList';
@@ -18,6 +18,7 @@ import MakePurchase from './MakePurchase';
 import About from './About';
 import ItemDetails from './ItemDetails';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
@@ -31,6 +32,8 @@ function App({ itemCount }) {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [cartCount, setCartCount] = useState([]);
+  const [itemDetail, setItemDetail] = useState({});
+  const navigate = useNavigate();
   // const cartTotalNum = cartItems.user_cart_items.length;
 
   const loginImgs = [
@@ -62,30 +65,34 @@ function App({ itemCount }) {
     "https://i.etsystatic.com/21668141/r/il/9b0a1f/4390569481/il_1588xN.4390569481_a8vw.jpg",
   ];
 
+  const details = useRef(null);
+  const scrollTo = () => {
+    window.scrollTo({
+      top: details.current,
+      behavior: 'smooth',
+    });
+  };
 
-  // function handleSelect(id) {
-  //   fetch(`/posts/${id}`)
-  //     .then(res => res.json())
-  //     .then(card => setSelectedCard(card))
-  //   scrollTo()
-  // }
 
   useEffect(() => {
     fetch("/api/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
-    }})
+      }
+    })
   }, [])
   console.log(user);
 
-  function addNewItem(newItem) {
-    setItems(...items, newItem)
-  }
 
-  function onLogin(user) {
-    setUser(user)
+  function handleSelect(id) {
+    fetch(`/api/items/${id}`)
+      .then(res => res.json())
+      .then(itemDetail => setItemDetail(itemDetail))
+      console.log(itemDetail)
+    // scrollTo()
+    navigate(`/buy/${id}`)
   }
-
+  console.log("item detail: ", itemDetail)
 
   useEffect(() => {
     fetch(`/api/cart-count/${user.id}`)
@@ -107,6 +114,15 @@ function App({ itemCount }) {
       .then(data => setCartItems(data))
     // setItemCount(itemCount)})
   }, [change])
+
+  function addNewItem(newItem) {
+    setItems(...items, newItem)
+  }
+
+  function onLogin(user) {
+    setUser(user)
+  }
+
 
   // useEffect(() => {
   //   fetch(`/api/user-likes-container/${user.id}`)
@@ -191,8 +207,8 @@ function App({ itemCount }) {
           <Route path="/profile/:username" element={<Profile userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/buy" element={<ItemsList userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} user={user} />} />
-            {/* <Route path=":id" element={<ItemDetails selectedCard={selectedCard} setSelectedCard={setSelectedCard} user={user} details={details} />} /> */}
+          <Route path="/buy" element={<ItemsList handleSelect={handleSelect} userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} user={user} />} />
+          <Route path="/buy/:id" element={<ItemDetails itemDetail={itemDetail} setItemDetail={setItemDetail} user={user} details={details} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} cartItems={cartItems} setCartItems={setCartItems} user={user} />} />
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           <Route path="/payment" element={<MakePurchase />} />

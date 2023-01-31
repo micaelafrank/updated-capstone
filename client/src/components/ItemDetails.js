@@ -30,7 +30,7 @@ const style = {
 function ItemDetails({ user, initialHeartValue, items, isSaved, handleFillHeart, handleUndoHeart, FavoriteIcon, renderUserCartItem, inCartIcon, FavoriteBorderIcon, setItems, moreInfo, handleCloseMoreInfo, item, id, itemname, price, color, material, condition, size, description, images_url, ShoppingCartIcon, AddShoppingCartIcon, wasClicked, alreadyInCart }) {
     const [itemDetail, setItemDetail] = useState({});
     const navigate = useNavigate();
-
+    // const { sold_byDetail, itemnameDetail, idDetail, priceDetail, colorDetail, materialDetail, sizeDetail, descriptionDetail } = itemDetail;
     const darkestBrown = brown['A700']
 
     useEffect(() => {
@@ -49,7 +49,7 @@ function ItemDetails({ user, initialHeartValue, items, isSaved, handleFillHeart,
             aria-describedby="modal-modal-description"
         >
             <Box className="detail-modal-content" sx={style}>
-                <Typography style={{ paddingTop: "0", textAlign: "center", fontFamily: "monospace", fontSize: "30px", marginTop: "0", textShadow: "1px 1px #c98d6d", color: "black", marginBottom: "0" }} className="modal-title1" id="modal-modal-title" variant="h6" component="h2"> 
+                <Typography style={{ paddingTop: "0", textAlign: "center", fontFamily: "monospace", fontSize: "30px", marginTop: "10px", textShadow: "1px 1px #c98d6d", color: "black", marginBottom: "0" }} className="modal-title1" id="modal-modal-title" variant="h6" component="h2"> 
                     {itemname}
                 </Typography>
                 <Typography style={{ lineHeight: "1.5rem" }} textAlign="center" fontSize="1.2em" gutterBottom>
@@ -60,7 +60,7 @@ function ItemDetails({ user, initialHeartValue, items, isSaved, handleFillHeart,
                     </div>
                 </Typography>
                 <p style={{ margin: "0", padding: "0", color: "gray", textAlign: "center" }}><i>{material}, {color}</i></p>
-                <div style={{ justifyContent: 'center', display: 'flex', position: 'relative', marginLeft: '0', marginRight: '0', marginBottom:"20px", alignItems: 'center' }}>
+                <div style={{ justifyContent: 'center', display: 'flex', position: 'relative', marginLeft: '0', marginRight: '0', marginBottom:"20px", marginTop:"10px", alignItems: 'center' }}>
                     <img
                         // onClick={addMultImages}
                         className="itemImage"
