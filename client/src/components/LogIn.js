@@ -141,7 +141,7 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
                             alignItems: 'center',
                         }}
                     >
-                        <Typography component="h1" variant="h1" sx={{ fontFamily: "monospace", mt: 2, fontSize: "3rem", fontWeight: "normal", color: "primary.main" }}>
+                        <Typography component="h1" variant="h1" sx={{ fontFamily: "monospace", mt: 2, fontSize: "3.4rem", fontWeight: "normal", color: "primary.main" }}>
                             GOOD GOODS
                         </Typography>
                         {/* <Avatar sx={{ mt: 5,bgcolor: 'primary.main' }}>

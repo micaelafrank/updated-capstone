@@ -60,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_001257) do
 
   create_table "profiles", force: :cascade do |t|
     t.string "photo"
+    t.integer "user_id"
   end
 
   create_table "saved_items", force: :cascade do |t|

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :show, :index, :update, :destroy] 
     resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
     resources :user_carts, only: [:index, :show, :create, :get_count]
+    resources :profiles, only: [:show]
     resources :saved_items, only: [:show, :create, :destroy, :delete]
     resources :user_likes_container, only: [:index, :create]
     resources :user_likes_container, only: [:show] do
@@ -32,7 +33,7 @@ Rails.application.routes.draw do
     get "/cart-count/:user_id", to: "user_carts#get_count"
     # patch "/users/:id", to: "users#update"
     # delete "/favorites:user_id", to: "users#destroy"
-    get "/profile/:username", to: "users#show"
+    get "/profile/:username", to: "profiles#show"
     patch "/profile/:id", to: "users#update"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy" 

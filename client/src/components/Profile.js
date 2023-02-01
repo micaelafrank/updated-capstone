@@ -19,6 +19,14 @@ function Profile({ userLikes, setUserLikes, user, change, setChange, items, setI
     const [myItems, setMyItems] = useState([]);
     const [show, setShow] = useState(false);
     
+    
+    useEffect(() => {
+        fetch("/api/myitemsforsale")
+            .then((r) => r.json())
+            .then(data => { setMyItems(data) })
+    }, [])
+    console.log("my items: ", myItems);
+
 
     useEffect(() => {
         fetch("/api/myitemsforsale")

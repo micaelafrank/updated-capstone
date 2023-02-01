@@ -27,7 +27,7 @@ import DetailedItemCard from './DetailedItemCard';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ myLikedItem, category, userLikes, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ images, myLikedItem, category, userLikes, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -52,6 +52,7 @@ function ItemCard({ myLikedItem, category, userLikes, sold_by, show, addCartItem
     const [openEdit, setOpenEdit] = useState(false);
     const [moreInfo, setMoreInfo] = useState(false);
     const navigate = useNavigate();
+    // const [imageNum, setImageNum] = useState(images_url);
 
 //     const setLikeButtons = () => hearts.filter(heart => {
 //         if (heart === item.id) {
@@ -170,7 +171,24 @@ function ItemCard({ myLikedItem, category, userLikes, sold_by, show, addCartItem
     //         return updatedCart;
     //     });
     // }, [setCartItems]);
+    function nextImage() {
+        console.log(images_url)
+        // if (imageNum == imageNum.length) {
+        //     setImageNum(0)
+        // }
+        // else {
+        //     setImageNum(imageNum + 1)
+        // };
+    }
 
+    function prevImage() {
+        // console.log(imageNum)
+        // if (imageNum == 0) {
+        //     setImageNum(imageNum.length)
+        // } else {
+        //     setImageNum(imageNum - 1)
+        // };
+    }
 
     function setCartValue(deletedItem){
         setInitialCartValue(deletedItem.inCartIcon);
@@ -188,13 +206,25 @@ function ItemCard({ myLikedItem, category, userLikes, sold_by, show, addCartItem
                 <ArrowBackIosIcon style={{ position: 'absolute', top: '50%', left: 20, transform: 'translate(-50%,-50%)' }}>Back</ArrowBackIosIcon>
                 <ArrowForwardIosIcon style={{ position: 'absolute', top: '50%', right: 20, transform: 'translate(-50%,-50%)' }}>Next</ArrowForwardIosIcon>               
             </Carousel> */}
-            <div sx={{height: '300'}}>
+            {/* <div sx={{height: '300'}}>
                 <CardMedia
                     className="itemImage"
                     component="img"
                     sx={{ maxHeight: "300" }}
                     image={images_url}
                 />
+            </div> */}
+            <div sx={{ height: '300' }}>
+                <Carousel
+                    next={nextImage}
+                    prev={prevImage}
+                    autoPlay={false} // <-- You probaly want to disable this for our purposes
+                    navButtonsAlwaysVisible
+                    sx={{ width: "auto" }}
+                > 
+                <img className="itemImage" style={{ objectPosition: "center", objectFit: "cover" }} src={images_url} />
+                    {/* <img className="itemImage" style={{objectPosition: "center", objectFit: "cover" }} src={images_url} /> */}
+                </Carousel>
             </div>
             <CardContent className="card-details" color="primary" sx={{ flexGrow: 1 }}>
             {user.id === item.user_id ?

@@ -77,6 +77,7 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
     const listOfItems = items.map((item) => {
         return (
             <ItemCard
+                images={item.images}
                 handleSelect={handleSelect}
                 category={item.category}
                 key={item.id}

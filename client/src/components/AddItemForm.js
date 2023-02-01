@@ -26,7 +26,8 @@ function AddItemForm({ user, addNewItem }) {
     const [size, setSize] = useState("")
     const [condition, setCondition] = useState("")
     const [errors, setErrors] = useState([]);
-    const [images, setImages] = useState("");
+    // const [images, setImages] = useState("");
+    const [images, setImages] = useState([]);
 
     // const [firstImage, setFirstImage] = useState("");
     // const [secondImage, setSecondImage] = useState("");
@@ -34,10 +35,22 @@ function AddItemForm({ user, addNewItem }) {
     const navigate = useNavigate();
     const theme = createTheme();
 
-    function handleImages(e){
-        console.log(e.target.files[0])
-        setImages(e.target.files[0])        
-    }
+    // function handleImages(e){
+        // console.log(e.target.files[0])
+        // setImages(e.target.files[0])
+    //     for (let i = 0; i < e.target.files.length; i++) {
+    //         setImages.push(e.target.files[i]);
+    //     }
+    // }
+    // const newItemId = document.getElementById("newItemId").value;
+    // formData.append("[id]", newItemId);
+
+    // let imagesLength = e.target.images.files.length;
+    // let eachImage = e.target.images.files;
+
+    // for (var x = 0; x < imagesLength; x++) {
+    //     formData.append("images[]", eachImage[x]);
+
 
     const formData = new FormData();
     formData.append('itemname', itemname);
@@ -48,7 +61,10 @@ function AddItemForm({ user, addNewItem }) {
     formData.append('size', size);
     formData.append('condition', condition);
     formData.append('user_id', user.id);
-    formData.append('images', images);
+    // formData.append('images', images);
+    // for (const image of images) {
+    //     formData.append("images", image);
+
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -79,6 +95,7 @@ function AddItemForm({ user, addNewItem }) {
                         flexDirection: 'column',
                         alignItems: 'center',
                     }}
+                    id="newItemId"
                 >
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <SellIcon />
@@ -207,17 +224,17 @@ function AddItemForm({ user, addNewItem }) {
                                     <MenuItem value="wearTear">Some Wear and Tear</MenuItem>
                                 </Select>
                             </Grid>
-                            <Grid item xs={12}>
+                            {/* <Grid item xs={12}>
                                 <InputLabel>Upload Image:</InputLabel>
                                 <input
                                     type="file"
-                                    id="file"
+                                    id="images"
                                     name="file"
                                     multiple
                                     accept="image/*"
                                     onChange={handleImages}
                                 />
-                            </Grid>
+                            </Grid> */}
                             <Grid item xs={12}>
                                 <Button sx={{ height: "50px" }} size="large" variant="contained" type="submit" endIcon={<SendIcon />}>
                                     Submit

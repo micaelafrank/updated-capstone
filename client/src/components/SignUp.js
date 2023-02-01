@@ -174,7 +174,7 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                             alignItems: 'center',
                         }}
                     >
-                    <Typography component="h1" variant="h1" sx={{ fontFamily: "monospace", mt: 2, fontSize: "3.2rem", fontWeight:"bold", color:"primary.main" }}>
+                    <Typography component="h1" variant="h1" sx={{ fontFamily: "monospace", mt: 2, fontSize: "3.4rem", color:"primary.main" }}>
                         GOOD GOODS
                     </Typography>
                     {/* <Avatar sx={{ mt: 5,bgcolor: 'primary.main' }}>
@@ -193,7 +193,7 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                                 </Typography>
                             ))}
                         </div> */}
-                        <Grid container spacing={2}>
+                        <Grid sx={{ ml: "auto", mr: "auto", width: "630px" }} container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <FormControl>
                                     <InputLabel style={{ fontFamily: "monospace" }} htmlFor='my-input' >
