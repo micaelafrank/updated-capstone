@@ -79,23 +79,23 @@ function SavedItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLike,
                 <ArrowBackIosIcon style={{ position: 'absolute', top: '50%', left: 20, transform: 'translate(-50%,-50%)' }}>Back</ArrowBackIosIcon>
                 <ArrowForwardIosIcon style={{ position: 'absolute', top: '50%', right: 20, transform: 'translate(-50%,-50%)' }}>Next</ArrowForwardIosIcon>               
             </Carousel> */}
-            <div sx={{ height: '200' }}>
+            <div sx={{ height: '190' }}>
                 <CardMedia
                     className="profItemImage"
                     component="img"
-                    sx={{ maxHeight: "200" }}
+                    sx={{ maxHeight: "190" }}
                     image={images_url}
                 />
             </div>
             {/* <Typography sx={{ lineHeight: "1", fontSize: "1.2em", paddingLeft: "12px", paddingRight: "16px", paddingTop: "10px", }} color="secondary.darkText" gutterBottom> */}
-            <p style={{ marginLeft: "10px", lineHeight: "1", marginTop: "0", marginBottom: "0", fontSize: "18px", paddingRight: "12px", justifyContent: "left", alignItems: "left", paddingTop: "15px" }}>{itemname}</p>
+            <p style={{ marginLeft: "10px", lineHeight: "1", marginTop: "0", marginBottom: "0", fontSize: "20px", paddingRight: "12px", justifyContent: "left", alignItems: "left", paddingTop: "10px", textTransform:"uppercase" }}>{itemname}</p>
             <p style={{ marginLeft: "10px", marginTop: "0", marginBottom: "0", lineHeight: "1", fontSize: "12px", paddingRight: "12px", justifyContent: "left", paddingTop: "10px" }}>ON SALE SINCE: <span style={{ fontWeight: "bold" }}>{dateItem}</span></p>
-            <CardActions style={{ marginTop: "8px", alignItems:"center" }} className="prof-bottom-card-details" theme={theme}>
-                <IconButton aria-label="delete" style={{ alignItems: "center", paddingTop: "0", marginTop: "0", marginBottom:"0"}} onClick={handleOpen}>
-                    <FavoriteIcon/>               
+            <CardActions style={{ margin:"5px", marginTop:"7px", alignItems:"center", justifyContent:"space-between" }} className="prof-bottom-card-details" theme={theme}>
+                <IconButton aria-label="delete" style={{ alignItems: "center", padding: "0", margin: "0"}} onClick={handleOpen}>
+                    <FavoriteIcon style={{ fontSize: "2rem", color:"#C57E8E"}} />               
                 </IconButton>
                 {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}
-                <Button style={{alignItems:"center", color: "black", marginBottom:"5px"}}>VIEW DETAILS</Button>
+                <Button style={{alignItems:"center", padding:"0", fontSize:"14px", color: "black", paddingLeft:"10px", paddingRight:"10px", paddingBottom:"2px", paddingTop:"5px", borderRadius:"0", borderBottom:"1px solid black"}}>VIEW DETAILS</Button>
                 {/* <IconButton aria-label="edit" style={{ alignItems: "center", paddingTop: "0", marginTop: "0" }}
                     onClick={handleOpenEdit}
                 >

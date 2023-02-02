@@ -58,7 +58,7 @@ function MyListingsList({ myItems, setMyItems, change, setChange, user, items, s
                     <button>SELL MY GOODS</button>
                 </div>
                 :
-                <Grid sx={{ m: 3 }} container>
+                <Grid sx={{ m: 2 }} container>
                     <Grid className="profileGrid">
                         {myitemsforsale}
                     </Grid>

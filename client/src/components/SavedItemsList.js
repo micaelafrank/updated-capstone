@@ -43,8 +43,8 @@ function SavedItemsList({ user, handleOnlySaves, setUserLikes, userLikes, items,
 
     return(
         <>
-            <h2 style={{ fontSize: "25px", marginBottom:"4px", textAlign: "left", fontFamily: "monospace", fontWeight:"normal" }}>YOUR SAVED GOODS</h2>
-            <h5 style={{ fontSize: "16px", fontWeight:"normal", textAlign: "left", fontFamily: "monospace", letterSpacing: "1.1px", margin: "0", padding: "0" }}><Button style={{color:"black", backgroundColor:"none", borderBottom:"1px solid black", borderRadius: "none", padding:" 5px 0 2px 0", }} to={handleOnlySaves}>view all</Button></h5>
+            <h2 style={{ fontSize: "25px", marginBottom:"4px", textAlign: "left", fontFamily: "monospace", marginLeft:"10px", marginTop:"10px", fontWeight:"normal" }}>YOUR SAVED GOODS</h2>
+            <h5 style={{ marginLeft: "10px", fontSize: "16px", fontWeight: "normal", textAlign: "left", fontFamily: "monospace", marginLeft: "10px", letterSpacing: "1.1px", borderRadius: "none", margin: "0", padding: "0" }}><Button style={{ paddingBottom: "1px", paddingLeft:"12px", paddingRight:"12px", marginLeft:"10px", color:"black", backgroundColor:"none", borderBottom:"1px solid black", borderRadius: "0" }} to={handleOnlySaves}>view all</Button></h5>
                     {/* item xs={12} sm={6} md={4} */}
                     {userLikes.length <1 ? 
                         <div style={{ marginLeft:"auto", textAlign:"center", marginRight:"auto", justifyContent: "center", alignItems: "center" }}>
@@ -52,7 +52,7 @@ function SavedItemsList({ user, handleOnlySaves, setUserLikes, userLikes, items,
                             <button>SHOW ME THE GOOD GOODS</button>
                         </div>
                     : 
-                    <Grid sx={{ m: 3 }} container>
+                    <Grid sx={{ m:2 }} container>
                         <Grid className="profileGrid">
                             {myLikedItems}
                         </Grid>
