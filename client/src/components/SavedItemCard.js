@@ -70,7 +70,7 @@ function SavedItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLike,
 
     return (
         <Card className="savedItemCard" theme={theme}
-            sx={{ border: "1px solid black" }}
+            sx={{ border: "1px solid black", boxShadow:"none", borderRadius: "0" }}
         >
             {/* <Carousel
                 component = "img"
@@ -91,7 +91,7 @@ function SavedItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLike,
             <p style={{ marginLeft: "10px", lineHeight: "1", marginTop: "0", marginBottom: "0", fontSize: "18px", paddingRight: "12px", justifyContent: "left", alignItems: "left", paddingTop: "15px" }}>{itemname}</p>
             <p style={{ marginLeft: "10px", marginTop: "0", marginBottom: "0", lineHeight: "1", fontSize: "12px", paddingRight: "12px", justifyContent: "left", paddingTop: "10px" }}>ON SALE SINCE: <span style={{ fontWeight: "bold" }}>{dateItem}</span></p>
             <CardActions style={{ marginTop: "8px", alignItems:"center" }} className="prof-bottom-card-details" theme={theme}>
-                <IconButton aria-label="delete" style={{ alignItems: "center", paddingTop: "0", marginTop: "0", marginBottom:"1"}} onClick={handleOpen}>
+                <IconButton aria-label="delete" style={{ alignItems: "center", paddingTop: "0", marginTop: "0", marginBottom:"0"}} onClick={handleOpen}>
                     <FavoriteIcon/>               
                 </IconButton>
                 {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}

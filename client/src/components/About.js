@@ -27,7 +27,7 @@ function About({ user }){
     return(
     <>
     <ThemeProvider theme={theme}>
-        {user.username ? <WithNav /> : <SpecialNavBar />}
+        {user.username ? <WithNav user={user} /> : <SpecialNavBar />}
         <Container component="main">
             <CssBaseline />
                 <Box>

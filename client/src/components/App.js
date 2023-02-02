@@ -19,10 +19,11 @@ import About from './About';
 import ItemDetails from './ItemDetails';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import AddImages from './AddImages';
+import PreviewImage from './PreviewImage';
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
-function App({ itemCount }) {
+function App() {
   const [items, setItems] = useState([]);
   const [user, setUser] = useState({});
   const [change, setChange] = useState(false);
@@ -33,6 +34,7 @@ function App({ itemCount }) {
   const [showSignUp, setShowSignUp] = useState(false);
   const [cartCount, setCartCount] = useState([]);
   const [itemDetail, setItemDetail] = useState({});
+  const [profile, setProfile] = useState({});
   const navigate = useNavigate();
   // const cartTotalNum = cartItems.user_cart_items.length;
 
@@ -102,6 +104,13 @@ function App({ itemCount }) {
   console.log("Cart count: ", cartCount)
 
   useEffect(() => {
+    fetch(`/api/profile/${user.username}`)
+      .then((r) => r.json())
+      .then(profile => setProfile(profile))
+  }, [])
+  console.log(profile)
+
+  useEffect(() => {
     fetch("/api/items")
       .then((r) => r.json())
       .then(data => setItems(data))
@@ -114,6 +123,9 @@ function App({ itemCount }) {
       .then(data => setCartItems(data))
     // setItemCount(itemCount)})
   }, [change])
+
+  let lastItemAdded;
+  let lastItemId;
 
   function addNewItem(newItem) {
     setItems(...items, newItem)
@@ -204,9 +216,11 @@ function App({ itemCount }) {
               {/* :
               <Route path="/" element={<Homepage items={items} />} />
             } */}
-          <Route path="/profile/:username" element={<Profile userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
-          <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} user={user} />} />
+          <Route path="/profile/:username" element={<Profile profile={profile} setProfile={setProfile} userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
+          <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} items={items} setItems={setItems} user={user} />} />
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
+          <Route path="/sell/images/:id" element={<AddImages items={items} setItems={setItems} addNewItem={addNewItem} user={user} />} />
+          <Route path="/sell/images/preview/:id" element={<PreviewImage addNewItem={addNewItem} items={items} setItems={setItems} user={user} />} />
           <Route path="/buy" element={<ItemsList handleSelect={handleSelect} userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} user={user} />} />
           <Route path="/buy/:id" element={<ItemDetails itemDetail={itemDetail} setItemDetail={setItemDetail} user={user} details={details} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} cartItems={cartItems} setCartItems={setCartItems} user={user} />} />

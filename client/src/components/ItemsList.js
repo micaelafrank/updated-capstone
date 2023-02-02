@@ -77,7 +77,7 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
     const listOfItems = items.map((item) => {
         return (
             <ItemCard
-                images={item.images}
+                preview_image_url={item.preview_image_url}
                 handleSelect={handleSelect}
                 category={item.category}
                 key={item.id}
@@ -171,7 +171,7 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
                         </div>
                     </Stack>
                 </Box>
-                <Container sx={{ py: 2, ml: "auto", mr:"auto", justifyContent:"center", alignItems:"center" }}>
+                <Container sx={{ py: 2, ml: "auto", mr:"auto", display:"flex", justifyContent:"center", alignItems:"center" }}>
                     {/* End hero unit */}
                     <Grid container spacing={4} sx={{ml: "auto", mr: "auto", justifyContent:"center", alignItems:"center"}}>
                         {/* {cards.map((card) => ( */}

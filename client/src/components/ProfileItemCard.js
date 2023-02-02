@@ -68,7 +68,7 @@ function ProfileItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLik
 
     return (
         <Card className="profOneItemCard" theme={theme}
-            sx={{ border: "1px solid black" }}
+            sx={{ border: "2px solid brown", borderRadius:"0" }}
         >
             {/* <Carousel
                 component = "img"

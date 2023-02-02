@@ -16,8 +16,10 @@ class Api::ProfilesController < ApplicationController
 
     def show
         profile = Profile.find_by(user_id: @current_user.id)
-        render json: profile 
+        render json: profile
     end
+
+
 
     private 
 

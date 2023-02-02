@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     # end
     # resources :checkout, only: [:create, :create_payment_intent]
   namespace :api do
-    resources :items, only: [:index, :myItemsForSale, :show, :create, :update, :destroy]
+    resources :items, only: [:index, :add_images, :add_preview_image, :myItemsForSale, :show, :create, :update, :destroy]
     resources :sessions, only: [:create, :destroy]
     resources :users, only: [:create, :show, :index, :update, :destroy] 
     resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
@@ -33,13 +33,15 @@ Rails.application.routes.draw do
     get "/cart-count/:user_id", to: "user_carts#get_count"
     # patch "/users/:id", to: "users#update"
     # delete "/favorites:user_id", to: "users#destroy"
-    get "/profile/:username", to: "profiles#show"
+    get "/profile/:id", to: "profiles#show"
     patch "/profile/:id", to: "users#update"
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy" 
     patch "/profile/:id/add-image", to: "profiles#create"
     # post "/sell", to: "items#create"
     get "/mycart", to: "user_carts#show" 
+    post "/add-images", to: "items#add_images"
+    post "/add-preview-image", to: "items#add_preview_image"
     get "/rendercart", to: "user_cart_items#index" 
     get "/items", to: "items#index"
     get "/items/:item_id/:itemname", to: "items#show"

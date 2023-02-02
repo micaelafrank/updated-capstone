@@ -69,6 +69,17 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     end
 
 
+    def add_preview_image
+        item = Item.find(params[:id])
+        if item.preview_image.attached? then
+            item.preview_image.purge
+        end
+        item.preview_image.attach(params[:preview_image])
+        render json: item, status: :ok
+    end
+
+
+
     def destroy 
         item = find_item
         item.destroy

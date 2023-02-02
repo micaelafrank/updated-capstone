@@ -92,7 +92,7 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
         .then((res) => {
             if (res.ok) {
                 res.json().then((data) => onSignUp(data));
-                navigate(`/profile/${user.username}`);
+                navigate(`/profile/${username}`);
             } else {
                 res.json().then((err) => setErrors(err.errors));
             }

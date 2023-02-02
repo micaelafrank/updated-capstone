@@ -16,11 +16,10 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { darkScrollbar } from '@mui/material';
-import {brown, orange} from '@mui/material/colors';
+import { brown, orange } from '@mui/material/colors';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ConfirmDelete from './ConfirmDelete';
 import EditCard from './EditCard';
-import Button from '@mui/material/Button';
 import ItemDetails from './ItemDetails';
 import { useNavigate } from 'react-router-dom';
 import DetailedItemCard from './DetailedItemCard';
@@ -28,7 +27,7 @@ import DetailedItemCard from './DetailedItemCard';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function OldItemCard({ images, myLikedItem, category, userLikes, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -53,23 +52,23 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
     const [openEdit, setOpenEdit] = useState(false);
     const [moreInfo, setMoreInfo] = useState(false);
     const navigate = useNavigate();
-    
     // const [imageNum, setImageNum] = useState(images_url);
 
-//     const setLikeButtons = () => hearts.filter(heart => {
-//         if (heart === item.id) {
-//             setIsSaved(true);
-//         } else{
-//             setIsSaved(false);
-//     }
-// })
+    //     const setLikeButtons = () => hearts.filter(heart => {
+    //         if (heart === item.id) {
+    //             setIsSaved(true);
+    //         } else{
+    //             setIsSaved(false);
+    //     }
+    // })
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleOpenEdit = () => setOpenEdit(true);
     const handleCloseEdit = () => {
         (setChange(!change))
-        setOpenEdit(false);}
+        setOpenEdit(false);
+    }
 
     const theme = createTheme({
         palette: {
@@ -87,11 +86,11 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
         },
     });
 
-    function handleMoreInfo(){
+    function handleMoreInfo() {
         setMoreInfo(true)
     }
 
-    function handleCloseMoreInfo(){
+    function handleCloseMoreInfo() {
         setMoreInfo(false);
     }
 
@@ -114,9 +113,9 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
             },
             body: JSON.stringify(newCartItem),
         })
-        .then(res => res.json())
-        .then(setWasClicked(wasClicked => (!wasClicked)))
-        (setChange(!change))
+            .then(res => res.json())
+            .then(setWasClicked(wasClicked => (!wasClicked)))
+            (setChange(!change))
     }
 
 
@@ -135,8 +134,8 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
             },
             body: JSON.stringify(newFavoriteItem),
         })
-        .then(res => res.json())
-        .then(data => setIsSaved(data))
+            .then(res => res.json())
+            .then(data => setIsSaved(data))
         // .then(setIsSaved(isSaved => (!isSaved)))
         // setIsFavorite(true);
         setChange(!change);
@@ -149,8 +148,8 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
         fetch(`/api/remove-save/${id}`, {
             method: "DELETE",
         })
-        .then((res) => res.json())
-        .then(data => handleUnlike(data))        
+            .then((res) => res.json())
+            .then(data => handleUnlike(data))
         setIsSaved(isSaved => (!isSaved))
         // setWasClicked(wasClicked => (!wasClicked));
         // handleUnlike();
@@ -192,23 +191,15 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
         // };
     }
 
-    function setCartValue(deletedItem){
+    function setCartValue(deletedItem) {
         setInitialCartValue(deletedItem.inCartIcon);
         setIsAddedCart(isAddedCart => (!isAddedCart))
     }
 
     return (
-        <Card className="oneItemCard" theme={theme} 
-        sx={{ border: "1px solid black" }}
+        <Card className="oneItemCard" theme={theme}
+            sx={{ border: "1px solid black" }}
         >
-            <div sx={{height: '300'}}>
-                <CardMedia
-                    className="itemImage"
-                    component="img"
-                    sx={{ maxHeight: "300" }}
-                    image={images_url}
-                />
-            </div>
             {/* <div sx={{ height: '300' }}>
                 <Carousel
                     next={nextImage}
@@ -220,23 +211,27 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
                 <img className="itemImage" style={{ objectPosition: "center", objectFit: "cover" }} src={images_url} />
                 </Carousel>
             </div> */}
+            <img className="itemImage" style={{ objectPosition: "center", objectFit: "cover" }} src={images_url} />
+
             <CardContent className="card-details" color="primary" sx={{ flexGrow: 1 }}>
-            {user.id === item.user_id ?
-                (<Typography sx={{ fontSize: "13px", color: "black", fontWeight: "bold", mb: .3}}>
-                    YOU ARE SELLING THIS ITEM
-                </Typography>) :
-                (<Typography sx={{ fontSize: "13px", color: brown[400], fontWeight: "bold", mb: .3 }}>
-                    SOLD BY: {sold_by}
-                </Typography>)
-                }                
+                {user.id === item.user_id ?
+                    (<Typography sx={{ fontSize: "13px", color: "black", fontWeight: "bold", mb: .3 }}>
+                        YOU ARE SELLING THIS ITEM
+                    </Typography>) :
+                    (<Typography sx={{ fontSize: "13px", color: brown[400], fontWeight: "bold", mb: .3 }}>
+                        SOLD BY: {sold_by}
+                    </Typography>)
+                }
                 <Typography color="secondary.darkText" fontSize="1.4em" gutterBottom>
-                    {initialItemNameValue}
+                    <div>
+                        <span>{initialItemNameValue}</span>
+                    </div>
                 </Typography>
                 <div className='form-box' style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
                     <div style={{ display: "flex", alignItems: "center" }}>
                         <SellOutlinedIcon style={{ paddingRight: "4px" }} />
                         <div style={{ paddingRight: "14px" }}>
-                            <div 
+                            <div
                             // style={{marginBottom: "5px", marginTop: "5px"}}
                             >
                                 <span>${initialPriceValue}</span>
@@ -244,56 +239,62 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
                         </div>
                     </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent:"space-between" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <div className="descriptionInfoEdit">
                         <span>SIZE {size}, {material}</span>
                         {/* <span>{initialDescriptionValue}</span> */}
                     </div>
                 </div>
-                </CardContent>
-                <CardActions className="bottom-card-details" theme={theme}>
+            </CardContent>
+            <CardActions className="bottom-card-details" theme={theme}>
                 {user.id === item.user_id ? null :
-                <IconButton onClick={initialHeartValue ? handleUndoHeart : handleFillHeart}>
-                {isSaved ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                </IconButton>}
+                    <IconButton onClick={initialHeartValue ? handleUndoHeart : handleFillHeart}>
+                        {isSaved ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    </IconButton>}
                 {user.id === item.user_id ?
-                <IconButton aria-label="delete" onClick={handleOpen}>
-                    <DeleteIcon />
-                </IconButton> : null}
-                {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}    
+                    <IconButton aria-label="delete" onClick={handleOpen}>
+                        <DeleteIcon />
+                    </IconButton> : null}
+                {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}
                 {user.id === item.user_id ?
-                    (<IconButton aria-label="edit"
+                    <IconButton aria-label="edit"
                         onClick={handleOpenEdit}
                     >
                         <EditIcon />
-                    </IconButton>) : null }
+                    </IconButton> : null}
                 {openEdit ? <EditCard priceState={priceState} setPriceState={setPriceState} initialPriceValue={initialPriceValue} setInitialPriceValue={setInitialPriceValue} editPriceState={editPriceState} setEditPriceState={setEditPriceState} itemNameState={itemNameState} setItemNameState={setItemNameState} editNameState={editNameState} setEditNameState={setEditNameState} initialItemNameValue={initialItemNameValue}
-                setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} 
-                images_url={images_url} handleCloseEdit={handleCloseEdit} setImageState={setImageState} imageState={imageState} initialImageValue={initialImageValue}
-                setInitialImageValue={setInitialImageValue} editImageState={editImageState} setEditImageState={setEditImageState} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}    
+                    setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit}
+                    images_url={images_url} handleCloseEdit={handleCloseEdit} setImageState={setImageState} imageState={imageState} initialImageValue={initialImageValue}
+                    setInitialImageValue={setInitialImageValue} editImageState={editImageState} setEditImageState={setEditImageState} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null}
                 {user.id === item.user_id ? null :
-                <IconButton
-                    onClick={wasClicked ? alreadyInCart : renderUserCartItem}
-                    sx={{ pointerEvents: wasClicked ? "none" : null }}
+                    <IconButton
+                        onClick={wasClicked ? alreadyInCart : renderUserCartItem}
+                        sx={{ pointerEvents: wasClicked ? "none" : null }}
                     // defaultValue={initialCartValue}
-                >
-                    {wasClicked ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
-                </IconButton>}
+                    >
+                        {wasClicked ? <ShoppingCartIcon /> : <AddShoppingCartIcon />}
+                    </IconButton>}
                 {/* {moreInfo ? () => navigate(`/buy/${item.id}`) : null} */}
                 {moreInfo ? <ItemDetails wasClicked={wasClicked} initialCartValue={initialCartValue} ShoppingCartIcon={ShoppingCartIcon} AddShoppingCartIcon={AddShoppingCartIcon} inCartIcon={inCartIcon} renderUserCartItem={renderUserCartItem}
-                user={user} initialHeartValue={initialHeartValue} isSaved={isSaved} handleUndoHeart={handleUndoHeart} handleFillHeart={handleFillHeart} FavoriteIcon={FavoriteIcon} FavoriteBorderIcon={FavoriteBorderIcon} item_id={item_id} items={items} setItems={setItems} moreInfo={moreInfo} handleMoreInfo={handleMoreInfo} handleCloseMoreInfo={handleCloseMoreInfo} item={item} id={id} itemname={itemname} price={price} color={color} material={material} condition={condition} size={size} description={description} images_url={images_url}
-                /> 
-                : null}
-                {user.id === item.user_id ? null :
-                    (<Button
-                        style={{ fontFamily: "monospace", padding: "6px 15px", alignItems: "center", justifyContent: "center", backgroundColor: brown[500], border: "1px solid white", borderRadius: "4px", color: "white" }}
-                        onClick={handleMoreInfo}>
-                        more info
-                    </Button>)}
+                    user={user} initialHeartValue={initialHeartValue} isSaved={isSaved} handleUndoHeart={handleUndoHeart} handleFillHeart={handleFillHeart} FavoriteIcon={FavoriteIcon} FavoriteBorderIcon={FavoriteBorderIcon} item_id={item_id} items={items} setItems={setItems} moreInfo={moreInfo} handleMoreInfo={handleMoreInfo} handleCloseMoreInfo={handleCloseMoreInfo} item={item} id={id} itemname={itemname} price={price} color={color} material={material} condition={condition} size={size} description={description} images_url={images_url}
+                />
+                    : null}
+                <button
+                    style={{ fontFamily: "monospace", padding: "6px 15px", alignItems: "center", justifyContent: "center", backgroundColor: brown[500], border: "1px solid white", borderRadius: "4px", color: "white" }}
+                    onClick={handleMoreInfo}
+                // onClick={handleSelect}
+                // onClick={() => navigate(`/buy/${item?.id}/${item?.itemname}`, {
+                //     itemname: itemname,
+                //     item: item,
+                //     id: id,
+                // })}
+                >
+                    more info
+                </button>
                 {/* <button onClick={<DetailedItemCard item={item} id={id} />}>Detail card</button> */}
             </CardActions>
         </Card>
     )
 }
 
-export default ItemCard;
+export default OldItemCard;

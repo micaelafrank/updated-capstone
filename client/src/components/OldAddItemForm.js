@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Grid from '@mui/material/Grid';
 import InputLabel from '@mui/material/InputLabel';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
-import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -17,7 +17,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
-function AddItemForm({ user, setItems, items, lastItemId, addNewItem }) {
+function OldAddItemForm({ user, addNewItem }) {
     const [itemname, setItemName] = useState("")
     const [price, setPrice] = useState("")
     const [description, setDescription] = useState("")
@@ -26,19 +26,7 @@ function AddItemForm({ user, setItems, items, lastItemId, addNewItem }) {
     const [size, setSize] = useState("")
     const [condition, setCondition] = useState("")
     const [errors, setErrors] = useState([]);
-    // const [images, setImages] = useState("");
-    const [images, setImages] = useState([]);
-
-
-    useEffect(() => {
-        fetch("/api/items")
-            .then((r) => r.json())
-            .then(data => setItems(data))
-    }, [])
-    console.log(items.length)
-    let itemCount = items.length + 1;
-    console.log(itemCount)
-
+    const [images, setImages] = useState("");
     // const [images, setImages] = useState([]);
 
     // const [firstImage, setFirstImage] = useState("");
@@ -47,7 +35,7 @@ function AddItemForm({ user, setItems, items, lastItemId, addNewItem }) {
     const navigate = useNavigate();
     const theme = createTheme();
 
-    function handleImages(e){
+    function handleImages(e) {
         console.log(e.target.files[0])
         setImages(e.target.files[0])
     }
@@ -89,9 +77,8 @@ function AddItemForm({ user, setItems, items, lastItemId, addNewItem }) {
             .then((r) => {
                 if (r.ok) {
                     r.json().then(data => addNewItem(data));
-                    console.log("formData: ", formData)
-                    navigate(`/buy`)
-                } 
+                    navigate("/buy")
+                }
                 else {
                     r.json().then((err) => setErrors(err.errors));
                 }
@@ -262,4 +249,4 @@ function AddItemForm({ user, setItems, items, lastItemId, addNewItem }) {
     )
 }
 
-export default AddItemForm; 
+export default OldAddItemForm; 

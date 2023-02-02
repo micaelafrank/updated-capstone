@@ -35,6 +35,17 @@ const pages = ['ABOUT', 'SELL', 'BUY', 'PROFILE', 'LOGOUT'];
 function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
+
+    useEffect(() => {
+        fetch("/api/me").then((r) => {
+            if (r.ok) {
+                r.json().then((user) => setUser(user));
+            }
+        })
+    }, [])
+    console.log(user);
+
+    
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);

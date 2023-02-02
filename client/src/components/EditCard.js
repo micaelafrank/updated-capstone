@@ -31,6 +31,13 @@ function EditCard({ imageState, setImageState, initialImageValue, setInitialImag
     itemNameState, setItemNameState, editDescriptionState, editNameState, setEditNameState, initialItemNameValue, setInitialItemNameValue,
     descriptionState, setDescriptionState, setEditDescriptionState, initialDescriptionValue, setInitialDescriptionValue,
     images_url, handleOpenEdit, setOpenEdit, price, user, itemname, description }) {
+    const [addImages, setAddImages] = useState(false);
+    const [images, setImages] = useState([])
+
+    function handleMoreImages() {
+        setAddImages(addImages => !addImages)
+    }
+
     // const [priceState, setPriceState] = useState(item.price);
     // const [editPriceState, setEditPriceState] = useState(false);
     // const [initialPriceValue, setInitialPriceValue] = useState(item.price);
@@ -44,25 +51,6 @@ function EditCard({ imageState, setImageState, initialImageValue, setInitialImag
 
     const formData = new FormData();
     formData.append('image', images_url);
-
-
-    function handleSubmit(e){
-        e.preventDefault();
-        const formData = new FormData();
-
-        const itemCardId = document.getElementById(item.id).value;
-        formData.append("[itemCardId]", itemCardId);
-
-        let imagesLength = e.target.images.files.length;
-        let eachImage = e.target.images.files;
-
-        for (var x = 0; x < imagesLength; x++) {
-            formData.append("images[]", eachImage[x]);
-        }
-        submitToApi(formData);
-        e.target.reset();
-    }
-
 
     console.table(item)
     console.log(item.images_url[0])
@@ -159,7 +147,7 @@ function EditCard({ imageState, setImageState, initialImageValue, setInitialImag
                     Click on the edit button pertaining to the item detail you want to change
                 </Typography>
                 {/* TEST FOR IMAGE CONTAINER */}
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                     <InputLabel>Upload Image:</InputLabel>
                     <input
                         type="file"
@@ -169,7 +157,8 @@ function EditCard({ imageState, setImageState, initialImageValue, setInitialImag
                         accept="image/*"
                         onChange={handleEditImage}
                     />
-                </Grid>
+                </Grid> */}
+                
                 {/* <form onSubmit={handleSubmit}>
                     <input 
                     type="file"
@@ -196,6 +185,20 @@ function EditCard({ imageState, setImageState, initialImageValue, setInitialImag
                         style={{height: '100%', justifyContent:'center', alignItems:'center'}}
                     />
                 </div>
+                {/* {addImages ? <button onClick={handleSubmit}>SUBMIT</button>
+                : <button onClick={handleMoreImages}>ADD MORE IMAGES</button>}
+                {addImages ?
+                    <Grid item xs={12}>
+                        <InputLabel>Upload additional images:</InputLabel>
+                        <input
+                            type="file"
+                            id="images"
+                            name="file"
+                            multiple="multiple"
+                            accept="image/*"
+                        />
+                    </Grid>
+                    : null} */}
                 <div className='modal-item-description-box'>
                 <Typography style={{lineHeight:"3rem"}} textAlign="center" color="secondary.darkText" fontSize="1.2em" marginTop="5px" gutterBottom>
                     <div style={{display:"flex", flexDirection:"row", alignItems:"center" }}>

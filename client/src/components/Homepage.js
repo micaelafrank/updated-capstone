@@ -121,7 +121,7 @@ export default function Homepage({
     return (
         <>
         <ThemeProvider theme={theme}>
-            {user.username ? <WithNav/> : <SpecialNavBar/>}
+            {user.username ? <WithNav user={user} /> : <SpecialNavBar/>}
             <Grid container component="main" sx={{ height: '100vh' }}>
                 {/* <CssBaseline /> */}
                 <Grid 
