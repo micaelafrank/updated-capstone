@@ -12,7 +12,14 @@ code {
     monospace;
 }
 
+.test{
+  color:#583d33
+}
 
+.icon-style{
+  font-size: 2rem;
+  stroke:"white"
+}
 
 .itemImage{
   image-orientation: center;
@@ -33,7 +40,8 @@ code {
   width: auto;
   height: inherit;
   padding: 1.7em;
-  background-color: #b5bca5;
+  border: 2px solid #583d33;
+  background-color: rgb(192, 170, 157);
 }
 
 .profItemImage{

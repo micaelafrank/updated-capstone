@@ -85,7 +85,7 @@ function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
         navigate("/mycart")
     }
 
-    const darkBrown = '#795548';
+    const darkBrown = '#583d33';
     const mainBrown = '#e8eaf6';
     const lightBrown = brown['A100'];
 
@@ -97,8 +97,8 @@ function ResponsiveAppBar({ cartCount, user, setUser, setDarkMode, darkMode }) {
     // }));
 
     return (
-        <AppBar theme={theme} position="static">
-            <Container sx={{backgroundColor: darkBrown, mt:1, mb:1 }} maxWidth="xl">
+        <AppBar sx={{ backgroundColor:"#583d33"}} theme={theme} position="static">
+            <Container sx={{ mt:1, mb:1 }} maxWidth="xl">
                 <Toolbar disableGutters>
                     {/* <img className='logoimg' alt="cube-logo" /> */}
                     <Typography

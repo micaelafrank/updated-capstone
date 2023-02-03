@@ -92,7 +92,7 @@ function SavedItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLike,
             <p style={{ marginLeft: "10px", marginTop: "0", marginBottom: "0", lineHeight: "1", fontSize: "12px", paddingRight: "12px", justifyContent: "left", paddingTop: "10px" }}>ON SALE SINCE: <span style={{ fontWeight: "bold" }}>{dateItem}</span></p>
             <CardActions style={{ margin:"5px", marginTop:"7px", alignItems:"center", justifyContent:"space-between" }} className="prof-bottom-card-details" theme={theme}>
                 <IconButton aria-label="delete" style={{ alignItems: "center", padding: "0", margin: "0"}} onClick={handleOpen}>
-                    <FavoriteIcon style={{ fontSize: "2rem", color:"#C57E8E"}} />               
+                    <FavoriteIcon className="icon-style" style={{ fontSize: "2rem", color:"#C57E8E", stroke:"maroon"}} />               
                 </IconButton>
                 {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}
                 <Button style={{alignItems:"center", padding:"0", fontSize:"14px", color: "black", paddingLeft:"10px", paddingRight:"10px", paddingBottom:"2px", paddingTop:"5px", borderRadius:"0", borderBottom:"1px solid black"}}>VIEW DETAILS</Button>
