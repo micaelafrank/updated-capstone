@@ -14,7 +14,7 @@ import SavedItemsList from "./SavedItemsList";
 import MyListingsList from "./MyListingsList";
 import ProfileBox from "./ProfileBox";
 
-function Profile({ profile, setProfile, userLikes, setUserLikes, user, change, setChange, items, setItems, setUser }) {
+function Profile({ handleUnlike, profile, setProfile, userLikes, setUserLikes, user, change, setChange, items, setItems, setUser }) {
     const { username, firstname, lastname, email, password, images_url } = user;
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
@@ -25,15 +25,14 @@ function Profile({ profile, setProfile, userLikes, setUserLikes, user, change, s
     const [isMyItemsLayout, setIsMyItemsLayout] = useState(false);
     const [myItems, setMyItems] = useState([]);
 
-    // useEffect(() => {
-    //     fetch("/api/me").then((r) => {
-    //         if (r.ok) {
-    //             r.json().then((user) => setUser(user));
-    //         }
-    //     })
-    // }, [])
-    // console.log(user);
-
+    useEffect(() => {
+        fetch("/api/me").then((r) => {
+            if (r.ok) {
+                r.json().then((user) => setUser(user));
+            }
+        })
+    }, [])
+    console.log(user);
 
     useEffect(() => {
         fetch(`/api/profile/${user.id}`)
@@ -47,7 +46,7 @@ function Profile({ profile, setProfile, userLikes, setUserLikes, user, change, s
             .then((r) => r.json())
             .then(data => setUserLikes(data))
         // setItemCount(itemCount)})
-    }, [])
+    }, [change])
     console.log("my likesss: ", userLikes)
 
     useEffect(() => {
@@ -85,19 +84,19 @@ function Profile({ profile, setProfile, userLikes, setUserLikes, user, change, s
                 <div className="profileContainer" style={{display:"flex", flexDirection:"row"}}>
                 <div style={{flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
                 {userLikes.length < 1 ? null : 
-                    <SavedItemsList handleOnlySaves={handleOnlySaves} items={items} setItems={setItems} userLikes={userLikes} setUserLikes={setUserLikes} user={user} />}
+                    <SavedItemsList change={change} handleUnlike={handleUnlike} handleOnlySaves={handleOnlySaves} items={items} setItems={setItems} userLikes={userLikes} setUserLikes={setUserLikes} user={user} />}
                 {userLikes.length < 1 ? null : 
-                    <MyListingsList myItems={myItems} setMyItems={setMyItems} change={change} setChange={setChange} items={items} setItems={setItems} user={user} />}
+                    <MyListingsList myItems={myItems} setMyItems={setMyItems} items={items} setItems={setItems} user={user} />}
                 </div>
                 </div>
             </div>
             : null }
             <div style={{ margin: "1em", marginLeft: "auto", marginRight: "auto", width: "auto" }}>
                 {isSavedItemsLayout ?
-                    <SavedItemsList handleOnlySaves={handleOnlySaves} items={items} setItems={setItems} userLikes={userLikes} setUserLikes={setUserLikes} user={user} />
+                    <SavedItemsList change={change} handleUnlike={handleUnlike} handleOnlySaves={handleOnlySaves} items={items} setItems={setItems} userLikes={userLikes} setUserLikes={setUserLikes} user={user} />
                 : null}
                 {isMyItemsLayout ?
-                    <MyListingsList myItems={myItems} setMyItems={setMyItems} change={change} setChange={setChange} items={items} setItems={setItems} user={user} />
+                    <MyListingsList myItems={myItems} setMyItems={setMyItems} items={items} setItems={setItems} user={user} />
                 : null}
             </div>
         </div>

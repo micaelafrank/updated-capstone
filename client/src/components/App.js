@@ -35,6 +35,8 @@ function App() {
   const [cartCount, setCartCount] = useState([]);
   const [itemDetail, setItemDetail] = useState({});
   const [profile, setProfile] = useState({});
+  // const [wasClicked, setWasClicked] = useState(false)
+
   const navigate = useNavigate();
   // const cartTotalNum = cartItems.user_cart_items.length;
 
@@ -96,12 +98,14 @@ function App() {
   }
   console.log("item detail: ", itemDetail)
 
+
   useEffect(() => {
     fetch(`/api/cart-count/${user.id}`)
       .then((r) => r.json())
       .then(data => setCartCount(data))
   }, [change])
   console.log("Cart count: ", cartCount)
+
 
   useEffect(() => {
     fetch(`/api/profile/${user.username}`)
@@ -110,12 +114,14 @@ function App() {
   }, [])
   console.log(profile)
 
+
   useEffect(() => {
     fetch("/api/items")
       .then((r) => r.json())
       .then(data => setItems(data))
   }, [])
   console.log(items)
+
 
   useEffect(() => {
     fetch("/api/mycart")
@@ -135,6 +141,10 @@ function App() {
     setUser(user)
   }
 
+  // function handleUnlike(myItem) {
+  //   const newLikedList = userLikes.filter((item) => item.id !== myItem.id)
+  //   setUserLikes(newLikedList)
+  // }
 
   // useEffect(() => {
   //   fetch(`/api/user-likes-container/${user.id}`)
@@ -175,6 +185,11 @@ function App() {
   // function deleteItemFromList(id) {
   //   const updatedItemsList = items.filter((item) => item.id !== id);
   //   setItems(updatedItemsList);
+  // }
+
+  // function handleUnlike(myItem) {
+  //   const newLikedList = userLikes.filter((item) => item.id !== myItem.id)
+  //   setUserLikes(newLikedList)
   // }
 
 

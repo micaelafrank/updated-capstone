@@ -27,10 +27,10 @@ class Api::SavedItemsController < ApplicationController
         saves = SavedItem.create!(saveditem_params)
         render json: saves, status: 201
     end
-  
+        
     def destroy
-        # item = UserLikesContainer.find_by(user_id: @current_user.id)
-        sItems = item.saved_items.where(item_id: params[:id])
+        itemCont = UserLikesContainer.find_by(user_id: @current_user.id)
+        sItems = itemCont.saved_items.where(item_id: params[:id])
         sItems.destroy_all
         head :no_content
         # saved_item = SavedItem.find(item_id: params[:id])

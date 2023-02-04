@@ -18,27 +18,20 @@ import ConfirmDelete from './ConfirmDelete';
 import EditCard from './EditCard';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Button from '@mui/material/Button';
+import ItemDetails from './ItemDetails';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-
-function SavedItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, images_url, material, condition, size }) {
-    const [priceState, setPriceState] = useState(price);
-    const [editPriceState, setEditPriceState] = useState(false);
-    const [initialPriceValue, setInitialPriceValue] = useState(price);
-    const [itemNameState, setItemNameState] = useState("");
-    const [editNameState, setEditNameState] = useState(false);
-    const [initialItemNameValue, setInitialItemNameValue] = useState(itemname);
-    const [initialCartValue, setInitialCartValue] = useState(inCartIcon);
-    const [editCartState, setEditCartState] = useState(false);
-    const [descriptionState, setDescriptionState] = useState("");
-    const [editDescriptionState, setEditDescriptionState] = useState(false);
-    const [initialDescriptionValue, setInitialDescriptionValue] = useState(description);
-    const [isAddedCart, setIsAddedCart] = useState(false);
+function SavedItemCard({ key, item_id, user_likes_container_id, handleUnlike, user, initialHeartValue, renderUserCartItem, handleUndoHeart, handleFillHeart, date, deleteItemFromList, inCartIcon, item, deleteLike, clickedHeart, setChange, change, itemname, items, setItems, id, color, price, description, images_url, material, condition, size }) {
     const [wasClicked, setWasClicked] = useState(false)
-    const [isSaved, setIsSaved] = useState(false)
     const [inCart, setInCart] = useState(false)
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
+    const [moreInfo, setMoreInfo] = useState(false);
+    const [isSaved, setIsSaved] = useState(false)
 
+    console.log("key: ", key)
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -47,6 +40,50 @@ function SavedItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLike,
         (setChange(!change))
         setOpenEdit(false);
     }
+
+    function handleMoreInfo() {
+        console.log("more info clicked")
+        setMoreInfo(true)
+    }
+
+    function handleCloseMoreInfo() {
+        setMoreInfo(false);
+    }
+
+    function handleUndoHeart() {
+        console.log(user);
+        console.log(item)
+        fetch(`/api/remove-save/${item.id}`, {
+            method: "DELETE",
+        })
+            .then((res) => res.json())
+            .then(setIsSaved(false))
+        setChange(!change);
+    }
+
+    function handleFillHeart() {
+        console.log("user: ", user)
+        const newFavoriteItem = {
+            user_likes_container_id: user.id,
+            item_id: item_id,
+        }
+        console.log("user: ", user)
+        console.log("newFavoriteItem: ", newFavoriteItem)
+        fetch(`/api/save-item`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newFavoriteItem),
+        })
+            .then(res => res.json())
+            .then(setIsSaved(true));
+        // CHANGE STATE SO THAT IT ADDS THIS ITEM INTO THE SAVED ITEMS ARRAY
+        // .then(setIsSaved(isSaved => (!isSaved)))
+        // setIsFavorite(true);
+        setChange(!change);
+    }
+
 
     const postedDate = new Date(date);
     const dateItem = postedDate.toDateString();
@@ -69,7 +106,7 @@ function SavedItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLike,
     });
 
     return (
-        <Card className="savedItemCard" theme={theme}
+        <Card key={key} className="savedItemCard" theme={theme}
             sx={{ border: "1px solid black", boxShadow:"none", borderRadius: "0" }}
         >
             {/* <Carousel
@@ -91,11 +128,18 @@ function SavedItemCard({ date, deleteItemFromList, inCartIcon, item, deleteLike,
             <p style={{ marginLeft: "10px", lineHeight: "1", marginTop: "0", marginBottom: "0", fontSize: "20px", paddingRight: "12px", justifyContent: "left", alignItems: "left", paddingTop: "10px", textTransform:"uppercase" }}>{itemname}</p>
             <p style={{ marginLeft: "10px", marginTop: "0", marginBottom: "0", lineHeight: "1", fontSize: "12px", paddingRight: "12px", justifyContent: "left", paddingTop: "10px" }}>ON SALE SINCE: <span style={{ fontWeight: "bold" }}>{dateItem}</span></p>
             <CardActions style={{ margin:"5px", marginTop:"7px", alignItems:"center", justifyContent:"space-between" }} className="prof-bottom-card-details" theme={theme}>
-                <IconButton aria-label="delete" style={{ alignItems: "center", padding: "0", margin: "0"}} onClick={handleOpen}>
-                    <FavoriteIcon className="icon-style" style={{ fontSize: "2rem", color:"#C57E8E", stroke:"maroon"}} />               
+                {/* <IconButton style={{ alignItems: "center", padding: "0", margin: "0" }} onClick={isSaved ? handleUndoHeart : handleFillHeart}>
+                    {isSaved ? <FavoriteIcon style={{ fontSize: "2rem", color: "#C57E8E", stroke: "maroon" }} className="icon-style" /> : <FavoriteBorderIcon className="icon-style" style={{ fontSize: "2rem", color: "#C57E8E", stroke: "maroon" }} />}
+                </IconButton> */}
+                <IconButton style={{ alignItems: "center", padding: "0", margin: "0"}} onClick={isSaved ? handleUndoHeart : handleFillHeart}>
+                    {isSaved ? <FavoriteIcon className="icon-style" style={{ fontSize: "2rem", color: "#C57E8E", stroke: "maroon" }} /> : <FavoriteBorderIcon className="icon-style" style={{ fontSize: "2rem", color: "#C57E8E", stroke: "maroon" }} />}
                 </IconButton>
                 {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}
-                <Button style={{alignItems:"center", padding:"0", fontSize:"14px", color: "black", paddingLeft:"10px", paddingRight:"10px", paddingBottom:"2px", paddingTop:"5px", borderRadius:"0", borderBottom:"1px solid black"}}>VIEW DETAILS</Button>
+                {/* {moreInfo ? <ItemDetails wasClicked={wasClicked} initialCartValue={initialCartValue} ShoppingCartIcon={ShoppingCartIcon} AddShoppingCartIcon={AddShoppingCartIcon} inCartIcon={inCartIcon}
+                user={user} initialHeartValue={initialHeartValue} isSaved={isSaved} FavoriteIcon={FavoriteIcon} FavoriteBorderIcon={FavoriteBorderIcon} item_id={item.item_id} items={items} setItems={setItems} moreInfo={moreInfo} handleMoreInfo={handleMoreInfo} handleCloseMoreInfo={handleCloseMoreInfo} item={item} id={id} itemname={itemname} price={price} color={color} material={material} condition={condition} size={size} description={description} images_url={images_url}
+                />
+                : null} */}
+                <Button style={{alignItems:"center", padding:"0", fontSize:"14px", color: "black", paddingLeft:"10px", paddingRight:"10px", paddingBottom:"2px", paddingTop:"5px", borderRadius:"0", borderBottom:"1px solid black"}} onClick={handleMoreInfo}>VIEW DETAILS</Button>
                 {/* <IconButton aria-label="edit" style={{ alignItems: "center", paddingTop: "0", marginTop: "0" }}
                     onClick={handleOpenEdit}
                 >
