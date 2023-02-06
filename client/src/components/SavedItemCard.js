@@ -145,8 +145,6 @@ function SavedItemCard({ key, item_id, user_likes_container_id, handleUnlike, us
                 >
                     <span style={{ fontSize: "18px", fontFamily: "monospace", color: "black", marginRight: "3px" }}>EDIT </span> <EditIcon />                    
                 </IconButton> */}
-                {/* {openEdit ? <EditCard priceState={priceState} setPriceState={setPriceState} initialPriceValue={initialPriceValue} setInitialPriceValue={setInitialPriceValue} editPriceState={editPriceState} setEditPriceState={setEditPriceState} itemNameState={itemNameState} setItemNameState={setItemNameState} editNameState={editNameState} setEditNameState={setEditNameState} initialItemNameValue={initialItemNameValue}
-                    setInitialItemNameValue={setInitialItemNameValue} descriptionState={descriptionState} setDescriptionState={setDescriptionState} editDescriptionState={editDescriptionState} setEditDescriptionState={setEditDescriptionState} initialDescriptionValue={initialDescriptionValue} setInitialDescriptionValue={setInitialDescriptionValue} change={change} setChange={setChange} handleOpenEdit={handleOpenEdit} images_url={images_url} handleCloseEdit={handleCloseEdit} openEdit={openEdit} item={item} price={price} user={user} itemname={itemname} setOpenEdit={setOpenEdit} /> : null} */}
             </CardActions>
         </Card>
     )
