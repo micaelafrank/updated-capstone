@@ -9,7 +9,7 @@ import WithNav from './WithNav';
 import SpecialNavBar from './SpecialNavBar';
 
 
-function About({ user }){
+function About({ user, cartCount }){
     const theme = createTheme({
         palette: {
             primary: {
@@ -27,7 +27,7 @@ function About({ user }){
     return(
     <>
     <ThemeProvider theme={theme}>
-        {user.username ? <WithNav user={user} /> : <SpecialNavBar />}
+        {user.username ? <WithNav cartCount={cartCount} user={user} /> : <SpecialNavBar />}
         <Container component="main">
             <CssBaseline />
                 <Box>

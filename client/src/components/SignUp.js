@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
+import Carousel from "react-material-ui-carousel";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -26,7 +26,7 @@ import FormHelperText from '@mui/material/FormHelperText'
 
 
 
-function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
+function SignUp({ imageNum, cartCount, setImageNum, loginImgs, onSignUp, user }) {
     const navigate = useNavigate();
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
@@ -45,9 +45,27 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
     const handleClickShowPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
     // const handleMouseDownPassword2 = () => setShowPassword2((showPassword2) => !showPassword2);
 
+    function nextImage() {
+        console.log(imageNum)
+        if (imageNum == 23) {
+            setImageNum(0)
+        }
+        else {
+            setImageNum(imageNum + 1)
+        };
+    }
+
+    function prevImage() {
+        console.log(imageNum)
+        if (imageNum == 0) {
+            setImageNum(23)
+        } else {
+            setImageNum(imageNum - 1)
+        };
+    }
 
     useEffect(() => {
-        setImageNum(Math.floor(Math.random() * 26));
+        setImageNum(Math.floor(Math.random() * 23));
     }, []);
 
 
@@ -99,71 +117,29 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
         });
     }
     
-    // function handleSubmit(e) {
-    //     console.log(password);
-    //     console.log(password_confirmation);
-    //     e.preventDefault();
-    //     if (password !== password_confirmation) {
-    //         errors.push(pwError);
-    //     }
-    //     fetch("/api/signup", {
-    //         method: 'POST',
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             firstname: firstname,
-    //             lastname: lastname,
-    //             email: email,
-    //             username: username,
-    //             password: password,
-    //             password_confirmation: password_confirmation,
-    //         }),
-    //     })
-    //         .then((res) => {
-    //             if (res.ok) {
-    //                 res.json().then((data) => onSignUp(data));
-    //                 navigate(`/profile/${username}`);
-    //             } else {
-    //                 res.json().then((err) => setErrors(err.errors));
-    //             }
-    //         });
-    // }
-    //     .then((res) => {
-    //         console.log(errors)
-    //         if (res.ok) {
-    //             res.json().then((user) => onSignUp(user));
-    //             // setIsLoading(!isLoading);
-    //             navigate("/profile")
-    //         } else {
-    //             res.json().then((err) => setErrors(err.errors));
-    //         }
-    //     });
-    // }
 
 
     return (
         <ThemeProvider theme={theme}>
-            {user.username ? <WithNav /> : <SpecialNavBar />}
+            {user.username ? <WithNav cartCount={cartCount} user={user} /> : <SpecialNavBar />}
             <Grid container component="main" sx={{ height: '100vh' }}>
-                <CssBaseline />
+                {/* <CssBaseline /> */}
                 <Grid
-                    item
                     xs={false}
                     sm={4}
                     md={7}
-                    sx={{
-                        backgroundImage: `url(${loginImgs[imageNum]})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundColor: (t) =>
-                            t.palette.mode === "light"
-                                ? t.palette.grey[50]
-                                : t.palette.grey[900],
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                    }}
-                />
-                
+                // sx={{height:"100%"}}
+                >
+                    <Carousel
+                        next={nextImage}
+                        prev={prevImage}
+                        autoPlay={false} // <-- You probaly want to disable this for our purposes
+                        navButtonsAlwaysVisible
+                        sx={{ width: "auto" }}
+                    >
+                        <img style={{ height: "110vh", width: "130vh", objectPosition: "center", objectFit: "cover" }} src={`${loginImgs[imageNum]}`} />
+                    </Carousel>
+                </Grid>               
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box
                         sx={{
@@ -185,14 +161,6 @@ function SignUp({ imageNum, setImageNum, loginImgs, onSignUp, user }) {
                     </Typography>                    
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <p style={{ marginTop: "25px", marginBottom: "25px", color: "red", textAlign: "center" }}>{errors}</p>
-
-                        {/* <div style={{ marginBottom:"2rem", color: 'red', alignItems:'center', textAlign:'center' }}>
-                            {errors.map((err) => (
-                                <Typography align="center" variant="p" key={err}>
-                                    {err}. Please try again.
-                                </Typography>
-                            ))}
-                        </div> */}
                         <Grid sx={{ ml: "auto", mr: "auto", width: "630px" }} container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <FormControl>

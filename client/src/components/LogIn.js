@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
+import Carousel from "react-material-ui-carousel";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -56,7 +56,7 @@ const theme = createTheme({
     },
 });
 
-export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, user, setUser, items, onLogin, setItems }) {
+export default function LogIn({ renderSignUp, cartCount, imageNum, setImageNum, loginImgs, user, setUser, items, onLogin, setItems }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
@@ -67,15 +67,28 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        setImageNum(Math.floor(Math.random() * 26));
-    }, []);
+    function nextImage() {
+        console.log(imageNum)
+        if (imageNum == 23) {
+            setImageNum(0)
+        }
+        else {
+            setImageNum(imageNum + 1)
+        };
+    }
 
-    // useEffect(() => {
-    //     fetch("/api/items")
-    //         .then((r) => r.json())
-    //         .then(data => setItems(data))
-    // }, [])
+    function prevImage() {
+        console.log(imageNum)
+        if (imageNum == 0) {
+            setImageNum(23)
+        } else {
+            setImageNum(imageNum - 1)
+        };
+    }
+
+    useEffect(() => {
+        setImageNum(Math.floor(Math.random() * 23));
+    }, []);
 
 
     function handleLogin(e) {
@@ -111,24 +124,23 @@ export default function LogIn({ renderSignUp, imageNum, setImageNum, loginImgs, 
         <ThemeProvider theme={theme}>
             {user.username ? <WithNav /> : <SpecialNavBar />}
             <Grid container component="main" sx={{ height: '100vh' }}>
-                <CssBaseline />
+                {/* <CssBaseline /> */}
                 <Grid
-                    item
                     xs={false}
                     sm={4}
                     md={7}
-                    sx={{
-                        backgroundImage: `url(${loginImgs[imageNum]})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundColor: (t) =>
-                            t.palette.mode === "light"
-                                ? t.palette.grey[50]
-                                : t.palette.grey[900],
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                    }}
-                />
-                {/* <Typography component="h1" variant="h1" style={{ fontFamily: "monospace", mt: 3, fontSize: "3rem" }}>
+                // sx={{height:"100%"}}
+                >
+                    <Carousel
+                        next={nextImage}
+                        prev={prevImage}
+                        autoPlay={false} // <-- You probaly want to disable this for our purposes
+                        navButtonsAlwaysVisible
+                        sx={{ width: "auto" }}
+                    >
+                        <img style={{ height: "110vh", width: "130vh", objectPosition: "center", objectFit: "cover" }} src={`${loginImgs[imageNum]}`} />
+                    </Carousel>
+                </Grid>                {/* <Typography component="h1" variant="h1" style={{ fontFamily: "monospace", mt: 3, fontSize: "3rem" }}>
                 GOOD GOODS
             </Typography> */}
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>

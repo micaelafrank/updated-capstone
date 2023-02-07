@@ -18,6 +18,7 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
     const [favorites, setFavorites] = useState([]);
     const [cartIcons, setCartIcons] = useState([cartItems]);
     const [items, setItems] = useState([])
+    const [onlySaves, setOnlySaves] = useState(false);
 
     useEffect(() => {
         fetch("/api/items")
@@ -113,6 +114,47 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
         )
     })
 
+    const mySaves = userLikes.map((likedItem) => {
+        return (
+            <ItemCard
+                preview_image_url={likedItem.item.preview_image_url}
+                handleSelect={handleSelect}
+                category={likedItem.item.category}
+                key={likedItem.item.id}
+                clickedHeart={likedItem.item.clickedHeart}
+                setCartValue={setCartValue}
+                cartItems={cartItems}
+                setCartItems={setCartItems}
+                id={likedItem.item.id}
+                item_id={likedItem.item.id}
+                user_likes_container_id={user.user_likes_container}
+                removeLike={removeLike}
+                itemname={likedItem.item.itemname}
+                price={likedItem.item.price}
+                description={likedItem.item.description}
+                material={likedItem.item.material}
+                color={likedItem.item.color}
+                size={likedItem.item.size}
+                sold_by={likedItem.item.sold_by}
+                item={likedItem.item}
+                user={user}
+                favorites={user.saved_items}
+                user_id={likedItem.item.user_id}
+                condition={likedItem.item.condition}
+                isForSale={likedItem.item.isForSale}
+                images_url={likedItem.item.images_url}
+                change={change}
+                setChange={setChange}
+                addNewFavorite={addNewFavorite}
+                setFavorites={setFavorites}
+                items={items}
+                addCartItem={addCartItem}
+                cartIcons={cartIcons}
+                deleteItemFromList={deleteItemFromList}
+            />
+        )
+    })
+
     const userLikesIds = userLikes.map((like) => like.item_id)
     const itemIdsList = items.map((item) => item.id)
     console.log("my likes item ids: ", userLikesIds)
@@ -165,8 +207,11 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
                         >filter items</Button>
                         <div>
                             <Button sx={{ mr: 5, pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" href="/sell">sell</Button>
-                            <Button sx={{ pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" href="/mysaves">my liked items</Button>
-                            {/* <Button sx={{ bgcolor: 'secondary.main', color: 'secondary.darker' }} variant="contained"> Remove all saved items</Button> */}
+                            {onlySaves ? 
+                                <Button sx={{ pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" onClick={() => setOnlySaves(false)}>all items</Button>
+                                :
+                            <Button sx={{ pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" onClick={()=> setOnlySaves(true)}>my liked items</Button>
+                            }{/* <Button sx={{ bgcolor: 'secondary.main', color: 'secondary.darker' }} variant="contained"> Remove all saved items</Button> */}
                         </div>
                     </Stack>
                 </Box>
@@ -174,10 +219,16 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
                     {/* End hero unit */}
                     <Grid container spacing={4} sx={{ ml: "auto", mr: "auto", justifyContent: "center", alignItems: "center" }}>
                         {/* {cards.map((card) => ( */}
+                        {onlySaves ? 
+                        <Grid className="items-grid" >
+                            {/* item xs={12} sm={6} md={4} */}
+                            {mySaves}
+                        </Grid>
+                        :
                         <Grid className="items-grid" >
                             {/* item xs={12} sm={6} md={4} */}
                             {listOfItems}
-                        </Grid>
+                        </Grid>}
                         {/* ))} */}
                     </Grid>
                 </Container>

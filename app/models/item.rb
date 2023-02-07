@@ -4,7 +4,7 @@ class Item < ApplicationRecord
     has_many :saved_items
 
     has_many_attached :images
-    has_one_attached :preview_image
+    # has_one_attached :preview_image
 
     validates :images, presence: true, allow_blank: true
 
@@ -23,8 +23,8 @@ class Item < ApplicationRecord
       return imagess
     end
 
-    def preview_image_url
-        preview_image.url
-    end
+    # def preview_image_url
+    #     preview_image.url
+    # end
 
 end

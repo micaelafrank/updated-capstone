@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Input from '@mui/material/Input'
@@ -8,11 +8,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { createTheme } from '@mui/material'
 import { brown } from '@mui/material/colors';
+// import NewItemImages from './NewItemImages'
+import ItemDetails from './ItemDetails'
 
-
-function NewItemForm({ user, addNewItem, setUser }) {
+function NewItemForm({ user, addNewItem, items, setItems }) {
     const [page, setPage] = useState(1)
-    const [images, setImages] = useState("");
+    // const [images, setImages] = useState("");
     const [itemname, setItemName] = useState("")
     const [price, setPrice] = useState("")
     const [description, setDescription] = useState("")
@@ -20,8 +21,28 @@ function NewItemForm({ user, addNewItem, setUser }) {
     const [material, setMaterial] = useState("")
     const [size, setSize] = useState("")
     const [condition, setCondition] = useState("")
+    const [images, setImages] = useState("");
+    // const [image1, setImage1] = useState("")
+    // const [image2, setImage2] = useState("")
+    // const [image3, setImage3] = useState("")
+    // const [image4, setImage4] = useState("")
     const [category, setCategory] = useState("DEFAULT")
     const [errors, setErrors] = useState([]);
+    const [addImages, setAddImages] = useState(false);
+
+    useEffect(() => {
+        fetch("/api/items")
+            .then((r) => r.json())
+            .then(data => { setItems(data) })
+    }, [])
+    console.log("items arary: ", items)
+    let itemsArr = [...items];
+    let arrLength = itemsArr.length;
+    console.log("arr length: ", arrLength);
+
+    // console.log("items length: ", items.length)
+
+    console.log("new form user: ", user)
 
     const theme = createTheme({
         palette: {
@@ -43,30 +64,44 @@ function NewItemForm({ user, addNewItem, setUser }) {
     const mainBrown = brown[200];
     const lightBrown = brown['A100'];
 
-
     const navigate = useNavigate();
 
-    function handleImages(e) {
-        console.log(e.target.files[0])
-        setImages(e.target.files[0])
+    function handleImages(e){
+        setImages(e.target.files[0]);
+        console.log("my image url: ", e.target.files[0])
     }
+
+    // function handleImageOne(e) {
+    //     console.log(e.target.files[0])
+    //     setImage1(e.target.files[0])
+    // }
+
+    // let newItemId = {user.id} + (items.length)+1
 
     const newSizeCat = `${category}, ${size}`;
 
-    const formData = new FormData();
-    formData.append('itemname', itemname);
-    formData.append('price', price);
-    formData.append('description', description);
-    formData.append('color', color);
-    formData.append('material', material);
-    formData.append('size', newSizeCat);
-    formData.append('condition', condition);
-    formData.append('user_id', user.id);
-    formData.append('images', images);
+    
+    // formData.append("images", images);
+    // formData.append('image1', image1);
+    // formData.append('image2', images);
+    // formData.append('image3', images);
+    // formData.append('image4', images);
 
     function handleSubmit(e) {
         e.preventDefault();
         setErrors([]);
+
+        const formData = new FormData();
+        formData.append('itemname', itemname);
+        formData.append('price', price);
+        formData.append('description', description);
+        formData.append('color', color);
+        formData.append('material', material);
+        formData.append('size', newSizeCat);
+        formData.append('condition', condition);
+        formData.append('user_id', user.id);
+        formData.append("images", images);
+        
         //POST request to create new item for sale 
         fetch("/api/items", {
             method: "POST",
@@ -75,7 +110,7 @@ function NewItemForm({ user, addNewItem, setUser }) {
         .then((r) => {
             if (r.ok) {
                 r.json().then(data => addNewItem(data));
-                navigate("/buy");
+                navigate('/buy');
             }
             else {
                 r.json().then((err) => setErrors(err.errors));
@@ -89,6 +124,7 @@ function NewItemForm({ user, addNewItem, setUser }) {
             <form style={{marginLeft:"auto", marginRight:"auto", marginBottom:"20px", justifyContent:"center", alignItems:"center", width:"760px"}} onSubmit={handleSubmit}>
                 {page === 1 ? (  
                     <div className='field1' style={{ display: "flex", flexDirection: "column", marginLeft: "auto", marginRight: "auto" }}>
+                        <p id="newItemId" style={{ display: "hidden" }}>{`${user.id}${arrLength +1}`}</p>
                         <h1 style={{ textAlign: "center", fontSize: "35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "bold", color: veryDarkBrown, marginBottom: "0" }}>SELL YOUR GOODS</h1>
                         <p style={{ textAlign: "center", fontSize: "22px", paddingBottom: "0", marginBottom: "7px", textShadow: "1px 1px #c98d6d", fontFamily: "monospace",color: "black" }}>great sellers make good goods</p>
                         <p style={{ textAlign: "center", fontSize: "17px", paddingBottom: "20px", paddingTop:"15px", color: "black" }}>TO LIST AN ITEM FOR SALE, ALL SECTIONS MUST BE FILLED OUT</p>
@@ -227,17 +263,17 @@ function NewItemForm({ user, addNewItem, setUser }) {
                         </FormControl>
                         </div>
                         <div style={{marginLeft:"5px", width:"100%", display:"flex", flexDirection:"row", justifyContent:"flex-end"}}>
-                            {/* <button
+                            <button
                             type="button"
                             style={{ cursor:"pointer", fontSize:"15px", marginLeft:"20px", marginTop:"15px", border:"1px solid black", borderRadius:"3px", letterSpacing:"1.2px", backgroundColor: veryDarkBrown, marginRight:"30px", padding:"9px 20px", color: "white"}}
                             onClick={(() => setPage(page - 1))}
                             >
                             BACK
-                            </button> */}
+                            </button>
                             <button
-                            type="button"
+                            type="submit"
                             style={{ cursor: "pointer", fontFamily: "monospace", marginTop: "15px", marginRight:"30px", fontSize: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
-                            onClick={() => setPage((page) => page + 1)}
+                            onClick={(() => setPage(page + 1))}
                             >
                             NEXT
                             </button>
@@ -281,8 +317,8 @@ function NewItemForm({ user, addNewItem, setUser }) {
                             </InputLabel>
                             <Input
                             type="file"
-                            id="file"
                             name="file"
+                            id="file"
                             multiple
                             accept="image/*"
                             onChange={handleImages}
@@ -292,31 +328,87 @@ function NewItemForm({ user, addNewItem, setUser }) {
                                 SHOW OFF YOUR ITEM
                             </FormHelperText>
                         </FormControl>
-                        </div>
-                        <div style={{ marginTop:"10px", marginLeft: "5px", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-                            <button
-                            type="button"
-                            style={{ cursor: "pointer", fontSize: "15px", marginLeft: "20px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", fontFamily:"monospace", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
-                            onClick={() => setPage((page) => page - 1)}
-                            >
-                                BACK    
-                            </button>
-                            <button
-                            style={{ cursor: "pointer", fontSize: "15px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, fontFamily: "monospace", marginRight: "30px", padding: "9px 20px", color: "white" }}
-                            className="nextBtn"
-                            type="submit"
-                            // onClick={() => setPage((page) => page + 1)}
-                            >
-                                SUBMIT
-                            </button>
-                        </div>
-                        </div>
-                    </>
-                ) : null}
-            {/* PAGE THREE  */}
-            {/* <div> */}
-        </form>
-        </div>
+                        {/* <FormControl>
+                            <InputLabel
+                                style={{ position: "relative", fontFamily: "monospace" }}
+                                htmlFor='my-input' >
+                                Add another image (optional)
+                            </InputLabel>
+                            <Input
+                                type="file"
+                                name="file"
+                                id="file"
+                                multiple
+                                accept="image/*"
+                                onChange={handleImages}
+                                style={{ alignItems: "left", marginTop: "2em", paddingLeft: "20px", paddingRight: "390px", }}
+                            />
+                            <FormHelperText id='my-helper-text' style={{ textAlign: "left", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}>
+                                SHOW OFF YOUR ITEM
+                            </FormHelperText>
+                        </FormControl>
+                        <FormControl>
+                            <InputLabel
+                                style={{ position: "relative", fontFamily: "monospace" }}
+                                htmlFor='my-input' >
+                                Add another image (optional)
+                            </InputLabel>
+                            <Input
+                                type="file"
+                                id="image3"
+                                name="file"
+                                accept="image/*"
+                                onChange={handleImages}
+                                style={{ alignItems: "left", marginTop: "2em", paddingLeft: "20px", paddingRight: "390px", }}
+                            />
+                            <FormHelperText id='my-helper-text' style={{ textAlign: "left", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}>
+                                SHOW OFF YOUR ITEM
+                            </FormHelperText>
+                        </FormControl> */}
+                        {/* <FormControl>
+                            <InputLabel
+                                style={{ position: "relative", fontFamily: "monospace" }}
+                                htmlFor='my-input' >
+                                Add another image (optional)
+                            </InputLabel>
+                            <Input
+                                type="file"
+                                id="image4"
+                                name="file"
+                                accept="image/*"
+                                onChange={handleImages}
+                                style={{ alignItems: "left", marginTop: "2em", paddingLeft: "20px", paddingRight: "390px", }}
+                            />
+                            <FormHelperText id='my-helper-text' style={{ textAlign: "left", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}>
+                                SHOW OFF YOUR ITEM
+                            </FormHelperText>
+                        </FormControl> */}
+                    </div> 
+                    <div style={{ marginTop:"10px", marginLeft: "5px", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                        <button
+                        type="button"
+                        style={{ cursor: "pointer", fontSize: "15px", marginLeft: "20px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", fontFamily:"monospace", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
+                        onClick={() => setPage((page) => page - 1)}
+                        >
+                            BACK    
+                        </button>
+                        <button
+                        style={{ cursor: "pointer", fontSize: "15px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, fontFamily: "monospace", marginRight: "30px", padding: "9px 20px", color: "white" }}
+                        className="nextBtn"
+                        type="submit"
+                        // onClick={() => setPage((page) => page + 1)}
+                        >
+                            SUBMIT
+                        </button>
+                    </div>
+                    </div>
+               </>
+            ) : null}
+        {/* PAGE THREE  */}
+        {/* <div> */}
+    </form>
+    {addImages ? <ItemDetails itemname={itemname} size={size} condition={condition} material={material} color={color} price={price} user={user} images={images} /> : null}
+    </div>
     )}
 
 export default NewItemForm;

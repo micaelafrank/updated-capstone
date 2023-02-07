@@ -21,6 +21,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import AddImages from './AddImages';
 import PreviewImage from './PreviewImage';
+import NewItemImages from './ignore/NewItemImages';
 // import PurchaseLandingPage from './PurchaseLandingPage';
 
 function App() {
@@ -51,7 +52,6 @@ function App() {
     "https://static.zarahome.net/8/photos4/2022/I/4/1/b/2289/000/712/ZH/XX/2289000712_7_1_2.jpg?t=1667484894192&imformat=chrome",
     "https://static.zarahome.net/8/photos4/2023/V/4/1/b/2226/000/914/ZH/XX/2226000914_7_1_2.jpg?t=1668520687688&imformat=chrome",
     "https://static.zarahome.net/8/photos4/2022/I/4/1/b/2460/000/800/ZH/XX/2460000800_7_1_2.jpg?t=1667569693167&imformat=chrome",
-    "https://static.zarahome.net/8/photos4/2022/I/4/1/p/2215/409/500/2215409500_2_7_5.jpg?t=1656000246221&imformat=chrome",
     "https://static.zarahome.net/8/photos4/2022/I/4/1/b/2460/000/800/ZH/XX/2460000800_2_1_2.jpg?t=1667569693167&imwidth=985&imformat=chrome",
     "https://static.zarahome.net/8/photos4/2022/I/4/1/b/2221/000/112/ZH/DV/2221000112_1_1_2.jpg?t=1660913895719&imwidth=985&imformat=chrome",
     "https://static.zarahome.net/8/photos4/2022/I/4/1/b/2289/000/712/ZH/XX/2289000712_2_1_2.jpg?t=1667484894192&imwidth=985&imformat=chrome",
@@ -59,7 +59,6 @@ function App() {
     "https://static.zarahome.net/8/photos4/2022/I/4/1/b/2228/000/800/BH/BU/2228000800_2_1_2.jpg?t=1667484886860&imwidth=985&imformat=chrome",
     "https://static.zarahome.net/8/photos4/2022/I/4/1/b/5270/000/982/BH/BU/5270000982_2_1_2.jpg?t=1667490039379&imwidth=985&imformat=chrome",
     "https://static.zarahome.net/8/photos4/2022/I/4/1/p/2231/022/120/2231022120_7_1_2.jpg?t=1667551576936&imformat=chrome",
-    "https://static.zarahome.net/8/photos4/2022/I/4/1/p/7222/022/802/7222022802_7_1_2.jpg?t=1667551393025&imformat=chrome",
     "https://static.zarahome.net/8/photos4/2022/I/4/1/p/3223/550/120/3223550120_2_7_2.jpg?t=1658216255403&imwidth=985&imformat=chrome",
     "https://static.zarahome.net/8/photos4/2022/I/4/1/p/3249/022/120/3249022120_2_7_2.jpg?t=1666263788336&imwidth=985&imformat=chrome",
     "https://static.zarahome.net/8/photos4/2022/I/4/1/p/6204/022/712/6204022712_2_7_2.jpg?t=1667551189152&imwidth=985&imformat=chrome",
@@ -135,6 +134,7 @@ function App() {
 
   function addNewItem(newItem) {
     setItems(...items, newItem)
+    console.log("new item id: ", newItem.id)
   }
 
   function onLogin(user) {
@@ -222,10 +222,10 @@ function App() {
       <div className="h-auto dark:bg-slate-900" >
         <Routes>
           {/* <Route path="/" element={<Homepage />} /> */}
-          <Route path="/login" element={<LogIn onLogin={onLogin} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} setUser={setUser} user={user} />} />
-          <Route path="/signup" element={<SignUp user={user} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} onSignUp={setUser} />} />
-          <Route path="/" element={<Homepage loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} setUser={setUser} onLogin={onLogin} onSignUp={setUser} user={user} items={items} />} />
-          <Route path="/about" element={<About user={user} />} />
+          <Route path="/login" element={<LogIn cartCount={cartCount} onLogin={onLogin} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} setUser={setUser} user={user} />} />
+          <Route path="/signup" element={<SignUp cartCount={cartCount} user={user} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} onSignUp={setUser} />} />
+          <Route path="/" element={<Homepage cartCount={cartCount} loginImgs={loginImgs} imageNum={imageNum} setImageNum={setImageNum} setUser={setUser} onLogin={onLogin} onSignUp={setUser} user={user} items={items} />} />
+          <Route path="/about" element={<About cartCount={cartCount} user={user} />} />
           <Route element={<WithNav cartCount={cartCount} user={user} setUser={setUser} />}>
             {/* {user.username ? */}
               {/* :
@@ -233,9 +233,9 @@ function App() {
             } */}
           <Route path="/profile/:username" element={<Profile profile={profile} setProfile={setProfile} userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
           <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} items={items} setItems={setItems} user={user} />} />
-          <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} />} />
-          <Route path="/sell/images/:id" element={<AddImages items={items} setItems={setItems} addNewItem={addNewItem} user={user} />} />
-          <Route path="/sell/images/preview/:id" element={<PreviewImage addNewItem={addNewItem} items={items} setItems={setItems} user={user} />} />
+          <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} items={items} setItems={setItems} />} />
+          {/* <Route path="/new-item/images" element={<NewItemImages addNewItem={addNewItem} user={user} items={items} setItems={setItems} />} /> */}
+          {/* <Route path="/sell/images/preview/:id" element={<PreviewImage addNewItem={addNewItem} items={items} setItems={setItems} user={user} />} />  */}
           <Route path="/buy" element={<ItemsList handleSelect={handleSelect} userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} user={user} />} />
           <Route path="/buy/:id" element={<ItemDetails itemDetail={itemDetail} setItemDetail={setItemDetail} user={user} details={details} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} cartItems={cartItems} setCartItems={setCartItems} user={user} />} />

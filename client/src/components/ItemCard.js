@@ -202,11 +202,11 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
         <Card className="oneItemCard" theme={theme}
             sx={{ border: "1px solid black" }}
         >
-            <div sx={{ height: '300' }}>
+            <div sx={{ height: '300px' }}>
                 <CardMedia
                     className="itemImage"
                     component="img"
-                    sx={{ maxHeight: "300" }}
+                    sx={{ height: "260px" }}
                     image={images_url}
                 />
             </div>
