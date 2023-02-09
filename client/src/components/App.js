@@ -241,7 +241,6 @@ function App() {
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} cartItems={cartItems} setCartItems={setCartItems} user={user} />} />
           <Route path="/checkout" element={<StripeContainer total={1000} />} />
           <Route path="/payment" element={<MakePurchase />} />
-          {/* <Route path={`${process.env.PUBLIC_URL}/buy/${items?.id}/${items?.itemname}`} element={<ItemDetails items={items} setItems={setItems} />} /> */}
         </Route>
       </Routes>
       {/* <Footer /> */}
