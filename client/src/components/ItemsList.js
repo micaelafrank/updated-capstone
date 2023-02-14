@@ -14,7 +14,7 @@ import SavedContainer from './SavedContainer';
 // import Pagination from '@mui/material/Pagination';
 
 
-function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, deleteItemFromList, user, change, removeLike }) {
+function ItemsList({ handleHeartIconChange, handleSelect, handleUnlike, userLikes, setUserLikes, setCartValue, cartItems, setCartItems, addCartItem, addNewFavorite, setChange, deleteItemFromList, user, change, removeLike }) {
     const [favorites, setFavorites] = useState([]);
     const [cartIcons, setCartIcons] = useState([cartItems]);
     const [items, setItems] = useState([])
@@ -34,6 +34,7 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
         // setItemCount(itemCount)})
     }, [])
     console.log("my likes: ", userLikes)
+
 
     // let heartSavedItem;
 
@@ -83,6 +84,7 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
     const listOfItems = items.map((item) => {
         return (
             <ItemCard
+                handleHeartIconChange={handleHeartIconChange}
                 preview_image_url={item.preview_image_url}
                 handleSelect={handleSelect}
                 category={item.category}

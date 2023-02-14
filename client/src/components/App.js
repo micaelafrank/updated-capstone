@@ -176,6 +176,11 @@ function App() {
   // let greenMain = "#bbe5ca";
   let newGreen = '#cfe0c3';
   const purple = '#bca5bb';
+
+  function handleHeartIconChange(itemToEdit){
+    const updatedList = items.map((item) => item.id === itemToEdit.id ? itemToEdit : item);
+    setItems(updatedList);
+  }
   
   // let taupeLight = "#ffffff";
   // let taupeDark = "#bcb3a9";
@@ -236,7 +241,7 @@ function App() {
           <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} items={items} setItems={setItems} />} />
           {/* <Route path="/new-item/images" element={<NewItemImages addNewItem={addNewItem} user={user} items={items} setItems={setItems} />} /> */}
           {/* <Route path="/sell/images/preview/:id" element={<PreviewImage addNewItem={addNewItem} items={items} setItems={setItems} user={user} />} />  */}
-          <Route path="/buy" element={<ItemsList handleSelect={handleSelect} userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} user={user} />} />
+          <Route path="/buy" element={<ItemsList handleHeartIconChange={handleHeartIconChange} handleSelect={handleSelect} userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} user={user} />} />
           <Route path="/buy/:id" element={<ItemDetails itemDetail={itemDetail} setItemDetail={setItemDetail} user={user} details={details} />} />
           <Route path="/mycart" element={<ShoppingCart total={items} setChange={setChange} change={change} cartItems={cartItems} setCartItems={setCartItems} user={user} />} />
           <Route path="/checkout" element={<StripeContainer total={1000} />} />

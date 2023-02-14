@@ -24,11 +24,9 @@ import Button from '@mui/material/Button';
 import ItemDetails from './ItemDetails';
 import { useNavigate } from 'react-router-dom';
 import DetailedItemCard from './DetailedItemCard';
-// import SavedContainer from './SavedContainer';
-// import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-// import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ images, heartSavedItem, getHeartSaves, preview_image_url, myLikedItem, category, userLikes, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+
+function ItemCard({ handleHeartIconChange, images, heartSavedItem, getHeartSaves, preview_image_url, myLikedItem, category, userLikes, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -87,6 +85,23 @@ function ItemCard({ images, heartSavedItem, getHeartSaves, preview_image_url, my
             },
         },
     });
+
+
+    function toggleLikedItem() {
+        console.log("clicked heart before: ", clickedHeart)
+        const fillHeart = {
+            clickedHeart: !clickedHeart,
+        };
+
+        fetch(`api/items/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(fillHeart),
+        })
+            .then(res => res.json())
+            .then(handleHeartIconChange);
+        console.log("clicked heart after: ", clickedHeart)
+    }
 
     function handleMoreInfo() {
         setMoreInfo(true)
@@ -265,8 +280,7 @@ function ItemCard({ images, heartSavedItem, getHeartSaves, preview_image_url, my
                 {open ? <ConfirmDelete handleClose={handleClose} handleOpen={handleOpen} deleteItemFromList={deleteItemFromList} item={item} open={open} setOpen={setOpen} /> : null}
                 {user.id === item.user_id ?
                     (<IconButton aria-label="edit"
-                        onClick={handleOpenEdit}
-                    >
+                        onClick={handleOpenEdit}>
                         <EditIcon />
                     </IconButton>) : null}
                 {openEdit ? <EditCard priceState={priceState} setPriceState={setPriceState} initialPriceValue={initialPriceValue} setInitialPriceValue={setInitialPriceValue} editPriceState={editPriceState} setEditPriceState={setEditPriceState} itemNameState={itemNameState} setItemNameState={setItemNameState} editNameState={editNameState} setEditNameState={setEditNameState} initialItemNameValue={initialItemNameValue}

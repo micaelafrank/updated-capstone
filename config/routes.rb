@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     # end
     # resources :checkout, only: [:create, :create_payment_intent]
   namespace :api do
-    resources :items, only: [:index, :add_images, :add_preview_image, :myItemsForSale, :show, :create, :update, :destroy]
+    resources :items, only: [:index, :heart_change, :add_images, :add_preview_image, :myItemsForSale, :show, :create, :update, :destroy]
     resources :sessions, only: [:create, :destroy]
     resources :users, only: [:create, :show, :index, :update, :destroy] 
     resources :user_cart_items, only: [:index, :update, :show, :destroy, :create, :emptycart, :removefromcart]
@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     post "/add-preview-image", to: "items#add_preview_image"
     get "/rendercart", to: "user_cart_items#index" 
     get "/items", to: "items#index"
+    patch "/items/:id", to: "items#heart_change"
     get "/items/:item_id/:itemname", to: "items#show"
     post "/items/add-images", to: "items#add-images"
     # post "/create_cart" , to: "user_carts#create"

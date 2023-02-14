@@ -57,8 +57,12 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
         if params.has_key?(:description) then
             item.update(description: params[:description])
         end
-
         render json: item, status: :ok
+    end
+
+    def heart_change
+        item = find_item
+        item.update_attribute(:clickedHeart, true)
     end
 
 
@@ -89,7 +93,7 @@ rescue_from ActiveRecord::RecordInvalid, with: :item_invalid
     private 
 
     def item_params
-        params.permit(:itemname, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images: [])
+        params.permit(:itemname, :clickedHeart, :images_url, :price, :description, :color, :size, :condition, :material, :user_id, images: [])
         # params.require(:item).permit(:itemname, :price, :description, :color, :size, :condition, :user_id, images: [])
     end
 
