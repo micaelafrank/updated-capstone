@@ -35,6 +35,13 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
     }, [])
     console.log("my likes: ", userLikes)
 
+    // let heartSavedItem;
+
+    // function getHeartSaves(item){
+    //     userLikes.filter((heartedItem) => heartedItem.item_id === item.id)
+    //     console.log("saved list item mapped: ", heartSavedItem)
+    // }
+
     // const array3 = userLikes.map(function (item) {
     //     if (items.includes(item.id)) {
     //         item.clickedHeart = true;
@@ -44,10 +51,10 @@ function ItemsList({ handleSelect, handleUnlike, userLikes, setUserLikes, setCar
     // setItems(array3)
 
 
-    function handleUnlike(myItem) {
-        const newLikedList = userLikes.filter((item) => item.id !== myItem.id)
-        setUserLikes(newLikedList)
-    }
+    // function handleUnlike(myItem) {
+    //     const newLikedList = userLikes.filter((item) => item !== myItem.id)
+    //     setUserLikes(newLikedList)
+    // }
     // console.log("my liked items filtered: ", myLikedItems)
     // function deleteItemFromList(id) {
     //     const updatedItemsList = items.filter((item) => item.id !== id);

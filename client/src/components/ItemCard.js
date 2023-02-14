@@ -28,7 +28,7 @@ import DetailedItemCard from './DetailedItemCard';
 // import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 // import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
+function ItemCard({ images, heartSavedItem, getHeartSaves, preview_image_url, myLikedItem, category, userLikes, sold_by, show, addCartItem, deleteItemFromList, cartItems, setCartValue, setCartItems, handleUnlike, addNewFavorite, setFavorites, isFavorite, setIsFavorite, favorites, inCartIcon, item_id, item, deleteLike, clickedHeart, setChange, change, user, itemname, items, setItems, id, color, price, description, checkHearts, images_url, material, condition, size }) {
     const [priceState, setPriceState] = useState(price);
     const [editPriceState, setEditPriceState] = useState(false);
     const [initialPriceValue, setInitialPriceValue] = useState(price);
@@ -137,7 +137,7 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
             body: JSON.stringify(newFavoriteItem),
         })
             .then(res => res.json())
-            .then(data => setIsSaved(data))
+            .then(setIsSaved(true))
         // .then(setIsSaved(isSaved => (!isSaved)))
         // setIsFavorite(true);
         setChange(!change);
@@ -152,7 +152,7 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
         })
             .then((res) => res.json())
             .then(data => handleUnlike(data))
-        setIsSaved(isSaved => (!isSaved))
+        setIsSaved(false)
         // setWasClicked(wasClicked => (!wasClicked));
         // handleUnlike();
         // setIsFavorite(false)
@@ -254,7 +254,8 @@ function ItemCard({ images, preview_image_url, myLikedItem, category, userLikes,
             </CardContent>
             <CardActions className="bottom-card-details" theme={theme}>
                 {user.id === item.user_id ? null :
-                    <IconButton onClick={initialHeartValue ? handleUndoHeart : handleFillHeart}>
+                    <IconButton onClick={isSaved ? handleUndoHeart : handleFillHeart}>
+                    {/* <IconButton onClick={heartSavedItem ? handleUndoHeart : handleFillHeart}> */}
                         {isSaved ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>}
                 {user.id === item.user_id ?
