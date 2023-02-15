@@ -57,11 +57,11 @@ function ItemsList({ handleHeartIconChange, handleSelect, handleUnlike, userLike
     //     setUserLikes(newLikedList)
     // }
     // console.log("my liked items filtered: ", myLikedItems)
-    // function deleteItemFromList(id) {
-    //     const updatedItemsList = items.filter((item) => item.id !== id);
-    //     setItems(updatedItemsList);
-    // }
-    // console.log("after delete: ", items)
+    function deleteItemFromList(id) {
+        const updatedItemsList = items.filter((item) => item.id !== id);
+        setItems(updatedItemsList);
+    }
+    console.log("after delete: ", items)
 
     const theme = createTheme({
         palette: {
