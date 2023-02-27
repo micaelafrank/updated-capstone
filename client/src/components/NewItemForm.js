@@ -124,8 +124,11 @@ function NewItemForm({ user, addNewItem, items, setItems }) {
             <form style={{marginLeft:"auto", marginRight:"auto", marginBottom:"20px", justifyContent:"center", alignItems:"center", width:"760px"}} onSubmit={handleSubmit}>
                 {page === 1 ? (  
                     <div className='field1' style={{ display: "flex", flexDirection: "column", marginLeft: "auto", marginRight: "auto" }}>
-                        <p id="newItemId" style={{ display: "hidden" }}>{`${user.id}${arrLength +1}`}</p>
-                        <h1 style={{ textAlign: "center", fontSize: "35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "bold", color: veryDarkBrown, marginBottom: "0" }}>SELL YOUR GOODS</h1>
+                        <p id="newItemId" style={{ display: "none" }}>{`${user.id}${arrLength +1}`}</p>
+                        <h1 
+                        className='titleHeaderStyling'
+                        // style={{ textAlign: "center", fontSize: "35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "bold", color: veryDarkBrown, marginBottom: "0" }}
+                        >SELL YOUR GOODS</h1>
                         <p style={{ textAlign: "center", fontSize: "22px", paddingBottom: "0", marginBottom: "7px", textShadow: "1px 1px #c98d6d", fontFamily: "monospace",color: "black" }}>great sellers make good goods</p>
                         <p style={{ textAlign: "center", fontSize: "17px", paddingBottom: "20px", paddingTop:"15px", color: "black" }}>TO LIST AN ITEM FOR SALE, ALL SECTIONS MUST BE FILLED OUT</p>
                         <h5 style={{ marginLeft: "15px" }} className='form-box-h5'> Page {page} of 2</h5>

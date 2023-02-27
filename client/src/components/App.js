@@ -237,8 +237,8 @@ function App() {
               <Route path="/" element={<Homepage items={items} />} />
             } */}
           <Route path="/profile/:username" element={<Profile profile={profile} setProfile={setProfile} userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} setItems={setItems} setUser={setUser} items={items} user={user} />} />
-          <Route path="/sell" element={<AddItemForm addNewItem={addNewItem} items={items} setItems={setItems} user={user} />} />
-          <Route path="/new-item" element={<NewItemForm addNewItem={addNewItem} user={user} items={items} setItems={setItems} />} />
+          <Route path="/new-item" element={<AddItemForm addNewItem={addNewItem} items={items} setItems={setItems} user={user} />} />
+          <Route path="/sell" element={<NewItemForm addNewItem={addNewItem} user={user} items={items} setItems={setItems} />} />
           {/* <Route path="/new-item/images" element={<NewItemImages addNewItem={addNewItem} user={user} items={items} setItems={setItems} />} /> */}
           {/* <Route path="/sell/images/preview/:id" element={<PreviewImage addNewItem={addNewItem} items={items} setItems={setItems} user={user} />} />  */}
           <Route path="/buy" element={<ItemsList handleHeartIconChange={handleHeartIconChange} handleSelect={handleSelect} userLikes={userLikes} setUserLikes={setUserLikes} change={change} setChange={setChange} user={user} />} />

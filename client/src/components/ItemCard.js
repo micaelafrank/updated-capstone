@@ -217,11 +217,11 @@ function ItemCard({ handleHeartIconChange, images, heartSavedItem, getHeartSaves
         <Card className="oneItemCard" theme={theme}
             sx={{ border: "1px solid black" }}
         >
-            <div sx={{ height: '300px' }}>
+            <div style={{ height: '240px' }}>
                 <CardMedia
                     className="itemImage"
                     component="img"
-                    sx={{ height: "260px" }}
+                    // sx={{ height: "auto" }}
                     image={images_url}
                 />
             </div>
@@ -238,31 +238,29 @@ function ItemCard({ handleHeartIconChange, images, heartSavedItem, getHeartSaves
             </div> */}
             <CardContent className="card-details" color="primary" sx={{ flexGrow: 1 }}>
                 {user.id === item.user_id ?
-                    (<Typography sx={{ fontSize: "13px", color: "black", fontWeight: "bold", mb: .3 }}>
+                    (<Typography sx={{ fontSize: "13px", color: "black", fontWeight: "bold"}}>
                         YOU ARE SELLING THIS ITEM
                     </Typography>) :
-                    (<Typography sx={{ fontSize: "13px", color: brown[400], fontWeight: "bold", mb: .3 }}>
+                    (<Typography sx={{ fontSize: "13px", color: brown[400], fontWeight: "bold" }}>
                         SOLD BY: {sold_by}
                     </Typography>)
                 }
                 <Typography color="secondary.darkText" fontSize="1.4em" gutterBottom>
                     {initialItemNameValue}
                 </Typography>
-                <div className='form-box' style={{ display: "flex", justifyContent: "space-between", marginBottom: "5px" }}>
-                    <div style={{ display: "flex", alignItems: "center" }}>
+                <div 
+                // className='form-box' 
+                    style={{ display: "flex" }}>
+                    <div style={{ display: "flex",alignItems: "center" }}>
                         <SellOutlinedIcon style={{ paddingRight: "4px" }} />
-                        <div style={{ paddingRight: "14px" }}>
-                            <div
-                            // style={{marginBottom: "5px", marginTop: "5px"}}
-                            >
-                                <span>${initialPriceValue}</span>
-                            </div>
-                        </div>
+                        <div style={{ paddingRight: "14px" }}>${initialPriceValue}</div>
                     </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <div 
+                // style={{ display: "flex", alignItems: "center"}}
+                >
                     <div className="descriptionInfoEdit">
-                        <span>SIZE {size}, {material}</span>
+                        SIZE {size}, {material}
                         {/* <span>{initialDescriptionValue}</span> */}
                     </div>
                 </div>
@@ -302,7 +300,8 @@ function ItemCard({ handleHeartIconChange, images, heartSavedItem, getHeartSaves
                     : null}
                 {user.id === item.user_id ? null :
                     (<Button
-                        style={{ fontFamily: "monospace", padding: "6px 15px", alignItems: "center", justifyContent: "center", backgroundColor: brown[500], border: "1px solid white", borderRadius: "4px", color: "white" }}
+                    className="moreInfoButtonItemCard"
+                        // style={{ fontFamily: "monospace", padding: "6px 15px", alignItems: "center", justifyContent: "center", backgroundColor: brown[500], border: "1px solid white", borderRadius: "4px", color: "white" }}
                         onClick={handleMoreInfo}>
                         more info
                     </Button>)}

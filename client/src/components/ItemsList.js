@@ -78,6 +78,21 @@ function ItemsList({ handleHeartIconChange, handleSelect, handleUnlike, userLike
             },
         },
     });
+
+
+    // const theme = createTheme({
+    //     palette: {
+    //         primary: {
+    //             // Purple and green play nicely together.
+    //             main: '#795548',
+    //             lighter: brown.A100,
+    //         },
+    //         secondary: {
+    //             // This is green.A700 as hex.
+    //             main: '#bbe5ca',
+    //         },
+    //     },
+    // });
     // const res = userLikes.filter(like => items.some(item => item.id === like.item_id));
     // const resIds = res.map((item) => item.id)
     // const isSaved = resIds.filter((item) => item.id ===)
@@ -189,13 +204,14 @@ function ItemsList({ handleHeartIconChange, handleSelect, handleUnlike, userLike
                             variant="h2"
                             align="center"
                             gutterBottom
-                            sx={{ paddingTop: "0", textAlign: "center", fontFamily: "monospace", marginTop: "0", textShadow: "2px 2px #c98d6d", color: "black", marginBottom: "14px" }}
+                            className='titleHeaderStyling'
+                            // sx={{ paddingTop: "0", textAlign: "center", fontFamily: "monospace", marginTop: "0", textShadow: "2px 2px #c98d6d", color: "black", marginBottom: "14px" }}
                         >
                             shop
                         </Typography>
                         <Typography component="h5" variant="h5" align="center" paragraph
                             sx={{
-                                color: brown[700], fontSize: "17px", letterSpacing: "1.3", fontFamily: "Roboto, Helvetica, Arial, sans-serif"
+                                color: brown[700], fontSize: "17px", letterSpacing: "1.3", fontFamily: "Roboto, Helvetica, sans-serif"
                             }}
                         >
                             <p style={{ textAlign: "center", fontSize: "20px", paddingBottom: "0", marginBottom: "7px", textShadow: "1px 1px #c98d6d", fontFamily: "monospace", color: "black" }}>good goods need a great home</p>
@@ -206,20 +222,32 @@ function ItemsList({ handleHeartIconChange, handleSelect, handleUnlike, userLike
                         </Typography>
                     </Container>
                     <Stack
-                        sx={{ pt: 5, mt: 3, ml: 20, mr: 18, mb: 0, pb: 0 }}
+                        sx={{ fontFamily:"monospace", pt: 5, mt: 3, ml: 20, mr: 18, mb: 0, pb: 0 }}
                         direction="row"
                         spacing={3}
                         justifyContent="space-between"
                     >
-                        <Button sx={{ pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText', fontFamily: "monospace" }} variant="contained"
+                        <Button 
+                        sx={{ fontWeight: "bold", pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText', border: "2px solid", borderColor: brown[700], fontFamily: "monospace" }} 
+                        // className='list-top-buttons'
+                        variant="contained"
                         // onClick={handleFilter}
                         >filter items</Button>
                         <div>
-                            <Button sx={{ mr: 5, pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" href="/sell">sell</Button>
+                            <Button 
+                            sx={{ fontWeight: "bold", mr: 5, pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText', border: "2px solid", borderColor: brown[700], fontFamily: "monospace" }} 
+                            // className='list-top-buttons'
+                            variant="contained" href="/sell">sell</Button>
                             {onlySaves ? 
-                                <Button sx={{ pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" onClick={() => setOnlySaves(false)}>all items</Button>
+                                <Button 
+                                // className="list-top-buttons"
+                                sx={{ fontWeight:"bold", pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText', border: "2px solid", borderColor: brown[700], fontFamily: "monospace" }} 
+                                variant="contained" onClick={() => setOnlySaves(false)}>all items</Button>
                                 :
-                            <Button sx={{ pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText' }} variant="contained" onClick={()=> setOnlySaves(true)}>my liked items</Button>
+                                <Button 
+                                // className='list-top-buttons'
+                                sx={{ fontWeight: "bold", pt: 1, pb: 1, pl: 5, pr: 5, bgcolor: 'secondary.main', color: 'secondary.darkText', border: "2px solid", borderColor: brown[700], fontFamily: "monospace" }} 
+                                variant="contained" onClick={()=> setOnlySaves(true)}>my liked items</Button>
                             }{/* <Button sx={{ bgcolor: 'secondary.main', color: 'secondary.darker' }} variant="contained"> Remove all saved items</Button> */}
                         </div>
                     </Stack>

@@ -63,10 +63,10 @@ function ItemDetails({ user, initialHeartValue, items, isSaved, handleFillHeart,
                 <div style={{ justifyContent: 'center', display: 'flex', position: 'relative', marginLeft: '0', marginRight: '0', marginBottom:"20px", marginTop:"10px", alignItems: 'center' }}>
                     <img
                         // onClick={addMultImages}
-                        className="itemImage"
+                        className="detailItemImage"
                         component="img"
                         src={images_url} alt="Image of sale item"
-                        style={{ width: '300px', objectFit:"cover", objectPosition:"center", marginTop:"20px", height: 'auto', maxHeight: "300px", justifyContent: 'center', alignItems: 'center' }}
+                        // style={{ width: '300px', objectFit:"cover", objectPosition:"center", marginTop:"20px", height: 'auto', maxHeight: "300px", justifyContent: 'center', alignItems: 'center' }}
                     />
                 </div>
                 {/* LINK TO PROFILE OF SELLER AND ONLY SHOW WHAT THEY ARE SELLING IF THAT USER IS NOT THE LOGGED IN USER. DON'T SHOW PROFILE DETAILS. */}

@@ -21,11 +21,22 @@ code {
   stroke:"white"
 }
 
-.itemImage{
+img.itemImage{
   image-orientation: center;
-  max-height: 260px;
-  object-position:center;
+  min-height: 220px;
+  /* max-height: 300px; */
+  object-position: center;
   object-fit: cover;
+}
+
+img.detailItemImage{
+    image-orientation: center;
+    max-height: 300px;
+    width: auto;
+    object-position: center;
+    object-fit: cover;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .profileBioBox{ 
@@ -73,6 +84,7 @@ code {
 
 .descriptionInfoEdit{
   width: 80%;
+  line-height: 2;
   font-size: 13px;
 }
 
@@ -110,7 +122,7 @@ code {
   position:absolute;
   padding-left: 8px;  
   bottom: 0;
-  margin:0 auto;
+  margin: 5px auto;
 }
 
 .card-details{
@@ -152,7 +164,7 @@ code {
   flex-direction: column;
   display: flex;
   border: 1px solid black;
-  border-radius: 15px;
+  border-radius: 0px;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -208,7 +220,11 @@ Avatar{
   height: 150px;
   object-fit: cover;
   max-height: 150px;
-  border-radius: 5px;
+  border-radius: 0px;
+}
+
+#root.css-1cjce4v-MuiPaper-root-MuiCard-root{
+  border-radius: 0px;
 }
 
 .book {
@@ -223,7 +239,7 @@ Avatar{
 
 .oneItemCard{
   margin: 20px 20px;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   border: none;
   height: 460px;
   width: 280px;
@@ -262,7 +278,7 @@ Avatar{
 .profOneItemBottom{
   margin-bottom: 10px;
   text-align: left;
-  border-radius: 20px;
+  border-radius: 0px;
   border: none;
   box-shadow: 1px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
@@ -342,9 +358,9 @@ textarea {
   font-weight: 300;
 }
 
-#root.div.div.header.div.div.div.MuiBox-root.css-1t6c9ts.button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.css-xpprwh-MuiButtonBase-root-MuiButton-root.span.MuiBadge-root.BaseBadge-root.css-3ulxv9-MuiBadge-root.span.MuiBadge-badge.MuiBadge-standard.MuiBadge-anchorOriginTopRight.MuiBadge-anchorOriginTopRightRectangular.MuiBadge-overlapRectangular.BaseBadge-badge.css-fvc8ir-MuiBadge-badge{
+/* #root.div.div.header.div.div.div.MuiBox-root.css-1t6c9ts.button.MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.css-xpprwh-MuiButtonBase-root-MuiButton-root.span.MuiBadge-root.BaseBadge-root.css-3ulxv9-MuiBadge-root.span.MuiBadge-badge.MuiBadge-standard.MuiBadge-anchorOriginTopRight.MuiBadge-anchorOriginTopRightRectangular.MuiBadge-overlapRectangular.BaseBadge-badge.css-fvc8ir-MuiBadge-badge{
   background-color: pink;
-}
+} */
 
 
 input:focus,
@@ -399,7 +415,8 @@ button:focus {
 
 .btn-blue {
   border: none;
-  border-radius: 10px;
+  border-radius: 0px;
+  /* border-radius: 10px; */
   background-color: #673AB7;
   color: #fff;
   padding: 8px 15px;
@@ -497,7 +514,7 @@ button:focus {
 
 .detail-modal-container {
   position: absolute;
-  width: 60%;
+  width: 80%;
   align-items: center;
   justify-content: center;
   margin-left: auto;
@@ -505,7 +522,7 @@ button:focus {
 }
 
 .detail-modal-content {
-  border-radius: 8px;
+  border-radius: 0px;
   position: relative;
   text-align: left;
   align-items: center;
@@ -515,7 +532,7 @@ button:focus {
 }
 
 .modal-content {
-  border-radius: 8px;
+  border-radius: 0px;
   position: relative;
   text-align: left;
   align-items: center;
@@ -523,6 +540,51 @@ button:focus {
   padding: 0 2rem;
   align-items: center;
 }
+
+.list-top-buttons{
+  font-weight: bold;
+  /* padding-top: 1;
+  padding-bottom: 1;
+  padding-left: 5;
+  padding-right: 5; */
+  color: #5D4037;
+  border: 2px solid #5D4037;
+  font-family: monospace;
+  }
+
+  .moreInfoButtonItemCard.css-1w1j34z-MuiButtonBase-root-MuiButton-root{
+    font-family: monospace;
+    padding: 6px 15px;
+    align-items: center;
+    justify-content: center;
+    background-color: #795548;
+    border: 1px solid white;
+    color: white;
+    border-radius: 0;
+}
+
+.titleHeaderStyling.css-6exuqi-MuiTypography-root{
+  text-align: center;
+  font-size: 3.75rem;
+  /* padding-top: 40px; */
+  font-family: monospace;
+  margin-bottom: 0;
+  color: black;
+  text-transform: uppercase;
+  text-shadow: 2px 2px #c98d6d;
+} 
+
+.titleHeaderStyling {
+  text-align: center;
+  font-size: 40px;
+  padding-top: 40px;
+  font-family: monospace;
+  margin-bottom: 0;
+  color: black;
+  text-transform: uppercase;
+  text-shadow: 2px 2px #c98d6d;
+}
+
 
 @media screen and (max-width: 768px) {
 
