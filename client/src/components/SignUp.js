@@ -156,7 +156,7 @@ function SignUp({ imageNum, cartCount, setImageNum, loginImgs, onSignUp, user })
                     {/* <Avatar sx={{ mt: 5,bgcolor: 'primary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar> */}
-                        <Typography component="h3" variant="h3" sx={{ textShadow: "1px 1px #c98d6d", fontFamily: "monospace", mt: 5, fontSize: "2rem" }}>
+                        <Typography className="LISUTextShadow" component="h3" variant="h3" sx={{ mt: 5}}>
                         sign up
                     </Typography>                    
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>

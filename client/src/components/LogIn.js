@@ -159,7 +159,7 @@ export default function LogIn({ renderSignUp, cartCount, imageNum, setImageNum, 
                         {/* <Avatar sx={{ mt: 5,bgcolor: 'primary.main' }}>
                         <LockOutlinedIcon />
                     </Avatar> */}
-                        <Typography component="h3" variant="h3" sx={{ textShadow: "1px 1px #c98d6d", fontFamily: "monospace", mt: 3, fontSize: "2.5rem" }}>
+                        <Typography className="LISUTextShadow" component="h3" variant="h3" sx={{mt: 3 }}>
                             log in
                         </Typography>
                         {/* <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}> */}

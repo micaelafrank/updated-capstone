@@ -192,30 +192,34 @@ function ItemsList({ handleHeartIconChange, handleSelect, handleUnlike, userLike
             <main style={{ alignItems: "center", justifyContent: "center", marginLeft: "auto", marginRight: "auto" }}>
                 {/* Hero unit */}
                 <Box
-                    sx={{
-                        bgcolor: 'background.paper',
-                        pt: 8,
-                        pb: 6,
-                    }}
+                    // sx={{
+                    //     bgcolor: 'background.paper',
+                    //     pt: 8,
+                    //     pb: 6,
+                    // }}
                 >
                     <Container maxWidth="sm">
-                        <Typography
+                        {/* <Typography
                             component="h1"
                             variant="h2"
                             align="center"
                             gutterBottom
-                            className='titleHeaderStyling'
+                            className='titleHeaderStyling' */}
+                        <h1 className='titleHeaderStyling' 
                             // sx={{ paddingTop: "0", textAlign: "center", fontFamily: "monospace", marginTop: "0", textShadow: "2px 2px #c98d6d", color: "black", marginBottom: "14px" }}
                         >
                             shop
-                        </Typography>
-                        <Typography component="h5" variant="h5" align="center" paragraph
+                        </h1>
+                        {/* <Typography component="p" variant="h5" align="center" paragraph
                             sx={{
                                 color: brown[700], fontSize: "17px", letterSpacing: "1.3", fontFamily: "Roboto, Helvetica, sans-serif"
                             }}
-                        >
-                            <p style={{ textAlign: "center", fontSize: "20px", paddingBottom: "0", marginBottom: "7px", textShadow: "1px 1px #c98d6d", fontFamily: "monospace", color: "black" }}>good goods need a great home</p>
-                        </Typography>
+                        > */}
+                            <p 
+                            className='subTitleHeaderStyling'
+                            // style={{ textAlign: "center", fontSize: "20px", paddingBottom: "0", marginBottom: "7px", textShadow: "1px 1px #c98d6d", fontFamily: "monospace", color: "black" }}
+                            >good goods need a great home</p>
+                        {/* </Typography> */}
                         <Typography component="h5" variant="h5" align="center" paragraph
                             sx={{ fontSize: "17px", letterSpacing: ".8px", fontFamily: "Roboto, Helvetica, sans serif", color: brown[700] }}>
                             <p style={{ fontWeight: "bold" }}>EXPLORE ALL AVAILABLE BITS AND MASTERPIECES</p>

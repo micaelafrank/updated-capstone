@@ -268,14 +268,16 @@ function NewItemForm({ user, addNewItem, items, setItems }) {
                         <div style={{marginLeft:"5px", width:"100%", display:"flex", flexDirection:"row", justifyContent:"flex-end"}}>
                             <button
                             type="button"
-                            style={{ cursor:"pointer", fontSize:"15px", marginLeft:"20px", marginTop:"15px", border:"1px solid black", borderRadius:"3px", letterSpacing:"1.2px", backgroundColor: veryDarkBrown, marginRight:"30px", padding:"9px 20px", color: "white"}}
+                            className='newItemBackNextBtn'
+                            // style={{ cursor: "pointer", fontSize: "15px", fontFamily: "monospace", marginLeft:"20px", marginTop:"15px", border:"1px solid black", borderRadius:"3px", letterSpacing:"1.2px", backgroundColor: veryDarkBrown, marginRight:"30px", padding:"9px 20px", color: "white"}}
                             onClick={(() => setPage(page - 1))}
                             >
                             BACK
                             </button>
                             <button
                             type="submit"
-                            style={{ cursor: "pointer", fontFamily: "monospace", marginTop: "15px", marginRight:"30px", fontSize: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
+                            className='newItemBackNextBtn'
+                            // style={{ cursor: "pointer", fontFamily: "monospace", marginTop: "15px", marginRight:"30px", fontSize: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
                             onClick={(() => setPage(page + 1))}
                             >
                             NEXT
@@ -287,8 +289,14 @@ function NewItemForm({ user, addNewItem, items, setItems }) {
             {page === 2 ? (
                 <>
                     <div className='field1' style={{display:"flex", flexDirection:"column", marginLeft:"auto", marginRight:"auto"}}>
-                        <h1 style={{ textAlign: "center", fontSize: "35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "bold", color: veryDarkBrown, marginBottom: "0" }}>SELL YOUR GOODS</h1>
-                        <p style={{ textAlign: "center", fontSize: "22px", paddingBottom: "0", marginBottom: "7px", textShadow: "1px 1px #c98d6d", fontFamily: "monospace", color: "black" }}>great sellers make good goods</p>
+                        <h1 
+                        className='titleHeaderStyling'
+                        // style={{ textAlign: "center", fontSize: "35px", paddingTop: "40px", fontFamily: "monospace", fontWeight: "bold", color: veryDarkBrown, marginBottom: "0" }}
+                        >SELL YOUR GOODS</h1>
+                        <p 
+                        className='subTitleHeaderStyling'
+                        // style={{ textAlign: "center", fontSize: "22px", paddingBottom: "0", marginBottom: "7px", textShadow: "1px 1px #c98d6d", fontFamily: "monospace", color: "black" }}
+                        >great sellers make good goods</p>
                         <p style={{ textAlign: "center", fontSize: "17px", paddingBottom: "20px", paddingTop:"15px", color: "black" }}>IT'S ALL IN THE DETAILS</p>
                         <h5 style={{ marginLeft: "15px" }} className='form-box-h5'> Page {page} of 2</h5>
                         <div style={{ width: "100%", height: "120px", justifyContent:"center", textAlign:"left"}}>
@@ -331,73 +339,19 @@ function NewItemForm({ user, addNewItem, items, setItems }) {
                                 SHOW OFF YOUR ITEM
                             </FormHelperText>
                         </FormControl>
-                        {/* <FormControl>
-                            <InputLabel
-                                style={{ position: "relative", fontFamily: "monospace" }}
-                                htmlFor='my-input' >
-                                Add another image (optional)
-                            </InputLabel>
-                            <Input
-                                type="file"
-                                name="file"
-                                id="file"
-                                multiple
-                                accept="image/*"
-                                onChange={handleImages}
-                                style={{ alignItems: "left", marginTop: "2em", paddingLeft: "20px", paddingRight: "390px", }}
-                            />
-                            <FormHelperText id='my-helper-text' style={{ textAlign: "left", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}>
-                                SHOW OFF YOUR ITEM
-                            </FormHelperText>
-                        </FormControl>
-                        <FormControl>
-                            <InputLabel
-                                style={{ position: "relative", fontFamily: "monospace" }}
-                                htmlFor='my-input' >
-                                Add another image (optional)
-                            </InputLabel>
-                            <Input
-                                type="file"
-                                id="image3"
-                                name="file"
-                                accept="image/*"
-                                onChange={handleImages}
-                                style={{ alignItems: "left", marginTop: "2em", paddingLeft: "20px", paddingRight: "390px", }}
-                            />
-                            <FormHelperText id='my-helper-text' style={{ textAlign: "left", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}>
-                                SHOW OFF YOUR ITEM
-                            </FormHelperText>
-                        </FormControl> */}
-                        {/* <FormControl>
-                            <InputLabel
-                                style={{ position: "relative", fontFamily: "monospace" }}
-                                htmlFor='my-input' >
-                                Add another image (optional)
-                            </InputLabel>
-                            <Input
-                                type="file"
-                                id="image4"
-                                name="file"
-                                accept="image/*"
-                                onChange={handleImages}
-                                style={{ alignItems: "left", marginTop: "2em", paddingLeft: "20px", paddingRight: "390px", }}
-                            />
-                            <FormHelperText id='my-helper-text' style={{ textAlign: "left", fontFamily: "Roboto, Helvetica,Arial, sans-serif" }}>
-                                SHOW OFF YOUR ITEM
-                            </FormHelperText>
-                        </FormControl> */}
                     </div> 
                     <div style={{ marginTop:"10px", marginLeft: "5px", width: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                         <button
                         type="button"
-                        style={{ cursor: "pointer", fontSize: "15px", marginLeft: "20px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", fontFamily:"monospace", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
+                        className='newItemBackNextBtn'
+                        // style={{ cursor: "pointer", fontSize: "15px", marginLeft: "20px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", fontFamily:"monospace", backgroundColor: veryDarkBrown, marginRight: "30px", padding: "9px 20px", color: "white" }}
                         onClick={() => setPage((page) => page - 1)}
                         >
                             BACK    
                         </button>
                         <button
-                        style={{ cursor: "pointer", fontSize: "15px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, fontFamily: "monospace", marginRight: "30px", padding: "9px 20px", color: "white" }}
-                        className="nextBtn"
+                        // style={{ cursor: "pointer", fontSize: "15px", marginTop: "15px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.2px", backgroundColor: veryDarkBrown, fontFamily: "monospace", marginRight: "30px", padding: "9px 20px", color: "white" }}
+                        className='newItemBackNextBtn'
                         type="submit"
                         // onClick={() => setPage((page) => page + 1)}
                         >
